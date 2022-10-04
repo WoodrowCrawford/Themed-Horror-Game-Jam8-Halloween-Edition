@@ -28,15 +28,6 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
             ""id"": ""9f110178-9868-45dd-9ce6-dd71dfd402f3"",
             ""actions"": [
                 {
-                    ""name"": ""TestForBed"",
-                    ""type"": ""Button"",
-                    ""id"": ""a3464a43-a588-42a3-bce7-4953a51c29fe"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""SwitchActionMap"",
                     ""type"": ""Button"",
                     ""id"": ""8dad0333-564c-43d5-b757-3b647e56fc49"",
@@ -62,20 +53,27 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ToggleGoUnderBed"",
+                    ""type"": ""Button"",
+                    ""id"": ""0d1d5f5a-1855-4933-9042-ca98e55b79ec"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""GetOutOfBed"",
+                    ""type"": ""Button"",
+                    ""id"": ""8ae5082b-c17d-4081-836f-e00cea02d700"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""3b4612b3-41f7-406f-8ae9-34cb5a1844cf"",
-                    ""path"": ""<Keyboard>/1"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""TestForBed"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
                 {
                     ""name"": """",
                     ""id"": ""629215dc-7a1d-4fd3-8c31-6cf52e4cdb0e"",
@@ -130,6 +128,28 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""action"": ""Toggle Flashlight"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""04369d8e-b5a0-4736-b9d0-0cf3d00e5fee"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleGoUnderBed"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""92a53fc3-8bee-449f-b836-f5cd3fb3a2ed"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""GetOutOfBed"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -141,6 +161,15 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""name"": ""TestForOutOfBed"",
                     ""type"": ""Button"",
                     ""id"": ""a6f90f3c-0c0a-42f8-9234-10effdbace9b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Toggle Flashlight"",
+                    ""type"": ""Button"",
+                    ""id"": ""aea011c5-61ab-4d69-a259-9a03ff7894da"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -198,6 +227,39 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""action"": ""Look"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3e4af749-c16f-40c0-b483-7574533d50ac"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Toggle Flashlight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f2ceb273-52b5-47d9-8e7b-5f9ecd3b4e57"",
+                    ""path"": ""<Keyboard>/7"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Toggle Flashlight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""85aef309-4998-4b68-a5ea-247eb435c484"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Toggle Flashlight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -206,13 +268,15 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
 }");
         // InBed
         m_InBed = asset.FindActionMap("InBed", throwIfNotFound: true);
-        m_InBed_TestForBed = m_InBed.FindAction("TestForBed", throwIfNotFound: true);
         m_InBed_SwitchActionMap = m_InBed.FindAction("SwitchActionMap", throwIfNotFound: true);
         m_InBed_Look = m_InBed.FindAction("Look", throwIfNotFound: true);
         m_InBed_ToggleFlashlight = m_InBed.FindAction("Toggle Flashlight", throwIfNotFound: true);
+        m_InBed_ToggleGoUnderBed = m_InBed.FindAction("ToggleGoUnderBed", throwIfNotFound: true);
+        m_InBed_GetOutOfBed = m_InBed.FindAction("GetOutOfBed", throwIfNotFound: true);
         // OutOfBed
         m_OutOfBed = asset.FindActionMap("OutOfBed", throwIfNotFound: true);
         m_OutOfBed_TestForOutOfBed = m_OutOfBed.FindAction("TestForOutOfBed", throwIfNotFound: true);
+        m_OutOfBed_ToggleFlashlight = m_OutOfBed.FindAction("Toggle Flashlight", throwIfNotFound: true);
         m_OutOfBed_Look = m_OutOfBed.FindAction("Look", throwIfNotFound: true);
         m_OutOfBed_SwitchActionMap = m_OutOfBed.FindAction("SwitchActionMap", throwIfNotFound: true);
     }
@@ -274,18 +338,20 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     // InBed
     private readonly InputActionMap m_InBed;
     private IInBedActions m_InBedActionsCallbackInterface;
-    private readonly InputAction m_InBed_TestForBed;
     private readonly InputAction m_InBed_SwitchActionMap;
     private readonly InputAction m_InBed_Look;
     private readonly InputAction m_InBed_ToggleFlashlight;
+    private readonly InputAction m_InBed_ToggleGoUnderBed;
+    private readonly InputAction m_InBed_GetOutOfBed;
     public struct InBedActions
     {
         private @PlayerInputActions m_Wrapper;
         public InBedActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
-        public InputAction @TestForBed => m_Wrapper.m_InBed_TestForBed;
         public InputAction @SwitchActionMap => m_Wrapper.m_InBed_SwitchActionMap;
         public InputAction @Look => m_Wrapper.m_InBed_Look;
         public InputAction @ToggleFlashlight => m_Wrapper.m_InBed_ToggleFlashlight;
+        public InputAction @ToggleGoUnderBed => m_Wrapper.m_InBed_ToggleGoUnderBed;
+        public InputAction @GetOutOfBed => m_Wrapper.m_InBed_GetOutOfBed;
         public InputActionMap Get() { return m_Wrapper.m_InBed; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -295,9 +361,6 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         {
             if (m_Wrapper.m_InBedActionsCallbackInterface != null)
             {
-                @TestForBed.started -= m_Wrapper.m_InBedActionsCallbackInterface.OnTestForBed;
-                @TestForBed.performed -= m_Wrapper.m_InBedActionsCallbackInterface.OnTestForBed;
-                @TestForBed.canceled -= m_Wrapper.m_InBedActionsCallbackInterface.OnTestForBed;
                 @SwitchActionMap.started -= m_Wrapper.m_InBedActionsCallbackInterface.OnSwitchActionMap;
                 @SwitchActionMap.performed -= m_Wrapper.m_InBedActionsCallbackInterface.OnSwitchActionMap;
                 @SwitchActionMap.canceled -= m_Wrapper.m_InBedActionsCallbackInterface.OnSwitchActionMap;
@@ -307,13 +370,16 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @ToggleFlashlight.started -= m_Wrapper.m_InBedActionsCallbackInterface.OnToggleFlashlight;
                 @ToggleFlashlight.performed -= m_Wrapper.m_InBedActionsCallbackInterface.OnToggleFlashlight;
                 @ToggleFlashlight.canceled -= m_Wrapper.m_InBedActionsCallbackInterface.OnToggleFlashlight;
+                @ToggleGoUnderBed.started -= m_Wrapper.m_InBedActionsCallbackInterface.OnToggleGoUnderBed;
+                @ToggleGoUnderBed.performed -= m_Wrapper.m_InBedActionsCallbackInterface.OnToggleGoUnderBed;
+                @ToggleGoUnderBed.canceled -= m_Wrapper.m_InBedActionsCallbackInterface.OnToggleGoUnderBed;
+                @GetOutOfBed.started -= m_Wrapper.m_InBedActionsCallbackInterface.OnGetOutOfBed;
+                @GetOutOfBed.performed -= m_Wrapper.m_InBedActionsCallbackInterface.OnGetOutOfBed;
+                @GetOutOfBed.canceled -= m_Wrapper.m_InBedActionsCallbackInterface.OnGetOutOfBed;
             }
             m_Wrapper.m_InBedActionsCallbackInterface = instance;
             if (instance != null)
             {
-                @TestForBed.started += instance.OnTestForBed;
-                @TestForBed.performed += instance.OnTestForBed;
-                @TestForBed.canceled += instance.OnTestForBed;
                 @SwitchActionMap.started += instance.OnSwitchActionMap;
                 @SwitchActionMap.performed += instance.OnSwitchActionMap;
                 @SwitchActionMap.canceled += instance.OnSwitchActionMap;
@@ -323,6 +389,12 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @ToggleFlashlight.started += instance.OnToggleFlashlight;
                 @ToggleFlashlight.performed += instance.OnToggleFlashlight;
                 @ToggleFlashlight.canceled += instance.OnToggleFlashlight;
+                @ToggleGoUnderBed.started += instance.OnToggleGoUnderBed;
+                @ToggleGoUnderBed.performed += instance.OnToggleGoUnderBed;
+                @ToggleGoUnderBed.canceled += instance.OnToggleGoUnderBed;
+                @GetOutOfBed.started += instance.OnGetOutOfBed;
+                @GetOutOfBed.performed += instance.OnGetOutOfBed;
+                @GetOutOfBed.canceled += instance.OnGetOutOfBed;
             }
         }
     }
@@ -332,6 +404,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     private readonly InputActionMap m_OutOfBed;
     private IOutOfBedActions m_OutOfBedActionsCallbackInterface;
     private readonly InputAction m_OutOfBed_TestForOutOfBed;
+    private readonly InputAction m_OutOfBed_ToggleFlashlight;
     private readonly InputAction m_OutOfBed_Look;
     private readonly InputAction m_OutOfBed_SwitchActionMap;
     public struct OutOfBedActions
@@ -339,6 +412,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         private @PlayerInputActions m_Wrapper;
         public OutOfBedActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @TestForOutOfBed => m_Wrapper.m_OutOfBed_TestForOutOfBed;
+        public InputAction @ToggleFlashlight => m_Wrapper.m_OutOfBed_ToggleFlashlight;
         public InputAction @Look => m_Wrapper.m_OutOfBed_Look;
         public InputAction @SwitchActionMap => m_Wrapper.m_OutOfBed_SwitchActionMap;
         public InputActionMap Get() { return m_Wrapper.m_OutOfBed; }
@@ -353,6 +427,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @TestForOutOfBed.started -= m_Wrapper.m_OutOfBedActionsCallbackInterface.OnTestForOutOfBed;
                 @TestForOutOfBed.performed -= m_Wrapper.m_OutOfBedActionsCallbackInterface.OnTestForOutOfBed;
                 @TestForOutOfBed.canceled -= m_Wrapper.m_OutOfBedActionsCallbackInterface.OnTestForOutOfBed;
+                @ToggleFlashlight.started -= m_Wrapper.m_OutOfBedActionsCallbackInterface.OnToggleFlashlight;
+                @ToggleFlashlight.performed -= m_Wrapper.m_OutOfBedActionsCallbackInterface.OnToggleFlashlight;
+                @ToggleFlashlight.canceled -= m_Wrapper.m_OutOfBedActionsCallbackInterface.OnToggleFlashlight;
                 @Look.started -= m_Wrapper.m_OutOfBedActionsCallbackInterface.OnLook;
                 @Look.performed -= m_Wrapper.m_OutOfBedActionsCallbackInterface.OnLook;
                 @Look.canceled -= m_Wrapper.m_OutOfBedActionsCallbackInterface.OnLook;
@@ -366,6 +443,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @TestForOutOfBed.started += instance.OnTestForOutOfBed;
                 @TestForOutOfBed.performed += instance.OnTestForOutOfBed;
                 @TestForOutOfBed.canceled += instance.OnTestForOutOfBed;
+                @ToggleFlashlight.started += instance.OnToggleFlashlight;
+                @ToggleFlashlight.performed += instance.OnToggleFlashlight;
+                @ToggleFlashlight.canceled += instance.OnToggleFlashlight;
                 @Look.started += instance.OnLook;
                 @Look.performed += instance.OnLook;
                 @Look.canceled += instance.OnLook;
@@ -378,14 +458,16 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     public OutOfBedActions @OutOfBed => new OutOfBedActions(this);
     public interface IInBedActions
     {
-        void OnTestForBed(InputAction.CallbackContext context);
         void OnSwitchActionMap(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
         void OnToggleFlashlight(InputAction.CallbackContext context);
+        void OnToggleGoUnderBed(InputAction.CallbackContext context);
+        void OnGetOutOfBed(InputAction.CallbackContext context);
     }
     public interface IOutOfBedActions
     {
         void OnTestForOutOfBed(InputAction.CallbackContext context);
+        void OnToggleFlashlight(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
         void OnSwitchActionMap(InputAction.CallbackContext context);
     }

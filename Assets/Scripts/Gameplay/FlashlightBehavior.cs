@@ -18,6 +18,7 @@ public class FlashlightBehavior : MonoBehaviour
     void Start()
     {
         _flashlightOn = true;
+       
     }
 
     // Update is called once per frame

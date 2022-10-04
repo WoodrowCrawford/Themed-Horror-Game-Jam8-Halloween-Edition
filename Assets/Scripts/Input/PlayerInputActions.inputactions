@@ -6,15 +6,6 @@
             "id": "9f110178-9868-45dd-9ce6-dd71dfd402f3",
             "actions": [
                 {
-                    "name": "TestForBed",
-                    "type": "Button",
-                    "id": "a3464a43-a588-42a3-bce7-4953a51c29fe",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "SwitchActionMap",
                     "type": "Button",
                     "id": "8dad0333-564c-43d5-b757-3b647e56fc49",
@@ -40,20 +31,27 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "ToggleGoUnderBed",
+                    "type": "Button",
+                    "id": "0d1d5f5a-1855-4933-9042-ca98e55b79ec",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "GetOutOfBed",
+                    "type": "Button",
+                    "id": "8ae5082b-c17d-4081-836f-e00cea02d700",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
-                {
-                    "name": "",
-                    "id": "3b4612b3-41f7-406f-8ae9-34cb5a1844cf",
-                    "path": "<Keyboard>/1",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "TestForBed",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
                 {
                     "name": "",
                     "id": "629215dc-7a1d-4fd3-8c31-6cf52e4cdb0e",
@@ -108,6 +106,28 @@
                     "action": "Toggle Flashlight",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "04369d8e-b5a0-4736-b9d0-0cf3d00e5fee",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ToggleGoUnderBed",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "92a53fc3-8bee-449f-b836-f5cd3fb3a2ed",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "GetOutOfBed",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -119,6 +139,15 @@
                     "name": "TestForOutOfBed",
                     "type": "Button",
                     "id": "a6f90f3c-0c0a-42f8-9234-10effdbace9b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Toggle Flashlight",
+                    "type": "Button",
+                    "id": "aea011c5-61ab-4d69-a259-9a03ff7894da",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -174,6 +203,39 @@
                     "processors": "",
                     "groups": "",
                     "action": "Look",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3e4af749-c16f-40c0-b483-7574533d50ac",
+                    "path": "<Keyboard>/leftShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Toggle Flashlight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f2ceb273-52b5-47d9-8e7b-5f9ecd3b4e57",
+                    "path": "<Keyboard>/7",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Toggle Flashlight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "85aef309-4998-4b68-a5ea-247eb435c484",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Toggle Flashlight",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -1,9 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.Animations;
 using UnityEngine.InputSystem;
 
 public class PlayerInputBehavior : MonoBehaviour
@@ -16,9 +13,16 @@ public class PlayerInputBehavior : MonoBehaviour
     [SerializeField] private Transform _playerBody;
     [SerializeField] private float _sensitivity;
     [SerializeField] private float xRotation = 0f;
+   
 
     [Header("RigidBody Values")]
     [SerializeField] private Rigidbody _rb;
+
+
+    [Header("Bed Values")]
+    [SerializeField] private Transform _TopOfBedPos;
+    [SerializeField] private Transform _UnderBedPos;
+    public bool _isUnderBed = false;
     
 
 
@@ -36,18 +40,18 @@ public class PlayerInputBehavior : MonoBehaviour
 
 
         //Action Map #1 (In Bed)
-        playerControls.InBed.TestForBed.performed += TestForBed;
-        playerControls.InBed.SwitchActionMap.performed += SwitchActionMap;
+        playerControls.InBed.GetOutOfBed.performed += GetOutOfBed;
         playerControls.InBed.Look.ReadValue<Vector2>();
         playerControls.InBed.ToggleFlashlight.performed += ctx => flashlightBehavior.ToggleFlashLight();
-
-
+        playerControls.InBed.ToggleGoUnderBed.performed += ToggleUnderBed;
 
 
 
         //Action Map #2 (Out of Bed)
-        playerControls.OutOfBed.TestForOutOfBed.performed += TestForOutOfBed;
-        playerControls.OutOfBed.SwitchActionMap.performed += SwitchActionMap;
+       
+        playerControls.OutOfBed.ToggleFlashlight.performed += ctx => flashlightBehavior.ToggleFlashLight();
+        playerControls.OutOfBed.Look.ReadValue<Vector2>();
+        
     }
 
     private void Start()
@@ -55,6 +59,7 @@ public class PlayerInputBehavior : MonoBehaviour
         //Gets the player camera
         _camera = GetComponentInChildren<Camera>();
         Cursor.visible = false;
+        _playerBody.transform.position = _TopOfBedPos.position;
     }
 
     private void Update()
@@ -88,32 +93,63 @@ public class PlayerInputBehavior : MonoBehaviour
     //Functions for both In Bed and out of bed
     public void Look()
     {
-        float mouseX = playerControls.InBed.Look.ReadValue<Vector2>().x * _sensitivity * Time.deltaTime;
-        float mouseY = playerControls.InBed.Look.ReadValue<Vector2>().y * _sensitivity * Time.deltaTime;
+        //Look values for out of bed
+        float mouseXinBed = playerControls.InBed.Look.ReadValue<Vector2>().x * _sensitivity * Time.deltaTime;
+        float mouseYinBed = playerControls.InBed.Look.ReadValue<Vector2>().y * _sensitivity * Time.deltaTime;
+        
 
-        xRotation -= mouseY;
+        xRotation -= mouseYinBed;
+        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+ 
+        
+
+        _camera.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+        _playerBody.Rotate(Vector3.up * mouseXinBed);
+
+
+
+
+        //Look values for out of bed
+        float mouseXoutOfBed = playerControls.OutOfBed.Look.ReadValue<Vector2>().x * _sensitivity * Time.deltaTime;
+        float mouseYoutOfBed = playerControls.OutOfBed.Look.ReadValue<Vector2>().y * _sensitivity * Time.deltaTime;
+
+
+        xRotation -= mouseYoutOfBed;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
         _camera.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-        _playerBody.Rotate(Vector3.up * mouseX);
+        _playerBody.Rotate(Vector3.up * mouseXoutOfBed);
     }
 
 
 
 
-    //Functions for Action Map #1
-
-    public void  TestForBed(InputAction.CallbackContext context)
+    //Functions for Action Map #1 (In Bed)
+    public void ToggleUnderBed(InputAction.CallbackContext context)
     {
-        Debug.Log("I am in bed");
+        if(!_isUnderBed)
+        {
+            _playerBody.transform.position = _UnderBedPos.transform.position;
+            _isUnderBed = true;
+        }
+        else if(_isUnderBed)
+        {
+            _playerBody.transform.position = _TopOfBedPos.transform.position;
+            _isUnderBed = false;
+        }
+        
     }
 
-
-
-
-
-    public void TestForOutOfBed(InputAction.CallbackContext context)
+    //Get out of the bed
+    public void GetOutOfBed(InputAction.CallbackContext context)
     {
-        Debug.Log("I am out of bed!!!!!");
+        Debug.Log("I am out of bed!");
+        playerControls.InBed.Disable();
+        playerControls.OutOfBed.Enable();
     }
+
+
+
+    //Functions for Action Map #2 (Out of Bed)
+   
 }
