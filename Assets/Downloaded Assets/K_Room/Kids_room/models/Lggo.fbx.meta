@@ -1,0 +1,146 @@
+fileFormatVersion: 2
+guid: 4a491e29cd004e644bf4744886905b0f
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Lggo_1
+    100004: Lggo_2
+    100006: Lggo_3
+    100008: Lggo_4
+    100010: Lggo_5
+    100012: Lggo_6
+    100014: Lggo_7
+    100016: Lggo_8
+    400000: //RootNode
+    400002: Lggo_1
+    400004: Lggo_2
+    400006: Lggo_3
+    400008: Lggo_4
+    400010: Lggo_5
+    400012: Lggo_6
+    400014: Lggo_7
+    400016: Lggo_8
+    2300000: Lggo_1
+    2300002: Lggo_2
+    2300004: Lggo_3
+    2300006: Lggo_4
+    2300008: Lggo_5
+    2300010: Lggo_6
+    2300012: Lggo_7
+    2300014: Lggo_8
+    3300000: Lggo_1
+    3300002: Lggo_2
+    3300004: Lggo_3
+    3300006: Lggo_4
+    3300008: Lggo_5
+    3300010: Lggo_6
+    3300012: Lggo_7
+    3300014: Lggo_8
+    4300000: Lggo_8
+    4300002: Lggo_7
+    4300004: Lggo_6
+    4300006: Lggo_5
+    4300008: Lggo_4
+    4300010: Lggo_3
+    4300012: Lggo_2
+    4300014: Lggo_1
+    6400000: Lggo_1
+    6400002: Lggo_2
+    6400004: Lggo_3
+    6400006: Lggo_4
+    6400008: Lggo_5
+    6400010: Lggo_6
+    6400012: Lggo_7
+    6400014: Lggo_8
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Lggo
+    second: {fileID: 2100000, guid: d8033fc82dae8c14188524908c61ea42, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 1
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 1
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 1
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

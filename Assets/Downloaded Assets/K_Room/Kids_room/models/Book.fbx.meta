@@ -1,0 +1,158 @@
+fileFormatVersion: 2
+guid: 1cfdaed5cf793a34aa5d07c14085d054
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Book_01
+    100004: Book_02
+    100006: Book_03
+    100008: Book_04
+    100010: Book_05
+    100012: Book_06
+    100014: Book_07
+    100016: Book_08
+    100018: Book_09
+    100020: Book_10
+    400000: //RootNode
+    400002: Book_01
+    400004: Book_02
+    400006: Book_03
+    400008: Book_04
+    400010: Book_05
+    400012: Book_06
+    400014: Book_07
+    400016: Book_08
+    400018: Book_09
+    400020: Book_10
+    2300000: Book_01
+    2300002: Book_02
+    2300004: Book_03
+    2300006: Book_04
+    2300008: Book_05
+    2300010: Book_06
+    2300012: Book_07
+    2300014: Book_08
+    2300016: Book_09
+    2300018: Book_10
+    3300000: Book_01
+    3300002: Book_02
+    3300004: Book_03
+    3300006: Book_04
+    3300008: Book_05
+    3300010: Book_06
+    3300012: Book_07
+    3300014: Book_08
+    3300016: Book_09
+    3300018: Book_10
+    4300000: Book_10
+    4300002: Book_09
+    4300004: Book_08
+    4300006: Book_07
+    4300008: Book_06
+    4300010: Book_05
+    4300012: Book_04
+    4300014: Book_03
+    4300016: Book_02
+    4300018: Book_01
+    6400000: Book_01
+    6400002: Book_02
+    6400004: Book_03
+    6400006: Book_04
+    6400008: Book_05
+    6400010: Book_06
+    6400012: Book_07
+    6400014: Book_08
+    6400016: Book_09
+    6400018: Book_10
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Book
+    second: {fileID: 2100000, guid: 4c9b31076ce9b1047a3ab2399746a43e, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 1
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 1
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 1
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

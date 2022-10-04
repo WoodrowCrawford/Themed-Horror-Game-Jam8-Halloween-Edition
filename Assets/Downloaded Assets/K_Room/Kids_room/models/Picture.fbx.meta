@@ -1,0 +1,158 @@
+fileFormatVersion: 2
+guid: 18013162d2d36d84aacc23deb67bf5f0
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Painting_1
+    100002: Painting_10
+    100004: Painting_2
+    100006: Painting_3
+    100008: Painting_4
+    100010: Painting_5
+    100012: Painting_6
+    100014: Painting_7
+    100016: Painting_8
+    100018: Painting_9
+    100020: //RootNode
+    400000: Painting_1
+    400002: Painting_10
+    400004: Painting_2
+    400006: Painting_3
+    400008: Painting_4
+    400010: Painting_5
+    400012: Painting_6
+    400014: Painting_7
+    400016: Painting_8
+    400018: Painting_9
+    400020: //RootNode
+    2300000: Painting_1
+    2300002: Painting_10
+    2300004: Painting_2
+    2300006: Painting_3
+    2300008: Painting_4
+    2300010: Painting_5
+    2300012: Painting_6
+    2300014: Painting_7
+    2300016: Painting_8
+    2300018: Painting_9
+    3300000: Painting_1
+    3300002: Painting_10
+    3300004: Painting_2
+    3300006: Painting_3
+    3300008: Painting_4
+    3300010: Painting_5
+    3300012: Painting_6
+    3300014: Painting_7
+    3300016: Painting_8
+    3300018: Painting_9
+    4300000: Painting_1
+    4300002: Painting_2
+    4300004: Painting_3
+    4300006: Painting_4
+    4300008: Painting_5
+    4300010: Painting_6
+    4300012: Painting_7
+    4300014: Painting_8
+    4300016: Painting_9
+    4300018: Painting_10
+    6400000: Painting_1
+    6400002: Painting_10
+    6400004: Painting_2
+    6400006: Painting_3
+    6400008: Painting_4
+    6400010: Painting_5
+    6400012: Painting_6
+    6400014: Painting_7
+    6400016: Painting_8
+    6400018: Painting_9
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Painting
+    second: {fileID: 2100000, guid: fbf90cc55c62aef43915ae94b1fd4750, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 1
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 1
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 1
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

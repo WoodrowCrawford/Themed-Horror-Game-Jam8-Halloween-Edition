@@ -1,0 +1,180 @@
+fileFormatVersion: 2
+guid: 5c4f2c4a8c5dd344f87a0c1c9c74c459
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Flane_wing_low
+    100002: //RootNode
+    100004: Plane_cover
+    100006: Plane_prop
+    100008: Plane_screw_1
+    100010: Plane_screw_2
+    100012: Plane_screw_3
+    100014: Plane_screw_4
+    100016: Plane_screw_5
+    100018: Plane_screw_6
+    100020: Plane_stab
+    100022: Plane_wheel_l
+    100024: Plane_wing_r
+    100026: Plane_wing_up
+    400000: Flane_wing_low
+    400002: //RootNode
+    400004: Plane_cover
+    400006: Plane_prop
+    400008: Plane_screw_1
+    400010: Plane_screw_2
+    400012: Plane_screw_3
+    400014: Plane_screw_4
+    400016: Plane_screw_5
+    400018: Plane_screw_6
+    400020: Plane_stab
+    400022: Plane_wheel_l
+    400024: Plane_wing_r
+    400026: Plane_wing_up
+    2300000: Flane_wing_low
+    2300002: //RootNode
+    2300004: Plane_cover
+    2300006: Plane_prop
+    2300008: Plane_screw_1
+    2300010: Plane_screw_2
+    2300012: Plane_screw_3
+    2300014: Plane_screw_4
+    2300016: Plane_screw_5
+    2300018: Plane_screw_6
+    2300020: Plane_stab
+    2300022: Plane_wheel_l
+    2300024: Plane_wing_r
+    2300026: Plane_wing_up
+    3300000: Flane_wing_low
+    3300002: //RootNode
+    3300004: Plane_cover
+    3300006: Plane_prop
+    3300008: Plane_screw_1
+    3300010: Plane_screw_2
+    3300012: Plane_screw_3
+    3300014: Plane_screw_4
+    3300016: Plane_screw_5
+    3300018: Plane_screw_6
+    3300020: Plane_stab
+    3300022: Plane_wheel_l
+    3300024: Plane_wing_r
+    3300026: Plane_wing_up
+    4300000: Plame_main
+    4300002: Flane_wing_low
+    4300004: Plane_wing_up
+    4300006: Plane_stab
+    4300008: Plane_cover
+    4300010: Plane_wing_r
+    4300012: Plane_wheel_l
+    4300014: Plane_prop
+    4300016: Plane_screw_1
+    4300018: Plane_screw_2
+    4300020: Plane_screw_3
+    4300022: Plane_screw_4
+    4300024: Plane_screw_5
+    4300026: Plane_screw_6
+    6400000: Flane_wing_low
+    6400002: //RootNode
+    6400004: Plane_cover
+    6400006: Plane_prop
+    6400008: Plane_screw_1
+    6400010: Plane_screw_2
+    6400012: Plane_screw_3
+    6400014: Plane_screw_4
+    6400016: Plane_screw_5
+    6400018: Plane_screw_6
+    6400020: Plane_stab
+    6400022: Plane_wheel_l
+    6400024: Plane_wing_r
+    6400026: Plane_wing_up
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Plane
+    second: {fileID: 2100000, guid: 9ed895e86fd055b4888a0a8b00998e09, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 1
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 1
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 1
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

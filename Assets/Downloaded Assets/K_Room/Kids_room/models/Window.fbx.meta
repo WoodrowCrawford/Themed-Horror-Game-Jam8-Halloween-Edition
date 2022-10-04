@@ -1,0 +1,155 @@
+fileFormatVersion: 2
+guid: a8db9cf135f3a794f9185c00e6bd9e53
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Curtain
+    100002: Sunscreen
+    100004: //RootNode
+    100006: Window_frame
+    100008: Window_l
+    100010: Window_l_handle
+    100012: Window_r
+    100014: Window_r_handle
+    400000: Curtain
+    400002: Sunscreen
+    400004: //RootNode
+    400006: Window_frame
+    400008: Window_l
+    400010: Window_l_handle
+    400012: Window_r
+    400014: Window_r_handle
+    2300000: Curtain
+    2300002: Sunscreen
+    2300004: Window_frame
+    2300006: Window_l
+    2300008: Window_l_handle
+    2300010: Window_r
+    2300012: Window_r_handle
+    3300000: Curtain
+    3300002: Sunscreen
+    3300004: Window_frame
+    3300006: Window_l
+    3300008: Window_l_handle
+    3300010: Window_r
+    3300012: Window_r_handle
+    4300000: Sunscreen
+    4300002: Curtain
+    4300004: Window_frame
+    4300006: Window_l
+    4300008: Window_l_handle
+    4300010: Window_r
+    4300012: Window_r_handle
+    6400000: Curtain
+    6400002: Sunscreen
+    6400004: Window_frame
+    6400006: Window_l
+    6400008: Window_l_handle
+    6400010: Window_r
+    6400012: Window_r_handle
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Curtain
+    second: {fileID: 2100000, guid: b3d5b46c4ec3b4744b57bb1953759a89, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Sunscreen
+    second: {fileID: 2100000, guid: dc97ca9591bea264fa9d35e4fb275282, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Window
+    second: {fileID: 2100000, guid: 0b41d2ee2fb67c44eb0415d206400b49, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: glass
+    second: {fileID: 2100000, guid: 7bf9f61c927a9314b98f8fc0a694f59e, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 1
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 1
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 1
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

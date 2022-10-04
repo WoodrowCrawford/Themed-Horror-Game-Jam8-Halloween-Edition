@@ -1,0 +1,215 @@
+fileFormatVersion: 2
+guid: e0ba0bbe7b7bda64f94722297f65911c
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Cube
+    100004: Door
+    100006: Door_frame
+    100008: Door_handle
+    100010: Door_lock
+    100012: Cube.001
+    100014: Cube.002
+    100016: Circle.000
+    100018: Circle.001
+    100020: Circle.002
+    100022: Circle.003
+    100024: Circle
+    100026: border
+    100028: Celling_2
+    100030: sill
+    100032: wall
+    100034: wall_2
+    400000: //RootNode
+    400002: Cube
+    400004: Door
+    400006: Door_frame
+    400008: Door_handle
+    400010: Door_lock
+    400012: Cube.001
+    400014: Cube.002
+    400016: Circle.000
+    400018: Circle.001
+    400020: Circle.002
+    400022: Circle.003
+    400024: Circle
+    400026: border
+    400028: Celling_2
+    400030: sill
+    400032: wall
+    400034: wall_2
+    2300000: //RootNode
+    2300002: Cube
+    2300004: Door
+    2300006: Door_frame
+    2300008: Door_handle
+    2300010: Door_lock
+    2300012: Cube.001
+    2300014: Cube.002
+    2300016: Circle.000
+    2300018: Circle.001
+    2300020: Circle.002
+    2300022: Circle.003
+    2300024: Circle
+    2300026: border
+    2300028: Celling_2
+    2300030: sill
+    2300032: wall
+    2300034: wall_2
+    3300000: //RootNode
+    3300002: Cube
+    3300004: Door
+    3300006: Door_frame
+    3300008: Door_handle
+    3300010: Door_lock
+    3300012: Cube.001
+    3300014: Cube.002
+    3300016: Circle.000
+    3300018: Circle.001
+    3300020: Circle.002
+    3300022: Circle.003
+    3300024: Circle
+    3300026: border
+    3300028: Celling_2
+    3300030: sill
+    3300032: wall
+    3300034: wall_2
+    4300000: Cube
+    4300002: Door_frame
+    4300004: Door
+    4300006: Door_lock
+    4300008: Door_handle
+    4300010: Cube.001
+    4300012: Cube.002
+    4300014: Circle.002
+    4300016: Circle.001
+    4300018: Circle.000
+    4300020: Circle.003
+    4300022: Circle
+    4300024: wall_2
+    4300026: sill
+    4300028: Celling_2
+    4300030: border
+    4300032: wall
+    6400000: border
+    6400002: Celling_2
+    6400004: sill
+    6400006: wall
+    6400008: wall_2
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Celling_2
+    second: {fileID: 2100000, guid: 39b732d216c50824b97c0429b9be33b2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: border
+    second: {fileID: 2100000, guid: deabdbb32aaf8824c864ceaf9fdb0cee, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: celling
+    second: {fileID: 2100000, guid: 10cfbcece46f7d840abf98869ec881d3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: floor
+    second: {fileID: 2100000, guid: 6c0776807005fe443a0a9d9d4736bb69, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: room
+    second: {fileID: 2100000, guid: 57e4a9c7e3bb56a4da63fcdb3129d6cb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: sill
+    second: {fileID: 2100000, guid: c4d69e7d52820e348a5cfc67a3e13c5b, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 1
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 1
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 1
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
