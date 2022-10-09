@@ -192,6 +192,15 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Move"",
+                    ""type"": ""Value"",
+                    ""id"": ""6889e0ea-4cb8-4e4d-ab4c-097420d22540"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -260,6 +269,61 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""action"": ""Toggle Flashlight"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""2D Vector"",
+                    ""id"": ""5aa5c580-d3e0-4b79-8f5c-9a7a320d0978"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""85d86a50-5a17-4109-a244-b3a19a8a468a"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""c6e2a306-4cad-418c-ac0c-e133f6ea798b"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""f50dd881-dbd8-4dea-87ff-a18b2f9d8cb9"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""174bd233-aa66-4666-aa3c-86841e501958"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -279,6 +343,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         m_OutOfBed_ToggleFlashlight = m_OutOfBed.FindAction("Toggle Flashlight", throwIfNotFound: true);
         m_OutOfBed_Look = m_OutOfBed.FindAction("Look", throwIfNotFound: true);
         m_OutOfBed_SwitchActionMap = m_OutOfBed.FindAction("SwitchActionMap", throwIfNotFound: true);
+        m_OutOfBed_Move = m_OutOfBed.FindAction("Move", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -407,6 +472,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_OutOfBed_ToggleFlashlight;
     private readonly InputAction m_OutOfBed_Look;
     private readonly InputAction m_OutOfBed_SwitchActionMap;
+    private readonly InputAction m_OutOfBed_Move;
     public struct OutOfBedActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -415,6 +481,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         public InputAction @ToggleFlashlight => m_Wrapper.m_OutOfBed_ToggleFlashlight;
         public InputAction @Look => m_Wrapper.m_OutOfBed_Look;
         public InputAction @SwitchActionMap => m_Wrapper.m_OutOfBed_SwitchActionMap;
+        public InputAction @Move => m_Wrapper.m_OutOfBed_Move;
         public InputActionMap Get() { return m_Wrapper.m_OutOfBed; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -436,6 +503,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @SwitchActionMap.started -= m_Wrapper.m_OutOfBedActionsCallbackInterface.OnSwitchActionMap;
                 @SwitchActionMap.performed -= m_Wrapper.m_OutOfBedActionsCallbackInterface.OnSwitchActionMap;
                 @SwitchActionMap.canceled -= m_Wrapper.m_OutOfBedActionsCallbackInterface.OnSwitchActionMap;
+                @Move.started -= m_Wrapper.m_OutOfBedActionsCallbackInterface.OnMove;
+                @Move.performed -= m_Wrapper.m_OutOfBedActionsCallbackInterface.OnMove;
+                @Move.canceled -= m_Wrapper.m_OutOfBedActionsCallbackInterface.OnMove;
             }
             m_Wrapper.m_OutOfBedActionsCallbackInterface = instance;
             if (instance != null)
@@ -452,6 +522,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @SwitchActionMap.started += instance.OnSwitchActionMap;
                 @SwitchActionMap.performed += instance.OnSwitchActionMap;
                 @SwitchActionMap.canceled += instance.OnSwitchActionMap;
+                @Move.started += instance.OnMove;
+                @Move.performed += instance.OnMove;
+                @Move.canceled += instance.OnMove;
             }
         }
     }
@@ -470,5 +543,6 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         void OnToggleFlashlight(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
         void OnSwitchActionMap(InputAction.CallbackContext context);
+        void OnMove(InputAction.CallbackContext context);
     }
 }

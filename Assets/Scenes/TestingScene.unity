@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.000018756626, g: 0.000000035013628, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.000018756604, g: 0.000000035013628, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1279,6 +1279,7 @@ MonoBehaviour:
   _sensitivity: 55
   xRotation: 0
   _rb: {fileID: 1702559325}
+  _speed: 120
   _TopOfBedPos: {fileID: 1170785516}
   _UnderBedPos: {fileID: 1240231995}
   _isUnderBed: 0
@@ -1296,7 +1297,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 126
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!1 &1799212595
 GameObject:

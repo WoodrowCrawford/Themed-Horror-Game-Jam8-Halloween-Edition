@@ -1,7 +1,9 @@
 using System.Collections;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.VFX;
 
 public class PlayerInputBehavior : MonoBehaviour
 {
@@ -15,8 +17,9 @@ public class PlayerInputBehavior : MonoBehaviour
     [SerializeField] private float xRotation = 0f;
    
 
-    [Header("RigidBody Values")]
+    [Header("Movement Values")]
     [SerializeField] private Rigidbody _rb;
+    [SerializeField] private float _speed;
 
 
     [Header("Bed Values")]
@@ -51,6 +54,7 @@ public class PlayerInputBehavior : MonoBehaviour
        
         playerControls.OutOfBed.ToggleFlashlight.performed += ctx => flashlightBehavior.ToggleFlashLight();
         playerControls.OutOfBed.Look.ReadValue<Vector2>();
+        playerControls.OutOfBed.Move.ReadValue<Vector2>();
         
     }
 
@@ -65,27 +69,8 @@ public class PlayerInputBehavior : MonoBehaviour
     private void Update()
     {
         Look();
-    }
-
-
-    //Function to switch between action maps (test)
-    public void SwitchActionMap(InputAction.CallbackContext context)
-    {
-        if (playerControls.InBed.enabled)
-        {
-            playerControls.InBed.Disable();
-            playerControls.OutOfBed.Enable();
-
-            Debug.Log("Action Map Switched!");
-        }
-        else if (playerControls.OutOfBed.enabled)
-        {
-            playerControls.OutOfBed.Disable();
-            playerControls.InBed.Enable();
-
-            Debug.Log("Action Map Switched!");
-        }
-
+        Move();
+        Debug.Log(playerControls.OutOfBed.Move.ReadValue<Vector2>());
     }
 
 
@@ -119,6 +104,14 @@ public class PlayerInputBehavior : MonoBehaviour
 
         _camera.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         _playerBody.Rotate(Vector3.up * mouseXoutOfBed);
+    }
+
+    public void Move()
+    {
+        
+        
+
+        
     }
 
 
