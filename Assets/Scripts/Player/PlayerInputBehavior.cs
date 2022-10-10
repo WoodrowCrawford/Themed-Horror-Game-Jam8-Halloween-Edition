@@ -69,15 +69,12 @@ public class PlayerInputBehavior : MonoBehaviour
     private void Update()
     {
         Look();
-      
-      
-    }
-
-
-    private void FixedUpdate()
-    {
         Move();
+
     }
+
+
+    
 
     //Functions for both In Bed and out of bed
     public void Look()
@@ -119,7 +116,6 @@ public class PlayerInputBehavior : MonoBehaviour
         Vector3 move = transform.right * x + transform.forward * y;
 
         _rb.AddForce(move * _speed, ForceMode.Force);
-        
     }
 
 
