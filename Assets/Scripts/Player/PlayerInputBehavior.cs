@@ -25,6 +25,7 @@ public class PlayerInputBehavior : MonoBehaviour
     [Header("Bed Values")]
     [SerializeField] private Transform _TopOfBedPos;
     [SerializeField] private Transform _UnderBedPos;
+    [SerializeField] private Transform _OutOfBedPos;
     public bool _isUnderBed = false;
     
 
@@ -53,8 +54,7 @@ public class PlayerInputBehavior : MonoBehaviour
         //Action Map #2 (Out of Bed)
        
         playerControls.OutOfBed.ToggleFlashlight.performed += ctx => flashlightBehavior.ToggleFlashLight();
-        playerControls.OutOfBed.Look.ReadValue<Vector2>();
-        playerControls.OutOfBed.Move.ReadValue<Vector2>();
+        
         
     }
 
@@ -69,11 +69,15 @@ public class PlayerInputBehavior : MonoBehaviour
     private void Update()
     {
         Look();
-        Move();
-        Debug.Log(playerControls.OutOfBed.Move.ReadValue<Vector2>());
+      
+      
     }
 
 
+    private void FixedUpdate()
+    {
+        Move();
+    }
 
     //Functions for both In Bed and out of bed
     public void Look()
@@ -108,9 +112,13 @@ public class PlayerInputBehavior : MonoBehaviour
 
     public void Move()
     {
-        
-        
 
+        float x = playerControls.OutOfBed.Move.ReadValue<Vector2>().x;
+        float y = playerControls.OutOfBed.Move.ReadValue<Vector2>().y;
+
+        Vector3 move = transform.right * x + transform.forward * y;
+
+        _rb.AddForce(move * _speed, ForceMode.Force);
         
     }
 
@@ -139,6 +147,8 @@ public class PlayerInputBehavior : MonoBehaviour
         Debug.Log("I am out of bed!");
         playerControls.InBed.Disable();
         playerControls.OutOfBed.Enable();
+
+        _playerBody.transform.position = _OutOfBedPos.transform.position;
     }
 
 

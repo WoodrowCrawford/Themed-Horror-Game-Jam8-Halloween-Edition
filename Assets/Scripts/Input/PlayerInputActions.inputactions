@@ -6,15 +6,6 @@
             "id": "9f110178-9868-45dd-9ce6-dd71dfd402f3",
             "actions": [
                 {
-                    "name": "SwitchActionMap",
-                    "type": "Button",
-                    "id": "8dad0333-564c-43d5-b757-3b647e56fc49",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Look",
                     "type": "Value",
                     "id": "2fe1f354-4500-4753-9a9e-1ac3f2ad434c",
@@ -52,17 +43,6 @@
                 }
             ],
             "bindings": [
-                {
-                    "name": "",
-                    "id": "629215dc-7a1d-4fd3-8c31-6cf52e4cdb0e",
-                    "path": "<Keyboard>/2",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "SwitchActionMap",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
                 {
                     "name": "",
                     "id": "1fd278ad-7e2f-4a9c-92c2-bf39e0b5b795",
@@ -136,15 +116,6 @@
             "id": "1bd69809-3683-44fc-8037-d53493e510b2",
             "actions": [
                 {
-                    "name": "TestForOutOfBed",
-                    "type": "Button",
-                    "id": "a6f90f3c-0c0a-42f8-9234-10effdbace9b",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Toggle Flashlight",
                     "type": "Button",
                     "id": "aea011c5-61ab-4d69-a259-9a03ff7894da",
@@ -163,15 +134,6 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "SwitchActionMap",
-                    "type": "Button",
-                    "id": "a4766fa1-e813-4fe2-80b1-7bfd0fa05dc5",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Move",
                     "type": "Value",
                     "id": "6889e0ea-4cb8-4e4d-ab4c-097420d22540",
@@ -182,28 +144,6 @@
                 }
             ],
             "bindings": [
-                {
-                    "name": "",
-                    "id": "e933457a-c43c-4288-a70e-940b570fe98f",
-                    "path": "<Keyboard>/1",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "TestForOutOfBed",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "64e6f765-f2a8-4264-a77e-75140cac01af",
-                    "path": "<Keyboard>/2",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "SwitchActionMap",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
                 {
                     "name": "",
                     "id": "aab1bcf4-1765-42c8-a549-dfac5be6ac38",
