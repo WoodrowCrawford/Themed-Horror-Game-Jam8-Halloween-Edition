@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Flashlight
+  - GetInBedTrigger
   layers:
   - Default
   - TransparentFX

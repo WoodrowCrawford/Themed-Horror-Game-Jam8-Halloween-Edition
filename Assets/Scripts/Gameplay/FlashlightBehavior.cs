@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 
 public class FlashlightBehavior : MonoBehaviour
 {
+    public SleepBehavior sleepBehavior;
 
     [SerializeField] private Light _playerLight;
 
@@ -13,6 +14,11 @@ public class FlashlightBehavior : MonoBehaviour
     [SerializeField] private float _decreaseSpeed;
     public float batteryPower = 100;
     [SerializeField] private bool _flashlightOn;
+
+    private void Awake()
+    {
+        sleepBehavior = GameObject.FindGameObjectWithTag("Player").GetComponent<SleepBehavior>();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +30,13 @@ public class FlashlightBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //If the player is sleeping then the flashlight should be off to prevent abuse of power
+        if (sleepBehavior.playerIsSleeping)
+        {
+            _playerLight.gameObject.SetActive(false);
+            _flashlightOn = false;
+        }
+
    
         if(_flashlightOn)
         {
