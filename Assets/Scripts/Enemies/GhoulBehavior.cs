@@ -1,17 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.InputSystem.Android;
 
 public class GhoulBehavior : MonoBehaviour
 {
     public NavMeshAgent agent;
+    public Animator animator;
 
     [Header("Patrol Values")]
     [SerializeField] private Transform[] _waypoints;
     [SerializeField] private int _waypointIndex;
     [SerializeField] private Vector3 _target;
+    [SerializeField] private float _speed;
 
     
     private void Awake()
@@ -27,7 +29,8 @@ public class GhoulBehavior : MonoBehaviour
 
     private void Update()
     {
-       
+        _speed = agent.speed;
+       animator.SetFloat("Speed", _speed);
     }
 
     public void UpdateDestination()
