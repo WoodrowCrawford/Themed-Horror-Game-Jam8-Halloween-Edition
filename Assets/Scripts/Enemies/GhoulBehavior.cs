@@ -1,13 +1,13 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.InputSystem.Android;
+
 
 public class GhoulBehavior : MonoBehaviour
 {
     public NavMeshAgent agent;
     public Animator animator;
+    public GhoulSightBehavior ghoulSightBehavior;
 
     [Header("Patrol Values")]
     [SerializeField] private Transform[] _waypoints;
@@ -15,22 +15,31 @@ public class GhoulBehavior : MonoBehaviour
     [SerializeField] private Vector3 _target;
     [SerializeField] private float _speed;
 
+
     
+
     private void Awake()
     {
+        agent = GetComponent<NavMeshAgent>();
+        ghoulSightBehavior = GameObject.FindGameObjectWithTag("Ghoul").GetComponent<GhoulSightBehavior>();
+
         StartCoroutine(GhoulAIBehavior());
+      
     }
 
     private void Start()
     {
-        agent = GetComponent<NavMeshAgent>();
+        
     }
 
 
     private void Update()
     {
-        _speed = agent.speed;
-       animator.SetFloat("Speed", _speed);
+      if (ghoulSightBehavior.seePlayer)
+        {
+            StopCoroutine(GhoulAIBehavior());
+            agent.SetDestination(GameObject.Find("Player").transform.position);
+        }
     }
 
     public void UpdateDestination()
@@ -49,7 +58,6 @@ public class GhoulBehavior : MonoBehaviour
         }
        
     } 
-
 
     public IEnumerator GhoulAIBehavior()
     {

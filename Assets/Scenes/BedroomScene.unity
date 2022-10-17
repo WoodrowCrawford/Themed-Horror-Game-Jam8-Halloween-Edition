@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.00012778604, g: 0.000028915842, b: 0.0000006906641, a: 1}
+  m_IndirectSpecularColor: {r: 0.0001277844, g: 0.000028915794, b: 0.0000006906641, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1344,6 +1344,22 @@ PrefabInstance:
     - target: {fileID: 7556417767502626047, guid: 78ff5ba6a8d4a83459cae06068a5488f, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 7556417767502626047, guid: 78ff5ba6a8d4a83459cae06068a5488f, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7556417767532301467, guid: 78ff5ba6a8d4a83459cae06068a5488f, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7556417769174764141, guid: 78ff5ba6a8d4a83459cae06068a5488f, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7556417769458573775, guid: 78ff5ba6a8d4a83459cae06068a5488f, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 78ff5ba6a8d4a83459cae06068a5488f, type: 3}
@@ -3098,6 +3114,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1012653681}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1019975848 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8294964452506710570, guid: ab7eca48dfd96ea4a876315763b580c7, type: 3}
+  m_PrefabInstance: {fileID: 8293665413038420607}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1023506501 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7556417767502625992, guid: 78ff5ba6a8d4a83459cae06068a5488f, type: 3}
@@ -3109,6 +3130,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9681f1bd54248d94385ad626d41f7cf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &1023506502 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7556417767502626035, guid: 78ff5ba6a8d4a83459cae06068a5488f, type: 3}
+  m_PrefabInstance: {fileID: 243349666}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1034795091
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4286,6 +4312,23 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 8449081362475971959, guid: ab7eca48dfd96ea4a876315763b580c7, type: 3}
   m_PrefabInstance: {fileID: 8293665413038420607}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1409680703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1019975848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d29bf9a1656a0474c95cc3331d750f5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerInputBehavior: {fileID: 0}
+  _heightMultiplier: 0.21
+  _sightDistance: 5.61
+  _target: {fileID: 1023506502}
+  seePlayer: 0
 --- !u!1 &1447909545
 GameObject:
   m_ObjectHideFlags: 0
@@ -5657,6 +5700,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8294964452506710570, guid: ab7eca48dfd96ea4a876315763b580c7, type: 3}
       propertyPath: m_Name
+      value: Ghoul
+      objectReference: {fileID: 0}
+    - target: {fileID: 8294964452506710570, guid: ab7eca48dfd96ea4a876315763b580c7, type: 3}
+      propertyPath: m_TagString
       value: Ghoul
       objectReference: {fileID: 0}
     - target: {fileID: 8449081362475971959, guid: ab7eca48dfd96ea4a876315763b580c7, type: 3}

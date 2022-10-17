@@ -6,11 +6,12 @@ TagManager:
   tags:
   - Flashlight
   - GetInBedTrigger
+  - Ghoul
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
   - 
