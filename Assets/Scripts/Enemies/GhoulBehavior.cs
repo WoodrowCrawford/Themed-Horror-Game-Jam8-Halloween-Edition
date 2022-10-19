@@ -15,12 +15,15 @@ public class GhoulBehavior : MonoBehaviour
     [SerializeField] private Vector3 _target;
     [SerializeField] private float _speed;
 
+    [Header("Target")]
+    [SerializeField] private GameObject _playerRef;
 
     
 
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
+        _playerRef = GameObject.FindGameObjectWithTag("Player");
         ghoulSightBehavior = GameObject.FindGameObjectWithTag("Ghoul").GetComponent<GhoulSightBehavior>();
 
         StartCoroutine(GhoulAIBehavior());
@@ -35,11 +38,14 @@ public class GhoulBehavior : MonoBehaviour
 
     private void Update()
     {
-      if (ghoulSightBehavior.seePlayer)
+        if (ghoulSightBehavior.canSeePlayer)
         {
-            StopCoroutine(GhoulAIBehavior());
-            agent.SetDestination(GameObject.Find("Player").transform.position);
+            agent.SetDestination(_playerRef.transform.position);
+            agent.speed = 9f;
         }
+    
+
+        animator.SetFloat("Speed", agent.velocity.magnitude);
     }
 
     public void UpdateDestination()

@@ -1,70 +1,76 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
 public class GhoulSightBehavior : MonoBehaviour
 {
-    public PlayerInputBehavior PlayerInputBehavior;
+    PlayerInputBehavior playerInputBehavior;
 
 
     [Header("Sight Values")]
-    [SerializeField] private float _heightMultiplier;
-    [SerializeField] private float _sightDistance;
-    [SerializeField] private Transform _target;
+    public float radius;
+    [Range(0, 360)]public float angle;
 
-    public bool seePlayer;
+    [Header("Player Reference")]
+    public GameObject playerRef;
 
+    [Header("Layer Masks")]
+    [SerializeField] private LayerMask _targetMask;
+    [SerializeField] private LayerMask _obstructionMask;
+
+    public bool canSeePlayer;
 
     private void Awake()
     {
-        PlayerInputBehavior = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInputBehavior>();
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+        playerInputBehavior = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInputBehavior>();
+        playerRef = GameObject.FindGameObjectWithTag("Player");
+        StartCoroutine(CheckFieldOfViewRoutine());
     }
 
-    // Update is called once per frame
-    void Update()
+
+    private IEnumerator CheckFieldOfViewRoutine()
     {
-       
-        //Adjust the height automatically if the player is in bed or not
-        if (PlayerInputBehavior.playerControls.InBed.enabled)
+        float delay = 0.2f;
+        WaitForSeconds wait = new WaitForSeconds(delay);
+
+        while(true)
         {
-            _heightMultiplier = 3f;
+            yield return wait;
+            FieldOfViewCheck();
         }
-        else if (PlayerInputBehavior.playerControls.OutOfBed.enabled)
+    }
+
+    private void FieldOfViewCheck()
+    {
+        Collider[] rangecheck = Physics.OverlapSphere(transform.position, radius, _targetMask);
+
+        if (rangecheck.Length != 0)
         {
-            _heightMultiplier = 12f;
-        }
+            Transform target = rangecheck[0].transform;
+            Vector3 directionToTarget = (target.position - transform.position).normalized;
 
-
-
-        //Checkk to see if the player is in sight
-        RaycastHit hit;
-        Debug.DrawRay(transform.position + Vector3.up * _heightMultiplier, transform.forward * _sightDistance, Color.green);
-        Debug.DrawRay(transform.position + Vector3.up * _heightMultiplier, (transform.forward + transform.right).normalized * _sightDistance, Color.green);
-        Debug.DrawRay(transform.position + Vector3.up * _heightMultiplier, (transform.forward - transform.right).normalized * _sightDistance, Color.green);
-
-        Gizmos.
-
-
-        if (Physics.Raycast(transform.position + Vector3.up * _heightMultiplier, transform.forward,  out hit, _sightDistance) || Physics.ra)
-        {
-            if (hit.collider.gameObject.tag == "Player")
+            if (Vector3.Angle(transform.forward, directionToTarget) < angle / 2)
             {
-                Debug.Log("I SEE YOU");
-                transform.LookAt(_target);
-                seePlayer = true;
+                float distanceToTarget = Vector3.Distance(transform.position, target.position);
+
+                if (!Physics.Raycast(transform.position, directionToTarget, distanceToTarget, _obstructionMask) && !playerInputBehavior._isUnderBed)
+                {
+                    canSeePlayer = true;
+                }
+                else
+                {
+                    canSeePlayer = false;
+                }
             }
             else
             {
-                seePlayer = false;
+              canSeePlayer = false;
             }
         }
+        else if (canSeePlayer)
+        {
+            canSeePlayer = false;
+        }
     }
-
-    
 }
