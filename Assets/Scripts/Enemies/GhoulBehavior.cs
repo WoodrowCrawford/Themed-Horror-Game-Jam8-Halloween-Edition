@@ -30,11 +30,6 @@ public class GhoulBehavior : MonoBehaviour
       
     }
 
-    private void Start()
-    {
-        
-    }
-
 
     private void Update()
     {
@@ -69,10 +64,12 @@ public class GhoulBehavior : MonoBehaviour
     {
         while(true)
         {
-            yield return new WaitForSecondsRealtime(Random.Range(2, 5));
+            //Moves after a random time has passed 
+            yield return new WaitForSecondsRealtime(Random.Range(2, 20));
             UpdateDestination();
 
-            yield return new WaitForSecondsRealtime(Random.Range(2, 5));
+            //Moves after a random time has passed
+            yield return new WaitForSecondsRealtime(Random.Range(2, 20));
             IterateWaypointIndex();
 
         }    
