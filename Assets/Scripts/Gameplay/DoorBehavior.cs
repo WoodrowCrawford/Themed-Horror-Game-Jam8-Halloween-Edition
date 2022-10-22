@@ -2,26 +2,41 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Transactions;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class DoorBehavior : MonoBehaviour
 {
 
-    [SerializeField] private GameObject _door;
+    [Header("Animation Settings")]
+    [SerializeField] private Animator _animator;
 
 
 
+    [SerializeField] private string DOOR_OPEN = "DoorOpenAnim";
+    [SerializeField] private string DOOR_CLOSE = "DoorCloseAnim";
 
-    private void Update()
-    {
-     
-    }
+
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Ghoul") 
+        if(other.CompareTag("Ghoul"))
         {
-            _door.transform.Rotate(new Vector3(0, -90, 0));
-            Debug.Log("enemy is by the door");
-        }
+            Debug.Log("Player is by door");
+            _animator.Play(DOOR_OPEN, 0, 0.0f);
+            //gameObject.SetActive(false);
+        }  
     }
+
+
+    private void OnTriggerExit(Collider other)
+    {
+        if(other.CompareTag("Ghoul"))
+        {
+            Debug.Log("player is away from door");
+            _animator.Play(DOOR_CLOSE, 0, 0.0f);
+            //gameObject.SetActive(true);
+        }
+       
+    }
+
 }

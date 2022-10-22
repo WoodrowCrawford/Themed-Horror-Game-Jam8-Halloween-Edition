@@ -65,11 +65,11 @@ public class GhoulBehavior : MonoBehaviour
         while(true)
         {
             //Moves after a random time has passed 
-            yield return new WaitForSecondsRealtime(Random.Range(2, 20));
+            yield return new WaitForSecondsRealtime(Random.Range(2, 10));
             UpdateDestination();
 
             //Moves after a random time has passed
-            yield return new WaitForSecondsRealtime(Random.Range(2, 20));
+            yield return new WaitForSecondsRealtime(Random.Range(2, 10));
             IterateWaypointIndex();
 
         }    
