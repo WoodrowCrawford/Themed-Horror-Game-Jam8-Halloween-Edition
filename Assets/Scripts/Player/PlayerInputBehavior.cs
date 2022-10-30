@@ -18,6 +18,7 @@ public class PlayerInputBehavior : MonoBehaviour
     [Header("Camera Values")]
     [SerializeField] private Camera _camera;
     [SerializeField] private Transform _playerBody;
+    [SerializeField] private Transform _startLookAt;
     [SerializeField] private float _sensitivity;
     [SerializeField] private float xRotation = 0f;
    
@@ -63,6 +64,7 @@ public class PlayerInputBehavior : MonoBehaviour
         //Action Map #2 (Out of Bed)
         playerControls.OutOfBed.ToggleFlashlight.performed += ctx => flashlightBehavior.ToggleFlashLight();
         playerControls.OutOfBed.GetInBed.performed += GetInBed;
+
     }
 
     private void Start()
@@ -70,11 +72,14 @@ public class PlayerInputBehavior : MonoBehaviour
         //Gets the player camera
         _camera = GetComponentInChildren<Camera>();
 
+
         //Hides the mouse
         Cursor.visible = false;
 
+
         //Sets the players position to be on top of the bed
         _playerBody.transform.position = _TopOfBedPos.position;
+   
     }
 
     private void Update()
