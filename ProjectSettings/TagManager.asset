@@ -7,6 +7,8 @@ TagManager:
   - Flashlight
   - GetInBedTrigger
   - Ghoul
+  - Dummy
+  - FlashlightTriggerBox
   layers:
   - Default
   - TransparentFX

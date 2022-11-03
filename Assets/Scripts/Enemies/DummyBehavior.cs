@@ -1,5 +1,4 @@
 using System.Collections;
-using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -8,19 +7,21 @@ public class DummyBehavior : MonoBehaviour
 {
     public NavMeshAgent agent;
     public Animator animator;
+    public FlashlightTriggerBehavior flashlightTriggerBehavior;
+    public FlashlightBehavior flashlightBehavior;
+
 
 
     [Header("Dummy Values")]
+    [SerializeField] private GameObject _dummy1Container;
     [SerializeField]private Transform _chairLocation;
+    [SerializeField] private Transform _outOfChairPos;
     [SerializeField]private bool _onChair = true;
+    [SerializeField] private bool _isAgentActivated;
 
     [Header("Patrol Values")]
-    [SerializeField] private Transform[] _waypoints;
-    [SerializeField] private int _waypointIndex;
     [SerializeField] private Vector3 _target;
     [SerializeField] private float _speed;
-
-    [Header("Target")]
     [SerializeField] private GameObject _playerRef;
 
 
@@ -28,47 +29,72 @@ public class DummyBehavior : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         _playerRef = GameObject.FindGameObjectWithTag("Player");
-
-        agent.transform.position = _chairLocation.transform.position;
+        flashlightTriggerBehavior = GameObject.FindGameObjectWithTag("FlashlightTriggerBox").GetComponent<FlashlightTriggerBehavior>();
+        flashlightBehavior = GameObject.FindGameObjectWithTag("Flashlight").GetComponent<FlashlightBehavior>();
+        _dummy1Container.transform.position = _chairLocation.transform.position;
         StartCoroutine(DummyAIBehavior());
     }
 
+    
+
     private void Update()
     {
-        animator.SetFloat("Speed", agent.velocity.magnitude);
+        if (_isAgentActivated)
+        {
+            gameObject.GetComponent<NavMeshAgent>().enabled = true;
+            _onChair = false;
+        }
+        else if(!_isAgentActivated)
+        {
+            gameObject.GetComponent<NavMeshAgent>().enabled = false;
+            _dummy1Container.transform.position = _chairLocation.transform.position;
+            _onChair = true;
+        }
 
        
+        animator.SetFloat("Speed", agent.velocity.magnitude);
+      
 
-    }
-
-    public void UpdateDestination()
-    {
-        _target = _waypoints[_waypointIndex].position;
-        agent.SetDestination(_target);
-    }
-
-
-    public void IterateWaypointIndex()
-    {
-        _waypointIndex++;
-        if (_waypointIndex == _waypoints.Length)
+        if (flashlightTriggerBehavior.lightIsOnDummy && flashlightBehavior.flashlightOn)
         {
-            _waypointIndex = 0;
+            _target = _chairLocation.transform.position;
+            Debug.Log("go to chair");
+            agent.speed = 20f;
+            transform.LookAt(_chairLocation.transform.position);
+        }
+        else
+        {
+            _target = _playerRef.transform.position;
+            Debug.Log("go to player");
+            agent.speed = 90f;
+            transform.LookAt(_playerRef.transform.position);
         }
 
     }
 
+
+   
+    public IEnumerator DummySitOnChair()
+    {   
+        //Start by sitting in the chair in the sit idle mode. agent is not active
+
+        //Wait a few seconds then play getting up animation. agent is active
+        yield return null;
+    }
+
+
+
     public IEnumerator DummyAIBehavior()
     {
+  
         while (true)
         {
-            //Moves after a random time has passed 
-            yield return new WaitForSecondsRealtime(Random.Range(2, 10));
-            UpdateDestination();
+            //Move to target.
 
-            //Moves after a random time has passed
-            yield return new WaitForSecondsRealtime(Random.Range(2, 10));
-            IterateWaypointIndex();
+            //If dummy has light on it and its location is the same as chair repeat from the beginning
+
+            yield return new WaitForSeconds(4f);
+            
 
         }
     }

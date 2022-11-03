@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -8,12 +9,14 @@ public class FlashlightBehavior : MonoBehaviour
 {
     public SleepBehavior sleepBehavior;
 
-    [SerializeField] private Light _playerLight;
-
     [Header("Flashlight Values")]
+    [SerializeField] private Light _playerLight;
     [SerializeField] private float _decreaseSpeed;
     public float batteryPower = 100;
-    [SerializeField] private bool _flashlightOn;
+    public bool flashlightOn;
+    [SerializeField] private GameObject _flashlightTrigger;
+
+
 
     private void Awake()
     {
@@ -23,8 +26,8 @@ public class FlashlightBehavior : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _flashlightOn = true;
-       
+        flashlightOn = true;
+        
     }
 
     // Update is called once per frame
@@ -34,14 +37,15 @@ public class FlashlightBehavior : MonoBehaviour
         if (sleepBehavior.playerIsSleeping)
         {
             _playerLight.gameObject.SetActive(false);
-            _flashlightOn = false;
+            flashlightOn = false;
         }
 
    
-        if(_flashlightOn)
+        if(flashlightOn)
         {
             //Decrease the battery while the flashlight is on
             batteryPower -= (Time.deltaTime * _decreaseSpeed);
+        
             
             //Turn off the flashlight if it reaches 0
             if(batteryPower <= 0)
@@ -51,9 +55,10 @@ public class FlashlightBehavior : MonoBehaviour
 
         }
         //Increase battery while off
-        else if(!_flashlightOn)
+        else if(!flashlightOn)
         {
             batteryPower += Time.deltaTime * 3;
+          
 
             if (batteryPower >= 100f)
             {
@@ -61,25 +66,25 @@ public class FlashlightBehavior : MonoBehaviour
             }
             
         }
-
-        
-
-        
     }
+
+
+    
 
     public void ToggleFlashLight()
     {
-        if(_flashlightOn)
+        if(flashlightOn)
         {
+
             _playerLight.gameObject.SetActive(false);
-            _flashlightOn = false;
+            _flashlightTrigger.gameObject.SetActive(false);
+            flashlightOn = false;
         }
-        else if(!_flashlightOn)
+        else if(!flashlightOn)
         {
             _playerLight.gameObject.SetActive(true);
-            _flashlightOn = true;
+            _flashlightTrigger.gameObject.SetActive(true);
+            flashlightOn = true;
         }
-        
-
     }
 }
