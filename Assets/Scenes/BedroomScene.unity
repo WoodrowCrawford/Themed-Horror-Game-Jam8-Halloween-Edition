@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18348947, g: 0.22905506, b: 0.30578676, a: 1}
+  m_IndirectSpecularColor: {r: 0.18348901, g: 0.22905445, b: 0.3057857, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -580,7 +580,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh24638
+  m_Name: pb_Mesh25164
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -3114,10 +3114,9 @@ MonoBehaviour:
   flashlightTriggerBehavior: {fileID: 0}
   flashlightBehavior: {fileID: 0}
   _dummy1Container: {fileID: 273783130}
-  _isAgentActivated: 1
-  _target: {x: 0, y: 0, z: 0}
+  _isDummyUp: 0
+  _target: {fileID: 0}
   _speed: 0
-  _playerRef: {fileID: 1294530709}
 --- !u!95 &273783133
 Animator:
   serializedVersion: 4
@@ -3223,7 +3222,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 64
+  m_Constraints: 96
   m_CollisionDetection: 0
 --- !u!1 &312329050
 GameObject:
