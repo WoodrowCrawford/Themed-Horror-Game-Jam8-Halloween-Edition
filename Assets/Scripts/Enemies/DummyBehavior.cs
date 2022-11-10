@@ -14,9 +14,6 @@ public class DummyBehavior : MonoBehaviour
 
     [Header("Dummy Values")]
     [SerializeField] private GameObject _dummy1Container;
-    [SerializeField]private Transform _chairLocation;
-    [SerializeField] private Transform _outOfChairPos;
-    [SerializeField]private bool _onChair = true;
     [SerializeField] private bool _isAgentActivated;
 
     [Header("Patrol Values")]
@@ -31,7 +28,6 @@ public class DummyBehavior : MonoBehaviour
         _playerRef = GameObject.FindGameObjectWithTag("Player");
         flashlightTriggerBehavior = GameObject.FindGameObjectWithTag("FlashlightTriggerBox").GetComponent<FlashlightTriggerBehavior>();
         flashlightBehavior = GameObject.FindGameObjectWithTag("Flashlight").GetComponent<FlashlightBehavior>();
-        _dummy1Container.transform.position = _chairLocation.transform.position;
         StartCoroutine(DummyAIBehavior());
     }
 
@@ -39,16 +35,17 @@ public class DummyBehavior : MonoBehaviour
 
     private void Update()
     {
+        
+
         if (_isAgentActivated)
         {
             gameObject.GetComponent<NavMeshAgent>().enabled = true;
-            _onChair = false;
+          
         }
         else if(!_isAgentActivated)
         {
             gameObject.GetComponent<NavMeshAgent>().enabled = false;
-            _dummy1Container.transform.position = _chairLocation.transform.position;
-            _onChair = true;
+         
         }
 
        
@@ -57,17 +54,17 @@ public class DummyBehavior : MonoBehaviour
 
         if (flashlightTriggerBehavior.lightIsOnDummy && flashlightBehavior.flashlightOn)
         {
-            _target = _chairLocation.transform.position;
+            //_target = _chairLocation.transform.position;
             Debug.Log("go to chair");
-            agent.speed = 20f;
-            transform.LookAt(_chairLocation.transform.position);
+            agent.speed = 2f;
+            //transform.LookAt(_chairLocation.transform.position);
         }
         else
         {
             _target = _playerRef.transform.position;
             Debug.Log("go to player");
-            agent.speed = 90f;
-            transform.LookAt(_playerRef.transform.position);
+            agent.speed = 2f;
+            transform.LookAt(_target);
         }
 
     }
@@ -93,7 +90,11 @@ public class DummyBehavior : MonoBehaviour
 
             //If dummy has light on it and its location is the same as chair repeat from the beginning
 
+            yield return new WaitForSeconds(2f);
+            animator.SetBool("DummyStandUp", true);
             yield return new WaitForSeconds(4f);
+
+            agent.SetDestination(_playerRef.transform.position);
             
 
         }
