@@ -33,12 +33,16 @@ public class GhoulBehavior : MonoBehaviour
 
     private void Update()
     {
+        Vector3 playerPosition = new Vector3(_playerRef.transform.position.x, transform.position.y, _playerRef.transform.position.z);
+
+
+
         //if the ghoul can see the player
         if (ghoulSightBehavior.canSeePlayer)
         {
             agent.SetDestination(_playerRef.transform.position);
             agent.speed = 8f;
-            transform.LookAt(_playerRef.transform.position);
+            transform.LookAt(playerPosition);
         }
         else
         {

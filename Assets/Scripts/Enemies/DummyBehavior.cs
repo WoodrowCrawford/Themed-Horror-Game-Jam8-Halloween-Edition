@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq.Expressions;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
@@ -42,21 +43,20 @@ public class DummyBehavior : MonoBehaviour
 
         Vector3 playerPosition = new Vector3(_target.transform.position.x, transform.position.y, _target.transform.position.z);
 
-
+        //When the dummy is up it should be looking at the player
         if(_isDummyUp)
         {
             transform.LookAt(playerPosition);
             
         }
 
+        //If the dummy is up and the flashlight is hitting the dummy, the dummy should go back the where it got up
         if (flashlightTriggerBehavior.lightIsOnDummy && flashlightBehavior.flashlightOn && _isDummyUp)
         {
-            
+            Debug.Log("flashlight is hitting dummy while it is up");
+
         }
-        else
-        {
-           
-        }
+       
 
     }
 
@@ -69,19 +69,16 @@ public class DummyBehavior : MonoBehaviour
     public IEnumerator DummyAIBehavior()
     {
         //Waits for a random amount of time before the dummy gets up;
-        yield return new WaitForSeconds(Random.Range(6f, 12f));
+        yield return new WaitForSeconds(Random.Range(6f, 15f));
         animator.SetBool("DummyStandUp", true);
         _isDummyUp = true;
         yield return new WaitForSeconds(2f);
 
         while (true)
         {
-
-
+            agent.SetDestination(_target.transform.position);
 
             yield return new WaitForSeconds(0.01f);
-         
-           
             
 
         }
