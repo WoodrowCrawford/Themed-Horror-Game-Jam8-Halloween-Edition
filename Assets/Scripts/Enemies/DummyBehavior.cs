@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Linq.Expressions;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -13,58 +11,43 @@ public class DummyBehavior : MonoBehaviour
     public FlashlightBehavior flashlightBehavior;
 
 
-
     [Header("Dummy Values")]
     [SerializeField] private GameObject _dummy1Container;
     [SerializeField] private bool _isDummyUp = false;
-    [SerializeField] private GameObject _target;
-
+    
+    
     [Header("Patrol Values")]
     [SerializeField] private float _speed;
-   
+
+
+    [Header("Targets")]
+    public GameObject target; //The main target that will be updated
+    public Transform dummyOrigin; 
+    public Transform _playerRef;
 
 
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
-        _target = GameObject.FindGameObjectWithTag("Player");
+        target = GameObject.FindGameObjectWithTag("Player");
+    
         flashlightTriggerBehavior = GameObject.FindGameObjectWithTag("FlashlightTriggerBox").GetComponent<FlashlightTriggerBehavior>();
         flashlightBehavior = GameObject.FindGameObjectWithTag("Flashlight").GetComponent<FlashlightBehavior>();
         StartCoroutine(DummyAIBehavior());
     }
 
-    
+
 
     private void Update()
     {
-       
+
         animator.SetFloat("Speed", agent.velocity.magnitude);
         agent.speed = 0.5f;
 
-        Vector3 playerPosition = new Vector3(_target.transform.position.x, transform.position.y, _target.transform.position.z);
+        Vector3 playerPosition = new Vector3(target.transform.position.x, transform.position.y, target.transform.position.z);
 
-        //When the dummy is up it should be looking at the player
-        if(_isDummyUp)
-        {
-            transform.LookAt(playerPosition);
-            
-        }
-
-        //If the dummy is up and the flashlight is hitting the dummy, the dummy should go back the where it got up
-        if (flashlightTriggerBehavior.lightIsOnDummy && flashlightBehavior.flashlightOn && _isDummyUp)
-        {
-            Debug.Log("flashlight is hitting dummy while it is up");
-
-        }
-       
 
     }
-
-
-   
-    
-
-
 
     public IEnumerator DummyAIBehavior()
     {
@@ -76,11 +59,10 @@ public class DummyBehavior : MonoBehaviour
 
         while (true)
         {
-            agent.SetDestination(_target.transform.position);
+            //No matter what, the agent will go towards the target it was given
+            agent.SetDestination(target.transform.position);
 
             yield return new WaitForSeconds(0.01f);
-            
-
         }
     }
 }

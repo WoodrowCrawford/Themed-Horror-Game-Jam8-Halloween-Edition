@@ -1,13 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.InputSystem;
+
 
 public class FlashlightBehavior : MonoBehaviour
 {
     public SleepBehavior sleepBehavior;
+    public DummyBehavior dummyBehavior;
 
     [Header("Flashlight Values")]
     [SerializeField] private Light _playerLight;
@@ -21,13 +18,13 @@ public class FlashlightBehavior : MonoBehaviour
     private void Awake()
     {
         sleepBehavior = GameObject.FindGameObjectWithTag("Player").GetComponent<SleepBehavior>();
+        dummyBehavior = GameObject.FindGameObjectWithTag("Dummy").GetComponent<DummyBehavior>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
         flashlightOn = true;
-        
     }
 
     // Update is called once per frame
@@ -69,8 +66,6 @@ public class FlashlightBehavior : MonoBehaviour
     }
 
 
-    
-
     public void ToggleFlashLight()
     {
         if(flashlightOn)
@@ -79,12 +74,17 @@ public class FlashlightBehavior : MonoBehaviour
             _playerLight.gameObject.SetActive(false);
             _flashlightTrigger.gameObject.SetActive(false);
             flashlightOn = false;
+
+            //This is so that dummy's target will still be the player even if the flashlight is off
+            dummyBehavior.target = dummyBehavior._playerRef.gameObject;
         }
         else if(!flashlightOn)
         {
             _playerLight.gameObject.SetActive(true);
             _flashlightTrigger.gameObject.SetActive(true);
             flashlightOn = true;
+            
+         
         }
     }
 }
