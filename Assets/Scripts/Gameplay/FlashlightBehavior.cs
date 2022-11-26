@@ -75,8 +75,11 @@ public class FlashlightBehavior : MonoBehaviour
             _flashlightTrigger.gameObject.SetActive(false);
             flashlightOn = false;
 
-            //This is so that dummy's target will still be the player even if the flashlight is off
+            //This is so that dummy's target will still be the player even if the flashlight is off (fixes bugs)
             dummyBehavior.target = dummyBehavior._playerRef.gameObject;
+
+            //This makes the dummy's speed normal when the light is off (fixes bugs)
+            dummyBehavior.agent.speed = 0.5f;
         }
         else if(!flashlightOn)
         {

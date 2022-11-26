@@ -26,6 +26,9 @@ public class FlashlightTriggerBehavior : MonoBehaviour
         {
             //Change the target the light hits the dummy
             dummyBehavior.target = dummyBehavior.dummyOrigin.gameObject;
+
+            //Changes the speed of the dummy when the light hits it
+            dummyBehavior.agent.speed = 4f;
         }
        
     }
@@ -33,6 +36,7 @@ public class FlashlightTriggerBehavior : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         dummyBehavior.target = dummyBehavior._playerRef.gameObject;
+        dummyBehavior.agent.speed = 0.5f;
     }
 
 
