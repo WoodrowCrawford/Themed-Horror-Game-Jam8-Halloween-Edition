@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class FlashlightTriggerBehavior : MonoBehaviour
 {
@@ -24,19 +25,16 @@ public class FlashlightTriggerBehavior : MonoBehaviour
     {
         if (other.CompareTag("Dummy"))
         {
-            //Change the target the light hits the dummy
-            dummyBehavior.target = dummyBehavior.dummyOrigin.gameObject;
-
-            //Changes the speed of the dummy when the light hits it
-            dummyBehavior.agent.speed = 4f;
+            lightIsOnDummy = true;
+           
         }
        
     }
 
     private void OnTriggerExit(Collider other)
     {
-        dummyBehavior.target = dummyBehavior._playerRef.gameObject;
-        dummyBehavior.agent.speed = 0.5f;
+        lightIsOnDummy = false;
+       
     }
 
 

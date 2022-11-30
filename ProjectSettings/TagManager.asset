@@ -9,6 +9,7 @@ TagManager:
   - Ghoul
   - Dummy
   - FlashlightTriggerBox
+  - Dummy1 Origin
   layers:
   - Default
   - TransparentFX

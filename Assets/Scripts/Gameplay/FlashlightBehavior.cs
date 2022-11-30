@@ -5,6 +5,7 @@ public class FlashlightBehavior : MonoBehaviour
 {
     public SleepBehavior sleepBehavior;
     public DummyBehavior dummyBehavior;
+    public FlashlightTriggerBehavior flashlightTriggerBehavior;
 
     [Header("Flashlight Values")]
     [SerializeField] private Light _playerLight;
@@ -19,6 +20,7 @@ public class FlashlightBehavior : MonoBehaviour
     {
         sleepBehavior = GameObject.FindGameObjectWithTag("Player").GetComponent<SleepBehavior>();
         dummyBehavior = GameObject.FindGameObjectWithTag("Dummy").GetComponent<DummyBehavior>();
+        flashlightTriggerBehavior = GameObject.FindGameObjectWithTag("FlashlightTriggerBox").GetComponent<FlashlightTriggerBehavior>();
     }
 
     // Start is called before the first frame update
@@ -76,7 +78,9 @@ public class FlashlightBehavior : MonoBehaviour
             flashlightOn = false;
 
             //This is so that dummy's target will still be the player even if the flashlight is off (fixes bugs)
-            dummyBehavior.target = dummyBehavior._playerRef.gameObject;
+            //dummyBehavior.target = dummyBehavior._playerRef.gameObject;
+
+            flashlightTriggerBehavior.lightIsOnDummy = false;
 
             //This makes the dummy's speed normal when the light is off (fixes bugs)
             dummyBehavior.agent.speed = 0.5f;

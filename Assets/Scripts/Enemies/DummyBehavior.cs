@@ -7,13 +7,14 @@ using UnityEngine.AI;
 
 public class DummyBehavior : MonoBehaviour
 {
+
     public enum DummyStates
     {
-        NONE,   
+        DEFAULT,
         LAYING_DOWN,
-        COOLDOWN,
         GETTING_UP,
-        CHASING
+        CHASING_PLAYER,
+        RUNNING_AWAY
     }
 
 
@@ -21,23 +22,24 @@ public class DummyBehavior : MonoBehaviour
     public Animator animator;
     public FlashlightTriggerBehavior flashlightTriggerBehavior;
     public FlashlightBehavior flashlightBehavior;
+    public Dummy1OriginPointTriggerBehavior dummy1OriginTrigger;
 
 
     [Header("Dummy Values")]
     [SerializeField] private GameObject _dummy1Container;
-    public bool isDummyUp = false;
+    [SerializeField] private float _speed;
     public float dummyCoolDownTimer;
     public bool isDummyAtOrigin = false;
 
 
-    [Header("AI State")]
-    [SerializeField]DummyStates dummyStates;
+    [Header("AI State Values")]
+    [SerializeField] DummyStates dummyStates;
+    [SerializeField] private bool _dummyLayingDown = true;
+    [SerializeField] private bool _dummyGettingUp = false;
+    public bool isDummyUp = false;
+    [SerializeField] private bool _dummyChasing = false;
     
-    
-    [Header("Patrol Values")]
-    [SerializeField] private float _speed;
-
-
+   
     [Header("Targets")]
     public GameObject target; //The main target that will be updated
     public Transform dummyOrigin; //The dummy's origin spot
@@ -51,7 +53,10 @@ public class DummyBehavior : MonoBehaviour
     
         flashlightTriggerBehavior = GameObject.FindGameObjectWithTag("FlashlightTriggerBox").GetComponent<FlashlightTriggerBehavior>();
         flashlightBehavior = GameObject.FindGameObjectWithTag("Flashlight").GetComponent<FlashlightBehavior>();
-        StartCoroutine(DummyAIBehavior());
+        dummy1OriginTrigger = GameObject.FindGameObjectWithTag("Dummy1 Origin").GetComponent<Dummy1OriginPointTriggerBehavior>();
+
+        StartCoroutine(DummyBeginPhase());
+
     }
 
 
@@ -59,6 +64,7 @@ public class DummyBehavior : MonoBehaviour
     {
         //Sets the default agent's speed
         agent.speed = 0.5f;
+        _dummyLayingDown = true;
     }
 
 
@@ -66,65 +72,161 @@ public class DummyBehavior : MonoBehaviour
     {
         animator.SetFloat("Speed", agent.velocity.magnitude);
         
-
-       // Vector3 playerPosition = new Vector3(target.transform.position.x, transform.position.y, target.transform.position.z);
-
-        //if the dummy is at the origin then the dummy should be on a cooldown and then get back up
-
-       
-        if(dummyStates == DummyStates.LAYING_DOWN)
+        if(dummyStates == DummyStates.RUNNING_AWAY && !flashlightTriggerBehavior.lightIsOnDummy)
         {
+            StartCoroutine(DummyChasePlayer());
+            StopCoroutine(DummyGoBackToOrigin());
+        }
+        
+        if(dummyStates == DummyStates.RUNNING_AWAY && dummy1OriginTrigger.dummyIsAtOriginPoint)
+        {
+            StopCoroutine(DummyChasePlayer());
+            StopCoroutine(DummyGoBackToOrigin());
+            StartCoroutine(DummyLayDown());
+            
           
-            StartCoroutine(DummyCoolDown());
         }
-      
+       
+       
+
     }
 
+ 
 
-    public IEnumerator TestFunction()
+    //Sets up the dummy when it is laying down to get up
+    public IEnumerator DummyBeginPhase()
     {
-        while(dummyStates!= DummyStates.LAYING_DOWN)
-        {
-            Debug.Log("test works");
-            yield return new WaitForSeconds(1);
-            Debug.Log("yep it works");
-        }
-      
-        yield break;
+        dummyStates= DummyStates.DEFAULT;
+        _dummyLayingDown = true;
+        _dummyChasing = false;
+        _dummyGettingUp = false;
+        isDummyUp = false;  
+
+        yield return new WaitForSeconds(Random.Range(5f, 12f));
+
+        Debug.Log("Starting get up phase...");
+        StartCoroutine(DummyGetUp());
     }
+
 
     public IEnumerator DummyGetUp()
     {
+        StopCoroutine(DummyBeginPhase());
+        StopCoroutine(DummyChasePlayer());
+        StopCoroutine(DummyGoBackToOrigin());
+        //Changes the state to be the getting up state
+        dummyStates = DummyStates.GETTING_UP;
 
-    }
+        //Sets dummy getting up to be true
+        _dummyGettingUp = true;
 
-
-
-    public IEnumerator DummyAIBehavior()
-    {
-
-
-
+       
 
         //Waits for a random amount of time before the dummy gets up;
         yield return new WaitForSeconds(Random.Range(6f, 15f));
+
+        Debug.Log("dummy is up...");
         animator.SetBool("DummyStandUp", true);
+        animator.SetBool("SitBackDown", false);
+
+        yield return new WaitForSeconds(1f);
         isDummyUp = true;
+        _dummyLayingDown = false;
 
-        yield return new WaitForSeconds(2f);
+        _dummyGettingUp = false;
+        StartCoroutine(DummyChasePlayer());
+       
+    }
 
-        if(isDummyAtOrigin)
-        {
-            Debug.Log("dummy wants to start the cooldown");
-        }
+    public IEnumerator DummyChasePlayer()
+    {
+        agent.speed = 0.5f;
+        //Changes the state to be the chasing player state
+        dummyStates = DummyStates.CHASING_PLAYER;
+
         
 
-        while (true)
+        //If the light is on it while chasing then retreat back to origin
+        if(flashlightTriggerBehavior.lightIsOnDummy)
         {
-            //No matter what, the agent will go towards the target it was given
-            agent.SetDestination(target.transform.position);
+            //Stops chasing the playerd
+            StopCoroutine(DummyChasePlayer());
 
-            yield return new WaitForSeconds(0.01f);
+            
+            _dummyChasing = false;
+
+            //Starts to run back to origin point
+            StartCoroutine(DummyGoBackToOrigin());
         }
+        else
+        {
+            //Stop going back to origin if the light is no longer on the dummy
+            StopCoroutine(DummyGoBackToOrigin());
+
+            //Makes the dummy's target to be the player
+            agent.SetDestination(_playerRef.transform.position);
+            _dummyChasing = true;
+
+            //Waits a bit to prevent overload on performance
+            yield return new WaitForSeconds(0.8f);
+
+            //DEBUG
+            Debug.Log("Dummy is chasing player");
+
+            //Repeats the Chase player cororutine
+            StartCoroutine(DummyChasePlayer());
+        }
+    }
+
+    public IEnumerator DummyLayDown()
+    {
+        //Stops going back to origin point in order to lay down
+        StopCoroutine(DummyGoBackToOrigin());
+        StopCoroutine(DummyChasePlayer());
+
+        //Changes the state to be the laying down state
+        dummyStates = DummyStates.LAYING_DOWN;
+
+       
+       
+
+        //Makes the sitbackdown bool true to play sit down animation
+        animator.SetBool("SitBackDown", true);
+
+        yield return new WaitForSeconds(1f);
+        StartCoroutine(DummyBeginPhase());
+    }
+
+
+    
+
+    public IEnumerator DummyGoBackToOrigin()
+    {
+        _dummyLayingDown = false;
+        agent.speed = 1.5f;
+        StopCoroutine(DummyChasePlayer());
+
+        //Changes the dummy state to be the running away state
+        dummyStates = DummyStates.RUNNING_AWAY;
+
+         
+        //Sets the dummy's target to be where it first started
+        agent.SetDestination(dummyOrigin.transform.position);
+        yield return new WaitUntil(() => dummy1OriginTrigger.dummyIsAtOriginPoint);
+
+        StopCoroutine(DummyGoBackToOrigin());
+       
+
+        //DEBUG
+        Debug.Log("Dummy is getting back down");
+
+        //Waits a bit to prevent overload on performance
+        //yield return new WaitForSeconds(0.5f);
+
+       
+
+        //Repeats the Go back to origin cororutine
+        //StartCoroutine(DummyGoBackToOrigin());
+       
     }
 }
