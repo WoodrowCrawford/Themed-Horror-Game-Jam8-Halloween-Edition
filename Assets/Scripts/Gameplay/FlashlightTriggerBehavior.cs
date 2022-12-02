@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class FlashlightTriggerBehavior : MonoBehaviour
 {
@@ -26,7 +22,6 @@ public class FlashlightTriggerBehavior : MonoBehaviour
         if (other.CompareTag("Dummy"))
         {
             lightIsOnDummy = true;
-           
         }
        
     }
@@ -36,9 +31,4 @@ public class FlashlightTriggerBehavior : MonoBehaviour
         lightIsOnDummy = false;
        
     }
-
-
-
-
-
 }

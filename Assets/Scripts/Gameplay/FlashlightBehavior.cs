@@ -72,13 +72,9 @@ public class FlashlightBehavior : MonoBehaviour
     {
         if(flashlightOn)
         {
-
             _playerLight.gameObject.SetActive(false);
             _flashlightTrigger.gameObject.SetActive(false);
             flashlightOn = false;
-
-            //This is so that dummy's target will still be the player even if the flashlight is off (fixes bugs)
-            //dummyBehavior.target = dummyBehavior._playerRef.gameObject;
 
             flashlightTriggerBehavior.lightIsOnDummy = false;
 
@@ -90,8 +86,6 @@ public class FlashlightBehavior : MonoBehaviour
             _playerLight.gameObject.SetActive(true);
             _flashlightTrigger.gameObject.SetActive(true);
             flashlightOn = true;
-            
-         
         }
     }
 }

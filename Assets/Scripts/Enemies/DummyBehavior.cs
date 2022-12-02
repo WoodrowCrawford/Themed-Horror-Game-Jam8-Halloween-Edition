@@ -7,7 +7,6 @@ using UnityEngine.AI;
 
 public class DummyBehavior : MonoBehaviour
 {
-
     public enum DummyStates
     {
         DEFAULT,
@@ -56,7 +55,6 @@ public class DummyBehavior : MonoBehaviour
         dummy1OriginTrigger = GameObject.FindGameObjectWithTag("Dummy1 Origin").GetComponent<Dummy1OriginPointTriggerBehavior>();
 
         StartCoroutine(DummyBeginPhase());
-
     }
 
 
@@ -83,12 +81,7 @@ public class DummyBehavior : MonoBehaviour
             StopCoroutine(DummyChasePlayer());
             StopCoroutine(DummyGoBackToOrigin());
             StartCoroutine(DummyLayDown());
-            
-          
         }
-       
-       
-
     }
 
  
@@ -120,8 +113,6 @@ public class DummyBehavior : MonoBehaviour
         //Sets dummy getting up to be true
         _dummyGettingUp = true;
 
-       
-
         //Waits for a random amount of time before the dummy gets up;
         yield return new WaitForSeconds(Random.Range(6f, 15f));
 
@@ -135,7 +126,6 @@ public class DummyBehavior : MonoBehaviour
 
         _dummyGettingUp = false;
         StartCoroutine(DummyChasePlayer());
-       
     }
 
     public IEnumerator DummyChasePlayer()
@@ -144,7 +134,6 @@ public class DummyBehavior : MonoBehaviour
         //Changes the state to be the chasing player state
         dummyStates = DummyStates.CHASING_PLAYER;
 
-        
 
         //If the light is on it while chasing then retreat back to origin
         if(flashlightTriggerBehavior.lightIsOnDummy)
@@ -187,8 +176,6 @@ public class DummyBehavior : MonoBehaviour
         //Changes the state to be the laying down state
         dummyStates = DummyStates.LAYING_DOWN;
 
-       
-       
 
         //Makes the sitbackdown bool true to play sit down animation
         animator.SetBool("SitBackDown", true);
@@ -219,14 +206,5 @@ public class DummyBehavior : MonoBehaviour
 
         //DEBUG
         Debug.Log("Dummy is getting back down");
-
-        //Waits a bit to prevent overload on performance
-        //yield return new WaitForSeconds(0.5f);
-
-       
-
-        //Repeats the Go back to origin cororutine
-        //StartCoroutine(DummyGoBackToOrigin());
-       
     }
 }
