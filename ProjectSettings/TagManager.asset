@@ -10,6 +10,12 @@ TagManager:
   - Dummy
   - FlashlightTriggerBox
   - Dummy1 Origin
+  - Dummy1
+  - Dummy2
+  - Dummy2 Origin
+  - WardrobeDoorTrigger
+  - Wardrobe
+  - InsideWardrobeTrigger
   layers:
   - Default
   - TransparentFX

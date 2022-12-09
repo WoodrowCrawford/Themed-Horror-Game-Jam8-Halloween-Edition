@@ -1,11 +1,9 @@
 using System.Collections;
-using System.Linq.Expressions;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
 
-public class DummyBehavior : MonoBehaviour
+public class Dummy2Behavior : MonoBehaviour
 {
     public enum DummyStates
     {
@@ -21,11 +19,11 @@ public class DummyBehavior : MonoBehaviour
     public Animator animator;
     public FlashlightTriggerBehavior flashlightTriggerBehavior;
     public FlashlightBehavior flashlightBehavior;
-    public Dummy1OriginPointTriggerBehavior dummy1OriginTrigger;
+    public Dummy2OriginPointTriggerBehavior dummy2OriginTrigger;
 
 
     [Header("Dummy Values")]
-    [SerializeField] private GameObject _dummy1Container;
+    [SerializeField] private GameObject _dummy2Container;
     [SerializeField] private float _speed;
     public float dummyCoolDownTimer;
     public bool isDummyAtOrigin = false;
@@ -37,8 +35,8 @@ public class DummyBehavior : MonoBehaviour
     [SerializeField] private bool _dummyGettingUp = false;
     public bool isDummyUp = false;
     [SerializeField] private bool _dummyChasing = false;
-    
-   
+
+
     [Header("Targets")]
     public GameObject target; //The main target that will be updated
     public Transform dummyOrigin; //The dummy's origin spot
@@ -49,10 +47,10 @@ public class DummyBehavior : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         target = GameObject.FindGameObjectWithTag("Player");
-    
+
         flashlightTriggerBehavior = GameObject.FindGameObjectWithTag("FlashlightTriggerBox").GetComponent<FlashlightTriggerBehavior>();
         flashlightBehavior = GameObject.FindGameObjectWithTag("Flashlight").GetComponent<FlashlightBehavior>();
-        dummy1OriginTrigger = GameObject.FindGameObjectWithTag("Dummy1 Origin").GetComponent<Dummy1OriginPointTriggerBehavior>();
+        dummy2OriginTrigger = GameObject.FindGameObjectWithTag("Dummy2 Origin").GetComponent<Dummy2OriginPointTriggerBehavior>();
 
         StartCoroutine(DummyBeginPhase());
     }
@@ -69,14 +67,14 @@ public class DummyBehavior : MonoBehaviour
     private void Update()
     {
         animator.SetFloat("Speed", agent.velocity.magnitude);
-        
-        if(dummyStates == DummyStates.RUNNING_AWAY && !flashlightTriggerBehavior.lightIsOnDummy1)
+
+        if (dummyStates == DummyStates.RUNNING_AWAY && !flashlightTriggerBehavior.lightIsOnDummy2)
         {
             StartCoroutine(DummyChasePlayer());
             StopCoroutine(DummyGoBackToOrigin());
         }
-        
-        if(dummyStates == DummyStates.RUNNING_AWAY && dummy1OriginTrigger.dummy1IsAtOriginPoint)
+
+        if (dummyStates == DummyStates.RUNNING_AWAY && dummy2OriginTrigger.dummy2IsAtOriginPoint)
         {
             StopCoroutine(DummyChasePlayer());
             StopCoroutine(DummyGoBackToOrigin());
@@ -84,16 +82,16 @@ public class DummyBehavior : MonoBehaviour
         }
     }
 
- 
+
 
     //Sets up the dummy when it is laying down to get up
     public IEnumerator DummyBeginPhase()
     {
-        dummyStates= DummyStates.DEFAULT;
+        dummyStates = DummyStates.DEFAULT;
         _dummyLayingDown = true;
         _dummyChasing = false;
         _dummyGettingUp = false;
-        isDummyUp = false;  
+        isDummyUp = false;
 
         yield return new WaitForSeconds(Random.Range(5f, 12f));
 
@@ -136,12 +134,12 @@ public class DummyBehavior : MonoBehaviour
 
 
         //If the light is on it while chasing then retreat back to origin
-        if(flashlightTriggerBehavior.lightIsOnDummy1)
+        if (flashlightTriggerBehavior.lightIsOnDummy2)
         {
             //Stops chasing the playerd
             StopCoroutine(DummyChasePlayer());
 
-            
+
             _dummyChasing = false;
 
             //Starts to run back to origin point
@@ -185,7 +183,7 @@ public class DummyBehavior : MonoBehaviour
     }
 
 
-    
+
 
     public IEnumerator DummyGoBackToOrigin()
     {
@@ -196,14 +194,14 @@ public class DummyBehavior : MonoBehaviour
         //Changes the dummy state to be the running away state
         dummyStates = DummyStates.RUNNING_AWAY;
 
-        
-         
+
+
         //Sets the dummy's target to be where it first started
         agent.SetDestination(dummyOrigin.transform.position);
-        yield return new WaitUntil(() => dummy1OriginTrigger.dummy1IsAtOriginPoint);
+        yield return new WaitUntil(() => dummy2OriginTrigger.dummy2IsAtOriginPoint);
 
         StopCoroutine(DummyGoBackToOrigin());
-       
+
 
         //DEBUG
         Debug.Log("Dummy is getting back down");

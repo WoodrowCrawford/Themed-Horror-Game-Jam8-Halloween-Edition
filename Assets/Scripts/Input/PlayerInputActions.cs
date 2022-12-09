@@ -262,6 +262,54 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""InWardrobe"",
+            ""id"": ""53856f6e-34f8-452e-ab93-886f767d939c"",
+            ""actions"": [
+                {
+                    ""name"": ""ToggleWardrobeDoor"",
+                    ""type"": ""Button"",
+                    ""id"": ""4f8bf5d7-1145-4c99-b25e-28ff7df60a0b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ToggleInOutWardrobe"",
+                    ""type"": ""Button"",
+                    ""id"": ""9d64eb85-2141-476f-8f37-b9a1db4a4237"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""3159f58a-7cd9-4649-a33e-32cebdf6bfcc"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleWardrobeDoor"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c6107287-4215-4950-876d-4a527a191531"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleInOutWardrobe"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -279,6 +327,10 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         m_OutOfBed_Look = m_OutOfBed.FindAction("Look", throwIfNotFound: true);
         m_OutOfBed_Move = m_OutOfBed.FindAction("Move", throwIfNotFound: true);
         m_OutOfBed_GetInBed = m_OutOfBed.FindAction("GetInBed", throwIfNotFound: true);
+        // InWardrobe
+        m_InWardrobe = asset.FindActionMap("InWardrobe", throwIfNotFound: true);
+        m_InWardrobe_ToggleWardrobeDoor = m_InWardrobe.FindAction("ToggleWardrobeDoor", throwIfNotFound: true);
+        m_InWardrobe_ToggleInOutWardrobe = m_InWardrobe.FindAction("ToggleInOutWardrobe", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -456,6 +508,47 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         }
     }
     public OutOfBedActions @OutOfBed => new OutOfBedActions(this);
+
+    // InWardrobe
+    private readonly InputActionMap m_InWardrobe;
+    private IInWardrobeActions m_InWardrobeActionsCallbackInterface;
+    private readonly InputAction m_InWardrobe_ToggleWardrobeDoor;
+    private readonly InputAction m_InWardrobe_ToggleInOutWardrobe;
+    public struct InWardrobeActions
+    {
+        private @PlayerInputActions m_Wrapper;
+        public InWardrobeActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @ToggleWardrobeDoor => m_Wrapper.m_InWardrobe_ToggleWardrobeDoor;
+        public InputAction @ToggleInOutWardrobe => m_Wrapper.m_InWardrobe_ToggleInOutWardrobe;
+        public InputActionMap Get() { return m_Wrapper.m_InWardrobe; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(InWardrobeActions set) { return set.Get(); }
+        public void SetCallbacks(IInWardrobeActions instance)
+        {
+            if (m_Wrapper.m_InWardrobeActionsCallbackInterface != null)
+            {
+                @ToggleWardrobeDoor.started -= m_Wrapper.m_InWardrobeActionsCallbackInterface.OnToggleWardrobeDoor;
+                @ToggleWardrobeDoor.performed -= m_Wrapper.m_InWardrobeActionsCallbackInterface.OnToggleWardrobeDoor;
+                @ToggleWardrobeDoor.canceled -= m_Wrapper.m_InWardrobeActionsCallbackInterface.OnToggleWardrobeDoor;
+                @ToggleInOutWardrobe.started -= m_Wrapper.m_InWardrobeActionsCallbackInterface.OnToggleInOutWardrobe;
+                @ToggleInOutWardrobe.performed -= m_Wrapper.m_InWardrobeActionsCallbackInterface.OnToggleInOutWardrobe;
+                @ToggleInOutWardrobe.canceled -= m_Wrapper.m_InWardrobeActionsCallbackInterface.OnToggleInOutWardrobe;
+            }
+            m_Wrapper.m_InWardrobeActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @ToggleWardrobeDoor.started += instance.OnToggleWardrobeDoor;
+                @ToggleWardrobeDoor.performed += instance.OnToggleWardrobeDoor;
+                @ToggleWardrobeDoor.canceled += instance.OnToggleWardrobeDoor;
+                @ToggleInOutWardrobe.started += instance.OnToggleInOutWardrobe;
+                @ToggleInOutWardrobe.performed += instance.OnToggleInOutWardrobe;
+                @ToggleInOutWardrobe.canceled += instance.OnToggleInOutWardrobe;
+            }
+        }
+    }
+    public InWardrobeActions @InWardrobe => new InWardrobeActions(this);
     public interface IInBedActions
     {
         void OnLook(InputAction.CallbackContext context);
@@ -470,5 +563,10 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         void OnLook(InputAction.CallbackContext context);
         void OnMove(InputAction.CallbackContext context);
         void OnGetInBed(InputAction.CallbackContext context);
+    }
+    public interface IInWardrobeActions
+    {
+        void OnToggleWardrobeDoor(InputAction.CallbackContext context);
+        void OnToggleInOutWardrobe(InputAction.CallbackContext context);
     }
 }

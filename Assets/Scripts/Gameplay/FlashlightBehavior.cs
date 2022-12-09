@@ -19,7 +19,7 @@ public class FlashlightBehavior : MonoBehaviour
     private void Awake()
     {
         sleepBehavior = GameObject.FindGameObjectWithTag("Player").GetComponent<SleepBehavior>();
-        dummyBehavior = GameObject.FindGameObjectWithTag("Dummy").GetComponent<DummyBehavior>();
+        dummyBehavior = GameObject.FindGameObjectWithTag("Dummy1").GetComponent<DummyBehavior>();
         flashlightTriggerBehavior = GameObject.FindGameObjectWithTag("FlashlightTriggerBox").GetComponent<FlashlightTriggerBehavior>();
     }
 
@@ -56,7 +56,7 @@ public class FlashlightBehavior : MonoBehaviour
         //Increase battery while off
         else if(!flashlightOn)
         {
-            batteryPower += Time.deltaTime * 3;
+            batteryPower += Time.deltaTime * 4;
           
 
             if (batteryPower >= 100f)
@@ -76,7 +76,8 @@ public class FlashlightBehavior : MonoBehaviour
             _flashlightTrigger.gameObject.SetActive(false);
             flashlightOn = false;
 
-            flashlightTriggerBehavior.lightIsOnDummy = false;
+            flashlightTriggerBehavior.lightIsOnDummy1 = false;
+            flashlightTriggerBehavior.lightIsOnDummy2 = false;
 
             //This makes the dummy's speed normal when the light is off (fixes bugs)
             dummyBehavior.agent.speed = 0.5f;

@@ -240,6 +240,54 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "InWardrobe",
+            "id": "53856f6e-34f8-452e-ab93-886f767d939c",
+            "actions": [
+                {
+                    "name": "ToggleWardrobeDoor",
+                    "type": "Button",
+                    "id": "4f8bf5d7-1145-4c99-b25e-28ff7df60a0b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ToggleInOutWardrobe",
+                    "type": "Button",
+                    "id": "9d64eb85-2141-476f-8f37-b9a1db4a4237",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "3159f58a-7cd9-4649-a33e-32cebdf6bfcc",
+                    "path": "<Keyboard>/leftShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ToggleWardrobeDoor",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c6107287-4215-4950-876d-4a527a191531",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ToggleInOutWardrobe",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

@@ -2,18 +2,18 @@ using UnityEngine;
 
 public class Dummy1OriginPointTriggerBehavior : MonoBehaviour
 {
-    public bool dummyIsAtOriginPoint;
+    public bool dummy1IsAtOriginPoint;
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Dummy"))
+        if(other.CompareTag("Dummy1"))
         {
-            dummyIsAtOriginPoint= true;
+            dummy1IsAtOriginPoint= true;
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        dummyIsAtOriginPoint= false;
+        dummy1IsAtOriginPoint = false;
     }
 }

@@ -9,26 +9,42 @@ public class FlashlightTriggerBehavior : MonoBehaviour
     public DummyBehavior dummyBehavior;
 
     [Header("Trigger Values")]
-    public bool lightIsOnDummy;
+    public bool lightIsOnDummy1;
+    public bool lightIsOnDummy2;
 
 
     private void Awake()
     {
-        dummyBehavior = GameObject.FindGameObjectWithTag("Dummy").GetComponent<DummyBehavior>();
+        dummyBehavior = GameObject.FindGameObjectWithTag("Dummy1").GetComponent<DummyBehavior>();
     }
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Dummy"))
+        if (other.CompareTag("Dummy1"))
         {
-            lightIsOnDummy = true;
+            lightIsOnDummy1 = true;
+        }
+
+        else if (other.CompareTag("Dummy2"))
+        {
+            lightIsOnDummy2 = true;
         }
        
     }
 
     private void OnTriggerExit(Collider other)
     {
-        lightIsOnDummy = false;
+
+        if(other.CompareTag("Dummy1"))
+        {
+            lightIsOnDummy1 = false;
+        }
+
+        else if(other.CompareTag("Dummy2"))
+        {
+            lightIsOnDummy2 = false;
+        }
+        
        
     }
 }
