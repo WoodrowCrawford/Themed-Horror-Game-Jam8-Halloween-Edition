@@ -5,9 +5,19 @@ using UnityEngine.AI;
 
 public class GhoulBehavior : MonoBehaviour
 {
+    //The AI states for the ghoul
+    public enum GhoulStates
+    {
+        IDLE,
+        PATROL,
+        CHASE
+    }
+
+
     public NavMeshAgent agent;
     public Animator animator;
     public GhoulSightBehavior ghoulSightBehavior;
+    public GhoulStates ghoulState;
 
     [Header("Patrol Values")]
     [SerializeField] private Transform[] _waypoints;
@@ -37,15 +47,25 @@ public class GhoulBehavior : MonoBehaviour
 
 
 
-        //if the ghoul can see the player
+        //if the ghoul can see the player then...
         if (ghoulSightBehavior.canSeePlayer)
         {
+            //Change the ai state to chase
+            ghoulState = GhoulStates.CHASE;
+
             agent.SetDestination(_playerRef.transform.position);
             agent.speed = 5.8f;
             transform.LookAt(playerPosition);
+
+            
+           
         }
+        //If the ghoul cant see the player then...
         else
         {
+            //Change the ai state to patrol
+            ghoulState = GhoulStates.PATROL;
+
             agent.speed = 4f;
             agent.SetDestination(_target);
         }
@@ -70,6 +90,8 @@ public class GhoulBehavior : MonoBehaviour
         }
        
     } 
+
+
 
     public IEnumerator GhoulAIBehavior()
     {

@@ -56,7 +56,7 @@ public class FlashlightBehavior : MonoBehaviour
         //Increase battery while off
         else if(!flashlightOn)
         {
-            batteryPower += Time.deltaTime * 4;
+            batteryPower += Time.deltaTime * 9;
           
 
             if (batteryPower >= 100f)
