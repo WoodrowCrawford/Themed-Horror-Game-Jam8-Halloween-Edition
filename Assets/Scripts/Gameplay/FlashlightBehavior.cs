@@ -6,9 +6,11 @@ public class FlashlightBehavior : MonoBehaviour
     public SleepBehavior sleepBehavior;
     public DummyBehavior dummyBehavior;
     public FlashlightTriggerBehavior flashlightTriggerBehavior;
+   
+
 
     [Header("Flashlight Values")]
-    [SerializeField] private Light _playerLight;
+    [SerializeField]  private Light _playerLight;
     [SerializeField] private float _decreaseSpeed;
     public float batteryPower = 100;
     public bool flashlightOn;
@@ -21,6 +23,9 @@ public class FlashlightBehavior : MonoBehaviour
         sleepBehavior = GameObject.FindGameObjectWithTag("Player").GetComponent<SleepBehavior>();
         dummyBehavior = GameObject.FindGameObjectWithTag("Dummy1").GetComponent<DummyBehavior>();
         flashlightTriggerBehavior = GameObject.FindGameObjectWithTag("FlashlightTriggerBox").GetComponent<FlashlightTriggerBehavior>();
+      
+
+    
     }
 
     // Start is called before the first frame update
@@ -70,23 +75,28 @@ public class FlashlightBehavior : MonoBehaviour
 
     public void ToggleFlashLight()
     {
-        if(flashlightOn)
-        {
-            _playerLight.gameObject.SetActive(false);
-            _flashlightTrigger.gameObject.SetActive(false);
-            flashlightOn = false;
+        //Checks if the game is paused or not
 
-            flashlightTriggerBehavior.lightIsOnDummy1 = false;
-            flashlightTriggerBehavior.lightIsOnDummy2 = false;
-
-            //This makes the dummy's speed normal when the light is off (fixes bugs)
-            dummyBehavior.agent.speed = 0.5f;
-        }
-        else if(!flashlightOn)
+        if(!PauseSystem.isPaused)
         {
-            _playerLight.gameObject.SetActive(true);
-            _flashlightTrigger.gameObject.SetActive(true);
-            flashlightOn = true;
+            if (flashlightOn)
+            {
+                _playerLight.gameObject.SetActive(false);
+                _flashlightTrigger.gameObject.SetActive(false);
+                flashlightOn = false;
+
+                flashlightTriggerBehavior.lightIsOnDummy1 = false;
+                flashlightTriggerBehavior.lightIsOnDummy2 = false;
+
+                //This makes the dummy's speed normal when the light is off (fixes bugs)
+                dummyBehavior.agent.speed = 0.5f;
+            }
+            else if (!flashlightOn)
+            {
+                _playerLight.gameObject.SetActive(true);
+                _flashlightTrigger.gameObject.SetActive(true);
+                flashlightOn = true;
+            }
         }
     }
 }

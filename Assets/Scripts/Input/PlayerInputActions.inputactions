@@ -2,18 +2,57 @@
     "name": "PlayerInputActions",
     "maps": [
         {
-            "name": "InBed",
-            "id": "9f110178-9868-45dd-9ce6-dd71dfd402f3",
+            "name": "Default",
+            "id": "9ee35fa8-a6e4-4c3b-a5c2-a2b22e2dde28",
             "actions": [
                 {
                     "name": "Look",
                     "type": "Value",
-                    "id": "2fe1f354-4500-4753-9a9e-1ac3f2ad434c",
+                    "id": "1236896b-f2df-4b52-bf78-fb937533c6e9",
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
                 },
+                {
+                    "name": "TogglePause",
+                    "type": "Button",
+                    "id": "d8a8c9e3-7b5f-4d55-8aa2-3a9c3521b4d2",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "80371446-0205-424a-8fc9-6fed95a6debb",
+                    "path": "<Mouse>/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Look",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "cb07398e-36ba-4574-96d2-bc333f1c95e1",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TogglePause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "InBed",
+            "id": "9f110178-9868-45dd-9ce6-dd71dfd402f3",
+            "actions": [
                 {
                     "name": "Toggle Flashlight",
                     "type": "Button",
@@ -52,17 +91,6 @@
                 }
             ],
             "bindings": [
-                {
-                    "name": "",
-                    "id": "1fd278ad-7e2f-4a9c-92c2-bf39e0b5b795",
-                    "path": "<Mouse>/delta",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Look",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
                 {
                     "name": "",
                     "id": "a85549da-77f6-4521-8f80-9dbf85b1edd3",
@@ -123,15 +151,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Look",
-                    "type": "Value",
-                    "id": "14932ff3-2306-4434-af1f-ef8847ad6d07",
-                    "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
                     "name": "Move",
                     "type": "Value",
                     "id": "6889e0ea-4cb8-4e4d-ab4c-097420d22540",
@@ -151,17 +170,6 @@
                 }
             ],
             "bindings": [
-                {
-                    "name": "",
-                    "id": "aab1bcf4-1765-42c8-a549-dfac5be6ac38",
-                    "path": "<Mouse>/delta",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Look",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
                 {
                     "name": "",
                     "id": "85aef309-4998-4b68-a5ea-247eb435c484",

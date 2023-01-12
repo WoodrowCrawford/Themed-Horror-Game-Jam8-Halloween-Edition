@@ -1,18 +1,29 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Users;
+using UnityEngine.InputSystem.Utilities;
 using UnityEngine.Timeline;
 
 
 public class PlayerInputBehavior : MonoBehaviour
 {
-    
+
+   
+
+
     public PlayerInputActions playerControls;
     public FlashlightBehavior flashlightBehavior;
     public GetInBedTriggerBehavior getInBedTriggerBehavior;
     public SleepBehavior sleepBehavior;
     public WardrobeBehavior wardrobeBehavior;
     public WardrobeDoorTriggerBehavior wardrobeDoorTrigger;
+    public PauseSystem pauseSystem;
+
+
+
+
+    
     
 
     [Header("Camera Values")]
@@ -40,13 +51,14 @@ public class PlayerInputBehavior : MonoBehaviour
     [Header("Wardrobe Values")]
     [SerializeField] private Transform _WardrobeHidingPos;
     [SerializeField] private Transform _OutOfWardrobePos;
-
-    public bool _playerIsInWardrobe;
+    public bool playerIsInWardrobe;
+    public bool playerIsHidden;
 
 
 
     private void Awake()
     {
+        
         //Gets the components
         _rb = GetComponent<Rigidbody>();
         flashlightBehavior = GameObject.FindGameObjectWithTag("Flashlight").GetComponent<FlashlightBehavior>();
@@ -54,16 +66,31 @@ public class PlayerInputBehavior : MonoBehaviour
         sleepBehavior = GameObject.FindGameObjectWithTag("Player").GetComponent<SleepBehavior>();
         wardrobeBehavior = GameObject.FindGameObjectWithTag("Wardrobe").GetComponent<WardrobeBehavior>();
         wardrobeDoorTrigger = GameObject.FindGameObjectWithTag("WardrobeDoorTrigger").GetComponent<WardrobeDoorTriggerBehavior>();
+        pauseSystem = GameObject.FindGameObjectWithTag("PauseSystem").GetComponent<PauseSystem>();
      
 
+    
         //Creates the Action Maps
         playerControls = new PlayerInputActions();
+        
+
+
         playerControls.InBed.Enable();
+        playerControls.Default.Enable();
+        
+
+
+        //Action Map #0(Default Map- On by default)
+        playerControls.Default.Look.ReadValue<Vector2>();
+        playerControls.Default.TogglePause.performed += ctx => pauseSystem.TogglePauseMenu();
+
+
 
 
         //Action Map #1 (In Bed)
         playerControls.InBed.GetOutOfBed.performed += GetOutOfBed;
-        playerControls.InBed.Look.ReadValue<Vector2>();
+     
+     
         playerControls.InBed.ToggleFlashlight.performed += ctx => flashlightBehavior.ToggleFlashLight();
         playerControls.InBed.ToggleGoUnderBed.performed += ToggleUnderBed;
         playerControls.InBed.Sleep.performed += ctx => sleepBehavior.playerIsSleeping = true;
@@ -73,15 +100,16 @@ public class PlayerInputBehavior : MonoBehaviour
         //Action Map #2 (Out of Bed)
         playerControls.OutOfBed.ToggleFlashlight.performed += ctx => flashlightBehavior.ToggleFlashLight();
         playerControls.OutOfBed.GetInBed.performed += GetInBed;
-
+        
 
 
         //Action Map #3 (In Wardrobe)
         playerControls.InWardrobe.ToggleWardrobeDoor.performed += ctx => StartCoroutine(ToggleWardrobeDoor());
         playerControls.InWardrobe.ToggleInOutWardrobe.performed += ctx => StartCoroutine(ToggleInOutWardrobe());
-        
-
+       
     }
+
+
 
     private void Start()
     {
@@ -103,6 +131,7 @@ public class PlayerInputBehavior : MonoBehaviour
 
     private void Update()
     {
+
       _yRotation = Mathf.CeilToInt(_playerBody.transform.eulerAngles.y);
         Look();
 
@@ -122,6 +151,7 @@ public class PlayerInputBehavior : MonoBehaviour
         {
             playerControls.InWardrobe.Disable();
         }
+
     }
 
     private void FixedUpdate()
@@ -134,28 +164,16 @@ public class PlayerInputBehavior : MonoBehaviour
     public void Look()
     {
         //Look values for in the bed
-        float mouseXinBed = playerControls.InBed.Look.ReadValue<Vector2>().x * _sensitivity * Time.deltaTime;
-        float mouseYinBed = playerControls.InBed.Look.ReadValue<Vector2>().y * _sensitivity * Time.deltaTime;
+        float mouseXLook = playerControls.Default.Look.ReadValue<Vector2>().x * _sensitivity * Time.deltaTime;
+        float mouseYLook = playerControls.Default.Look.ReadValue<Vector2>().y * _sensitivity * Time.deltaTime;
        
 
-        _xRotation -= mouseYinBed;
+        _xRotation -= mouseYLook;
         _xRotation = Mathf.Clamp(_xRotation, -90f, 90f);
 
 
         _camera.transform.localRotation = Quaternion.Euler(_xRotation, 0f, 0f);
-        _playerBody.Rotate(Vector3.up * mouseXinBed);
-
-        ////////////////////////////////////////////////////////////////////////////////
-
-        //Look values for out of bed
-        float mouseXoutOfBed = playerControls.OutOfBed.Look.ReadValue<Vector2>().x * _sensitivity * Time.deltaTime;
-        float mouseYoutOfBed = playerControls.OutOfBed.Look.ReadValue<Vector2>().y * _sensitivity * Time.deltaTime;
-
-        _xRotation -= mouseYoutOfBed;
-        _xRotation = Mathf.Clamp(_xRotation, -90f, 90f);
-
-        _camera.transform.localRotation = Quaternion.Euler(_xRotation, 0f, 0f);
-        _playerBody.Rotate(Vector3.up * mouseXoutOfBed);
+        _playerBody.Rotate(Vector3.up * mouseXLook);       
     }
 
     public void Move()
@@ -168,39 +186,50 @@ public class PlayerInputBehavior : MonoBehaviour
     }
 
 
+   
+
 
 
     //Functions for Action Map #1 (In Bed)
     public void ToggleUnderBed(InputAction.CallbackContext context)
     {
-        if(!_isUnderBed && !sleepBehavior.playerIsSleeping)
+        if(!_isUnderBed && !sleepBehavior.playerIsSleeping && !PauseSystem.isPaused)
         {
             _playerBody.transform.position = _UnderBedPos.transform.position;
             _isUnderBed = true;
+            playerIsHidden= true;
+            
            
         }
-        else if(_isUnderBed)
+        else if(_isUnderBed && !PauseSystem.isPaused)
         {
             _playerBody.transform.position = _TopOfBedPos.transform.position;
             _isUnderBed = false;
+            playerIsHidden = false;
         }
     }
 
     //Get out of the bed
     public void GetOutOfBed(InputAction.CallbackContext context)
     {
-        Debug.Log("I am out of bed!");
-        playerControls.InBed.Disable();
-        playerControls.OutOfBed.Enable();
+       if(!PauseSystem.isPaused)
+        {
+            Debug.Log("I am out of bed!");
+            playerControls.InBed.Disable();
+            playerControls.OutOfBed.Enable();
+            playerIsHidden = false;
 
-        if(_yRotation >= 180)
-        {
-            _playerBody.transform.position = _outOfBedLeftPos.transform.position;
+
+            if (_yRotation >= 180)
+            {
+                _playerBody.transform.position = _outOfBedLeftPos.transform.position;
+            }
+            else if (_yRotation <= 180)
+            {
+                _playerBody.transform.position = _outOfBedRightPos.transform.position;
+            }
         }
-        else if (_yRotation <= 180)
-        {
-            _playerBody.transform.position = _outOfBedRightPos.transform.position;
-        } 
+        
     }
 
 
@@ -208,7 +237,7 @@ public class PlayerInputBehavior : MonoBehaviour
     //Functions for Action Map #2 (Out of Bed)
     public void GetInBed(InputAction.CallbackContext context)
     {
-        if(getInBedTriggerBehavior.playerCanGetInBed)
+        if(getInBedTriggerBehavior.playerCanGetInBed && !PauseSystem.isPaused)
         {
             _playerBody.transform.position = _TopOfBedPos.position;
             playerControls.OutOfBed.Disable();
@@ -222,12 +251,12 @@ public class PlayerInputBehavior : MonoBehaviour
     public IEnumerator ToggleWardrobeDoor()
     {
         //If the door is not open then open it
-        if(!wardrobeBehavior.wardrobeDoorIsOpen && !wardrobeBehavior.actionOnCoolDown)
+        if(!wardrobeBehavior.wardrobeDoorIsOpen && !wardrobeBehavior.actionOnCoolDown && !PauseSystem.isPaused)
         {
             StartCoroutine(wardrobeBehavior.OpenWardrobeDoor());
         }
 
-        else if (wardrobeBehavior.wardrobeDoorIsOpen && !wardrobeBehavior.actionOnCoolDown)
+        else if (wardrobeBehavior.wardrobeDoorIsOpen && !wardrobeBehavior.actionOnCoolDown && !PauseSystem.isPaused)
         {
             StartCoroutine(wardrobeBehavior.CloseWardrobeDoor());
         }
@@ -237,21 +266,24 @@ public class PlayerInputBehavior : MonoBehaviour
 
     public IEnumerator ToggleInOutWardrobe()
     {
-        if(wardrobeBehavior.wardrobeDoorIsOpen && !wardrobeBehavior.actionOnCoolDown && !_playerIsInWardrobe)
+        if (wardrobeBehavior.wardrobeDoorIsOpen && !wardrobeBehavior.actionOnCoolDown && !playerIsInWardrobe && !PauseSystem.isPaused)
         {
             _playerBody.transform.position = _WardrobeHidingPos.transform.position;
-            _playerIsInWardrobe = true;
+            playerIsInWardrobe = true;
+            playerIsHidden = true;
+
             yield return new WaitForSeconds(1f);
-            
+
 
             StartCoroutine(wardrobeBehavior.CloseWardrobeDoor());
         }
 
-       else if(wardrobeBehavior.wardrobeDoorIsOpen && _playerIsInWardrobe)
-        {
+        else if (wardrobeBehavior.wardrobeDoorIsOpen && playerIsInWardrobe && !PauseSystem.isPaused)
+        {   
 
             _playerBody.transform.position = _OutOfWardrobePos.transform.position;
-            _playerIsInWardrobe = false;
+            playerIsInWardrobe = false;
+            playerIsHidden = false;
 
             yield return new WaitForSeconds(0.5f);
             StartCoroutine(wardrobeBehavior.CloseWardrobeDoor());

@@ -16,6 +16,10 @@ TagManager:
   - WardrobeDoorTrigger
   - Wardrobe
   - InsideWardrobeTrigger
+  - GameManager
+  - HUD
+  - EventSystem
+  - PauseSystem
   layers:
   - Default
   - TransparentFX
