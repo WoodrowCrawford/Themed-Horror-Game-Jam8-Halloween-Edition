@@ -1,0 +1,228 @@
+fileFormatVersion: 2
+guid: 1bc41691a70bf2949aa69b1e65f973b8
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Box
+    100002: cap
+    100004: handle
+    100006: Head
+    100008: Jack_eyes
+    100010: Jack_hair
+    100012: Jack_head
+    100014: //RootNode
+    100016: joint1
+    100018: joint2
+    100020: joint3
+    100022: spring
+    100024: Jack_in_the_box1
+    100026: locator1
+    100028: locator2
+    100030: locator3
+    100032: locator4
+    400000: Box
+    400002: cap
+    400004: handle
+    400006: Head
+    400008: Jack_eyes
+    400010: Jack_hair
+    400012: Jack_head
+    400014: //RootNode
+    400016: joint1
+    400018: joint2
+    400020: joint3
+    400022: spring
+    400024: Jack_in_the_box1
+    400026: locator1
+    400028: locator2
+    400030: locator3
+    400032: locator4
+    2100000: Jack_in_the_box_box
+    2100002: Jack_in_the_box_boxM
+    2100004: Jack_in_the_box_Head
+    2100006: Default_Material
+    2300000: Box
+    2300002: cap
+    2300004: handle
+    2300006: Jack_eyes
+    2300008: Jack_hair
+    2300010: Jack_head
+    2300012: spring
+    3300000: Box
+    3300002: cap
+    3300004: handle
+    3300006: Jack_eyes
+    3300008: Jack_hair
+    3300010: Jack_head
+    3300012: spring
+    4300000: Box
+    4300002: cap
+    4300004: spring
+    4300006: handle
+    4300008: Jack_eyes
+    4300010: Jack_head
+    4300012: Jack_hair
+    7400000: jack-in-the-box_BA
+    7400002: jack-in-the-box_BA //// Jack_in_the_box1
+    7400004: jack-in-the-box_BA //// Box
+    7400006: jack-in-the-box_BA //// cap
+    7400008: jack-in-the-box_BA //// handle
+    7400010: jack-in-the-box_BA //// Head
+    7400012: jack-in-the-box_BA //// joint1
+    7400014: jack-in-the-box_BA //// joint2
+    7400016: jack-in-the-box_BA //// joint3
+    7400018: jack-in-the-box_BA //// spring
+    7400020: jack-in-the-box_BA //// Jack_eyes
+    7400022: jack-in-the-box_BA //// Jack_head
+    7400024: jack-in-the-box_BA //// Jack_hair
+    9500000: //RootNode
+    11100000: //RootNode
+    11100002: Box
+    11100004: cap
+    11100006: handle
+    11100008: Head
+    11100010: Jack_eyes
+    11100012: Jack_hair
+    11100014: Jack_head
+    11100016: Jack_in_the_box1
+    11100018: joint1
+    11100020: joint2
+    11100022: joint3
+    11100024: spring
+    11100026: locator1
+    11100028: locator2
+    11100030: locator3
+    11100032: locator4
+    13700000: spring
+    13700002: joint1
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Default_Material
+    second: {fileID: 2100000, guid: 3506e1095cc3ed84187383de3a0d2a21, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Jack_in_the_box_Head
+    second: {fileID: 2100000, guid: 74de75d2cb6b04b4c83f562a7bdeff8a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Jack_in_the_box_box
+    second: {fileID: 2100000, guid: 112a023dc95506e4a98446c4ddb4f3bd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Jack_in_the_box_boxM
+    second: {fileID: 2100000, guid: e1853060bc63e7e4b8a95a74e8075906, type: 2}
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 0
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 1
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: jack-in-the-box_BA
+      takeName: jack-in-the-box_BA
+      firstFrame: 0
+      lastFrame: 578
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 1
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 0.01
+    hasPreviousCalculatedGlobalScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 1
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: Jack_in_the_box1
+    rootMotionBoneRotation: {x: -0, y: -0, z: -0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 1
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 1
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
