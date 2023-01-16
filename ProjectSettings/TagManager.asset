@@ -20,6 +20,7 @@ TagManager:
   - HUD
   - EventSystem
   - PauseSystem
+  - JackBoxInteractRange
   layers:
   - Default
   - TransparentFX
@@ -29,7 +30,7 @@ TagManager:
   - UI
   - Obstruction
   - PostProcessing
-  - 
+  - Interactable
   - 
   - 
   - 

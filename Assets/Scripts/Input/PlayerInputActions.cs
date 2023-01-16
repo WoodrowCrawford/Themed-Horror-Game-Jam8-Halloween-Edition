@@ -44,6 +44,15 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""d5025d4d-f5f9-4419-b686-602e89acd780"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -66,6 +75,17 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""TogglePause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f804a5e3-87da-402b-97c4-a6b6160a1059"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -326,6 +346,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         m_Default = asset.FindActionMap("Default", throwIfNotFound: true);
         m_Default_Look = m_Default.FindAction("Look", throwIfNotFound: true);
         m_Default_TogglePause = m_Default.FindAction("TogglePause", throwIfNotFound: true);
+        m_Default_Interact = m_Default.FindAction("Interact", throwIfNotFound: true);
         // InBed
         m_InBed = asset.FindActionMap("InBed", throwIfNotFound: true);
         m_InBed_ToggleFlashlight = m_InBed.FindAction("Toggle Flashlight", throwIfNotFound: true);
@@ -402,12 +423,14 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     private IDefaultActions m_DefaultActionsCallbackInterface;
     private readonly InputAction m_Default_Look;
     private readonly InputAction m_Default_TogglePause;
+    private readonly InputAction m_Default_Interact;
     public struct DefaultActions
     {
         private @PlayerInputActions m_Wrapper;
         public DefaultActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Look => m_Wrapper.m_Default_Look;
         public InputAction @TogglePause => m_Wrapper.m_Default_TogglePause;
+        public InputAction @Interact => m_Wrapper.m_Default_Interact;
         public InputActionMap Get() { return m_Wrapper.m_Default; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -423,6 +446,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @TogglePause.started -= m_Wrapper.m_DefaultActionsCallbackInterface.OnTogglePause;
                 @TogglePause.performed -= m_Wrapper.m_DefaultActionsCallbackInterface.OnTogglePause;
                 @TogglePause.canceled -= m_Wrapper.m_DefaultActionsCallbackInterface.OnTogglePause;
+                @Interact.started -= m_Wrapper.m_DefaultActionsCallbackInterface.OnInteract;
+                @Interact.performed -= m_Wrapper.m_DefaultActionsCallbackInterface.OnInteract;
+                @Interact.canceled -= m_Wrapper.m_DefaultActionsCallbackInterface.OnInteract;
             }
             m_Wrapper.m_DefaultActionsCallbackInterface = instance;
             if (instance != null)
@@ -433,6 +459,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @TogglePause.started += instance.OnTogglePause;
                 @TogglePause.performed += instance.OnTogglePause;
                 @TogglePause.canceled += instance.OnTogglePause;
+                @Interact.started += instance.OnInteract;
+                @Interact.performed += instance.OnInteract;
+                @Interact.canceled += instance.OnInteract;
             }
         }
     }
@@ -588,6 +617,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     {
         void OnLook(InputAction.CallbackContext context);
         void OnTogglePause(InputAction.CallbackContext context);
+        void OnInteract(InputAction.CallbackContext context);
     }
     public interface IInBedActions
     {

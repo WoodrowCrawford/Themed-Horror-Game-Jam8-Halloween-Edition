@@ -19,6 +19,7 @@ public class PlayerInputBehavior : MonoBehaviour
     public WardrobeBehavior wardrobeBehavior;
     public WardrobeDoorTriggerBehavior wardrobeDoorTrigger;
     public PauseSystem pauseSystem;
+    
 
 
 
@@ -54,6 +55,8 @@ public class PlayerInputBehavior : MonoBehaviour
     public bool playerIsInWardrobe;
     public bool playerIsHidden;
 
+    public bool isPlayerInteracting;
+
 
 
     private void Awake()
@@ -67,7 +70,7 @@ public class PlayerInputBehavior : MonoBehaviour
         wardrobeBehavior = GameObject.FindGameObjectWithTag("Wardrobe").GetComponent<WardrobeBehavior>();
         wardrobeDoorTrigger = GameObject.FindGameObjectWithTag("WardrobeDoorTrigger").GetComponent<WardrobeDoorTriggerBehavior>();
         pauseSystem = GameObject.FindGameObjectWithTag("PauseSystem").GetComponent<PauseSystem>();
-     
+        
 
     
         //Creates the Action Maps
@@ -77,12 +80,17 @@ public class PlayerInputBehavior : MonoBehaviour
 
         playerControls.InBed.Enable();
         playerControls.Default.Enable();
-        
+
+        playerControls.Default.Interact.started += ctx => isPlayerInteracting = true;
+        playerControls.Default.Interact.performed += ctx => isPlayerInteracting = true;
+        playerControls.Default.Interact.canceled += ctx => isPlayerInteracting = false;
 
 
         //Action Map #0(Default Map- On by default)
         playerControls.Default.Look.ReadValue<Vector2>();
         playerControls.Default.TogglePause.performed += ctx => pauseSystem.TogglePauseMenu();
+
+        
 
 
 
@@ -131,8 +139,10 @@ public class PlayerInputBehavior : MonoBehaviour
 
     private void Update()
     {
+       
 
-      _yRotation = Mathf.CeilToInt(_playerBody.transform.eulerAngles.y);
+
+        _yRotation = Mathf.CeilToInt(_playerBody.transform.eulerAngles.y);
         Look();
 
         //If the player is under the bed then they should not be able to sleep
