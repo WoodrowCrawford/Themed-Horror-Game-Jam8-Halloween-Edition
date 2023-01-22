@@ -9,4 +9,4 @@
  
  
  More to come as game develops! Until then, feel free to download the alpha version to see how its coming along!
- 
+ https://github.com/WoodrowCrawford/Themed-Horror-Game-Jam8-Halloween-Edition/releases/download/v0.2-Alpha/Insomnia-v0.2-Alpha.zip
