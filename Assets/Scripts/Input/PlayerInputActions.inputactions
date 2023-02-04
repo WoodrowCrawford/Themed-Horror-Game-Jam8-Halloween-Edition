@@ -283,6 +283,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Toggle Flashlight",
+                    "type": "Button",
+                    "id": "29b01640-2658-44f6-b102-d1743218905f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "ToggleInOutWardrobe",
                     "type": "Button",
                     "id": "9d64eb85-2141-476f-8f37-b9a1db4a4237",
@@ -312,6 +321,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "ToggleInOutWardrobe",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "860b6eeb-f567-4e2c-bd06-3b5b42f36ce4",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Toggle Flashlight",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

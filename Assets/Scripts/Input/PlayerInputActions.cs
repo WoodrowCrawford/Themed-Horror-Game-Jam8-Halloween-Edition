@@ -305,6 +305,15 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""Toggle Flashlight"",
+                    ""type"": ""Button"",
+                    ""id"": ""29b01640-2658-44f6-b102-d1743218905f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""ToggleInOutWardrobe"",
                     ""type"": ""Button"",
                     ""id"": ""9d64eb85-2141-476f-8f37-b9a1db4a4237"",
@@ -336,6 +345,17 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""action"": ""ToggleInOutWardrobe"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""860b6eeb-f567-4e2c-bd06-3b5b42f36ce4"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Toggle Flashlight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -361,6 +381,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         // InWardrobe
         m_InWardrobe = asset.FindActionMap("InWardrobe", throwIfNotFound: true);
         m_InWardrobe_ToggleWardrobeDoor = m_InWardrobe.FindAction("ToggleWardrobeDoor", throwIfNotFound: true);
+        m_InWardrobe_ToggleFlashlight = m_InWardrobe.FindAction("Toggle Flashlight", throwIfNotFound: true);
         m_InWardrobe_ToggleInOutWardrobe = m_InWardrobe.FindAction("ToggleInOutWardrobe", throwIfNotFound: true);
     }
 
@@ -577,12 +598,14 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     private readonly InputActionMap m_InWardrobe;
     private IInWardrobeActions m_InWardrobeActionsCallbackInterface;
     private readonly InputAction m_InWardrobe_ToggleWardrobeDoor;
+    private readonly InputAction m_InWardrobe_ToggleFlashlight;
     private readonly InputAction m_InWardrobe_ToggleInOutWardrobe;
     public struct InWardrobeActions
     {
         private @PlayerInputActions m_Wrapper;
         public InWardrobeActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @ToggleWardrobeDoor => m_Wrapper.m_InWardrobe_ToggleWardrobeDoor;
+        public InputAction @ToggleFlashlight => m_Wrapper.m_InWardrobe_ToggleFlashlight;
         public InputAction @ToggleInOutWardrobe => m_Wrapper.m_InWardrobe_ToggleInOutWardrobe;
         public InputActionMap Get() { return m_Wrapper.m_InWardrobe; }
         public void Enable() { Get().Enable(); }
@@ -596,6 +619,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @ToggleWardrobeDoor.started -= m_Wrapper.m_InWardrobeActionsCallbackInterface.OnToggleWardrobeDoor;
                 @ToggleWardrobeDoor.performed -= m_Wrapper.m_InWardrobeActionsCallbackInterface.OnToggleWardrobeDoor;
                 @ToggleWardrobeDoor.canceled -= m_Wrapper.m_InWardrobeActionsCallbackInterface.OnToggleWardrobeDoor;
+                @ToggleFlashlight.started -= m_Wrapper.m_InWardrobeActionsCallbackInterface.OnToggleFlashlight;
+                @ToggleFlashlight.performed -= m_Wrapper.m_InWardrobeActionsCallbackInterface.OnToggleFlashlight;
+                @ToggleFlashlight.canceled -= m_Wrapper.m_InWardrobeActionsCallbackInterface.OnToggleFlashlight;
                 @ToggleInOutWardrobe.started -= m_Wrapper.m_InWardrobeActionsCallbackInterface.OnToggleInOutWardrobe;
                 @ToggleInOutWardrobe.performed -= m_Wrapper.m_InWardrobeActionsCallbackInterface.OnToggleInOutWardrobe;
                 @ToggleInOutWardrobe.canceled -= m_Wrapper.m_InWardrobeActionsCallbackInterface.OnToggleInOutWardrobe;
@@ -606,6 +632,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @ToggleWardrobeDoor.started += instance.OnToggleWardrobeDoor;
                 @ToggleWardrobeDoor.performed += instance.OnToggleWardrobeDoor;
                 @ToggleWardrobeDoor.canceled += instance.OnToggleWardrobeDoor;
+                @ToggleFlashlight.started += instance.OnToggleFlashlight;
+                @ToggleFlashlight.performed += instance.OnToggleFlashlight;
+                @ToggleFlashlight.canceled += instance.OnToggleFlashlight;
                 @ToggleInOutWardrobe.started += instance.OnToggleInOutWardrobe;
                 @ToggleInOutWardrobe.performed += instance.OnToggleInOutWardrobe;
                 @ToggleInOutWardrobe.canceled += instance.OnToggleInOutWardrobe;
@@ -635,6 +664,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     public interface IInWardrobeActions
     {
         void OnToggleWardrobeDoor(InputAction.CallbackContext context);
+        void OnToggleFlashlight(InputAction.CallbackContext context);
         void OnToggleInOutWardrobe(InputAction.CallbackContext context);
     }
 }

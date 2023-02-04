@@ -1,32 +1,19 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Users;
-using UnityEngine.InputSystem.Utilities;
 using UnityEngine.Timeline;
 
 
 public class PlayerInputBehavior : MonoBehaviour
 {
-
-   
-
-
     public PlayerInputActions playerControls;
     public FlashlightBehavior flashlightBehavior;
     public GetInBedTriggerBehavior getInBedTriggerBehavior;
     public SleepBehavior sleepBehavior;
     public WardrobeBehavior wardrobeBehavior;
-    public WardrobeDoorTriggerBehavior wardrobeDoorTrigger;
     public PauseSystem pauseSystem;
-    
-
-
-
-
-    
-    
-
+   
+   
     [Header("Camera Values")]
     [SerializeField] private Camera _camera;
     [SerializeField] private Transform _playerBody;
@@ -68,16 +55,11 @@ public class PlayerInputBehavior : MonoBehaviour
         getInBedTriggerBehavior = GameObject.FindGameObjectWithTag("GetInBedTrigger").GetComponent<GetInBedTriggerBehavior>();
         sleepBehavior = GameObject.FindGameObjectWithTag("Player").GetComponent<SleepBehavior>();
         wardrobeBehavior = GameObject.FindGameObjectWithTag("Wardrobe").GetComponent<WardrobeBehavior>();
-        wardrobeDoorTrigger = GameObject.FindGameObjectWithTag("WardrobeDoorTrigger").GetComponent<WardrobeDoorTriggerBehavior>();
         pauseSystem = GameObject.FindGameObjectWithTag("PauseSystem").GetComponent<PauseSystem>();
         
 
-    
         //Creates the Action Maps
         playerControls = new PlayerInputActions();
-        
-
-
         playerControls.InBed.Enable();
         playerControls.Default.Enable();
 
@@ -89,16 +71,11 @@ public class PlayerInputBehavior : MonoBehaviour
         //Action Map #0(Default Map- On by default)
         playerControls.Default.Look.ReadValue<Vector2>();
         playerControls.Default.TogglePause.performed += ctx => pauseSystem.TogglePauseMenu();
-
-        
-
-
+    
 
 
         //Action Map #1 (In Bed)
         playerControls.InBed.GetOutOfBed.performed += GetOutOfBed;
-     
-     
         playerControls.InBed.ToggleFlashlight.performed += ctx => flashlightBehavior.ToggleFlashLight();
         playerControls.InBed.ToggleGoUnderBed.performed += ToggleUnderBed;
         playerControls.InBed.Sleep.performed += ctx => sleepBehavior.playerIsSleeping = true;
@@ -114,6 +91,7 @@ public class PlayerInputBehavior : MonoBehaviour
         //Action Map #3 (In Wardrobe)
         playerControls.InWardrobe.ToggleWardrobeDoor.performed += ctx => StartCoroutine(ToggleWardrobeDoor());
         playerControls.InWardrobe.ToggleInOutWardrobe.performed += ctx => StartCoroutine(ToggleInOutWardrobe());
+        playerControls.InWardrobe.ToggleFlashlight.performed += ctx => flashlightBehavior.ToggleFlashLight();
        
     }
 
@@ -139,10 +117,8 @@ public class PlayerInputBehavior : MonoBehaviour
 
     private void Update()
     {
-       
-
-
         _yRotation = Mathf.CeilToInt(_playerBody.transform.eulerAngles.y);
+
         Look();
 
         //If the player is under the bed then they should not be able to sleep
@@ -152,12 +128,12 @@ public class PlayerInputBehavior : MonoBehaviour
         }
 
         //Change the action map if the player is by the wardrobe
-        if(wardrobeDoorTrigger.playerCanOpenWardrobe)
+        if(wardrobeBehavior.playerCanOpenWardrobe)
         {
             playerControls.InWardrobe.Enable();
         }
 
-        else if(!wardrobeDoorTrigger.playerCanOpenWardrobe)
+        else if(!wardrobeBehavior.playerCanOpenWardrobe)
         {
             playerControls.InWardrobe.Disable();
         }
@@ -186,6 +162,7 @@ public class PlayerInputBehavior : MonoBehaviour
         _playerBody.Rotate(Vector3.up * mouseXLook);       
     }
 
+
     public void Move()
     {
         float x = playerControls.OutOfBed.Move.ReadValue<Vector2>().x;
@@ -200,7 +177,7 @@ public class PlayerInputBehavior : MonoBehaviour
 
 
 
-    //Functions for Action Map #1 (In Bed)
+////////////////Functions for Action Map #1 (In Bed)//////////////////////////////
     public void ToggleUnderBed(InputAction.CallbackContext context)
     {
         if(!_isUnderBed && !sleepBehavior.playerIsSleeping && !PauseSystem.isPaused)
@@ -244,7 +221,8 @@ public class PlayerInputBehavior : MonoBehaviour
 
 
 
-    //Functions for Action Map #2 (Out of Bed)
+
+//////////////////Functions for Action Map #2 (Out of Bed)////////////////////////
     public void GetInBed(InputAction.CallbackContext context)
     {
         if(getInBedTriggerBehavior.playerCanGetInBed && !PauseSystem.isPaused)
@@ -252,11 +230,16 @@ public class PlayerInputBehavior : MonoBehaviour
             _playerBody.transform.position = _TopOfBedPos.position;
             playerControls.OutOfBed.Disable();
             playerControls.InBed.Enable();
+            
         }
+
+        
     }
 
+    
 
-    //Functions for Action Map #3 (In Wardrobe)
+
+//////////////Functions for Action Map #3 (In Wardrobe)//////////////////////////////////
     
     public IEnumerator ToggleWardrobeDoor()
     {
@@ -268,6 +251,7 @@ public class PlayerInputBehavior : MonoBehaviour
 
         else if (wardrobeBehavior.wardrobeDoorIsOpen && !wardrobeBehavior.actionOnCoolDown && !PauseSystem.isPaused)
         {
+            //else close the door
             StartCoroutine(wardrobeBehavior.CloseWardrobeDoor());
         }
 

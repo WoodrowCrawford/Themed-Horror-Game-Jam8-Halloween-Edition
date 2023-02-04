@@ -43,7 +43,7 @@ public class Interactor : MonoBehaviour
                     _interactionUI.SetUp(_interactable.InteractionPrompt);
                 }
 
-                if(_playerInput.playerControls.Default.Interact.IsPressed())
+                if(Keyboard.current.eKey.wasPressedThisFrame)
                 {
                     _interactable.Interact(this);
                 }
