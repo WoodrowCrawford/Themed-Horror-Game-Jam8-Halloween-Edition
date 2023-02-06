@@ -6,7 +6,10 @@ public class FlashlightTriggerBehavior : MonoBehaviour
     /// Trigger Behavior for flashlight. Used for the actual light dectection collider.
     /// </summary>
 
-    public DummyBehavior dummyBehavior;
+    
+
+    public GameObject dummyLightIsHitting;
+
 
     [Header("Trigger Values")]
     public bool lightIsOnDummy1;
@@ -15,19 +18,24 @@ public class FlashlightTriggerBehavior : MonoBehaviour
 
     private void Awake()
     {
-        dummyBehavior = GameObject.FindGameObjectWithTag("Dummy1").GetComponent<DummyBehavior>();
+        //dummyBehavior = GameObject.FindGameObjectWithTag("Dummy1").GetComponent<DummyBehavior>();
     }
 
     private void OnTriggerStay(Collider other)
     {
+
         if (other.CompareTag("Dummy1"))
         {
-            lightIsOnDummy1 = true;
+            dummyLightIsHitting = other.gameObject;
+
+           dummyLightIsHitting.GetComponent<MainDummyAIBehavior>().dummyIsHitWithLight = true;
         }
 
         else if (other.CompareTag("Dummy2"))
         {
-            lightIsOnDummy2 = true;
+            dummyLightIsHitting = other.gameObject;
+
+            dummyLightIsHitting.GetComponent<MainDummyAIBehavior>().dummyIsHitWithLight = true;
         }
        
     }
@@ -37,12 +45,15 @@ public class FlashlightTriggerBehavior : MonoBehaviour
 
         if(other.CompareTag("Dummy1"))
         {
-            lightIsOnDummy1 = false;
+            dummyLightIsHitting.GetComponent<MainDummyAIBehavior>().dummyIsHitWithLight = false;
+            dummyLightIsHitting = null;
         }
 
         else if(other.CompareTag("Dummy2"))
         {
-            lightIsOnDummy2 = false;
+
+            dummyLightIsHitting.GetComponent<MainDummyAIBehavior>().dummyIsHitWithLight = false;
+            dummyLightIsHitting = null;
         }
         
        

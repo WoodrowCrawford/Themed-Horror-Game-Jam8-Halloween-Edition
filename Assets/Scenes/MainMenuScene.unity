@@ -295,9 +295,14 @@ MonoBehaviour:
   animator: {fileID: 0}
   _interactionPrompt: 
   _wardrobeDoorTrigger: {fileID: 0}
+  _player: {fileID: 0}
+  _insideWardrobePos: {fileID: 0}
+  _outsideWardrobePos: {fileID: 0}
   actionOnCoolDown: 0
   playerCanOpenWardrobe: 0
   wardrobeDoorIsOpen: 0
+  playerCanGetInWardrobe: 0
+  playerIsInWardrobe: 0
 --- !u!1001 &14430558
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2805,12 +2810,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 289699921}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -12.257084, y: 9.104771, z: 5.769509}
+  m_LocalPosition: {x: 19.842255, y: -4.5440636, z: 1.6612625}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 699944561}
-  m_RootOrder: 0
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &289995948
 PrefabInstance:
@@ -7118,10 +7123,7 @@ Transform:
   m_LocalPosition: {x: 32.09934, y: -13.648834, z: -4.1082463}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 289699923}
-  - {fileID: 1408164751}
-  - {fileID: 1575821783}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -13109,12 +13111,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1408164749}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -12.257084, y: 9.104771, z: 5.769509}
+  m_LocalPosition: {x: 19.842255, y: -4.5440636, z: 1.6612625}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 699944561}
-  m_RootOrder: 1
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1415971016
 PrefabInstance:
@@ -14693,12 +14695,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1575821780}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -12.257084, y: 9.104771, z: 5.769509}
+  m_LocalPosition: {x: 19.842255, y: -4.5440636, z: 1.6612625}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 699944561}
-  m_RootOrder: 2
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1575821784
 MonoBehaviour:
@@ -18114,7 +18116,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh57708
+  m_Name: pb_Mesh242886
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2

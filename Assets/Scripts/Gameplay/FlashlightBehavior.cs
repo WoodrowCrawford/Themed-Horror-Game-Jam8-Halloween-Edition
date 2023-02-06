@@ -4,7 +4,7 @@ using UnityEngine;
 public class FlashlightBehavior : MonoBehaviour
 {
     public SleepBehavior sleepBehavior;
-    public DummyBehavior dummyBehavior;
+   
     public FlashlightTriggerBehavior flashlightTriggerBehavior;
    
 
@@ -21,7 +21,7 @@ public class FlashlightBehavior : MonoBehaviour
     private void Awake()
     {
         sleepBehavior = GameObject.FindGameObjectWithTag("Player").GetComponent<SleepBehavior>();
-        dummyBehavior = GameObject.FindGameObjectWithTag("Dummy1").GetComponent<DummyBehavior>();
+       
         flashlightTriggerBehavior = GameObject.FindGameObjectWithTag("FlashlightTriggerBox").GetComponent<FlashlightTriggerBehavior>();
       
 
@@ -87,9 +87,6 @@ public class FlashlightBehavior : MonoBehaviour
 
                 flashlightTriggerBehavior.lightIsOnDummy1 = false;
                 flashlightTriggerBehavior.lightIsOnDummy2 = false;
-
-                //This makes the dummy's speed normal when the light is off (fixes bugs)
-                dummyBehavior.agent.speed = 0.5f;
             }
             else if (!flashlightOn)
             {
