@@ -6,20 +6,9 @@ public class FlashlightTriggerBehavior : MonoBehaviour
     /// Trigger Behavior for flashlight. Used for the actual light dectection collider.
     /// </summary>
 
-    
-
     public GameObject dummyLightIsHitting;
 
 
-    [Header("Trigger Values")]
-    public bool lightIsOnDummy1;
-    public bool lightIsOnDummy2;
-
-
-    private void Awake()
-    {
-        //dummyBehavior = GameObject.FindGameObjectWithTag("Dummy1").GetComponent<DummyBehavior>();
-    }
 
     private void OnTriggerStay(Collider other)
     {
@@ -56,6 +45,5 @@ public class FlashlightTriggerBehavior : MonoBehaviour
             dummyLightIsHitting = null;
         }
         
-       
     }
 }

@@ -14,7 +14,7 @@ public class JackInTheBoxBehavior : MonoBehaviour, IInteractable
     [SerializeField] private float _decreaseSpeed;
     [SerializeField] private float _increaseSpeed;
     [SerializeField] public static bool _playerRewindingBox;
-    [SerializeField] private bool _isJackInTheBoxOpen;
+    public bool jackInTheBoxOpen;
 
     [Header("Interaction Values")]
     [SerializeField] private string _interactionPrompt;
@@ -37,7 +37,7 @@ public class JackInTheBoxBehavior : MonoBehaviour, IInteractable
 
         //Disables the animator at start up
         _animator.enabled = false;
-        _isJackInTheBoxOpen = false;
+        jackInTheBoxOpen = false;
         _playerRewindingBox = false;
 
     }
@@ -64,7 +64,7 @@ public class JackInTheBoxBehavior : MonoBehaviour, IInteractable
             _animator.enabled= true;
 
             //Set the bool to equal true
-            _isJackInTheBoxOpen= true;
+            jackInTheBoxOpen= true;
         }
 
         //If the player is within range and player is interacting...

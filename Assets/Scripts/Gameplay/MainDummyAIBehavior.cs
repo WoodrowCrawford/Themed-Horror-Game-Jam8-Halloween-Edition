@@ -6,6 +6,7 @@ using UnityEngine.AI;
 
 public class MainDummyAIBehavior : MonoBehaviour
 {
+    //The ai states for the dummy
     public enum DummyStates
     {
         DEFAULT,
@@ -36,6 +37,11 @@ public class MainDummyAIBehavior : MonoBehaviour
     [SerializeField] private bool _dummyChasing = false;
 
 
+    [Header("Awake Frequency")]
+    [SerializeField] private float _minSecondsToAwake;
+    [SerializeField] private float _maxSecondsToAwake;
+
+
     [Header("Targets")]
     public GameObject target; //The main target that will be updated
     public Transform _playerRef;  //The reference to the player
@@ -45,9 +51,7 @@ public class MainDummyAIBehavior : MonoBehaviour
     private void Awake()
     {
         _agent= GetComponent<NavMeshAgent>();
-        //_dummyOriginBehavior = GetComponent<DummyOriginBehavior>();
         target = GameObject.FindGameObjectWithTag("Player");
-       
         _flashlightBehavior = GameObject.FindGameObjectWithTag("Flashlight").GetComponent<FlashlightBehavior>();
 
         StartCoroutine(DummyBeginPhase());
@@ -65,14 +69,17 @@ public class MainDummyAIBehavior : MonoBehaviour
 
     private void Update()
     {
+        //Sets the animators speed to equal the agents speed
         _animator.SetFloat("Speed", _agent.velocity.magnitude);
 
+        //Makes dummy chase the player if it is running away and the light is no longer hitting it
         if (dummyStates == DummyStates.RUNNING_AWAY && !dummyIsHitWithLight)
         {
             StopCoroutine(DummyGoBackToOrigin());
             StartCoroutine(DummyChasePlayer());
         }
 
+        //Makes the dummy lay down if it reaches the origin point it started at
         if (dummyStates == DummyStates.RUNNING_AWAY && dummyIsAtOrigin)
         {
             StopCoroutine(DummyChasePlayer());
@@ -88,6 +95,7 @@ public class MainDummyAIBehavior : MonoBehaviour
         }
 
 
+        //If the flashlight turns off then the dummy no longer has light hitting it
         if(!_flashlightBehavior.flashlightOn)
         {
             dummyIsHitWithLight = false;
@@ -100,51 +108,67 @@ public class MainDummyAIBehavior : MonoBehaviour
     //Sets up the dummy when it is laying down to get up
     public IEnumerator DummyBeginPhase()
     {
-        dummyStates = DummyStates.DEFAULT;
+        //Sets the dummystate to default
+        dummyStates = DummyStates.DEFAULT;  
+
         _dummyLayingDown = true;
         _dummyChasing = false;
         _dummyGettingUp = false;
         isDummyUp = false;
 
-        yield return new WaitForSeconds(Random.Range(5f, 12f));
+        //Waits a random second between min seconds to awake and max seconds to awake
+        yield return new WaitForSeconds(Random.Range(_minSecondsToAwake, _maxSecondsToAwake));
 
+        //Testing purposes
         Debug.Log("Starting get up phase...");
+
+        //Starts the dummy get up phase
         StartCoroutine(DummyGetUp());
     }
 
 
     public IEnumerator DummyGetUp()
     {
+        //Stops the begin, chase, and go back to origin phase if they arent stopped already
         StopCoroutine(DummyBeginPhase());
         StopCoroutine(DummyChasePlayer());
         StopCoroutine(DummyGoBackToOrigin());
+
+
         //Changes the state to be the getting up state
         dummyStates = DummyStates.GETTING_UP;
 
         //Sets dummy getting up to be true
         _dummyGettingUp = true;
 
-        //Waits for a random amount of time before the dummy gets up;
-        yield return new WaitForSeconds(Random.Range(6f, 15f));
+        //Waits a random second between min seconds to awake and max seconds to awake
+        yield return new WaitForSeconds(Random.Range(_minSecondsToAwake, _maxSecondsToAwake));
 
+        //Testing purposes
         Debug.Log("dummy is up...");
+
+        //Sets the bools for the animator
         _animator.SetBool("DummyStandUp", true);
         _animator.SetBool("SitBackDown", false);
 
         yield return new WaitForSeconds(1f);
+
+        //Sets the bools for the dummy
         isDummyUp = true;
         _dummyLayingDown = false;
-
         _dummyGettingUp = false;
+
+        //Stats the chasing phase
         StartCoroutine(DummyChasePlayer());
     }
 
     public IEnumerator DummyChasePlayer()
     {
+        //Sets the agents speed
         _agent.speed = 0.5f;
+
         //Changes the state to be the chasing player state
         dummyStates = DummyStates.CHASING_PLAYER;
-
 
 
         //If the light is on it while chasing then retreat back to origin
@@ -153,7 +177,7 @@ public class MainDummyAIBehavior : MonoBehaviour
             //Stops chasing the playerd
             StopCoroutine(DummyChasePlayer());
 
-
+            //Set dummy chasing to be false
             _dummyChasing = false;
 
             //Starts to run back to origin point
@@ -193,6 +217,8 @@ public class MainDummyAIBehavior : MonoBehaviour
         _animator.SetBool("SitBackDown", true);
 
         yield return new WaitForSeconds(1f);
+
+        //Starts the begin phase
         StartCoroutine(DummyBeginPhase());
     }
 
@@ -203,6 +229,8 @@ public class MainDummyAIBehavior : MonoBehaviour
     {
         _dummyLayingDown = false;
         _agent.speed = 1.5f;
+        
+        //Stops chasing the player
         StopCoroutine(DummyChasePlayer());
 
         //Changes the dummy state to be the running away state
@@ -212,8 +240,11 @@ public class MainDummyAIBehavior : MonoBehaviour
 
         //Sets the dummy's target to be where it first started
         _agent.SetDestination(_originPos.transform.position);
+
+        //Waits until the dummy is at the origin
         yield return new WaitUntil(() => dummyIsAtOrigin);
 
+        //Stops this phase
         StopCoroutine(DummyGoBackToOrigin());
 
 

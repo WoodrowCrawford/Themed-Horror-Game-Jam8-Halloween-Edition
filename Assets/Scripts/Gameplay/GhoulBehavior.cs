@@ -38,6 +38,7 @@ public class GhoulBehavior : MonoBehaviour
         ghoulSightBehavior = GameObject.FindGameObjectWithTag("Ghoul").GetComponent<GhoulSightBehavior>();
         playerInputBehavior = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInputBehavior>();
 
+        //Starts the ghoul ai behavior
         StartCoroutine(GhoulAIBehavior());
     }
 

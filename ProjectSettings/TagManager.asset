@@ -21,6 +21,7 @@ TagManager:
   - EventSystem
   - PauseSystem
   - JackBoxInteractRange
+  - JackIntheBox
   layers:
   - Default
   - TransparentFX

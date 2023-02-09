@@ -75,18 +75,16 @@ public class FlashlightBehavior : MonoBehaviour
 
     public void ToggleFlashLight()
     {
-        //Checks if the game is paused or not
-
+        //If the game is not paused
         if(!PauseSystem.isPaused)
         {
+            //If the flashlight is on...
             if (flashlightOn)
             {
                 _playerLight.gameObject.SetActive(false);
                 _flashlightTrigger.gameObject.SetActive(false);
                 flashlightOn = false;
 
-                flashlightTriggerBehavior.lightIsOnDummy1 = false;
-                flashlightTriggerBehavior.lightIsOnDummy2 = false;
             }
             else if (!flashlightOn)
             {
