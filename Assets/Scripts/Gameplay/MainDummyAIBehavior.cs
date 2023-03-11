@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
@@ -22,6 +23,10 @@ public class MainDummyAIBehavior : MonoBehaviour
     [SerializeField] private FlashlightBehavior _flashlightBehavior;
     [SerializeField] private GameObject _originTrigger;
 
+    [SerializeField] private GameObject _playerRef;
+
+
+
 
     [Header("Dummy Values")]
     [SerializeField] private float _speed;
@@ -33,25 +38,29 @@ public class MainDummyAIBehavior : MonoBehaviour
     [SerializeField] DummyStates dummyStates;
     [SerializeField] private bool _dummyLayingDown = true;
     [SerializeField] private bool _dummyGettingUp = false;
-    public bool isDummyUp = false;
     [SerializeField] private bool _dummyChasing = false;
+    public bool isDummyUp = false;
 
 
     [Header("Awake Frequency")]
     [SerializeField] private float _minSecondsToAwake;
     [SerializeField] private float _maxSecondsToAwake;
 
+    [Header("Speed on Awake")]
+    [SerializeField] private float _minMovementSpeed;
+    [SerializeField] private float _maxMovementSpeed;
+    public float speedReturned;
+
 
     [Header("Targets")]
     public GameObject target; //The main target that will be updated
-    public Transform _playerRef;  //The reference to the player
+    public GameObject inBedTarget;
     public Transform _originPos;
 
 
     private void Awake()
     {
         _agent= GetComponent<NavMeshAgent>();
-        target = GameObject.FindGameObjectWithTag("Player");
         _flashlightBehavior = GameObject.FindGameObjectWithTag("Flashlight").GetComponent<FlashlightBehavior>();
 
         StartCoroutine(DummyBeginPhase());
@@ -61,8 +70,7 @@ public class MainDummyAIBehavior : MonoBehaviour
 
     private void Start()
     {
-        //Sets the default agent's speed
-        _agent.speed = 0.5f;
+        _agent.speed = speedReturned;
         _dummyLayingDown = true;
     }
 
@@ -90,7 +98,7 @@ public class MainDummyAIBehavior : MonoBehaviour
         //This makes the dummy's speed normal when the light is off (fixes bugs)
         if (!_flashlightBehavior.flashlightOn && dummyStates != DummyStates.RUNNING_AWAY)
         {
-            _agent.speed = 0.5f;
+            _agent.speed = speedReturned;
             
         }
 
@@ -100,16 +108,42 @@ public class MainDummyAIBehavior : MonoBehaviour
         {
             dummyIsHitWithLight = false;
         }
+
+        CheckIfPlayerIsInBed();
     
     }
 
+
+    
+    public void CheckIfPlayerIsInBed()
+    {
+        //If the player is in the bed...
+        if (_playerRef.GetComponent<PlayerInputBehavior>().playerControls.InBed.enabled)
+        {
+            //The dummy will go to their respective target points
+            this.gameObject.GetComponent<MainDummyAIBehavior>().target = inBedTarget.gameObject;
+
+        }
+
+        //If the player is not in the bed...   
+        else
+        {
+            //The dummies will chase the player
+            this.gameObject.GetComponent<MainDummyAIBehavior>().target = _playerRef;
+        }
+    }
 
 
     //Sets up the dummy when it is laying down to get up
     public IEnumerator DummyBeginPhase()
     {
         //Sets the dummystate to default
-        dummyStates = DummyStates.DEFAULT;  
+        dummyStates = DummyStates.DEFAULT;
+
+    
+
+        //Sets the agents speed to a random number between min speed an max speed
+        speedReturned = Random.Range(Mathf.FloorToInt(_minMovementSpeed), Mathf.FloorToInt(_maxMovementSpeed));
 
         _dummyLayingDown = true;
         _dummyChasing = false;
@@ -151,7 +185,7 @@ public class MainDummyAIBehavior : MonoBehaviour
         _animator.SetBool("DummyStandUp", true);
         _animator.SetBool("SitBackDown", false);
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(3.2f);
 
         //Sets the bools for the dummy
         isDummyUp = true;
@@ -164,8 +198,9 @@ public class MainDummyAIBehavior : MonoBehaviour
 
     public IEnumerator DummyChasePlayer()
     {
-        //Sets the agents speed
-        _agent.speed = 0.5f;
+        
+        //Sets the agents speed to a random number between min speed an max speed
+        //_agent.speed = Random.Range(Mathf.FloorToInt(_minMovementSpeed), Mathf.FloorToInt(_maxMovementSpeed));
 
         //Changes the state to be the chasing player state
         dummyStates = DummyStates.CHASING_PLAYER;
@@ -189,7 +224,7 @@ public class MainDummyAIBehavior : MonoBehaviour
             StopCoroutine(DummyGoBackToOrigin());
 
             //Makes the dummy's target to be the player
-            _agent.SetDestination(_playerRef.transform.position);
+            _agent.SetDestination(target.transform.position);
             _dummyChasing = true;
 
             //Waits a bit to prevent overload on performance
@@ -229,6 +264,7 @@ public class MainDummyAIBehavior : MonoBehaviour
     {
         _dummyLayingDown = false;
         _agent.speed = 1.5f;
+       
         
         //Stops chasing the player
         StopCoroutine(DummyChasePlayer());

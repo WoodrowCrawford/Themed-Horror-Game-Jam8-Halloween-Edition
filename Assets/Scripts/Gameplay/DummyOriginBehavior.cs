@@ -4,20 +4,15 @@ using UnityEngine;
 
 public class DummyOriginBehavior : MonoBehaviour
 {
-    public GameObject dummyThisBelongsTo;
+    [SerializeField] private GameObject _dummyThisBelongsTo;
 
 
     private void OnTriggerStay(Collider other)
     {
-
-       
-
-      
-
-        if(other.gameObject == dummyThisBelongsTo.gameObject)
+        if(other.gameObject == _dummyThisBelongsTo.gameObject)
         {
-            dummyThisBelongsTo.GetComponent<MainDummyAIBehavior>().dummyIsAtOrigin = true;
-            Debug.Log(dummyThisBelongsTo.name + "is here right now");
+            _dummyThisBelongsTo.GetComponent<MainDummyAIBehavior>().dummyIsAtOrigin = true;
+            Debug.Log(_dummyThisBelongsTo.name + "is here right now");
         }
         
     }
@@ -26,19 +21,11 @@ public class DummyOriginBehavior : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
 
-       
-
-       
-
-        if (other.gameObject == dummyThisBelongsTo.gameObject)
+        if (other.gameObject == _dummyThisBelongsTo.gameObject)
         {
-            dummyThisBelongsTo.GetComponent<MainDummyAIBehavior>().dummyIsAtOrigin = false;
-            Debug.Log(dummyThisBelongsTo.name + "is here right now");
+            _dummyThisBelongsTo.GetComponent<MainDummyAIBehavior>().dummyIsAtOrigin = false;
+            Debug.Log(_dummyThisBelongsTo.name + "is here right now");
         }
-
-
-        
-
 
     }
 }
