@@ -10,6 +10,7 @@ public class MainDummyAIBehavior : MonoBehaviour
     //The ai states for the dummy
     public enum DummyStates
     {
+        DISABLED,
         DEFAULT,
         LAYING_DOWN,
         GETTING_UP,
@@ -18,33 +19,58 @@ public class MainDummyAIBehavior : MonoBehaviour
     }
 
 
+
+    public enum TestCaseEnum
+    {
+        FIRST,
+        SECOND,
+        THIRD,
+        FOURTH,
+        FINAL
+    }
+
+
+
+    [Header("Core")]
     [SerializeField] private NavMeshAgent _agent;
     [SerializeField] private Animator _animator;
     [SerializeField] private FlashlightBehavior _flashlightBehavior;
-    [SerializeField] private GameObject _originTrigger;
 
+
+
+    [Header("Game Objects")]
+    [SerializeField] private GameObject _originTrigger;
     [SerializeField] private GameObject _playerRef;
 
 
 
-
-    [Header("Dummy Values")]
+    [Header("Values")]
     [SerializeField] private float _speed;
     public float dummyCoolDownTimer;
+
+
+    [Header("Bools")]
     public bool dummyIsAtOrigin;
     public bool dummyIsHitWithLight;
+    public bool isActive;
+
 
     [Header("AI State Values")]
     [SerializeField] DummyStates dummyStates;
     [SerializeField] private bool _dummyLayingDown = true;
     [SerializeField] private bool _dummyGettingUp = false;
     [SerializeField] private bool _dummyChasing = false;
+    [SerializeField] private bool _hasBeginPhaseStarted;
+
     public bool isDummyUp = false;
+    
+   
 
 
     [Header("Awake Frequency")]
     [SerializeField] private float _minSecondsToAwake;
     [SerializeField] private float _maxSecondsToAwake;
+
 
     [Header("Speed on Awake")]
     [SerializeField] private float _minMovementSpeed;
@@ -53,9 +79,15 @@ public class MainDummyAIBehavior : MonoBehaviour
 
 
     [Header("Targets")]
-    public GameObject target; //The main target that will be updated
-    public GameObject inBedTarget;
-    public Transform _originPos;
+    [SerializeField] private GameObject _target; //The main target that will be updated
+    [SerializeField] private GameObject _inBedTarget;
+    [SerializeField] private Transform _originPos;
+
+
+    [Header("Testing")]
+    [SerializeField] private TestCaseEnum _testCase;
+    [SerializeField] private bool _startTesting;
+
 
 
     private void Awake()
@@ -63,7 +95,7 @@ public class MainDummyAIBehavior : MonoBehaviour
         _agent= GetComponent<NavMeshAgent>();
         _flashlightBehavior = GameObject.FindGameObjectWithTag("Flashlight").GetComponent<FlashlightBehavior>();
 
-        StartCoroutine(DummyBeginPhase());
+        
     }
 
 
@@ -77,41 +109,72 @@ public class MainDummyAIBehavior : MonoBehaviour
 
     private void Update()
     {
-        //Sets the animators speed to equal the agents speed
-        _animator.SetFloat("Speed", _agent.velocity.magnitude);
-
-        //Makes dummy chase the player if it is running away and the light is no longer hitting it
-        if (dummyStates == DummyStates.RUNNING_AWAY && !dummyIsHitWithLight)
+        if(_startTesting)
         {
-            StopCoroutine(DummyGoBackToOrigin());
-            StartCoroutine(DummyChasePlayer());
+            StartCoroutine(DummyAICase());
         }
 
-        //Makes the dummy lay down if it reaches the origin point it started at
-        if (dummyStates == DummyStates.RUNNING_AWAY && dummyIsAtOrigin)
-        {
-            StopCoroutine(DummyChasePlayer());
-            StopCoroutine(DummyGoBackToOrigin());
-            StartCoroutine(DummyLayDown());
-        }
 
-        //This makes the dummy's speed normal when the light is off (fixes bugs)
-        if (!_flashlightBehavior.flashlightOn && dummyStates != DummyStates.RUNNING_AWAY)
+        if(isActive)
         {
-            _agent.speed = speedReturned;
+            //If the begin phase has not started....
+            if (!_hasBeginPhaseStarted)
+            {
+                //Starts the dummy begin phase at startup
+                StartCoroutine(DummyBeginPhase());
+            }
+
             
+
+            //Sets the animators speed to equal the agents speed
+            _animator.SetFloat("Speed", _agent.velocity.magnitude);
+
+            //Makes dummy chase the player if it is running away and the light is no longer hitting it
+            if (dummyStates == DummyStates.RUNNING_AWAY && !dummyIsHitWithLight)
+            {
+                StopCoroutine(DummyGoBackToOrigin());
+                StartCoroutine(DummyChasePlayer());
+            }
+
+            //Makes the dummy lay down if it reaches the origin point it started at
+            if (dummyStates == DummyStates.RUNNING_AWAY && dummyIsAtOrigin)
+            {
+                StopCoroutine(DummyChasePlayer());
+                StopCoroutine(DummyGoBackToOrigin());
+                StartCoroutine(DummyLayDown());
+            }
+
+            //This makes the dummy's speed normal when the light is off (fixes bugs)
+            if (!_flashlightBehavior.flashlightOn && dummyStates != DummyStates.RUNNING_AWAY)
+            {
+                _agent.speed = speedReturned;
+            }
+
+
+            //If the flashlight turns off then the dummy no longer has light hitting it
+            if (!_flashlightBehavior.flashlightOn)
+            {
+                dummyIsHitWithLight = false;
+            }
+
+            //Checks to see if the player is in the bed
+            CheckIfPlayerIsInBed();
         }
-
-
-        //If the flashlight turns off then the dummy no longer has light hitting it
-        if(!_flashlightBehavior.flashlightOn)
+        else
         {
-            dummyIsHitWithLight = false;
+            Debug.Log("Dummy is not active");
         }
+        
+        
 
-        CheckIfPlayerIsInBed();
+        
     
     }
+
+
+    public float GetMinSecondsToAwake() { return _minSecondsToAwake; }
+
+    public float GetMaxSecondsToAwake() { return _maxSecondsToAwake;}
 
 
     
@@ -121,7 +184,7 @@ public class MainDummyAIBehavior : MonoBehaviour
         if (_playerRef.GetComponent<PlayerInputBehavior>().playerControls.InBed.enabled)
         {
             //The dummy will go to their respective target points
-            this.gameObject.GetComponent<MainDummyAIBehavior>().target = inBedTarget.gameObject;
+            this.gameObject.GetComponent<MainDummyAIBehavior>()._target = _inBedTarget.gameObject;
 
         }
 
@@ -129,7 +192,7 @@ public class MainDummyAIBehavior : MonoBehaviour
         else
         {
             //The dummies will chase the player
-            this.gameObject.GetComponent<MainDummyAIBehavior>().target = _playerRef;
+            this.gameObject.GetComponent<MainDummyAIBehavior>()._target = _playerRef;
         }
     }
 
@@ -137,6 +200,9 @@ public class MainDummyAIBehavior : MonoBehaviour
     //Sets up the dummy when it is laying down to get up
     public IEnumerator DummyBeginPhase()
     {
+        //Tells the game that the dummy start up phase has begun
+        _hasBeginPhaseStarted= true;
+
         //Sets the dummystate to default
         dummyStates = DummyStates.DEFAULT;
 
@@ -158,6 +224,10 @@ public class MainDummyAIBehavior : MonoBehaviour
 
         //Starts the dummy get up phase
         StartCoroutine(DummyGetUp());
+
+        //Ends this coroutine so it only plays once
+        StopCoroutine(DummyBeginPhase());
+
     }
 
 
@@ -224,7 +294,7 @@ public class MainDummyAIBehavior : MonoBehaviour
             StopCoroutine(DummyGoBackToOrigin());
 
             //Makes the dummy's target to be the player
-            _agent.SetDestination(target.transform.position);
+            _agent.SetDestination(_target.transform.position);
             _dummyChasing = true;
 
             //Waits a bit to prevent overload on performance
@@ -286,5 +356,167 @@ public class MainDummyAIBehavior : MonoBehaviour
 
         //DEBUG
         Debug.Log("Dummy is getting back down");
+    }
+
+
+
+
+
+    private IEnumerator DummyAICase()
+    {
+        while (true)
+        {
+            switch (dummyStates)
+            {
+                //dummy is not enabled
+                case DummyStates.DISABLED:
+                    {
+                        dummyStates = DummyStates.DISABLED;
+                        yield return new WaitForSeconds(1f);
+                        Debug.Log("Dummy is disabled");
+                        break;
+                    }
+
+                    //Default "isActive" state
+                case DummyStates.DEFAULT:
+                    {
+                        dummyStates = DummyStates.DEFAULT;
+                        yield return new WaitForSeconds(1f);
+                        Debug.Log("Dummy is in default state");
+                       
+
+                        if(!_hasBeginPhaseStarted)
+                        {
+                            //Tells the game that the dummy start up phase has begun
+                            _hasBeginPhaseStarted = true;
+
+                            //Sets the dummystate to default
+                            dummyStates = DummyStates.DEFAULT;
+
+
+
+                            //Sets the agents speed to a random number between min speed an max speed
+                            speedReturned = Random.Range(Mathf.FloorToInt(_minMovementSpeed), Mathf.FloorToInt(_maxMovementSpeed));
+
+                            _dummyLayingDown = true;
+                            _dummyChasing = false;
+                            _dummyGettingUp = false;
+                            isDummyUp = false;
+
+                            //Waits a random second between min seconds to awake and max seconds to awake
+                            yield return new WaitForSeconds(Random.Range(_minSecondsToAwake, _maxSecondsToAwake));
+
+                            //Testing purposes
+                            Debug.Log("Starting get up phase...");
+
+                            //Starts the dummy get up phase
+                            StartCoroutine(DummyGetUp());
+
+                            //Ends this coroutine so it only plays once
+                            StopCoroutine(DummyBeginPhase());
+                        }
+
+                        break;
+                    }
+
+                    //Dummy is in laying down state
+                case DummyStates.LAYING_DOWN:
+                    {
+                        dummyStates = DummyStates.LAYING_DOWN;
+                        yield return new WaitForSeconds(1f);
+                        Debug.Log("Dummy is in laying down state");
+                        break;
+                    }
+
+
+                    //Dummy is in getting up state
+                case DummyStates.GETTING_UP:
+                    {
+                        dummyStates = DummyStates.GETTING_UP;
+                        yield return new WaitForSeconds(1f);
+                        Debug.Log("Dummy is in getting up state");
+                        break;
+                    }
+
+
+                    //Dummy is in chasing the player state
+                case DummyStates.CHASING_PLAYER:
+                    {
+                        dummyStates = DummyStates.CHASING_PLAYER;
+                        yield return new WaitForSeconds(1f);
+                        Debug.Log("Dummy is in chasing player state");
+                        break;
+                    }
+
+
+                    //Dummy is in the running away state
+                case DummyStates.RUNNING_AWAY:
+                    {
+                        dummyStates = DummyStates.RUNNING_AWAY;
+                        yield return new WaitForSeconds(1f);
+                        Debug.Log("Dummy is in running away state");
+                        break;
+                    }
+                
+            }
+        }
+    }
+
+
+
+
+
+
+    private IEnumerator TestCaseFunction()
+    {
+        while (true)
+        {
+            switch(_testCase)
+            {
+                case TestCaseEnum.FIRST:
+                    {
+                        _testCase= TestCaseEnum.FIRST;
+                        yield return new WaitForSeconds(1f);
+                        _testCase = TestCaseEnum.SECOND;
+
+                        break;
+                    }
+
+                case TestCaseEnum.SECOND:
+                    {
+                        _testCase= TestCaseEnum.SECOND;
+                        yield return new WaitForSeconds(1f);
+                        _testCase = TestCaseEnum.THIRD;
+
+                        break;
+                    }
+
+                case TestCaseEnum.THIRD:
+                    {
+                        _testCase= TestCaseEnum.THIRD;
+                        yield return new WaitForSeconds(1f);
+                        _testCase = TestCaseEnum.FOURTH;
+
+                        break;
+                    }
+
+                 case TestCaseEnum.FOURTH:
+                    {
+                        _testCase= TestCaseEnum.FOURTH;
+                        yield return new WaitForSeconds(1f);
+                        _testCase = TestCaseEnum.FINAL;
+
+                        break;
+                    }
+
+                case TestCaseEnum.FINAL:
+                    {
+                        _testCase= TestCaseEnum.FINAL; 
+                        yield return new WaitForSeconds(1f);
+                        _testCase = TestCaseEnum.FIRST;
+                        break;
+                    }
+            }
+        }
     }
 }
