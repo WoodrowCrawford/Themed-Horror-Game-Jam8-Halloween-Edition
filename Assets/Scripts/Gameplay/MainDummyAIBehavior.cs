@@ -10,25 +10,13 @@ public class MainDummyAIBehavior : MonoBehaviour
     //The ai states for the dummy
     public enum DummyStates
     {
-        DISABLED,
+        
         DEFAULT,
         LAYING_DOWN,
         GETTING_UP,
         CHASING_PLAYER,
         RUNNING_AWAY
     }
-
-
-
-    public enum TestCaseEnum
-    {
-        FIRST,
-        SECOND,
-        THIRD,
-        FOURTH,
-        FINAL
-    }
-
 
 
     [Header("Core")]
@@ -84,9 +72,7 @@ public class MainDummyAIBehavior : MonoBehaviour
     [SerializeField] private Transform _originPos;
 
 
-    [Header("Testing")]
-    [SerializeField] private TestCaseEnum _testCase;
-    [SerializeField] private bool _startTesting;
+ 
 
 
 
@@ -109,10 +95,7 @@ public class MainDummyAIBehavior : MonoBehaviour
 
     private void Update()
     {
-        if(_startTesting)
-        {
-            StartCoroutine(DummyAICase());
-        }
+       
 
 
         if(isActive)
@@ -121,7 +104,7 @@ public class MainDummyAIBehavior : MonoBehaviour
             if (!_hasBeginPhaseStarted)
             {
                 //Starts the dummy begin phase at startup
-                StartCoroutine(DummyBeginPhase());
+                StartCoroutine(DummyAICase());
             }
 
             
@@ -167,8 +150,6 @@ public class MainDummyAIBehavior : MonoBehaviour
         
         
 
-        
-    
     }
 
 
@@ -368,155 +349,183 @@ public class MainDummyAIBehavior : MonoBehaviour
         {
             switch (dummyStates)
             {
-                //dummy is not enabled
-                case DummyStates.DISABLED:
-                    {
-                        dummyStates = DummyStates.DISABLED;
-                        yield return new WaitForSeconds(1f);
-                        Debug.Log("Dummy is disabled");
-                        break;
-                    }
-
-                    //Default "isActive" state
+                 //Default "isActive" state
                 case DummyStates.DEFAULT:
                     {
+                        //Tells the game that the dummy start up phase has begun
+                        _hasBeginPhaseStarted = true;
+
+                        //Sets the dummystate to default
                         dummyStates = DummyStates.DEFAULT;
-                        yield return new WaitForSeconds(1f);
-                        Debug.Log("Dummy is in default state");
-                       
-
-                        if(!_hasBeginPhaseStarted)
-                        {
-                            //Tells the game that the dummy start up phase has begun
-                            _hasBeginPhaseStarted = true;
-
-                            //Sets the dummystate to default
-                            dummyStates = DummyStates.DEFAULT;
 
 
 
-                            //Sets the agents speed to a random number between min speed an max speed
-                            speedReturned = Random.Range(Mathf.FloorToInt(_minMovementSpeed), Mathf.FloorToInt(_maxMovementSpeed));
+                        //Sets the agents speed to a random number between min speed an max speed
+                        speedReturned = Random.Range(Mathf.FloorToInt(_minMovementSpeed), Mathf.FloorToInt(_maxMovementSpeed));
 
-                            _dummyLayingDown = true;
-                            _dummyChasing = false;
-                            _dummyGettingUp = false;
-                            isDummyUp = false;
+                        _dummyLayingDown = true;
+                        _dummyChasing = false;
+                        _dummyGettingUp = false;
+                        isDummyUp = false;
 
-                            //Waits a random second between min seconds to awake and max seconds to awake
-                            yield return new WaitForSeconds(Random.Range(_minSecondsToAwake, _maxSecondsToAwake));
+                        //Waits a random second between min seconds to awake and max seconds to awake
+                        yield return new WaitForSeconds(Random.Range(_minSecondsToAwake, _maxSecondsToAwake));
 
-                            //Testing purposes
-                            Debug.Log("Starting get up phase...");
+                        //Testing purposes
+                        Debug.Log("Starting get up phase...");
 
-                            //Starts the dummy get up phase
-                            StartCoroutine(DummyGetUp());
+                        //Starts the dummy get up phase
+                        dummyStates = DummyStates.GETTING_UP;
 
-                            //Ends this coroutine so it only plays once
-                            StopCoroutine(DummyBeginPhase());
-                        }
-
+                        
                         break;
+                        
                     }
 
-                    //Dummy is in laying down state
-                case DummyStates.LAYING_DOWN:
-                    {
-                        dummyStates = DummyStates.LAYING_DOWN;
-                        yield return new WaitForSeconds(1f);
-                        Debug.Log("Dummy is in laying down state");
-                        break;
-                    }
-
-
-                    //Dummy is in getting up state
+                //Dummy is in getting up state
                 case DummyStates.GETTING_UP:
                     {
+                       
+                        //Changes the state to be the getting up state
                         dummyStates = DummyStates.GETTING_UP;
-                        yield return new WaitForSeconds(1f);
-                        Debug.Log("Dummy is in getting up state");
+
+                        //Sets dummy getting up to be true
+                        _dummyGettingUp = true;
+
+                        //Waits a random second between min seconds to awake and max seconds to awake
+                        yield return new WaitForSeconds(Random.Range(_minSecondsToAwake, _maxSecondsToAwake));
+
+                        //Testing purposes
+                        Debug.Log("dummy is up...");
+
+                        //Sets the bools for the animator
+                        _animator.SetBool("DummyStandUp", true);
+                        _animator.SetBool("SitBackDown", false);
+
+                        yield return new WaitForSeconds(3.2f);
+
+                        //Sets the bools for the dummy
+                        isDummyUp = true;
+                        _dummyLayingDown = false;
+                        _dummyGettingUp = false;
+
+                        //Stats the chasing phase
+                        dummyStates = DummyStates.CHASING_PLAYER;
+
+
                         break;
                     }
 
 
-                    //Dummy is in chasing the player state
+                //Dummy is in chasing the player state
                 case DummyStates.CHASING_PLAYER:
                     {
+                        //Sets the agents speed to a random number between min speed an max speed
+                        //_agent.speed = Random.Range(Mathf.FloorToInt(_minMovementSpeed), Mathf.FloorToInt(_maxMovementSpeed));
+
+                        //Changes the state to be the chasing player state
                         dummyStates = DummyStates.CHASING_PLAYER;
-                        yield return new WaitForSeconds(1f);
-                        Debug.Log("Dummy is in chasing player state");
+
+
+                        //If the light is on it while chasing then retreat back to origin
+                        if (dummyIsHitWithLight)
+                        {
+                            //Set dummy chasing to be false
+                            _dummyChasing = false;
+
+
+                            //Starts to run back to origin point
+                            dummyStates = DummyStates.RUNNING_AWAY;
+                        }
+                        else
+                        {
+                            //Stop going back to origin if the light is no longer on the dummy
+                            dummyStates = DummyStates.CHASING_PLAYER;
+
+                            //Makes the dummy's target to be the player
+                            _agent.SetDestination(_target.transform.position);
+                            _dummyChasing = true;
+
+                            //Waits a bit to prevent overload on performance
+                            yield return new WaitForSeconds(0.8f);
+
+                            //DEBUG
+                            Debug.Log("Dummy is chasing player");
+
+                            //Repeats the Chase player cororutine
+                            //StartCoroutine(DummyChasePlayer());
+                        }
+
+
+
+
                         break;
+
+                       
                     }
 
+
+               
 
                     //Dummy is in the running away state
                 case DummyStates.RUNNING_AWAY:
                     {
+                        _dummyLayingDown = false;
+                        _agent.speed = 1.5f;
+
+                        //Changes the dummy state to be the running away state
                         dummyStates = DummyStates.RUNNING_AWAY;
-                        yield return new WaitForSeconds(1f);
-                        Debug.Log("Dummy is in running away state");
+
+
+                       
+
+
+                        //Sets the dummy's target to be where it first started
+                        _agent.SetDestination(_originPos.transform.position);
+
+                        //Waits until the dummy is at the origin
+                        yield return new WaitUntil(() => dummyIsAtOrigin);
+
+                        //Stops this phase
+                        //StopCoroutine(DummyGoBackToOrigin());
+
+                        dummyStates = DummyStates.LAYING_DOWN;
+
                         break;
                     }
-                
+
+
+
+
+                //Dummy is in laying down state
+                case DummyStates.LAYING_DOWN:
+                    {
+                        //Stops going back to origin point in order to lay down
+                        StopCoroutine(DummyGoBackToOrigin());
+                        StopCoroutine(DummyChasePlayer());
+
+                        //Changes the state to be the laying down state
+                        dummyStates = DummyStates.LAYING_DOWN;
+
+
+                        //Makes the sitbackdown bool true to play sit down animation
+                        _animator.SetBool("SitBackDown", true);
+
+                        yield return new WaitForSeconds(1f);
+
+                        //Starts the begin phase
+                        dummyStates = DummyStates.DEFAULT;
+
+                        //StartCoroutine(DummyBeginPhase());
+
+                        break;
+                    }
+
+
             }
         }
     }
 
 
 
-
-
-
-    private IEnumerator TestCaseFunction()
-    {
-        while (true)
-        {
-            switch(_testCase)
-            {
-                case TestCaseEnum.FIRST:
-                    {
-                        _testCase= TestCaseEnum.FIRST;
-                        yield return new WaitForSeconds(1f);
-                        _testCase = TestCaseEnum.SECOND;
-
-                        break;
-                    }
-
-                case TestCaseEnum.SECOND:
-                    {
-                        _testCase= TestCaseEnum.SECOND;
-                        yield return new WaitForSeconds(1f);
-                        _testCase = TestCaseEnum.THIRD;
-
-                        break;
-                    }
-
-                case TestCaseEnum.THIRD:
-                    {
-                        _testCase= TestCaseEnum.THIRD;
-                        yield return new WaitForSeconds(1f);
-                        _testCase = TestCaseEnum.FOURTH;
-
-                        break;
-                    }
-
-                 case TestCaseEnum.FOURTH:
-                    {
-                        _testCase= TestCaseEnum.FOURTH;
-                        yield return new WaitForSeconds(1f);
-                        _testCase = TestCaseEnum.FINAL;
-
-                        break;
-                    }
-
-                case TestCaseEnum.FINAL:
-                    {
-                        _testCase= TestCaseEnum.FINAL; 
-                        yield return new WaitForSeconds(1f);
-                        _testCase = TestCaseEnum.FIRST;
-                        break;
-                    }
-            }
-        }
-    }
 }
