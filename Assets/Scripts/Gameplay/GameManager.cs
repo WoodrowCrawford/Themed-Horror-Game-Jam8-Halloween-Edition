@@ -144,8 +144,19 @@ public class GameManager : MonoBehaviour
             case Days.SUNDAY_MORNING:
                 {
                     Debug.Log("Sunday Morning");
+                    
+                    //Set sun to be active
+                    isDaytime = true;
+                    isNightTime = false;
+                    
                     FindAIEnemies();
 
+                    if(SceneManager.GetActiveScene() == SceneManager.GetSceneByName("BedroomScene"))
+                    {
+                       //Put morning code here
+
+                        
+                    }
                     
 
                     break;
@@ -153,12 +164,19 @@ public class GameManager : MonoBehaviour
 
             case Days.SUNDAY_NIGHT:
                 {
+                    //Set night time 
+                    isDaytime = false;
+                    isNightTime = true;
+
                     Debug.Log("Sunday Night");
                     break;
                 }
 
             case Days.MONDAY_MORNING:
                 {
+                    isDaytime |= true;
+                    isNightTime = false;
+
                     Debug.Log("Monday Morning");
                     break;
                 }
