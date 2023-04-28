@@ -24,6 +24,7 @@ TagManager:
   - JackIntheBox
   - Clown
   - Point1
+  - TodaysDateGO
   layers:
   - Default
   - TransparentFX
