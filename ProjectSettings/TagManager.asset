@@ -25,6 +25,9 @@ TagManager:
   - Clown
   - Point1
   - TodaysDateGO
+  - DayNightManager
+  - Graphics
+  - Sun
   layers:
   - Default
   - TransparentFX

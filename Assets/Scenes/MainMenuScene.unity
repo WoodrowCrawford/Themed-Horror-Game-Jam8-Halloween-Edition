@@ -13616,11 +13616,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainDummyAIBehavior: {fileID: 0}
-  todaysDateGO: {fileID: 1145843749}
   currentGameMode: 0
-  currentDay: 0
-  isDaytime: 0
-  isNightTime: 0
+  todaysDateGO: {fileID: 1145843749}
+  currentDay: 1
+  Sun: {fileID: 0}
+  Graphics: {fileID: 1623073382}
   Dummy1: {fileID: 0}
   _dummy1MinSecondsToAwake: 0
   _dummy1IsActive: 0
@@ -15418,9 +15418,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1623073383}
+  - component: {fileID: 1623073384}
   m_Layer: 0
   m_Name: ----Graphics-----
-  m_TagString: Untagged
+  m_TagString: Graphics
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15442,6 +15443,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1623073384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1623073382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fc88679d0b1cad42840ccf6c69e51cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Sun: {fileID: 0}
+  Graphics: {fileID: 0}
 --- !u!1001 &1624038211
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18661,7 +18676,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh26026
+  m_Name: pb_Mesh285718
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2

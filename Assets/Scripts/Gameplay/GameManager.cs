@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Globalization;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -10,26 +11,13 @@ using UnityEngine.UI;
 [Serializable]
 public class GameManager : MonoBehaviour
 {
-    public MainDummyAIBehavior mainDummyAIBehavior;
-
-    public GameObject todaysDateGO;
-
-
-    [Header("Important GM Values")]
-    PlayerInputActions playerInputActions;
-    public static GameManager instance;
-
-
-    [Header("Current Game Mode")]
-    public GameModes currentGameMode;
-
-
     //Game modes
     public enum GameModes
     {
         MAIN_MENU,
         BEDROOM_CHAPTER,
     }
+
 
     //Days of the week
     public enum Days
@@ -56,12 +44,29 @@ public class GameManager : MonoBehaviour
         SATURDAY_NIGHT
     }
 
+
+    //Gets the nessassary scripts
+    public MainDummyAIBehavior mainDummyAIBehavior;
+
+
+    [Header("Important GM Values")]
+    PlayerInputActions playerInputActions;
+    public static GameManager instance;
+
+
+    [Header("Current Game Mode")]
+    public GameModes currentGameMode;
+
+
+    [Header("Today's Date Values")]
+    public GameObject todaysDateGO;
+
    
 
     [Header("Current Day")]
     public Days currentDay;
-    public bool isDaytime;
-    public bool isNightTime;
+    public GameObject Sun;
+    public GameObject Graphics;
 
 
 
@@ -105,6 +110,8 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+       
+
         if (instance == null)
         {
             instance = this;
@@ -144,19 +151,17 @@ public class GameManager : MonoBehaviour
         {
             case Days.SUNDAY_MORNING:
                 {
+                    //Sets todays date text to be Sunday Morning
                     todaysDateGO.GetComponent<TodaysDateBehavior>().TodaysDateText.text = ("Sunday Morning");
-                    
+
                     //Set sun to be active
-                    isDaytime = true;
-                    isNightTime = false;
+                    GraphicsBehavior.instance.SetDayTime();        
                     
                     FindAIEnemies();
 
                     if(SceneManager.GetActiveScene() == SceneManager.GetSceneByName("BedroomScene"))
                     {
                        //Put morning code here
-
-                        
                     }
                     
 
@@ -165,30 +170,47 @@ public class GameManager : MonoBehaviour
 
             case Days.SUNDAY_NIGHT:
                 {
+                    //Sets todays date text to be sunday night
                     todaysDateGO.GetComponent<TodaysDateBehavior>().TodaysDateText.text = ("Sunday Night");
 
                     //Set night time 
-                    isDaytime = false;
-                    isNightTime = true;
+                    GraphicsBehavior.instance.SetNightTime();
 
                     Debug.Log("Sunday Night");
+
+
+
+                    if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("BedroomScene"))
+                    {
+                        //Put night code here
+                        Debug.Log("Its night time");
+                    }
+
                     break;
+
+
                 }
 
             case Days.MONDAY_MORNING:
                 {
-
+                    //sets todays date text to be monday morning
                     todaysDateGO.GetComponent<TodaysDateBehavior>().TodaysDateText.text = ("Monday Morning");
 
-                    isDaytime |= true;
-                    isNightTime = false;
+                   
 
                     Debug.Log("Monday Morning");
+
+                    if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("BedroomScene"))
+                    {
+                        //Put morning code here
+                    }
+
                     break;
                 }
                 
             case Days.MONDAY_NIGHT:
                 {
+                    //Sets todays date text to be monday night
                     todaysDateGO.GetComponent<TodaysDateBehavior>().TodaysDateText.text = ("Monday Night");
 
                     Debug.Log("Monday Night");
@@ -197,7 +219,7 @@ public class GameManager : MonoBehaviour
 
             case Days.TUESDAY_MORNING:
                 {
-
+                    //Sets todays date text to be tuesday morning
                     todaysDateGO.GetComponent<TodaysDateBehavior>().TodaysDateText.text = ("Tuesday Morning");
 
                     Debug.Log("Tuesday Morning");
@@ -206,6 +228,7 @@ public class GameManager : MonoBehaviour
 
             case Days.TUESDAY_NIGHT:
                 {
+                    //sets todays date text to be tuesday night
                     todaysDateGO.GetComponent<TodaysDateBehavior>().TodaysDateText.text = ("Tuesday Night");
 
                     Debug.Log("Tuesday Night");
@@ -214,6 +237,7 @@ public class GameManager : MonoBehaviour
 
             case Days.WEDNESDAY_MORNING:
                 {
+                    //Sets todays date text to be wednesday morning
                     todaysDateGO.GetComponent<TodaysDateBehavior>().TodaysDateText.text = ("Wednesday Morning");
 
 
@@ -223,6 +247,7 @@ public class GameManager : MonoBehaviour
 
             case Days.WEDNESDAY_NIGHT:
                 {
+                    //sets todays date text to be wedensday night
                     todaysDateGO.GetComponent<TodaysDateBehavior>().TodaysDateText.text = ("Wednesday Night");
 
                     Debug.Log("Wednesday Night");
@@ -231,6 +256,7 @@ public class GameManager : MonoBehaviour
 
             case Days.THURSDAY_MORNING:
                 {
+                    //set todays date text to be thursday morning
                     todaysDateGO.GetComponent<TodaysDateBehavior>().TodaysDateText.text = ("Thursday Morning");
 
                     Debug.Log("Thursday Morning");
@@ -239,6 +265,7 @@ public class GameManager : MonoBehaviour
 
             case Days.THURSDAY_NIGHT:
                 {
+                    //sets todays date text to be thursday night
                     todaysDateGO.GetComponent<TodaysDateBehavior>().TodaysDateText.text = ("Thursday Night");
 
                     Debug.Log("Thursday Night");
@@ -247,6 +274,7 @@ public class GameManager : MonoBehaviour
 
             case Days.FRIDAY_MORNING:
                 {
+                    //Sets todays date text to be friday morning
                     todaysDateGO.GetComponent<TodaysDateBehavior>().TodaysDateText.text = ("Friday Morning");
 
                     Debug.Log("Friday Morning");
@@ -255,6 +283,7 @@ public class GameManager : MonoBehaviour
 
             case Days.FRIDAY_NIGHT:
                 {
+                    //sets todays date text to be friday night
                     todaysDateGO.GetComponent<TodaysDateBehavior>().TodaysDateText.text = ("Friday Night");
 
                     Debug.Log("Friday Night");
@@ -263,6 +292,7 @@ public class GameManager : MonoBehaviour
 
             case Days.SATURDAY_MORNING:
                 {
+                    //sets todays date text to be saturday morning
                     todaysDateGO.GetComponent<TodaysDateBehavior>().TodaysDateText.text = ("Saturday Morning");
 
                     Debug.Log("Saturday Morning");
@@ -271,6 +301,7 @@ public class GameManager : MonoBehaviour
 
             case Days.SATURDAY_NIGHT:
                 {
+                    //sets todays date text to be saturday night
                     todaysDateGO.GetComponent<TodaysDateBehavior>().TodaysDateText.text = ("Saturday Night");
 
                     Debug.Log("Saturday Night");
