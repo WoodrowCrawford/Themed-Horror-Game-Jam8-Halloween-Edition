@@ -28,6 +28,7 @@ TagManager:
   - DayNightManager
   - Graphics
   - Sun
+  - PauseBackground
   layers:
   - Default
   - TransparentFX

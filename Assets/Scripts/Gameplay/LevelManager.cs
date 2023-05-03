@@ -27,4 +27,13 @@ public class LevelManager : MonoBehaviour
     {
         var scene = SceneManager.LoadSceneAsync(sceneName);
     }
+
+   
+    //Reloads the current scene
+    public void ReloadScene()
+    {
+        var scene = SceneManager.GetActiveScene();
+        PauseSystem.instance.TogglePauseMenu();
+        SceneManager.LoadScene(scene.name);
+    }
 }

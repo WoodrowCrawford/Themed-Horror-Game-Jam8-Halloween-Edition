@@ -29,6 +29,7 @@ public class ClownAiBehavior : MonoBehaviour
 
     private void Awake()
     {
+        //Finds the jack in the box component on awake
         JackInTheBoxBehavior = GameObject.FindGameObjectWithTag("JackIntheBox").GetComponent<JackInTheBoxBehavior>();
     }
 
@@ -80,6 +81,7 @@ public class ClownAiBehavior : MonoBehaviour
             //Starts chasing the player
             StartCoroutine(ChasePlayer());
 
+            //Debug test
             Debug.Log("Hey its time for the clown to awaken!!!!!!!!");
         }
 
@@ -87,6 +89,7 @@ public class ClownAiBehavior : MonoBehaviour
     }
 
 
+    //A function used to check if the player is in bed
     public void CheckIfPlayerIsInBed()
     {
         //If the player is in the bed...
@@ -106,7 +109,7 @@ public class ClownAiBehavior : MonoBehaviour
     }
 
 
-
+    //A function used to check if the player is in range
     public void CheckIfTargetIsInRange()
     {
         float minDistance = _agent.stoppingDistance;
@@ -118,6 +121,7 @@ public class ClownAiBehavior : MonoBehaviour
             _agent.transform.LookAt(_playerPos);
         }
 
+        //else if the player is in range
         else if (distance <= (minDistance + 2) && _target == _playerRef && _clownIsAwake)
         {
             //if the ai is close to the player and is active...

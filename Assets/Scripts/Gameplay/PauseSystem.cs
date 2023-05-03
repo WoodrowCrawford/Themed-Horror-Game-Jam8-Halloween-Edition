@@ -23,7 +23,30 @@ public class PauseSystem : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        PauseMenu.SetActive(false);
+    }
 
+
+    private void Update()
+    {
+        //Hides the pause menu when in the main menu screen
+        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("MainMenuScene"))
+        {
+            PauseMenu.SetActive(false);
+        }
+    }
+
+
+    //Disables the pause screen
+    public void DisablePauseScreen()
+    {
+        PauseMenu.SetActive(false);
+    }
+
+
+    //Toggles the pause menu
     public void TogglePauseMenu()
     {
         //Checks to make sure that the game is not in the main menu
@@ -31,8 +54,7 @@ public class PauseSystem : MonoBehaviour
         {
             PauseMenu.SetActive(true);
             Time.timeScale = 0.0f;
-            isPaused = true;   
-
+            isPaused = true;
         }
 
         //Checks to make sure that the game is not in the main menu

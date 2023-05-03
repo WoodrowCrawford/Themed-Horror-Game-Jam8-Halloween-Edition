@@ -13,12 +13,16 @@ public class GhoulBehavior : MonoBehaviour
         CHASE
     }
 
+    //scripts needed for this game object to work
+    public GhoulSightBehavior ghoulSightBehavior;
+    public PlayerInputBehavior playerInputBehavior;
+
+    public GhoulStates ghoulState;
 
     public NavMeshAgent agent;
     public Animator animator;
-    public GhoulSightBehavior ghoulSightBehavior;
-    public PlayerInputBehavior playerInputBehavior;
-    public GhoulStates ghoulState;
+    
+  
 
     [Header("Patrol Values")]
     [SerializeField] private Transform[] _waypoints;
@@ -26,13 +30,14 @@ public class GhoulBehavior : MonoBehaviour
     [SerializeField] private Vector3 _target;
     [SerializeField] private float _speed;
 
+
     [Header("Target")]
     [SerializeField] private GameObject _playerRef;
 
     
 
     private void Awake()
-    {
+    {   //gets the components needed on awake
         agent = GetComponent<NavMeshAgent>();
         _playerRef = GameObject.FindGameObjectWithTag("Player");
         ghoulSightBehavior = GameObject.FindGameObjectWithTag("Ghoul").GetComponent<GhoulSightBehavior>();
@@ -48,15 +53,19 @@ public class GhoulBehavior : MonoBehaviour
         Vector3 playerPosition = new Vector3(_playerRef.transform.position.x, transform.position.y, _playerRef.transform.position.z);
 
 
-
         //if the ghoul can see the player then...
         if (ghoulSightBehavior.canSeePlayer && !playerInputBehavior.playerIsHidden)
         {
             //Change the ai state to chase
             ghoulState = GhoulStates.CHASE;
 
+            //Set the destination to be the player
             agent.SetDestination(_playerRef.transform.position);
+
+            //Set the agent speed
             agent.speed = 5.8f;
+
+            //used to make the ai look at the player position
             transform.LookAt(playerPosition);
 
         }

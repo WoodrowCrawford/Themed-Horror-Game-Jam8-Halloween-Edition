@@ -41,6 +41,7 @@ public class MainDummyAIBehavior : MonoBehaviour
     public bool dummyIsAtOrigin;
     public bool dummyIsHitWithLight;
     public bool isActive;
+    public bool dummyTest;
 
 
     [Header("AI State Values")]
@@ -80,8 +81,6 @@ public class MainDummyAIBehavior : MonoBehaviour
     {
         _agent= GetComponent<NavMeshAgent>();
         _flashlightBehavior = GameObject.FindGameObjectWithTag("Flashlight").GetComponent<FlashlightBehavior>();
-
-        
     }
 
 
@@ -95,8 +94,10 @@ public class MainDummyAIBehavior : MonoBehaviour
 
     private void Update()
     {
-       
-
+        if(dummyTest)
+        {
+            StartCoroutine(DummyAICase());
+        }
 
         if(isActive)
         {
@@ -107,7 +108,6 @@ public class MainDummyAIBehavior : MonoBehaviour
                 StartCoroutine(DummyAICase());
             }
 
-            
 
             //Sets the animators speed to equal the agents speed
             _animator.SetFloat("Speed", _agent.velocity.magnitude);
@@ -115,8 +115,10 @@ public class MainDummyAIBehavior : MonoBehaviour
             //Makes dummy chase the player if it is running away and the light is no longer hitting it
             if (dummyStates == DummyStates.RUNNING_AWAY && !dummyIsHitWithLight)
             {
-                StopCoroutine(DummyGoBackToOrigin());
-                StartCoroutine(DummyChasePlayer());
+               
+
+               StopCoroutine(DummyGoBackToOrigin());
+               StartCoroutine(DummyChasePlayer());
             }
 
             //Makes the dummy lay down if it reaches the origin point it started at
@@ -472,6 +474,7 @@ public class MainDummyAIBehavior : MonoBehaviour
                     {
                         _dummyLayingDown = false;
                         _agent.speed = 1.5f;
+                        _agent.stoppingDistance = 0.0f;
 
                         //Changes the dummy state to be the running away state
                         dummyStates = DummyStates.RUNNING_AWAY;

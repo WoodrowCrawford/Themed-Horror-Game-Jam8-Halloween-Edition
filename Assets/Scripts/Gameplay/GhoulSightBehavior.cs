@@ -23,12 +23,15 @@ public class GhoulSightBehavior : MonoBehaviour
 
     private void Awake()
     {
+        //Gets the components on awake
         playerInputBehavior = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInputBehavior>();
         playerRef = GameObject.FindGameObjectWithTag("Player");
+
         StartCoroutine(CheckFieldOfViewRoutine());
     }
 
 
+    //Checks the field of view 
     private IEnumerator CheckFieldOfViewRoutine()
     {
         float delay = 0.2f;

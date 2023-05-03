@@ -1,4 +1,3 @@
-using System.Net.Http.Headers;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -78,12 +77,10 @@ public class JackInTheBoxBehavior : MonoBehaviour, IInteractable
             //Set to false if the player is no longer in range or the player is no longer interacting
             _playerRewindingBox = false;
         }
-
-
     }
 
 
-
+    //Plays the music box
     public void PlayMusicBox()
     {
       
@@ -106,7 +103,7 @@ public class JackInTheBoxBehavior : MonoBehaviour, IInteractable
     }
 
 
-
+    //Rewinds the music box
     public void RewindMusicBox()
     {
         if (_playerRewindingBox)
@@ -130,9 +127,11 @@ public class JackInTheBoxBehavior : MonoBehaviour, IInteractable
         }
     }
 
+    //A function that is inherited from Iinteractable
     public void Interact(Interactor Interactor)
     {
-        throw new System.NotImplementedException();
+        Debug.Log("Rewinding the box");
+        //throw new System.NotImplementedException();
     }
 }
 

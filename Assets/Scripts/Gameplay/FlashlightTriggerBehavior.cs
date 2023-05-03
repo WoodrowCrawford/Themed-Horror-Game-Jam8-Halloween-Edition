@@ -12,7 +12,6 @@ public class FlashlightTriggerBehavior : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-
         if (other.CompareTag("Dummy1"))
         {
             dummyLightIsHitting = other.gameObject;
@@ -26,12 +25,10 @@ public class FlashlightTriggerBehavior : MonoBehaviour
 
             dummyLightIsHitting.GetComponent<MainDummyAIBehavior>().dummyIsHitWithLight = true;
         }
-       
     }
 
     private void OnTriggerExit(Collider other)
     {
-
         if(other.CompareTag("Dummy1"))
         {
             dummyLightIsHitting.GetComponent<MainDummyAIBehavior>().dummyIsHitWithLight = false;
@@ -44,6 +41,5 @@ public class FlashlightTriggerBehavior : MonoBehaviour
             dummyLightIsHitting.GetComponent<MainDummyAIBehavior>().dummyIsHitWithLight = false;
             dummyLightIsHitting = null;
         }
-        
     }
 }

@@ -6,14 +6,17 @@ using UnityEngine.Timeline;
 
 public class PlayerInputBehavior : MonoBehaviour
 {
+    //Important scripts
     public PlayerInputActions playerControls;
     public FlashlightBehavior flashlightBehavior;
     public GetInBedTriggerBehavior getInBedTriggerBehavior;
     public SleepBehavior sleepBehavior;
     public WardrobeBehavior wardrobeBehavior;
     public PauseSystem pauseSystem;
-   
-   
+
+
+
+    //Camera stuff
     [Header("Camera Values")]
     [SerializeField] private Camera _camera;
     [SerializeField] private Transform _playerBody;
@@ -22,7 +25,7 @@ public class PlayerInputBehavior : MonoBehaviour
     [SerializeField] private float _xRotation = 0f;
     [SerializeField] private float _yRotation = 0f;
  
-
+    //Movement stuff
     [Header("Movement Values")]
     [SerializeField] private Rigidbody _rb;
     [SerializeField] private float _speed;
@@ -42,13 +45,14 @@ public class PlayerInputBehavior : MonoBehaviour
     public bool playerIsInWardrobe;
     public bool playerIsHidden;
 
+
+    //Used for interaction
     public bool isPlayerInteracting;
 
 
 
     private void Awake()
     {
-        
         //Gets the components
         _rb = GetComponent<Rigidbody>();
         flashlightBehavior = GameObject.FindGameObjectWithTag("Flashlight").GetComponent<FlashlightBehavior>();
@@ -58,6 +62,12 @@ public class PlayerInputBehavior : MonoBehaviour
         pauseSystem = GameObject.FindGameObjectWithTag("PauseSystem").GetComponent<PauseSystem>();
         
 
+        
+       
+    }
+
+    public void OnEnable()
+    {
         //Creates the Action Maps
         playerControls = new PlayerInputActions();
         playerControls.InBed.Enable();
@@ -71,7 +81,7 @@ public class PlayerInputBehavior : MonoBehaviour
         //Action Map #0(Default Map- On by default)
         playerControls.Default.Look.ReadValue<Vector2>();
         playerControls.Default.TogglePause.performed += ctx => pauseSystem.TogglePauseMenu();
-    
+
 
 
         //Action Map #1 (In Bed)
@@ -85,15 +95,56 @@ public class PlayerInputBehavior : MonoBehaviour
         //Action Map #2 (Out of Bed)
         playerControls.OutOfBed.ToggleFlashlight.performed += ctx => flashlightBehavior.ToggleFlashLight();
         playerControls.OutOfBed.GetInBed.performed += GetInBed;
-        
+
 
 
         //Action Map #3 (In Wardrobe)
         playerControls.InWardrobe.ToggleWardrobeDoor.performed += ctx => StartCoroutine(ToggleWardrobeDoor());
         playerControls.InWardrobe.ToggleInOutWardrobe.performed += ctx => StartCoroutine(ToggleInOutWardrobe());
         playerControls.InWardrobe.ToggleFlashlight.performed += ctx => flashlightBehavior.ToggleFlashLight();
-       
     }
+
+    public void OnDisable()
+    {
+        //Creates the Action Maps
+        playerControls.Disable();
+        playerControls.InBed.Disable();
+        playerControls.Default.Disable();
+
+        playerControls.Default.Interact.started -= ctx => isPlayerInteracting = true;
+        playerControls.Default.Interact.performed -= ctx => isPlayerInteracting = true;
+        playerControls.Default.Interact.canceled -= ctx => isPlayerInteracting = false;
+
+
+        //Action Map #0(Default Map- On by default)
+        playerControls.Default.Look.Disable();
+        playerControls.Default.TogglePause.performed -= ctx => pauseSystem.TogglePauseMenu();
+
+
+
+        //Action Map #1 (In Bed)
+        playerControls.InBed.GetOutOfBed.performed -= GetOutOfBed;
+        playerControls.InBed.ToggleFlashlight.performed -= ctx => flashlightBehavior.ToggleFlashLight();
+        playerControls.InBed.ToggleGoUnderBed.performed -= ToggleUnderBed;
+        playerControls.InBed.Sleep.performed -= ctx => sleepBehavior.playerIsSleeping = true;
+        playerControls.InBed.Sleep.canceled -= ctx => sleepBehavior.playerIsSleeping = false;
+
+
+        //Action Map #2 (Out of Bed)
+        playerControls.OutOfBed.ToggleFlashlight.performed -= ctx => flashlightBehavior.ToggleFlashLight();
+        playerControls.OutOfBed.GetInBed.performed -= GetInBed;
+
+
+
+        //Action Map #3 (In Wardrobe)
+        playerControls.InWardrobe.ToggleWardrobeDoor.performed -= ctx => StartCoroutine(ToggleWardrobeDoor());
+        playerControls.InWardrobe.ToggleInOutWardrobe.performed -= ctx => StartCoroutine(ToggleInOutWardrobe());
+        playerControls.InWardrobe.ToggleFlashlight.performed -= ctx => flashlightBehavior.ToggleFlashLight();
+    }
+
+
+
+
 
 
 

@@ -1,12 +1,7 @@
 using System;
-using System.Collections;
-using System.Globalization;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
-using UnityEngine.Timeline;
-using UnityEngine.UI;
+
 
 [Serializable]
 public class GameManager : MonoBehaviour
@@ -58,16 +53,13 @@ public class GameManager : MonoBehaviour
     public GameModes currentGameMode;
 
 
-    [Header("Today's Date Values")]
+    [Header("Today's Date Game Object")]
     public GameObject todaysDateGO;
 
    
 
     [Header("Current Day")]
     public Days currentDay;
-    public GameObject Sun;
-    public GameObject Graphics;
-
 
 
     [Header("Cutscene Settings")]
@@ -81,8 +73,7 @@ public class GameManager : MonoBehaviour
    
     
 
-    public bool _dummy1IsActive;
-
+  
 
 
 
@@ -99,19 +90,12 @@ public class GameManager : MonoBehaviour
 
     [Header("Clown Settings")]
     public GameObject Clown;
-
-
-   
-
-
-   
    
 
 
     private void Awake()
     {
-       
-
+    
         if (instance == null)
         {
             instance = this;
@@ -133,21 +117,21 @@ public class GameManager : MonoBehaviour
         if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("MainMenuScene"))
         {
             currentGameMode = GameModes.MAIN_MENU;
-            Debug.Log(currentGameMode);
+         
         }
         else if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("BedroomScene"))
         {
             //Sets the game 
             currentGameMode = GameModes.BEDROOM_CHAPTER;
-            Debug.Log(currentGameMode);
+       
             
         }
 
-       
+
 
 
         //A swtich case for the current day
-       switch(currentDay)
+        switch (currentDay)
         {
             case Days.SUNDAY_MORNING:
                 {
@@ -155,15 +139,15 @@ public class GameManager : MonoBehaviour
                     todaysDateGO.GetComponent<TodaysDateBehavior>().TodaysDateText.text = ("Sunday Morning");
 
                     //Set sun to be active
-                    GraphicsBehavior.instance.SetDayTime();        
-                    
+                    GraphicsBehavior.instance.SetDayTime();
+
                     FindAIEnemies();
 
-                    if(SceneManager.GetActiveScene() == SceneManager.GetSceneByName("BedroomScene"))
+                    if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("BedroomScene"))
                     {
-                       //Put morning code here
+                        //Put morning code here
                     }
-                    
+
 
                     break;
                 }
@@ -173,10 +157,12 @@ public class GameManager : MonoBehaviour
                     //Sets todays date text to be sunday night
                     todaysDateGO.GetComponent<TodaysDateBehavior>().TodaysDateText.text = ("Sunday Night");
 
+                    FindAIEnemies();
+
                     //Set night time 
                     GraphicsBehavior.instance.SetNightTime();
 
-                    Debug.Log("Sunday Night");
+                  
 
 
 
@@ -196,7 +182,7 @@ public class GameManager : MonoBehaviour
                     //sets todays date text to be monday morning
                     todaysDateGO.GetComponent<TodaysDateBehavior>().TodaysDateText.text = ("Monday Morning");
 
-                   
+
 
                     Debug.Log("Monday Morning");
 
@@ -207,7 +193,7 @@ public class GameManager : MonoBehaviour
 
                     break;
                 }
-                
+
             case Days.MONDAY_NIGHT:
                 {
                     //Sets todays date text to be monday night

@@ -7,6 +7,7 @@ public class GetInBedTriggerBehavior : MonoBehaviour
 {
     public bool  playerCanGetInBed;
 
+
     private void OnTriggerEnter(Collider other)
     {
         if(other.CompareTag("Player"))
@@ -15,6 +16,7 @@ public class GetInBedTriggerBehavior : MonoBehaviour
             playerCanGetInBed = true;
         }
     }
+
 
     private void OnTriggerExit(Collider other)
     {
