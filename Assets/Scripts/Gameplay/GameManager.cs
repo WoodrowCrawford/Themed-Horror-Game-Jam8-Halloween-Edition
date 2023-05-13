@@ -68,12 +68,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Dummy 1 Settings")]
     public GameObject Dummy1;
-    public float _dummy1MinSecondsToAwake;
-    
    
-    
-
-  
 
 
 
@@ -95,7 +90,6 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-    
         if (instance == null)
         {
             instance = this;
@@ -111,11 +105,11 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-       
     
-        //If the current scene is the main menu scene then set the game mode to be main menu
+        //If the current scene is the main menu scene then...
         if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("MainMenuScene"))
         {
+            //set the game mode to be main menu
             currentGameMode = GameModes.MAIN_MENU;
          
         }
@@ -123,8 +117,6 @@ public class GameManager : MonoBehaviour
         {
             //Sets the game 
             currentGameMode = GameModes.BEDROOM_CHAPTER;
-       
-            
         }
 
 
@@ -157,20 +149,34 @@ public class GameManager : MonoBehaviour
                     //Sets todays date text to be sunday night
                     todaysDateGO.GetComponent<TodaysDateBehavior>().TodaysDateText.text = ("Sunday Night");
 
+                    //FInds the ai enemies
                     FindAIEnemies();
+
 
                     //Set night time 
                     GraphicsBehavior.instance.SetNightTime();
 
-                  
-
-
+                
 
                     if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("BedroomScene"))
                     {
                         //Put night code here
-                        Debug.Log("Its night time");
+
+
+
+                        //set dummy to be active
+                        Dummy1.GetComponent<DummyStateManager>().isActive = true;
+                        Dummy2.GetComponent<DummyStateManager>().isActive = true;
+
+                        //Sets the min and max movement speed for this night
+                        Dummy1.GetComponent<DummyStateManager>().MinMovementSpeed = 1;
+                        Dummy1.GetComponent<DummyStateManager>().MaxMovementSpeed = 3;
+
+                        //Dummy2.GetComponent<DummyStateManager>().MinMovementSpeed = 1;
+                        //Dummy2.GetComponent<DummyStateManager>().MaxMovementSpeed = 3;
                     }
+
+
 
                     break;
 

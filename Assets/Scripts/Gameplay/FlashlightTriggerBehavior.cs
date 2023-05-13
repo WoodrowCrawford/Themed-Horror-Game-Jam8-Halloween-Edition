@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class FlashlightTriggerBehavior : MonoBehaviour
@@ -7,7 +8,7 @@ public class FlashlightTriggerBehavior : MonoBehaviour
     /// </summary>
 
     public GameObject dummyLightIsHitting;
-
+    
 
 
     private void OnTriggerStay(Collider other)
@@ -16,14 +17,14 @@ public class FlashlightTriggerBehavior : MonoBehaviour
         {
             dummyLightIsHitting = other.gameObject;
 
-           dummyLightIsHitting.GetComponent<MainDummyAIBehavior>().dummyIsHitWithLight = true;
+            dummyLightIsHitting.GetComponent<DummyStateManager>().SetDummyIsHitWithLight(true);
         }
 
         else if (other.CompareTag("Dummy2"))
         {
             dummyLightIsHitting = other.gameObject;
 
-            dummyLightIsHitting.GetComponent<MainDummyAIBehavior>().dummyIsHitWithLight = true;
+            dummyLightIsHitting.GetComponent<DummyStateManager>().SetDummyIsHitWithLight(true);
         }
     }
 
@@ -31,15 +32,18 @@ public class FlashlightTriggerBehavior : MonoBehaviour
     {
         if(other.CompareTag("Dummy1"))
         {
-            dummyLightIsHitting.GetComponent<MainDummyAIBehavior>().dummyIsHitWithLight = false;
+            dummyLightIsHitting.GetComponent<DummyStateManager>().SetDummyIsHitWithLight(false);
             dummyLightIsHitting = null;
         }
 
         else if(other.CompareTag("Dummy2"))
         {
 
-            dummyLightIsHitting.GetComponent<MainDummyAIBehavior>().dummyIsHitWithLight = false;
+            dummyLightIsHitting.GetComponent<DummyStateManager>().SetDummyIsHitWithLight(false);
             dummyLightIsHitting = null;
         }
     }
+
+
+    
 }

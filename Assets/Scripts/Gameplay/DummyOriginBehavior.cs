@@ -11,7 +11,7 @@ public class DummyOriginBehavior : MonoBehaviour
     {
         if(other.gameObject == _dummyThisBelongsTo.gameObject)
         {
-            _dummyThisBelongsTo.GetComponent<MainDummyAIBehavior>().dummyIsAtOrigin = true;
+            _dummyThisBelongsTo.GetComponent<DummyStateManager>().dummyIsAtOrigin = true;
             Debug.Log(_dummyThisBelongsTo.name + "is here right now");
         }
         
@@ -23,7 +23,7 @@ public class DummyOriginBehavior : MonoBehaviour
 
         if (other.gameObject == _dummyThisBelongsTo.gameObject)
         {
-            _dummyThisBelongsTo.GetComponent<MainDummyAIBehavior>().dummyIsAtOrigin = false;
+            _dummyThisBelongsTo.GetComponent<DummyStateManager>().dummyIsAtOrigin = false;
             Debug.Log(_dummyThisBelongsTo.name + "is here right now");
         }
 

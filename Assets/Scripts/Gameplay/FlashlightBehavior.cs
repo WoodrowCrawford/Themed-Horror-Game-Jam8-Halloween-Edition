@@ -6,13 +6,12 @@ public class FlashlightBehavior : MonoBehaviour
     //Functions needed for this script to work
     public SleepBehavior sleepBehavior;
     public FlashlightTriggerBehavior flashlightTriggerBehavior;
-   
-
+    
 
     [Header("Flashlight Values")]
-    [SerializeField]  private Light _playerLight;
+    [SerializeField]  private Light _playerLight; //The main flashlight light component
     [SerializeField] private float _decreaseSpeed;
-    [SerializeField] private GameObject _flashlightTrigger;
+    [SerializeField] private GameObject _flashlightTrigger; //The trigger box for the flashlight collider
     public float batteryPower = 100;
 
     public bool flashlightOn;
@@ -26,6 +25,7 @@ public class FlashlightBehavior : MonoBehaviour
         sleepBehavior = GameObject.FindGameObjectWithTag("Player").GetComponent<SleepBehavior>();
         flashlightTriggerBehavior = GameObject.FindGameObjectWithTag("FlashlightTriggerBox").GetComponent<FlashlightTriggerBehavior>();
     }
+
 
     // Start is called before the first frame update
     void Start()
@@ -42,6 +42,10 @@ public class FlashlightBehavior : MonoBehaviour
         {
             //Sets the flashlight to be off
             _playerLight.gameObject.SetActive(false);
+
+            //Set the flashlight collider to be off
+            _flashlightTrigger.GetComponent<BoxCollider>().enabled = false;
+
             flashlightOn = false;
         }
 
@@ -81,7 +85,15 @@ public class FlashlightBehavior : MonoBehaviour
         if(!PauseSystem.isPaused && flashlightOn)
         {
             _playerLight.gameObject.SetActive(false);
-            _flashlightTrigger.gameObject.SetActive(false);
+
+            //Set the flashlight collider to be off
+            _flashlightTrigger.GetComponent<BoxCollider>().enabled = false;
+
+            //sets the dummy is hit with light to be false when the light is off
+            GameManager.instance.Dummy1.GetComponent<DummyStateManager>().dummyIsHitWithLight = false;
+            GameManager.instance.Dummy2.GetComponent<DummyStateManager>().dummyIsHitWithLight = false;
+
+
             flashlightOn = false;
         }
 
@@ -89,7 +101,11 @@ public class FlashlightBehavior : MonoBehaviour
         else if (!PauseSystem.isPaused && !flashlightOn)
         {
             _playerLight.gameObject.SetActive(true);
-            _flashlightTrigger.gameObject.SetActive(true);
+
+            //Set the flashlight collider to be off
+            _flashlightTrigger.GetComponent<BoxCollider>().enabled = true;
+            
+
             flashlightOn = true;
         }
     }

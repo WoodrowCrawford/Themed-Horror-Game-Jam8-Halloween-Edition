@@ -2898,6 +2898,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: FlashlightTriggerBox
       objectReference: {fileID: 0}
+    - target: {fileID: 6840826583868988565, guid: 78ff5ba6a8d4a83459cae06068a5488f, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7556417767502625992, guid: 78ff5ba6a8d4a83459cae06068a5488f, type: 3}
       propertyPath: _eyesClosed
       value: 
@@ -3512,7 +3516,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 273783134}
-  - component: {fileID: 273783138}
+  - component: {fileID: 273783140}
   - component: {fileID: 273783133}
   - component: {fileID: 273783131}
   - component: {fileID: 273783135}
@@ -3638,43 +3642,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1.8642721, z: 1}
   m_Center: {x: 0, y: 0.8873153, z: 0}
---- !u!114 &273783138
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 273783130}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 48ea2ebae508bbe4bbf74b5f41c65286, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _agent: {fileID: 273783131}
-  _animator: {fileID: 273783133}
-  _flashlightBehavior: {fileID: 0}
-  _originTrigger: {fileID: 1547433921}
-  _playerRef: {fileID: 1294530709}
-  _speed: 0
-  dummyCoolDownTimer: 0
-  dummyIsAtOrigin: 0
-  dummyIsHitWithLight: 0
-  isActive: 0
-  dummyTest: 1
-  dummyStates: 0
-  _dummyLayingDown: 1
-  _dummyGettingUp: 0
-  _dummyChasing: 0
-  _hasBeginPhaseStarted: 0
-  isDummyUp: 0
-  _minSecondsToAwake: 2
-  _maxSecondsToAwake: 14
-  _minMovementSpeed: 1
-  _maxMovementSpeed: 5
-  speedReturned: 0
-  _target: {fileID: 1294530709}
-  _inBedTarget: {fileID: 1884618890}
-  _originPos: {fileID: 1547433922}
 --- !u!54 &273783139
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3691,6 +3658,37 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
+--- !u!114 &273783140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 273783130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1eafccde273288418ba1129788a4d0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dummyThisBelongsTo: {fileID: 273783130}
+  _agent: {fileID: 273783131}
+  _animator: {fileID: 273783133}
+  _flashlightBehavior: {fileID: 1406087866}
+  _originTrigger: {fileID: 1547433921}
+  _playerRef: {fileID: 1294530709}
+  isActive: 0
+  initiatePhaseComplete: 0
+  isDummyUp: 0
+  _speed: 0
+  dummyIsHitWithLight: 0
+  dummyIsAtOrigin: 0
+  _secondsToAwake: 0
+  _minMovementSpeed: 0
+  _maxMovementSpeed: 0
+  _speedReturned: 0
+  target: {fileID: 0}
+  _inBedTarget: {fileID: 1884618890}
+  _originPos: {fileID: 1547433922}
 --- !u!1 &307831310
 GameObject:
   m_ObjectHideFlags: 0
@@ -5246,7 +5244,6 @@ MonoBehaviour:
   todaysDateGO: {fileID: 0}
   currentDay: 0
   Dummy1: {fileID: 0}
-  _dummy1MinSecondsToAwake: 0
   Dummy2: {fileID: 0}
   Ghoul: {fileID: 0}
   Clown: {fileID: 0}
@@ -16256,7 +16253,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1432846293}
-  - component: {fileID: 1432846295}
+  - component: {fileID: 1432846297}
   - component: {fileID: 1432846292}
   - component: {fileID: 1432846290}
   - component: {fileID: 1432846289}
@@ -16382,43 +16379,6 @@ Transform:
   m_Father: {fileID: 311085765}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: -69.095, z: 0}
---- !u!114 &1432846295
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1432846286}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 48ea2ebae508bbe4bbf74b5f41c65286, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _agent: {fileID: 1432846290}
-  _animator: {fileID: 1432846292}
-  _flashlightBehavior: {fileID: 0}
-  _originTrigger: {fileID: 452481860}
-  _playerRef: {fileID: 1294530709}
-  _speed: 0
-  dummyCoolDownTimer: 0
-  dummyIsAtOrigin: 0
-  dummyIsHitWithLight: 0
-  isActive: 0
-  dummyTest: 1
-  dummyStates: 0
-  _dummyLayingDown: 1
-  _dummyGettingUp: 0
-  _dummyChasing: 0
-  _hasBeginPhaseStarted: 0
-  isDummyUp: 0
-  _minSecondsToAwake: 2
-  _maxSecondsToAwake: 30
-  _minMovementSpeed: 1
-  _maxMovementSpeed: 4
-  speedReturned: 0
-  _target: {fileID: 1294530709}
-  _inBedTarget: {fileID: 2124828766}
-  _originPos: {fileID: 452481861}
 --- !u!54 &1432846296
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -16435,6 +16395,37 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
+--- !u!114 &1432846297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1432846286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1eafccde273288418ba1129788a4d0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dummyThisBelongsTo: {fileID: 1432846286}
+  _agent: {fileID: 1432846290}
+  _animator: {fileID: 1432846292}
+  _flashlightBehavior: {fileID: 1406087866}
+  _originTrigger: {fileID: 452481860}
+  _playerRef: {fileID: 1294530709}
+  isActive: 0
+  initiatePhaseComplete: 0
+  isDummyUp: 0
+  _speed: 0
+  dummyIsHitWithLight: 0
+  dummyIsAtOrigin: 0
+  _secondsToAwake: 0
+  _minMovementSpeed: 0
+  _maxMovementSpeed: 0
+  _speedReturned: 0
+  target: {fileID: 0}
+  _inBedTarget: {fileID: 2124828766}
+  _originPos: {fileID: 452481861}
 --- !u!1001 &1432900937
 PrefabInstance:
   m_ObjectHideFlags: 0
