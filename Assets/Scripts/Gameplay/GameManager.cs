@@ -168,12 +168,23 @@ public class GameManager : MonoBehaviour
                         Dummy1.GetComponent<DummyStateManager>().isActive = true;
                         Dummy2.GetComponent<DummyStateManager>().isActive = true;
 
-                        //Sets the min and max movement speed for this night
+                        //Sets the min and max movement speed for this night for dummy #1
                         Dummy1.GetComponent<DummyStateManager>().MinMovementSpeed = 1;
                         Dummy1.GetComponent<DummyStateManager>().MaxMovementSpeed = 3;
 
-                        //Dummy2.GetComponent<DummyStateManager>().MinMovementSpeed = 1;
-                        //Dummy2.GetComponent<DummyStateManager>().MaxMovementSpeed = 3;
+                        //Sets the min and max seconds to awake for this night for dummy #1
+                        Dummy1.GetComponent<DummyStateManager>().MinSecondsToAwake = 5f;
+                        Dummy1.GetComponent<DummyStateManager>().MaxSecondsToAwake = 20f;
+
+
+
+                        //Sets the min and max movement speed for this night for dummy #2
+                        Dummy2.GetComponent<DummyStateManager>().MinMovementSpeed = 1;
+                        Dummy2.GetComponent<DummyStateManager>().MaxMovementSpeed = 3;
+
+                        //Sets the min and max seconds to awake for this night for dummy #2
+                        Dummy2.GetComponent<DummyStateManager>().MinSecondsToAwake = 5f;
+                        Dummy2.GetComponent<DummyStateManager>().MaxSecondsToAwake = 20f;
                     }
 
 

@@ -3679,13 +3679,14 @@ MonoBehaviour:
   isActive: 0
   initiatePhaseComplete: 0
   isDummyUp: 0
-  _speed: 0
   dummyIsHitWithLight: 0
   dummyIsAtOrigin: 0
+  _minSecondsToAwake: 0
+  _maxSecondsToAwake: 0
   _secondsToAwake: 0
   _minMovementSpeed: 0
   _maxMovementSpeed: 0
-  _speedReturned: 0
+  _speed: 0
   target: {fileID: 0}
   _inBedTarget: {fileID: 1884618890}
   _originPos: {fileID: 1547433922}
@@ -5162,8 +5163,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 452481860}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 9.9775, y: -2.0777416, z: 11.45}
-  m_LocalScale: {x: 2.3363857, y: 1.2443438, z: 1.4845954}
+  m_LocalPosition: {x: 9.9775, y: -2.0777416, z: 11.166}
+  m_LocalScale: {x: 2.3363857, y: 1.2443438, z: 2.282417}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 251321272}
@@ -5194,7 +5195,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 739b9a0d49431d4408a2f6d7e41f1955, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dummyThisBelongsTo: {fileID: 0}
+  _dummyThisBelongsTo: {fileID: 1432846286}
 --- !u!1 &455985435
 GameObject:
   m_ObjectHideFlags: 0
@@ -16416,13 +16417,14 @@ MonoBehaviour:
   isActive: 0
   initiatePhaseComplete: 0
   isDummyUp: 0
-  _speed: 0
   dummyIsHitWithLight: 0
   dummyIsAtOrigin: 0
+  _minSecondsToAwake: 0
+  _maxSecondsToAwake: 0
   _secondsToAwake: 0
   _minMovementSpeed: 0
   _maxMovementSpeed: 0
-  _speedReturned: 0
+  _speed: 0
   target: {fileID: 0}
   _inBedTarget: {fileID: 2124828766}
   _originPos: {fileID: 452481861}
@@ -17681,7 +17683,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 739b9a0d49431d4408a2f6d7e41f1955, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dummyThisBelongsTo: {fileID: 0}
+  _dummyThisBelongsTo: {fileID: 273783130}
 --- !u!1001 &1547926988
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using Debug = UnityEngine.Debug;
 
 public class WardrobeBehavior : MonoBehaviour, IInteractable
@@ -31,14 +32,17 @@ public class WardrobeBehavior : MonoBehaviour, IInteractable
 
     public string InteractionPrompt => _interactionPrompt;
 
-    private void Awake()
-    {
-        playerInputBehavior = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInputBehavior>();
-    }
-
+   
 
     private void Update()
     {
+        //Gets the player input behavior when the player is in the bedroom scene
+        if(SceneManager.GetActiveScene() == SceneManager.GetSceneByName("BedroomScene"))
+        {
+            playerInputBehavior = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInputBehavior>();
+        }
+
+
         if (playerCanGetInWardrobe && playerInputBehavior.playerControls.OutOfBed.GetInBed.WasPerformedThisFrame())
         {
             ToggleGetInOutOfWardrobe();

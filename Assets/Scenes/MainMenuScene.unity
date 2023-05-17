@@ -4170,7 +4170,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 203aa34d5d87f9e4f9fcd87f78aa92ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  director: {fileID: 0}
+  director: {fileID: 441019182}
   _currentCutscene: {fileID: 11400000, guid: 5379979ca8f2aba4c979e67749aa1320, type: 2}
 --- !u!4 &441019184
 Transform:
@@ -14014,8 +14014,6 @@ MonoBehaviour:
   todaysDateGO: {fileID: 1145843749}
   currentDay: 1
   Dummy1: {fileID: 0}
-  _dummy1MinSecondsToAwake: 0
-  _dummy1IsActive: 0
   Dummy2: {fileID: 0}
   Ghoul: {fileID: 0}
   Clown: {fileID: 0}
@@ -19202,7 +19200,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh285718
+  m_Name: pb_Mesh72438
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2

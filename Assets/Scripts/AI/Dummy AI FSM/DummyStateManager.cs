@@ -53,17 +53,19 @@ public class DummyStateManager : MonoBehaviour
     [Header("Run away state values")]
     public bool dummyIsAtOrigin; //Checks to see if the dummy is at origin
 
-    
+
 
     [Header("Awake Frequency")]
-    [SerializeField] private float _secondsToAwake;
+    [SerializeField] private float _minSecondsToAwake;  //The minimum seconds the dummy will take to awake
+    [SerializeField] private float _maxSecondsToAwake;  //The maximum seconds the dummy will take to awake
+    [SerializeField] private float _secondsToAwake;  //The returned seconds to awake that the dummy will have
 
 
 
     [Header("Speed on Awake")]
-    [SerializeField] private float _minMovementSpeed;
-    [SerializeField] private float _maxMovementSpeed;
-    [SerializeField] private float _speed;
+    [SerializeField] private float _minMovementSpeed; //The minimum speed the dummy will have
+    [SerializeField] private float _maxMovementSpeed; //the max speed the dummy will have
+    [SerializeField] private float _speed; //The returned speed that the dummy will have
 
 
     [Header("Targets")]
@@ -82,13 +84,17 @@ public class DummyStateManager : MonoBehaviour
     public GameObject PlayerRef { get { return _playerRef; } }
 
     
-    public float Speed { get { return _speed; } set { _speed = value; } }
-    
+   
+    public float MinSecondsToAwake { get { return _minSecondsToAwake; } set { _minSecondsToAwake = value; } }
 
-    public float SecondsToAwake { get { return _secondsToAwake; } }
+    public float MaxSecondsToAwake { get { return _maxSecondsToAwake; } set { _maxSecondsToAwake = value; } }
+
+    public float SecondsToAwake { get { return _secondsToAwake; }  set { _secondsToAwake = value; } }
    
     public float MinMovementSpeed { get { return _minMovementSpeed; } set { _minMovementSpeed = value; } }
     public float MaxMovementSpeed { get { return _maxMovementSpeed; } set { _maxMovementSpeed = value; } }
+
+    public float Speed { get { return _speed; } set { _speed = value; } }
 
 
     public GameObject InBedTarget { get { return _inBedTarget; } }
@@ -135,8 +141,8 @@ public class DummyStateManager : MonoBehaviour
         //Set initiate phase complete to be false
         initiatePhaseComplete = false;
 
-        //Set seconds to awake to a random number
-        _secondsToAwake = Random.Range(Mathf.FloorToInt(3f), Mathf.FloorToInt(20f));
+        //Sets the seconds to awake to be a random number
+        SetSecondsToAwake();
         
         //Wait for however long the seconds to awake is
         yield return new WaitForSeconds(_secondsToAwake);
@@ -152,27 +158,40 @@ public class DummyStateManager : MonoBehaviour
     //Sets the movement speed to be a random number
     public void SetMovementSpeed()
     {
-       
-
         //Sets the speed returned to be a random range from minMovementSpeed and maxMovementSpeed
        Speed = Random.Range(Mathf.FloorToInt(MinMovementSpeed), Mathf.FloorToInt(MaxMovementSpeed));
+    }
 
-       
-
+    //Set the seconds to awake to a random number
+    public void SetSecondsToAwake()
+    {
+        //sets the seconds to awake to be a a random number from min seconds to awake and max seconds to awake
+        SecondsToAwake = Random.Range(Mathf.FloorToInt(MinSecondsToAwake), Mathf.FloorToInt(MaxSecondsToAwake));
     }
 
 
-    public IEnumerator DummyGetUp()
+    public IEnumerator DummyGetUpAnimation()
     {
         isDummyUp = false;
 
         _animator.SetBool("DummyStandUp", true);
-        yield return new WaitForSeconds(2f);
+        _animator.SetBool("SitBackDown", false);
+        yield return new WaitForSeconds(3.2f);
+      
         
         isDummyUp = true;
-        Debug.Log("dummy is up!");
+       
     }
 
+    public void DummyLayDownAnimation()
+    {
+        isDummyUp = false;
+
+        _animator.SetBool("SitBackDown", true);
+        _animator.SetBool("DummyStandUp", false);
+
+        Debug.Log("Dummy is laying down");
+    }
 
      
     public void SetDummyIsHitWithLight(bool condition)

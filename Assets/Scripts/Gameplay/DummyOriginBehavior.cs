@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+//A CLASS USED TO DEFINE WHAT HAPPENS WHEN THE DUMMIES ARE AT THEIR ORIGIN LOCATION
+
+
 public class DummyOriginBehavior : MonoBehaviour
 {
     [SerializeField] private GameObject _dummyThisBelongsTo;
@@ -12,7 +16,6 @@ public class DummyOriginBehavior : MonoBehaviour
         if(other.gameObject == _dummyThisBelongsTo.gameObject)
         {
             _dummyThisBelongsTo.GetComponent<DummyStateManager>().dummyIsAtOrigin = true;
-            Debug.Log(_dummyThisBelongsTo.name + "is here right now");
         }
         
     }
@@ -24,7 +27,6 @@ public class DummyOriginBehavior : MonoBehaviour
         if (other.gameObject == _dummyThisBelongsTo.gameObject)
         {
             _dummyThisBelongsTo.GetComponent<DummyStateManager>().dummyIsAtOrigin = false;
-            Debug.Log(_dummyThisBelongsTo.name + "is here right now");
         }
 
     }

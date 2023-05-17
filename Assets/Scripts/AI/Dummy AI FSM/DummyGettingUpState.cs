@@ -6,25 +6,25 @@ public class DummyGettingUpState : DummyDefaultState
 {
     public override void EnterState(DummyStateManager dummy)
     {
+        //Test
         Debug.Log(dummy.dummyThisBelongsTo.name + " is getting up! yeah");
 
         //Set the movement speed for the dummy
-        dummy.SetMovementSpeed();
+        dummy.dummyThisBelongsTo.GetComponent<DummyStateManager>().SetMovementSpeed();
 
-        dummy.StartCoroutine(dummy.DummyGetUp());
+        //Start the getting up animation
+        dummy.dummyThisBelongsTo.GetComponent<DummyStateManager>().StartCoroutine(dummy.DummyGetUpAnimation());
 
-        //set the values for the dummy getting up state
+      
     }
 
     public override void UpdateState(DummyStateManager dummy)
     {
         //if dummy is up...
-        if(dummy.isDummyUp)
+        if(dummy.dummyThisBelongsTo.GetComponent<DummyStateManager>().isDummyUp)
         {
-            
-
             //switch to the chase player state
-            dummy.SwitchState(dummy.chasePlayerState);
+            dummy.dummyThisBelongsTo.GetComponent<DummyStateManager>().SwitchState(dummy.chasePlayerState);
         }
     }
 

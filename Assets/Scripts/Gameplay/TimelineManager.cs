@@ -1,13 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Timeline.Actions;
+
+
 using UnityEngine;
 using UnityEngine.Playables;
-using UnityEngine.Timeline;
+
 
 public class TimelineManager : MonoBehaviour
 {
-    public TimelineAction TimelineAction;
+   
     public PlayableDirector director;
     public PlayableAsset _currentCutscene;
 
