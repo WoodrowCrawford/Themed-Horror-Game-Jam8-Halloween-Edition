@@ -53,6 +53,7 @@ public class PauseSystem : MonoBehaviour
         if (!isPaused && GameManager.instance.currentGameMode != GameManager.GameModes.MAIN_MENU)
         {
             PauseMenu.SetActive(true);
+            Cursor.visible = true;
             Time.timeScale = 0.0f;
             isPaused = true;
         }
@@ -62,6 +63,7 @@ public class PauseSystem : MonoBehaviour
         {
             PauseMenu.SetActive(false);
             Time.timeScale = 1f;
+            Cursor.visible = false;
             isPaused = false;
             
         }

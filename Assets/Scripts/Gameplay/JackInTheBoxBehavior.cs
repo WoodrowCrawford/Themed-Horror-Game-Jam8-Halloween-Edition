@@ -4,8 +4,10 @@ using UnityEngine.InputSystem;
 
 public class JackInTheBoxBehavior : MonoBehaviour, IInteractable
 {
-    public Animator _animator;
-    public GameObject _handle;
+
+
+    [SerializeField] private Animator _animator;
+    [SerializeField] private GameObject _handle;
     public PlayerInputBehavior playerInput;
 
     [Header("Jack In the Box Values")]
@@ -21,6 +23,14 @@ public class JackInTheBoxBehavior : MonoBehaviour, IInteractable
 
 
     public string InteractionPrompt => _interactionPrompt;
+
+
+    public Animator Animator { get { return _animator; } }
+    public GameObject Handle { get { return _handle; } }
+    public float MusicDuration { get { return _musicDuration; } set {_musicDuration = value; } }
+    public float DecreaseSpeed { get { return _decreaseSpeed; } set { _decreaseSpeed = value; } }
+    public float IncreaseSpeed { get { return _increaseSpeed; } set { _increaseSpeed = value;} }
+
 
     private void Awake()
     {
@@ -44,8 +54,8 @@ public class JackInTheBoxBehavior : MonoBehaviour, IInteractable
     private void Update()
     {
        
-        //If the player is rewinding the box then...
-        if(_playerRewindingBox)
+        //If the player is rewinding the box and the box is not already open then...
+        if(_playerRewindingBox && !jackInTheBoxOpen)
         {
             //Rewinds the music box
             RewindMusicBox();

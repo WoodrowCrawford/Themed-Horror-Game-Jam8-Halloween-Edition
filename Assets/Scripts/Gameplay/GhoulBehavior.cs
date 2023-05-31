@@ -28,7 +28,7 @@ public class GhoulBehavior : MonoBehaviour
     [SerializeField] private Transform[] _waypoints;
     [SerializeField] private int _waypointIndex;
     [SerializeField] private Vector3 _target;
-    [SerializeField] private float _speed;
+    
 
 
     [Header("Target")]

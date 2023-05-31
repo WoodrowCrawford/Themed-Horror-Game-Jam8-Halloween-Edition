@@ -162,36 +162,20 @@ public class GameManager : MonoBehaviour
                     {
                         //Put night code here
 
+                        //Initializes the dummies
+                        DummyStateManager.InitializeDummyValues(Dummy1, 1, 3, 5, 20, true);
+                        DummyStateManager.InitializeDummyValues(Dummy2, 1, 3, 5, 20, true);
 
 
-                        //set dummy to be active
-                        Dummy1.GetComponent<DummyStateManager>().isActive = true;
-                        Dummy2.GetComponent<DummyStateManager>().isActive = true;
-
-                        //Sets the min and max movement speed for this night for dummy #1
-                        Dummy1.GetComponent<DummyStateManager>().MinMovementSpeed = 1;
-                        Dummy1.GetComponent<DummyStateManager>().MaxMovementSpeed = 3;
-
-                        //Sets the min and max seconds to awake for this night for dummy #1
-                        Dummy1.GetComponent<DummyStateManager>().MinSecondsToAwake = 5f;
-                        Dummy1.GetComponent<DummyStateManager>().MaxSecondsToAwake = 20f;
+                        //Initializes the clown
+                        ClownStateManager.InitializeClown(Clown, 6f, true);
 
 
-
-                        //Sets the min and max movement speed for this night for dummy #2
-                        Dummy2.GetComponent<DummyStateManager>().MinMovementSpeed = 1;
-                        Dummy2.GetComponent<DummyStateManager>().MaxMovementSpeed = 3;
-
-                        //Sets the min and max seconds to awake for this night for dummy #2
-                        Dummy2.GetComponent<DummyStateManager>().MinSecondsToAwake = 5f;
-                        Dummy2.GetComponent<DummyStateManager>().MaxSecondsToAwake = 20f;
+                        //Initialize the ghoul
+                        GhoulStateManager.InitializeGhoulValues(Ghoul, 3, 7, true);
                     }
 
-
-
                     break;
-
-
                 }
 
             case Days.MONDAY_MORNING:
@@ -216,6 +200,18 @@ public class GameManager : MonoBehaviour
                     //Sets todays date text to be monday night
                     todaysDateGO.GetComponent<TodaysDateBehavior>().TodaysDateText.text = ("Monday Night");
 
+                    //FInds the ai enemies
+                    FindAIEnemies();
+
+                    if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("BedroomScene"))
+                    {
+                        //Put night code here
+
+                        //Initialize the ghoul
+                        GhoulStateManager.InitializeGhoulValues(Ghoul, 3, 7, true);
+                    }
+
+
                     Debug.Log("Monday Night");
                     break;
                 }
@@ -224,6 +220,12 @@ public class GameManager : MonoBehaviour
                 {
                     //Sets todays date text to be tuesday morning
                     todaysDateGO.GetComponent<TodaysDateBehavior>().TodaysDateText.text = ("Tuesday Morning");
+
+
+                    if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("BedroomScene"))
+                    {
+                        //Put night code here
+                    }
 
                     Debug.Log("Tuesday Morning");
                     break;
@@ -235,7 +237,17 @@ public class GameManager : MonoBehaviour
                     todaysDateGO.GetComponent<TodaysDateBehavior>().TodaysDateText.text = ("Tuesday Night");
 
                     Debug.Log("Tuesday Night");
-                    break;
+
+                    FindAIEnemies(); 
+
+                    if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("BedroomScene"))
+                    {
+                        //Put night code here
+                        
+                      
+                    }
+
+                        break;
                 }
 
             case Days.WEDNESDAY_MORNING:
@@ -253,6 +265,12 @@ public class GameManager : MonoBehaviour
                     //sets todays date text to be wedensday night
                     todaysDateGO.GetComponent<TodaysDateBehavior>().TodaysDateText.text = ("Wednesday Night");
 
+
+                    if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("BedroomScene"))
+                    {
+                        //Put night code here
+                    }
+
                     Debug.Log("Wednesday Night");
                     break;
                 }
@@ -261,6 +279,12 @@ public class GameManager : MonoBehaviour
                 {
                     //set todays date text to be thursday morning
                     todaysDateGO.GetComponent<TodaysDateBehavior>().TodaysDateText.text = ("Thursday Morning");
+
+
+                    if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("BedroomScene"))
+                    {
+                        //Put night code here
+                    }
 
                     Debug.Log("Thursday Morning");
                     break;

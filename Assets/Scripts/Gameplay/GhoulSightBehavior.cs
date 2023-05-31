@@ -9,11 +9,12 @@ public class GhoulSightBehavior : MonoBehaviour
 
 
     [Header("Sight Values")]
-    public float radius;
-    [Range(0, 360)]public float angle;
+    [SerializeField] private float _radius;
+
+    [Range(0, 360)] [SerializeField] private float _angle;
 
     [Header("Player Reference")]
-    public GameObject playerRef;
+    [SerializeField] private GameObject _playerRef;
 
     [Header("Layer Masks")]
     [SerializeField] private LayerMask _targetMask;
@@ -21,11 +22,21 @@ public class GhoulSightBehavior : MonoBehaviour
 
     public bool canSeePlayer;
 
+
+
+    public float Radius { get { return _radius; } set { _radius = value; } }
+    public float Angle { get { return _angle; } set { _angle = value; } }
+
+    public GameObject PlayerRef { get { return _playerRef; } }
+    public LayerMask TargetMask { get { return _targetMask;} }
+    public LayerMask ObstructionMask { get { return _obstructionMask; } }
+
+
     private void Awake()
     {
         //Gets the components on awake
         playerInputBehavior = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInputBehavior>();
-        playerRef = GameObject.FindGameObjectWithTag("Player");
+        _playerRef = GameObject.FindGameObjectWithTag("Player");
 
         StartCoroutine(CheckFieldOfViewRoutine());
     }
@@ -46,14 +57,14 @@ public class GhoulSightBehavior : MonoBehaviour
 
     private void FieldOfViewCheck()
     {
-        Collider[] rangecheck = Physics.OverlapSphere(transform.position, radius, _targetMask);
+        Collider[] rangecheck = Physics.OverlapSphere(transform.position, _radius, _targetMask);
 
         if (rangecheck.Length != 0)
         {
             Transform target = rangecheck[0].transform;
             Vector3 directionToTarget = (target.position - transform.position).normalized;
 
-            if (Vector3.Angle(transform.forward, directionToTarget) < angle / 2)
+            if (Vector3.Angle(transform.forward, directionToTarget) < _angle / 2)
             {
                 float distanceToTarget = Vector3.Distance(transform.position, target.position);
 

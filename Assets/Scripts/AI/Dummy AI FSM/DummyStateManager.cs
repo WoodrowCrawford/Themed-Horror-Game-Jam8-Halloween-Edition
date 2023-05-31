@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -84,7 +85,6 @@ public class DummyStateManager : MonoBehaviour
     public GameObject PlayerRef { get { return _playerRef; } }
 
     
-   
     public float MinSecondsToAwake { get { return _minSecondsToAwake; } set { _minSecondsToAwake = value; } }
 
     public float MaxSecondsToAwake { get { return _maxSecondsToAwake; } set { _maxSecondsToAwake = value; } }
@@ -133,6 +133,24 @@ public class DummyStateManager : MonoBehaviour
         currentState = state;
         state.EnterState(this);
     }
+
+
+    //sets up the dummy values (used in the game manager)
+    public static void InitializeDummyValues(GameObject dummyThisBelongsTo,  float minSpeed, float maxSpeed, float minTimeToAwake, float maxTimeToAwake, bool active)
+    {
+
+        //Sets the values for min and max speed
+        dummyThisBelongsTo.GetComponent<DummyStateManager>().MinMovementSpeed = minSpeed;
+        dummyThisBelongsTo.GetComponent<DummyStateManager>().MaxMovementSpeed = maxSpeed;
+
+        //Sets the values for min and max seconds to awake
+        dummyThisBelongsTo.GetComponent<DummyStateManager>().MinSecondsToAwake = minTimeToAwake;
+        dummyThisBelongsTo.GetComponent<DummyStateManager>().MaxSecondsToAwake = maxTimeToAwake;
+
+        //sets the active bool to be equal to the active bool in the dummy state manager
+        dummyThisBelongsTo.GetComponent<DummyStateManager>().isActive = active;
+    }
+
 
 
     //start up phase to initialize the dummy

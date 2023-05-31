@@ -584,7 +584,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh25666
+  m_Name: pb_Mesh170990
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -13079,9 +13079,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 413e9d20569126d439181e6f0d9da89f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animator: {fileID: 0}
+  _animator: {fileID: 1141631472}
   _handle: {fileID: 1385578170}
-  playerInput: {fileID: 0}
+  playerInput: {fileID: 1294530727}
   _musicDuration: 100
   _decreaseSpeed: 1
   _increaseSpeed: 0.5
@@ -14876,6 +14876,17 @@ MonoBehaviour:
     m_Bits: 256
   _numFound: 0
   _interactionUI: {fileID: 1618084188}
+--- !u!114 &1294530727 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7556417767502626036, guid: 78ff5ba6a8d4a83459cae06068a5488f, type: 3}
+  m_PrefabInstance: {fileID: 243349666}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1294530709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a20c22e2d57f11f44a5becc9b44f9cd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1295795474
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16201,9 +16212,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d29bf9a1656a0474c95cc3331d750f5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 23.34
-  angle: 150
-  playerRef: {fileID: 0}
+  _radius: 23.2
+  _angle: 110
+  _playerRef: {fileID: 1294530709}
   _targetMask:
     serializedVersion: 2
     m_Bits: 8
@@ -16245,6 +16256,41 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8293057273605259992, guid: ab7eca48dfd96ea4a876315763b580c7, type: 3}
   m_PrefabInstance: {fileID: 8293665413038420607}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1409680714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1019975848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a598d075c534124db8d45fbca1a49e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ghoulSightBehavior: {fileID: 1409680703}
+  playerInputBehavior: {fileID: 1294530727}
+  agent: {fileID: 0}
+  _animator: {fileID: 1409680702}
+  isActive: 1
+  _waypoints:
+  - {fileID: 223076750}
+  - {fileID: 1012454935}
+  - {fileID: 909938016}
+  - {fileID: 460031472}
+  - {fileID: 2067256096}
+  - {fileID: 1203144187}
+  - {fileID: 1447909546}
+  - {fileID: 1120241318}
+  - {fileID: 799171569}
+  - {fileID: 700908968}
+  - {fileID: 1363716751}
+  _waypointIndex: 0
+  _target: {x: 0, y: 0, z: 0}
+  _minSecondsToWait: 0
+  _maxSecondsToWait: 0
+  _secondsToWait: 0
+  _playerRef: {fileID: 1294530709}
 --- !u!1 &1432846286
 GameObject:
   m_ObjectHideFlags: 0
@@ -21431,6 +21477,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1829985404}
   - component: {fileID: 1829985408}
+  - component: {fileID: 1829985410}
   - component: {fileID: 1829985407}
   - component: {fileID: 1829985406}
   - component: {fileID: 1829985405}
@@ -21507,7 +21554,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1829985403}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8fe35694ce3c8b843a763f91fd253f7a, type: 3}
   m_Name: 
@@ -21549,6 +21596,27 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
+--- !u!114 &1829985410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1829985403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 188dce3dae57c074d820f763cdc2693c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  JackInTheBoxBehavior: {fileID: 1141631474}
+  _agent: {fileID: 1829985405}
+  _animator: {fileID: 1829985406}
+  _playerRef: {fileID: 1294530709}
+  _target: {fileID: 955698712}
+  _inBedTarget: {fileID: 955698712}
+  isActive: 0
+  clownIsUp: 0
+  clownIsChasing: 0
 --- !u!4 &1853287263 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4624065845428560, guid: 5f5b30dd83891694d94871bfea671b47, type: 3}
@@ -22700,7 +22768,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh26604
+  m_Name: pb_Mesh26386
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -26104,61 +26172,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 311085765}
     m_Modifications:
-    - target: {fileID: 426034146, guid: ab7eca48dfd96ea4a876315763b580c7, type: 3}
-      propertyPath: animator
-      value: 
-      objectReference: {fileID: 1409680702}
-    - target: {fileID: 426034146, guid: ab7eca48dfd96ea4a876315763b580c7, type: 3}
-      propertyPath: _playerRef
-      value: 
-      objectReference: {fileID: 1294530709}
-    - target: {fileID: 426034146, guid: ab7eca48dfd96ea4a876315763b580c7, type: 3}
-      propertyPath: _waypoints.Array.data[0]
-      value: 
-      objectReference: {fileID: 223076750}
-    - target: {fileID: 426034146, guid: ab7eca48dfd96ea4a876315763b580c7, type: 3}
-      propertyPath: _waypoints.Array.data[1]
-      value: 
-      objectReference: {fileID: 1012454935}
-    - target: {fileID: 426034146, guid: ab7eca48dfd96ea4a876315763b580c7, type: 3}
-      propertyPath: _waypoints.Array.data[2]
-      value: 
-      objectReference: {fileID: 909938016}
-    - target: {fileID: 426034146, guid: ab7eca48dfd96ea4a876315763b580c7, type: 3}
-      propertyPath: _waypoints.Array.data[3]
-      value: 
-      objectReference: {fileID: 460031472}
-    - target: {fileID: 426034146, guid: ab7eca48dfd96ea4a876315763b580c7, type: 3}
-      propertyPath: _waypoints.Array.data[4]
-      value: 
-      objectReference: {fileID: 2067256096}
-    - target: {fileID: 426034146, guid: ab7eca48dfd96ea4a876315763b580c7, type: 3}
-      propertyPath: _waypoints.Array.data[5]
-      value: 
-      objectReference: {fileID: 1203144187}
-    - target: {fileID: 426034146, guid: ab7eca48dfd96ea4a876315763b580c7, type: 3}
-      propertyPath: _waypoints.Array.data[6]
-      value: 
-      objectReference: {fileID: 1447909546}
-    - target: {fileID: 426034146, guid: ab7eca48dfd96ea4a876315763b580c7, type: 3}
-      propertyPath: _waypoints.Array.data[7]
-      value: 
-      objectReference: {fileID: 1120241318}
-    - target: {fileID: 426034146, guid: ab7eca48dfd96ea4a876315763b580c7, type: 3}
-      propertyPath: _waypoints.Array.data[8]
-      value: 
-      objectReference: {fileID: 799171569}
-    - target: {fileID: 426034146, guid: ab7eca48dfd96ea4a876315763b580c7, type: 3}
-      propertyPath: _waypoints.Array.data[9]
-      value: 
-      objectReference: {fileID: 700908968}
-    - target: {fileID: 426034146, guid: ab7eca48dfd96ea4a876315763b580c7, type: 3}
-      propertyPath: _waypoints.Array.data[10]
-      value: 
-      objectReference: {fileID: 1363716751}
     - target: {fileID: 426034149, guid: ab7eca48dfd96ea4a876315763b580c7, type: 3}
       propertyPath: m_Speed
-      value: 7
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 426034149, guid: ab7eca48dfd96ea4a876315763b580c7, type: 3}
       propertyPath: m_Acceleration
