@@ -15,6 +15,10 @@ public class PlayerInputBehavior : MonoBehaviour
     public PauseSystem pauseSystem;
 
 
+    //Used for interaction
+    [Header("Interaction")]
+    public bool isPlayerInteracting;
+   
 
     //Camera stuff
     [Header("Camera Values")]
@@ -47,9 +51,9 @@ public class PlayerInputBehavior : MonoBehaviour
     public bool playerIsHidden;
 
 
-    //Used for interaction
-    public bool isPlayerInteracting;
+   
 
+  
 
 
     private void Awake()
@@ -60,11 +64,7 @@ public class PlayerInputBehavior : MonoBehaviour
         getInBedTriggerBehavior = GameObject.FindGameObjectWithTag("GetInBedTrigger").GetComponent<GetInBedTriggerBehavior>();
         sleepBehavior = GameObject.FindGameObjectWithTag("Player").GetComponent<SleepBehavior>();
         wardrobeBehavior = GameObject.FindGameObjectWithTag("Wardrobe").GetComponent<WardrobeBehavior>();
-        pauseSystem = GameObject.FindGameObjectWithTag("PauseSystem").GetComponent<PauseSystem>();
-        
-
-        
-       
+        pauseSystem = GameObject.FindGameObjectWithTag("PauseSystem").GetComponent<PauseSystem>(); 
     }
 
     public void OnEnable()
@@ -144,16 +144,10 @@ public class PlayerInputBehavior : MonoBehaviour
     }
 
 
-
-
-
-
-
     private void Start()
     {
         //Gets the player camera
         _camera = GetComponentInChildren<Camera>();
-
 
         //Hides the mouse
         Cursor.visible = false;
@@ -161,10 +155,8 @@ public class PlayerInputBehavior : MonoBehaviour
         //Makes the player look straight ahead when the game starts
         _camera.transform.LookAt(_startLookAt.position);
 
-
         //Sets the players position to be on top of the bed
         _playerBody.transform.position = _TopOfBedPos.position;
-   
     }
 
     private void Update()
@@ -189,7 +181,6 @@ public class PlayerInputBehavior : MonoBehaviour
         {
             playerControls.InWardrobe.Disable();
         }
-
     }
 
     private void FixedUpdate()
@@ -201,7 +192,7 @@ public class PlayerInputBehavior : MonoBehaviour
     //Functions for both In Bed and out of bed
     public void Look()
     {
-        //Look values for in the bed
+        //Look values
         float mouseXLook = playerControls.Default.Look.ReadValue<Vector2>().x * _sensitivity * Time.deltaTime;
         float mouseYLook = playerControls.Default.Look.ReadValue<Vector2>().y * _sensitivity * Time.deltaTime;
        
@@ -293,8 +284,6 @@ public class PlayerInputBehavior : MonoBehaviour
             inBed = true;
             
         }
-
-        
     }
 
     

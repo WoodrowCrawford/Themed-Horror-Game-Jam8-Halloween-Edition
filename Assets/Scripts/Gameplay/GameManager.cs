@@ -130,13 +130,15 @@ public class GameManager : MonoBehaviour
                     //Sets todays date text to be Sunday Morning
                     todaysDateGO.GetComponent<TodaysDateBehavior>().TodaysDateText.text = ("Sunday Morning");
 
-                    //Set sun to be active
-                    GraphicsBehavior.instance.SetDayTime();
+                    GraphicsBehavior.instance.SetNightTime();
 
                     FindAIEnemies();
 
                     if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("BedroomScene"))
                     {
+                        //Set sun to be active
+                        GraphicsBehavior.instance.SetDayTime();
+
                         //Put morning code here
                     }
 

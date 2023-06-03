@@ -303,6 +303,7 @@ MonoBehaviour:
   wardrobeDoorIsOpen: 0
   playerCanGetInWardrobe: 0
   playerIsInWardrobe: 0
+  _dialogueObject: {fileID: 0}
 --- !u!1001 &14430558
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1067,7 +1068,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0.0003308903, y: 0.2650237, z: 359.8566}
 --- !u!114 &82015136
 MonoBehaviour:
@@ -2912,7 +2913,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &289995948
 PrefabInstance:
@@ -4185,7 +4186,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &441019185
 MonoBehaviour:
@@ -7487,7 +7488,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!64 &705616202
 MeshCollider:
@@ -7746,7 +7747,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 358b75ea5451cf143ab19029a189097d, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 358b75ea5451cf143ab19029a189097d, type: 3}
       propertyPath: m_LocalScale.x
@@ -8824,7 +8825,7 @@ Transform:
   m_Children:
   - {fileID: 2135373628}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &864879406
 PrefabInstance:
@@ -11624,7 +11625,7 @@ Transform:
   m_Children:
   - {fileID: 1127413997}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1148368130
 GameObject:
@@ -13801,7 +13802,7 @@ Transform:
   - {fileID: 1797122741}
   - {fileID: 83388465}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1392344023
 PrefabInstance:
@@ -13973,7 +13974,7 @@ RectTransform:
   - {fileID: 1562887665}
   - {fileID: 91401195}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -14012,7 +14013,7 @@ MonoBehaviour:
   mainDummyAIBehavior: {fileID: 0}
   currentGameMode: 0
   todaysDateGO: {fileID: 1145843749}
-  currentDay: 1
+  currentDay: 0
   Dummy1: {fileID: 0}
   Dummy2: {fileID: 0}
   Ghoul: {fileID: 0}
@@ -14030,7 +14031,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1415971016
 PrefabInstance:
@@ -14503,7 +14504,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &1445912123
 Animator:
@@ -15635,7 +15636,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1575821784
 MonoBehaviour:
@@ -19200,7 +19201,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh231448
+  m_Name: pb_Mesh576850
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -20437,7 +20438,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!114 &2036560975
 MonoBehaviour:
@@ -20759,7 +20760,6 @@ GameObject:
   - component: {fileID: 2065581012}
   - component: {fileID: 2065581011}
   - component: {fileID: 2065581010}
-  - component: {fileID: 2065581009}
   m_Layer: 0
   m_Name: Reflection Probe
   m_TagString: Untagged
@@ -20782,18 +20782,6 @@ Transform:
   m_Father: {fileID: 1623073383}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2065581009
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2065581007}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0ef8dc2c2eabfa4e8cb77be57a837c0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!215 &2065581010
 ReflectionProbe:
   m_ObjectHideFlags: 0

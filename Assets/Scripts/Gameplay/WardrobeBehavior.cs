@@ -32,7 +32,8 @@ public class WardrobeBehavior : MonoBehaviour, IInteractable
 
     public string InteractionPrompt => _interactionPrompt;
 
-   
+    [Header("Dialogue")]
+    [SerializeField] private DialogueObjectBehavior _dialogueObject;
 
     private void Update()
     {
@@ -77,6 +78,7 @@ public class WardrobeBehavior : MonoBehaviour, IInteractable
         {
             //opens the door if the door is closed and there is no cooldown
             StartCoroutine(OpenWardrobeDoor());
+            Interactor.DialogueUI.ShowDialogue(_dialogueObject);
 
         }
         else if (wardrobeDoorIsOpen && !actionOnCoolDown)

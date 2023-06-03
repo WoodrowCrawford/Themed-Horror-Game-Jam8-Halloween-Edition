@@ -10,6 +10,7 @@ public class Interactor : MonoBehaviour
     
 
     private IInteractable _interactable;
+    
 
     [SerializeField] private Transform _interactionPoint;
     [SerializeField] private float _interactionPointRadius;
@@ -17,9 +18,11 @@ public class Interactor : MonoBehaviour
     [SerializeField] private int _numFound;
 
     [SerializeField] private InteractionUIBehavior _interactionUI;
-
+    [SerializeField] private DialogueUIBehavior _dialogueUIBehavior;
 
     private readonly Collider[] _colliders = new Collider[3];
+
+    public DialogueUIBehavior DialogueUI { get { return _dialogueUIBehavior; } }
 
     private void Awake()
     {
