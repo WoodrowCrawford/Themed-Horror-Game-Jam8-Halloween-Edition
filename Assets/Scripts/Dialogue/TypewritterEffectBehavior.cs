@@ -1,15 +1,17 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
 public class TypewritterEffectBehavior : MonoBehaviour
 {
-    [SerializeField] private float _typewritterSpeed = 50f;
+    //Controls the speed at which the text types
+    [SerializeField] private float  _typewritterSpeed = 50f;
 
-   public Coroutine Run(string textToType, TMP_Text textLabel)
+
+
+    public Coroutine Run(string textToType, TMP_Text textLabel)
     {
-       return StartCoroutine(TypeText(textToType, textLabel));
+        return StartCoroutine(TypeText(textToType, textLabel));
     }
 
 
@@ -22,7 +24,8 @@ public class TypewritterEffectBehavior : MonoBehaviour
 
         while (charIndex < textToType.Length)
         {
-            elaspedTime += Time.deltaTime * _typewritterSpeed;
+
+            elaspedTime += Time.unscaledDeltaTime * _typewritterSpeed;
             charIndex = Mathf.FloorToInt(elaspedTime);
             charIndex = Mathf.Clamp(charIndex, 0, textToType.Length);
 
@@ -30,7 +33,5 @@ public class TypewritterEffectBehavior : MonoBehaviour
 
             yield return null;
         }
-
-        textLabel.text = textToType;
     }
 }

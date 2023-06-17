@@ -1,34 +1,46 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-using System;
 using System.Collections.Generic;
 
 public class ResponseHandlerBehavior : MonoBehaviour
 {
+    private DialogueUIBehavior _dialogueUI;
+    private ResponseEvent[] responseEvents;
+
     [SerializeField] private RectTransform _responseBox;
     [SerializeField] private RectTransform _responseButtonTemplate;
     [SerializeField] private RectTransform _responseContainer;
 
-    private DialogueUIBehavior _dialogueUI;
-
+   
     List<GameObject> tempResponseButtons = new List<GameObject>();
 
-    private void Start()
+
+    private void Awake()
     {
+        //gets the needed components on awake
         _dialogueUI = GetComponent<DialogueUIBehavior>();
+    }
+
+  
+    public void AddResponseEvents(ResponseEvent[] responseEvents)
+    {
+        this.responseEvents = responseEvents;
     }
 
     public void ShowResponses(ResponseBehavior[] responses)
     {
         float responseBoxHeight = 0f;
 
-        foreach (ResponseBehavior response in responses) 
+        for (int i = 0; i < responses.Length; i++) 
         {
+            ResponseBehavior response = responses[i];
+            int responseIndex = i;
+
             GameObject responseButton = Instantiate(_responseButtonTemplate.gameObject, _responseContainer);
             responseButton.gameObject.SetActive(true);
             responseButton.GetComponent<TMP_Text>().text = response.ResponseText;
-            responseButton.GetComponent<Button>().onClick.AddListener(() => OnPickedResponse(response));
+            responseButton.GetComponent<Button>().onClick.AddListener(() => OnPickedResponse(response, responseIndex));
 
             tempResponseButtons.Add(responseButton);
 
@@ -39,7 +51,7 @@ public class ResponseHandlerBehavior : MonoBehaviour
         _responseBox.gameObject.SetActive(true);
     }
 
-    private void OnPickedResponse(ResponseBehavior response)
+    private void OnPickedResponse(ResponseBehavior response, int responseIndex)
     {
         _responseBox.gameObject.SetActive(false);
 
@@ -49,7 +61,23 @@ public class ResponseHandlerBehavior : MonoBehaviour
         }
         tempResponseButtons.Clear();
 
-        _dialogueUI.ShowDialogue(response.DialogueObject);
+        if(responseEvents != null && responseIndex <= responseEvents.Length)
+        {
+            responseEvents[responseIndex].OnPickedResponse?.Invoke();
+        }
+
+        responseEvents = null;
+
+
+        if(response.DialogueObject)
+        {
+            _dialogueUI.ShowDialogue(response.DialogueObject);
+        }
+        else
+        {
+            _dialogueUI.CloseDialogueBox();
+        }
+        
     }
 }
 

@@ -19,6 +19,8 @@ public class JackInTheBoxBehavior : MonoBehaviour, IInteractable
 
     [Header("Interaction Values")]
     [SerializeField] private string _interactionPrompt;
+    [SerializeField] private DialogueObjectBehavior _dialogueObject;
+
     public bool playerCanInteract;
 
 
@@ -31,6 +33,8 @@ public class JackInTheBoxBehavior : MonoBehaviour, IInteractable
     public float DecreaseSpeed { get { return _decreaseSpeed; } set { _decreaseSpeed = value; } }
     public float IncreaseSpeed { get { return _increaseSpeed; } set { _increaseSpeed = value;} }
 
+
+    public DialogueObjectBehavior DialogueObject => _dialogueObject;
 
     private void Awake()
     {
@@ -53,18 +57,47 @@ public class JackInTheBoxBehavior : MonoBehaviour, IInteractable
 
     private void Update()
     {
+        switch (DayManager.instance.days)
+        {
+            case DayManager.Days.SUNDAY_MORNING:
+                {
+                    //Disable the jack in the box moving
+                    Debug.Log("Jack in the box disabled!");
+
+                    _interactionPrompt = "Interact";
+                    break;
+                }
+            case DayManager.Days.SUNDAY_NIGHT:
+                {
+                    //If the player is rewinding the box and the box is not already open then...
+                    if (_playerRewindingBox && !jackInTheBoxOpen)
+                    {
+                        //Rewinds the music box
+                        RewindMusicBox();
+                    }
+                    else
+                    {
+                        //If the player is not rewinding the music box then the box should play as normal
+                        PlayMusicBox();
+                    }
+
+
+                    break;
+
+                }
+
+        }
+    
+
+
+
+
+
+
        
-        //If the player is rewinding the box and the box is not already open then...
-        if(_playerRewindingBox && !jackInTheBoxOpen)
-        {
-            //Rewinds the music box
-            RewindMusicBox();
-        }
-        else
-        {
-            //If the player is not rewinding the music box then the box should play as normal
-            PlayMusicBox();
-        }
+      
+        
+        
 
         //If the music duration reaches 0...
         if(_musicDuration <= 0)
@@ -140,8 +173,11 @@ public class JackInTheBoxBehavior : MonoBehaviour, IInteractable
     //A function that is inherited from Iinteractable
     public void Interact(Interactor Interactor)
     {
-        Debug.Log("Rewinding the box");
-        //throw new System.NotImplementedException();
+        if(GraphicsBehavior.instance.IsDayTime)
+        {
+            DialogueUIBehavior.instance.ShowDialogue(_dialogueObject);
+        }
+        
     }
 }
 

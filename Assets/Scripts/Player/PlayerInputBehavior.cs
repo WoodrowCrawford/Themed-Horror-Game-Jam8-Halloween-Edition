@@ -18,6 +18,7 @@ public class PlayerInputBehavior : MonoBehaviour
     //Used for interaction
     [Header("Interaction")]
     public bool isPlayerInteracting;
+    public static bool playerCanInteract = true;
    
 
     //Camera stuff
@@ -155,7 +156,7 @@ public class PlayerInputBehavior : MonoBehaviour
         //Makes the player look straight ahead when the game starts
         _camera.transform.LookAt(_startLookAt.position);
 
-        //Sets the players position to be on top of the bed
+        //Sets the players position to be on top of the bed (can move this to be called in the day mananger for story reasons)
         _playerBody.transform.position = _TopOfBedPos.position;
     }
 
@@ -164,6 +165,32 @@ public class PlayerInputBehavior : MonoBehaviour
         _yRotation = Mathf.CeilToInt(_playerBody.transform.eulerAngles.y);
 
         Look();
+
+
+        //If it is currently daytime...
+        if(GraphicsBehavior.instance.IsDayTime)
+        {
+            //Cancel the sleeping and flashlight inputs
+            playerControls.InBed.Sleep.Disable();
+            playerControls.InBed.ToggleFlashlight.Disable();
+            playerControls.OutOfBed.ToggleFlashlight.Disable();
+            playerControls.InWardrobe.ToggleFlashlight.Disable();
+
+            flashlightBehavior.TurnOffFlashlight();
+           
+
+        }
+        else if(GraphicsBehavior.instance.IsNightTime)
+        {
+            //Cancel the sleeping and flashlight inputs
+           
+            playerControls.InBed.ToggleFlashlight.Enable();
+            playerControls.OutOfBed.ToggleFlashlight.Enable();
+            playerControls.InWardrobe.ToggleFlashlight.Enable();
+
+           
+        }
+
 
         //If the player is under the bed then they should not be able to sleep
         if (_isUnderBed)
@@ -189,9 +216,19 @@ public class PlayerInputBehavior : MonoBehaviour
         Move();
     }
 
+   
+
+
     //Functions for both In Bed and out of bed
     public void Look()
     {
+        //if the dialogue box is open then return
+        if (DialogueUIBehavior.IsOpen)
+        {
+            return;
+        }
+
+
         //Look values
         float mouseXLook = playerControls.Default.Look.ReadValue<Vector2>().x * _sensitivity * Time.deltaTime;
         float mouseYLook = playerControls.Default.Look.ReadValue<Vector2>().y * _sensitivity * Time.deltaTime;
@@ -208,6 +245,12 @@ public class PlayerInputBehavior : MonoBehaviour
 
     public void Move()
     {
+        //if the dialogue box is open then return
+        if(DialogueUIBehavior.IsOpen)
+        {
+            return;
+        }
+
         float x = playerControls.OutOfBed.Move.ReadValue<Vector2>().x;
         float y = playerControls.OutOfBed.Move.ReadValue<Vector2>().y;
 

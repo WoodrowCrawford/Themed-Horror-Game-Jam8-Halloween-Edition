@@ -29,6 +29,7 @@ TagManager:
   - Graphics
   - Sun
   - PauseBackground
+  - Dialogue
   layers:
   - Default
   - TransparentFX

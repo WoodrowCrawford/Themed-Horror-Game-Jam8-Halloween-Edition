@@ -7,8 +7,6 @@ using UnityEngine.InputSystem;
 public class Interactor : MonoBehaviour
 {
     private PlayerInputBehavior _playerInput;
-    
-
     private IInteractable _interactable;
     
 
@@ -34,40 +32,33 @@ public class Interactor : MonoBehaviour
     {
         _numFound = Physics.OverlapSphereNonAlloc(_interactionPoint.position, _interactionPointRadius, _colliders, _interactableMask);
 
+
         if(_numFound > 0)
         {
             _interactable = _colliders[0].GetComponent<IInteractable>();
 
-
-            if (_interactable != null)
+            if(_interactable != null )
             {
-                if(!_interactionUI.IsDisplayed)
+                if (!_interactionUI.IsDisplayed)
                 {
                     _interactionUI.SetUp(_interactable.InteractionPrompt);
                 }
 
-                if(Keyboard.current.eKey.wasPressedThisFrame)
+                if (Keyboard.current.eKey.wasPressedThisFrame && PlayerInputBehavior.playerCanInteract)
                 {
                     _interactable.Interact(this);
                 }
-                
             }
-            else
+        }
+        else
+        {
+            if(_interactable != null) _interactable = null;
+
+            if (_interactionUI.IsDisplayed)
             {
-
-
-                _interactable = null;
-                
-
-                if(_interactionUI.IsDisplayed)
-                {
-                    _interactionUI.Close();
-                }
-                
+                _interactionUI.Close();
             }
-            
         }
     }
-
     
 }

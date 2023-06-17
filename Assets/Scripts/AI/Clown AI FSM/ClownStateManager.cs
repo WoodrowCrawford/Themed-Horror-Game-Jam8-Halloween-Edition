@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class ClownStateManager : MonoBehaviour
+public class ClownStateManager : MonoBehaviour, IInteractable
 {
     public JackInTheBoxBehavior JackInTheBoxBehavior;
 
@@ -45,6 +45,10 @@ public class ClownStateManager : MonoBehaviour
 
 
 
+    [Header("Interaction")]
+    [SerializeField] private string _interactionPrompt;
+    [SerializeField] private DialogueObjectBehavior _dialogueObject;
+
     public NavMeshAgent Agent { get { return _agent; } }
     public Animator Animator { get { return _animator; } }
 
@@ -55,6 +59,9 @@ public class ClownStateManager : MonoBehaviour
 
     public Vector3 PlayerPos { get { return _playerPos; } set { _playerPos = value; } }
 
+    public string InteractionPrompt => _interactionPrompt;
+
+    public DialogueObjectBehavior DialogueObject => _dialogueObject;
 
     private void Awake()
     {
@@ -177,4 +184,11 @@ public class ClownStateManager : MonoBehaviour
         Agent.SetDestination(_target.transform.position);
     }
 
+    public void Interact(Interactor Interactor)
+    {
+        if(DayManager.instance.days == DayManager.Days.SUNDAY_MORNING)
+        {
+            DialogueUIBehavior.instance.ShowDialogue(_dialogueObject);
+        }
+    }
 }

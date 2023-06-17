@@ -10,15 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3667a4296b0115b40ad167e804a58408, type: 3}
-  m_Name: Test
+  m_Name: BasketBall
   m_EditorClassIdentifier: 
   _dialogue:
-  - What are you going to pick?
-  - Go pick one!
+  - This is my very own basket ball that my father gave to me,,,, hmm
+  - I never really use it, as I'm not a fan of sports.
+  - Actually now that I think about it...
+  - I feel...
+  - I'm not sure
   _responses:
-  - _responseText: Yes
-    _dialogueObject: {fileID: 11400000, guid: 3183eb57e4d500f498afaf2c52776a86, type: 2}
-  - _responseText: No
+  - _responseText: Cool
     _dialogueObject: {fileID: 11400000, guid: de77b0239d2e80449bbc88ffeb7eef2f, type: 2}
-  - _responseText: Why
-    _dialogueObject: {fileID: 11400000, guid: 0677398933b2e2a47b22d52342b7a7bc, type: 2}
+  - _responseText: Oh
+    _dialogueObject: {fileID: 11400000, guid: 3183eb57e4d500f498afaf2c52776a86, type: 2}

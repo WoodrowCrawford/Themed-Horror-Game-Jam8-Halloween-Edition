@@ -26,6 +26,8 @@ public class LevelManager : MonoBehaviour
    public async void LoadScene(string sceneName)
     {
         var scene = SceneManager.LoadSceneAsync(sceneName);
+
+     
     }
 
    
@@ -35,5 +37,9 @@ public class LevelManager : MonoBehaviour
         var scene = SceneManager.GetActiveScene();
         PauseSystem.instance.TogglePauseMenu();
         SceneManager.LoadScene(scene.name);
+
+        DayManager.instance.ResetInitializers();
     }
+
+    
 }

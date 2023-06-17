@@ -4,9 +4,11 @@ using UnityEngine.SceneManagement;
 public class PauseSystem : MonoBehaviour
 {
     public static PauseSystem instance;
+    public GameObject PauseMenu;
+
     public static bool isPaused = false;
 
-    public GameObject PauseMenu;
+    
 
 
 
@@ -53,6 +55,10 @@ public class PauseSystem : MonoBehaviour
         if (!isPaused && GameManager.instance.currentGameMode != GameManager.GameModes.MAIN_MENU)
         {
             PauseMenu.SetActive(true);
+            
+            //Makes it so that the player can not interact with things while paused
+            PlayerInputBehavior.playerCanInteract = false;
+
             Cursor.visible = true;
             Time.timeScale = 0.0f;
             isPaused = true;
@@ -62,6 +68,23 @@ public class PauseSystem : MonoBehaviour
         else if (isPaused && GameManager.instance.currentGameMode != GameManager.GameModes.MAIN_MENU)
         {
             PauseMenu.SetActive(false);
+
+            //if the dialogue is open while the game is unpaused
+            if(DialogueUIBehavior.IsOpen)
+            {
+                //Makes it so that the player can not interact with things while unpaused and the dialogue box is open
+                PlayerInputBehavior.playerCanInteract = false;
+
+            }
+            else
+            {
+                //set player can interact to be true
+                PlayerInputBehavior.playerCanInteract = true;
+            }
+
+           
+            
+
             Time.timeScale = 1f;
             Cursor.visible = false;
             isPaused = false;

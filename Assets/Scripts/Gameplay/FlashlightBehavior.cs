@@ -9,13 +9,18 @@ public class FlashlightBehavior : MonoBehaviour
     
 
     [Header("Flashlight Values")]
-    [SerializeField]  private Light _playerLight; //The main flashlight light component
+    [SerializeField] private bool _flashlightOn = true;
+    [SerializeField] private float _batteryPower = 100;
     [SerializeField] private float _decreaseSpeed;
+    [SerializeField] private Light _playerLight; //The main flashlight light component
+   
     [SerializeField] private GameObject _flashlightTrigger; //The trigger box for the flashlight collider
-    public float batteryPower = 100;
-
-    public bool flashlightOn;
     
+
+   
+    public bool FlashlightOn { get { return _flashlightOn; } set {  _flashlightOn = value; } }
+    public float BatteryPower { get { return _batteryPower; } set { _batteryPower = value; } }
+    public float DecreaseSpeed { get { return _decreaseSpeed; } set { _decreaseSpeed = value; } }
 
 
 
@@ -27,12 +32,7 @@ public class FlashlightBehavior : MonoBehaviour
     }
 
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        //Sets flashlight on to be true when the game starts
-        flashlightOn = true;
-    }
+   
 
     // Update is called once per frame
     void Update()
@@ -46,67 +46,97 @@ public class FlashlightBehavior : MonoBehaviour
             //Set the flashlight collider to be off
             _flashlightTrigger.GetComponent<BoxCollider>().enabled = false;
 
-            flashlightOn = false;
+            _flashlightOn = false;
         }
 
        //if the flashlight is on...
-        if(flashlightOn)
+        if(_flashlightOn)
         {
             //Decrease the battery while the flashlight is on
-            batteryPower -= (Time.deltaTime * _decreaseSpeed);
+            _batteryPower -= (Time.deltaTime * _decreaseSpeed);
         
             //Turn off the flashlight if it reaches 0
-            if(batteryPower <= 0)
+            if(_batteryPower <= 0)
             {
                ToggleFlashLight();
             }
         }
 
         //elsei f the flashlight is not on...
-        else if(!flashlightOn)
+        else if(!_flashlightOn)
         {
             //Increase battery while off
-            batteryPower += Time.deltaTime * 9;
+            _batteryPower += Time.deltaTime * 9;
           
             //once the battery power is equal to or greater than 100...
-            if (batteryPower >= 100f)
+            if (_batteryPower >= 100f)
             {
                 //Set the battery power to be 100
-                batteryPower = 100f;
+                _batteryPower = 100f;
             }
         }
     }
 
 
-    //Toggles the flashlight on and off
+    //Turns off the flashlight
+    public void TurnOffFlashlight()
+    {
+        _playerLight.gameObject.SetActive(false);
+
+        //Set the flashlight collider to be off
+        _flashlightTrigger.GetComponent<BoxCollider>().enabled = false;
+
+        _flashlightOn = false;
+    }
+
+
+    public void TurnOnFlashlight()
+    {
+        _playerLight.gameObject.SetActive(true);
+
+        //Set the flashlight collider to be off
+        _flashlightTrigger.GetComponent<BoxCollider>().enabled = true;
+
+
+        _flashlightOn = true;
+    }
+
+
+
+
+    //Toggles the flashlight on and off (used for player input)
     public void ToggleFlashLight()
     {
         //If the game is not paused and the flash light is on..
-        if(!PauseSystem.isPaused && flashlightOn)
+        if(!PauseSystem.isPaused && _flashlightOn)
         {
+            if(DialogueUIBehavior.IsOpen) { return; }
+
             _playerLight.gameObject.SetActive(false);
 
             //Set the flashlight collider to be off
             _flashlightTrigger.GetComponent<BoxCollider>().enabled = false;
 
-            //sets the dummy is hit with light to be false when the light is off
-            GameManager.instance.Dummy1.GetComponent<DummyStateManager>().dummyIsHitWithLight = false;
-            GameManager.instance.Dummy2.GetComponent<DummyStateManager>().dummyIsHitWithLight = false;
+            //sets the dummy is hit with light to be false when the light is off (Fix to be called with dummy instead)
+            DayManager.instance.Dummy1.GetComponent<DummyStateManager>().dummyIsHitWithLight = false;
+            DayManager.instance.Dummy2.GetComponent<DummyStateManager>().dummyIsHitWithLight = false;
+            
 
-
-            flashlightOn = false;
+            _flashlightOn = false;
         }
 
         //if the game is not paused and the flashlight is off
-        else if (!PauseSystem.isPaused && !flashlightOn)
+        else if (!PauseSystem.isPaused && !_flashlightOn)
         {
+            if (DialogueUIBehavior.IsOpen) { return; }
+
             _playerLight.gameObject.SetActive(true);
 
             //Set the flashlight collider to be off
             _flashlightTrigger.GetComponent<BoxCollider>().enabled = true;
             
 
-            flashlightOn = true;
+            _flashlightOn = true;
         }
     }
 }

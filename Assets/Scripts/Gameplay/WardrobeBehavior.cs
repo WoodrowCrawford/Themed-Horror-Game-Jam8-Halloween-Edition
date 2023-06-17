@@ -12,6 +12,7 @@ public class WardrobeBehavior : MonoBehaviour, IInteractable
     public Animator animator;
 
     [SerializeField] private string _interactionPrompt;
+    [SerializeField] private DialogueObjectBehavior _dialogueObject;
 
     [SerializeField] private GameObject _wardrobeDoorTrigger;
     [SerializeField] private GameObject _player;
@@ -32,8 +33,7 @@ public class WardrobeBehavior : MonoBehaviour, IInteractable
 
     public string InteractionPrompt => _interactionPrompt;
 
-    [Header("Dialogue")]
-    [SerializeField] private DialogueObjectBehavior _dialogueObject;
+    public DialogueObjectBehavior DialogueObject => throw new System.NotImplementedException();
 
     private void Update()
     {

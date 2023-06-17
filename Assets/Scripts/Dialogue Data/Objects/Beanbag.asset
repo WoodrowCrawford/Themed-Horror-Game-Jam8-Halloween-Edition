@@ -10,7 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3667a4296b0115b40ad167e804a58408, type: 3}
-  m_Name: No
+  m_Name: Beanbag
   m_EditorClassIdentifier: 
   _dialogue:
-  - You said no
+  - Mr.Whiskers!
+  - I remember the day that my mom gave this to me.
+  - We were at a yard sale and I saw this huge fluffy chair and was immediently interested
+    in it.
+  - I begged and I pleaded for this thing. Guess it paid off in the end.
+  _responses: []

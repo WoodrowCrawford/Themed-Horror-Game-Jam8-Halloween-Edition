@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6519131487252682044
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6519131487252682046}
+  - component: {fileID: 6519131487252682047}
+  - component: {fileID: 6519131487252682017}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6519131487252682046
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6519131487252682044}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 19.842255, y: -4.5440636, z: 1.6612625}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6519131487252682047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6519131487252682044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77c7b14f0db60a145ab6a8816a9b69a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dayManagerRef: {fileID: 6519131487252682017}
+  currentGameMode: 0
+--- !u!114 &6519131487252682017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6519131487252682044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b6e08aa8b905184b92624154b3f90ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  days: 0
+  _introDialogue: {fileID: 11400000, guid: 6f9ac4f9da1fa2b4793d435b4807e94d, type: 2}
+  _startUpDreamDialogue: {fileID: 11400000, guid: e426c18ab2a7b1e4a8911f25ce6820b4, type: 2}
+  _wakeUpDialouge: {fileID: 11400000, guid: 0fbc1ecb62e954a429d3799fec20dc2c, type: 2}
+  _todaysDateGO: {fileID: 0}
+  _dummy1: {fileID: 0}
+  _dummy2: {fileID: 0}
+  _ghoul: {fileID: 0}
+  _clown: {fileID: 0}

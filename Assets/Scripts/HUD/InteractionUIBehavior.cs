@@ -9,13 +9,19 @@ public class InteractionUIBehavior : MonoBehaviour
    [SerializeField] private TextMeshProUGUI _promptText;
     public bool IsDisplayed =false;
 
+
+    public GameObject UIPanel { get { return _uiPanel; } }  
+
     private void Start()
     {
         _uiPanel.SetActive(false);
     }
 
+  
+    
 
-    public void SetUp(string promptText)
+
+    public  void SetUp(string promptText)
     {
         _promptText.text = promptText;
         _uiPanel.SetActive(true);
@@ -25,7 +31,10 @@ public class InteractionUIBehavior : MonoBehaviour
 
     public void Close()
     {
+        _promptText.text = string.Empty;
         _uiPanel.SetActive(false);
         IsDisplayed= false;
     }
+
+   
 }

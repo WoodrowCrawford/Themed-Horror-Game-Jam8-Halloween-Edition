@@ -17,7 +17,7 @@ public class FlashlightBarMeter : MonoBehaviour
 
     private void Update()
     {
-        float fillValue = flashlightBehavior.batteryPower / 100f;
+        float fillValue = flashlightBehavior.BatteryPower / 100f;
 
         _slider.value = fillValue;
     }

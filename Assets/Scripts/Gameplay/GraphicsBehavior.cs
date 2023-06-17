@@ -17,8 +17,9 @@ public class GraphicsBehavior : MonoBehaviour
     public GameObject Graphics; //the game object used for graphics
     public GameObject Sun;  //The sun used for lighting
 
-   
-   
+
+    public bool IsDayTime = false;
+    public bool IsNightTime = false;
 
 
     private void Awake()
@@ -40,13 +41,7 @@ public class GraphicsBehavior : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        //Finds the sun game object
-
-       
-        
-    }
+   
 
 
     //Sets the scene to be daytime
@@ -55,6 +50,9 @@ public class GraphicsBehavior : MonoBehaviour
         //Enables the light component in the sun object
         Sun.GetComponent<Light>().enabled = true;
         
+        IsDayTime = true;
+        IsNightTime = false;
+
         //sets the graphic game object to be false
         Graphics.SetActive(false);
 
@@ -66,7 +64,10 @@ public class GraphicsBehavior : MonoBehaviour
     {
         //Disables the light component in the sun object
         Sun.GetComponent <Light>().enabled = false;
-        
+
+        IsNightTime = true;
+        IsDayTime = false;
+
         //sets the graphic game object to be true
         Graphics.SetActive(true);
     }

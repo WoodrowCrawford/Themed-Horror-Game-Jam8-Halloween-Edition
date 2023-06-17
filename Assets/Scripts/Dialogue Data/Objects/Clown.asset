@@ -10,12 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3667a4296b0115b40ad167e804a58408, type: 3}
-  m_Name: Why
+  m_Name: Clown
   m_EditorClassIdentifier: 
   _dialogue:
-  - Because I said so
-  _responses:
-  - _responseText: Yes
-    _dialogueObject: {fileID: 11400000, guid: 3183eb57e4d500f498afaf2c52776a86, type: 2}
-  - _responseText: No
-    _dialogueObject: {fileID: 11400000, guid: de77b0239d2e80449bbc88ffeb7eef2f, type: 2}
+  - Now this toy is creepy.
+  - It came with the jack in the box, which makes sense I guess.
+  - But MAN it's creepy.
+  _responses: []
