@@ -188,7 +188,7 @@ public class PlayerInputBehavior : MonoBehaviour
             playerControls.OutOfBed.ToggleFlashlight.Enable();
             playerControls.InWardrobe.ToggleFlashlight.Enable();
 
-           
+            flashlightBehavior.TurnOnFlashlight();
         }
 
 
