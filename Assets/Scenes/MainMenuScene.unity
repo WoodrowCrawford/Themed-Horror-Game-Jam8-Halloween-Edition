@@ -15774,6 +15774,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Graphics: {fileID: 0}
   Sun: {fileID: 0}
+  IsDayTime: 0
+  IsNightTime: 0
 --- !u!1001 &1624038211
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21791,6 +21793,10 @@ PrefabInstance:
       propertyPath: _todaysDateGO
       value: 
       objectReference: {fileID: 1145843749}
+    - target: {fileID: 6519131487252682017, guid: 692208d2e24c98f49a75b55d34bea91a, type: 3}
+      propertyPath: _cleanUpDialogue
+      value: 
+      objectReference: {fileID: 11400000, guid: 3550b4e778a424942b078f6cb0fd7f86, type: 2}
     - target: {fileID: 6519131487252682044, guid: 692208d2e24c98f49a75b55d34bea91a, type: 3}
       propertyPath: m_Name
       value: GameManager

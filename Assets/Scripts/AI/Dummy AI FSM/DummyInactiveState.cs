@@ -21,9 +21,4 @@ public class DummyInactiveState : DummyDefaultState
             dummy.SwitchState(dummy.layingDownState);
         }
     }
-
-
-    
-
-    
 }

@@ -10,7 +10,10 @@ public class BeanbagInteractable : MonoBehaviour, IInteractable
     [SerializeField] private DialogueObjectBehavior _dialogueObject;
 
 
+    public static bool IsInteracted = false;
+
     public string InteractionPrompt => _interactionPrompt;
+
 
     //Gets and enables the dialogue object to be set
     public DialogueObjectBehavior DialogueObject { get { return _dialogueObject; }  set { _dialogueObject = value; } }
@@ -20,6 +23,8 @@ public class BeanbagInteractable : MonoBehaviour, IInteractable
 
     public void Interact(Interactor Interactor)
     {
+        IsInteracted = true;
+
         if (TryGetComponent(out DialogueResponseEvents responseEvents) && responseEvents.DialogueObject == DialogueObject)
         {
             Interactor.DialogueUI.AddResponseEvents(responseEvents.Events);

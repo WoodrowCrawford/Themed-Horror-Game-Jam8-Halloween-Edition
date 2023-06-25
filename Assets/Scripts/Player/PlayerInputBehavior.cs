@@ -17,9 +17,14 @@ public class PlayerInputBehavior : MonoBehaviour
 
     //Used for interaction
     [Header("Interaction")]
-    public bool isPlayerInteracting;
+    public static bool isPlayerInteracting = false;
+    public static bool interactionWasPerfomed = false;
+
     public static bool playerCanInteract = true;
-   
+
+
+    
+    
 
     //Camera stuff
     [Header("Camera Values")]
@@ -76,7 +81,7 @@ public class PlayerInputBehavior : MonoBehaviour
         playerControls.Default.Enable();
 
         playerControls.Default.Interact.started += ctx => isPlayerInteracting = true;
-        playerControls.Default.Interact.performed += ctx => isPlayerInteracting = true;
+        playerControls.Default.Interact.performed += ctx => interactionWasPerfomed = true;
         playerControls.Default.Interact.canceled += ctx => isPlayerInteracting = false;
 
 
@@ -219,7 +224,9 @@ public class PlayerInputBehavior : MonoBehaviour
    
 
 
-    //Functions for both In Bed and out of bed
+
+   ///////////Functions for both In Bed and out of bed/////////////////////////////////////////
+  
     public void Look()
     {
         //if the dialogue box is open then return
@@ -259,11 +266,11 @@ public class PlayerInputBehavior : MonoBehaviour
     }
 
 
-   
+    
 
 
 
-////////////////Functions for Action Map #1 (In Bed)//////////////////////////////
+    ////////////////Functions for Action Map #1 (In Bed)//////////////////////////////
     public void ToggleUnderBed(InputAction.CallbackContext context)
     {
         if(!_isUnderBed && !sleepBehavior.playerIsSleeping && !PauseSystem.isPaused)

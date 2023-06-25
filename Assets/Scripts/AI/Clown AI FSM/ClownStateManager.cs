@@ -48,6 +48,7 @@ public class ClownStateManager : MonoBehaviour, IInteractable
     [Header("Interaction")]
     [SerializeField] private string _interactionPrompt;
     [SerializeField] private DialogueObjectBehavior _dialogueObject;
+    public static bool IsInteracted = false;
 
     public NavMeshAgent Agent { get { return _agent; } }
     public Animator Animator { get { return _animator; } }
@@ -188,6 +189,9 @@ public class ClownStateManager : MonoBehaviour, IInteractable
     {
         if(DayManager.instance.days == DayManager.Days.SUNDAY_MORNING)
         {
+            //sets to be true
+            IsInteracted = true;
+
             DialogueUIBehavior.instance.ShowDialogue(_dialogueObject);
         }
     }

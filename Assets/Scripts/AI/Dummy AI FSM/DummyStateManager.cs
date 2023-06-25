@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class DummyStateManager : MonoBehaviour
+public class DummyStateManager : MonoBehaviour, IInteractable
 {
     [Header("States")]
     DummyDefaultState currentState;
@@ -75,6 +75,11 @@ public class DummyStateManager : MonoBehaviour
     [SerializeField] private Transform _originPos;  //the original postion of where the dummy started
 
 
+    [Header("Interaction")]
+    [SerializeField] private string _interactionPrompt;
+    [SerializeField] private DialogueObjectBehavior _dialogueObject;
+    public static bool IsInteracted = false;
+
 
     //Gets a public version of all the private variables
     public NavMeshAgent Agent { get { return _agent; } }
@@ -100,6 +105,11 @@ public class DummyStateManager : MonoBehaviour
     public GameObject InBedTarget { get { return _inBedTarget; } }
 
     public Transform OriginPos { get { return _originPos; } }
+
+
+    public string InteractionPrompt => _interactionPrompt;
+    public DialogueObjectBehavior DialogueObject => _dialogueObject;
+
     ////////////////////////////////////////////////////////////////
 
 
@@ -224,6 +234,22 @@ public class DummyStateManager : MonoBehaviour
         }
     }
 
-    
+    public void Interact(Interactor Interactor)
+    {
+        //if it is sunday morning and the task for the day is to look around...
+        if (DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.task == DayManager.Tasks.LOOK_AROUND)
+        {
+            //sets to be true
+            IsInteracted = true;
 
+            DialogueUIBehavior.instance.ShowDialogue(_dialogueObject);
+        }
+
+        //if it is sunday morning and the task for the day is to clean up...
+        else if(DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.task == DayManager.Tasks.CLEAN_UP)
+        {
+            //put pick up code here!
+            Debug.Log("Player needs to pick this object up!");
+        }
+    }
 }

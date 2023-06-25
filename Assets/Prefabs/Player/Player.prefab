@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3273269029228020761
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8488770826418429939}
+  m_Layer: 3
+  m_Name: Interactor
+  m_TagString: Untagged
+  m_Icon: {fileID: 7148428337604731935, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8488770826418429939
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3273269029228020761}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.166, z: 0.845}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7556417769174764128}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6146022414771800930
 GameObject:
   m_ObjectHideFlags: 0
@@ -110,6 +141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81872d59eb55bae4489bdda6a58d6205, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dummyLightIsHitting: {fileID: 0}
 --- !u!1 &7556417767502626047
 GameObject:
   m_ObjectHideFlags: 0
@@ -125,6 +157,7 @@ GameObject:
   - component: {fileID: 7556417767502626036}
   - component: {fileID: 7556417767502626039}
   - component: {fileID: 7556417767502625992}
+  - component: {fileID: 6475101750175939233}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -227,17 +260,26 @@ MonoBehaviour:
   flashlightBehavior: {fileID: 7556417769458573764}
   getInBedTriggerBehavior: {fileID: 0}
   sleepBehavior: {fileID: 0}
+  wardrobeBehavior: {fileID: 0}
+  pauseSystem: {fileID: 0}
   _camera: {fileID: 7556417769174764143}
   _playerBody: {fileID: 7556417767502626035}
   _startLookAt: {fileID: 0}
   _sensitivity: 20
-  xRotation: 0
+  _xRotation: 0
+  _yRotation: 0
   _rb: {fileID: 7556417767502626039}
   _speed: 30
   _TopOfBedPos: {fileID: 0}
   _UnderBedPos: {fileID: 0}
-  _OutOfBedPos: {fileID: 0}
+  _outOfBedLeftPos: {fileID: 0}
+  _outOfBedRightPos: {fileID: 0}
   _isUnderBed: 0
+  inBed: 0
+  _WardrobeHidingPos: {fileID: 0}
+  _OutOfWardrobePos: {fileID: 0}
+  playerIsInWardrobe: 0
+  playerIsHidden: 0
 --- !u!54 &7556417767502626039
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -270,6 +312,27 @@ MonoBehaviour:
   _sleepSpeed: 0.7
   sleepMeter: 0
   playerIsSleeping: 0
+--- !u!114 &6475101750175939233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7556417767502626047}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: feaa70ea4a8837d41859684a38cef9fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interactionUI: {fileID: 0}
+  _dialogueUIBehavior: {fileID: 0}
+  _interactionPoint: {fileID: 0}
+  _interactionPointRadius: 0.7
+  _grabPoint: {fileID: 335735943633619611}
+  _interactableMask:
+    serializedVersion: 2
+    m_Bits: 256
+  _numFound: 0
 --- !u!1 &7556417767532301467
 GameObject:
   m_ObjectHideFlags: 0
@@ -395,6 +458,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7556417769458573760}
+  - {fileID: 8488770826418429939}
+  - {fileID: 335735943633619611}
   m_Father: {fileID: 7556417767502626035}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -563,8 +628,40 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sleepBehavior: {fileID: 7556417767502625992}
-  _playerLight: {fileID: 7556417767532301469}
-  _decreaseSpeed: 5
-  batteryPower: 100
+  flashlightTriggerBehavior: {fileID: 0}
   _flashlightOn: 0
+  _batteryPower: 100
+  _decreaseSpeed: 5
+  _playerLight: {fileID: 7556417767532301469}
   _flashlightTrigger: {fileID: 0}
+--- !u!1 &8377176176309309519
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 335735943633619611}
+  m_Layer: 0
+  m_Name: GrabPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: -5938655980376293919, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &335735943633619611
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8377176176309309519}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.22782898, y: 0.15654755, z: -0.2937684}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7556417769174764128}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

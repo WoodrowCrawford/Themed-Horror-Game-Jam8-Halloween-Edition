@@ -33,20 +33,34 @@ public class DayManager : MonoBehaviour
         SATURDAY_NIGHT
     }
 
+
+    public enum Tasks
+    {
+        NONE,
+        LOOK_AROUND,
+        CLEAN_UP
+    }
+
     //A enum Days variable called days
     public Days days;
+
+    //A enum Tasks variable called task
+    public Tasks task;
    
 
 
     //Sunday morning values
     [Header("Sunday Morning Bools")]
     private bool _isSundayMorningInitialized = false;
+    private bool _playerInteractedWithAllTheObjects { get { return BasketBallInteractable.IsInteracted && BeanbagInteractable.IsInteracted && JackInTheBoxBehavior.IsInteracted && ClownStateManager.IsInteracted && DummyStateManager.IsInteracted; } }
 
 
     [Header("Sunday Morning Dialogue")]
     [SerializeField] private DialogueObjectBehavior _introDialogue;
     [SerializeField] private DialogueObjectBehavior _startUpDreamDialogue;
     [SerializeField] private DialogueObjectBehavior _wakeUpDialouge;
+
+    [SerializeField] private DialogueObjectBehavior _cleanUpDialogue;
 
 
 
@@ -154,7 +168,8 @@ public class DayManager : MonoBehaviour
     }
 
 
-   
+  
+    
 
 
     public IEnumerator StartSundayMorning()
@@ -165,10 +180,19 @@ public class DayManager : MonoBehaviour
             //Set to be true
             _isSundayMorningInitialized = true;
 
+            //Sets current task to be nothing on start up
+            task = Tasks.NONE;
+
             //Set up variables
             days = Days.SUNDAY_MORNING;
             GraphicsBehavior.instance.SetDayTime();
             FindAIEnemies();
+
+
+            //This day is basically the demo
+            //Player starts the day and can look around and interact with things.
+            //NOTE: The player says different things depending on the day
+
 
 
             //Initializes the dummies
@@ -199,6 +223,33 @@ public class DayManager : MonoBehaviour
 
             //show the wake up dialogue
             DialogueUIBehavior.instance.ShowDialogue(_wakeUpDialouge);
+
+            //Wait until the dialouge box is closed
+            yield return new WaitUntil(() => !DialogueUIBehavior.IsOpen);
+
+            /////////The player is then tasked with looking around
+            /////////They will look around and interact with objects.
+            task = Tasks.LOOK_AROUND;
+
+
+            //Check to make sure that the player examined everything here
+            yield return new WaitUntil(() => _playerInteractedWithAllTheObjects && !DialogueUIBehavior.IsOpen);
+
+            //After examining everything, the player's parents will tell them that they need to clean up the room (start a dialogue here saying that)
+            DialogueUIBehavior.instance.ShowDialogue(_cleanUpDialogue);
+
+            //The player will then have the task of picking up items and putting them away.
+            //(create a task for the player to clean up. items should do different things when interacted now, since they need to be picked up)
+            task = Tasks.CLEAN_UP;
+
+            //The player will be able to interact pick up the dummies once they pick everything else up(use a bool to check for this)
+
+            //When the player tries to put away the dummies, whenever the player is not looking at the dummies, move them back to the spot they began.
+            //Do this a few times.
+
+            //
+
+            //Afterwards, the dummies will stay in the spot that the player moved them to, and the player will then get exhaused and try to go to sleep, starting the next phase.
             
 
             
@@ -210,9 +261,7 @@ public class DayManager : MonoBehaviour
        
 
 
-        //This day is basically the demo
-        //Player starts the day and can look around and interact with things.
-        //NOTE: The player says different things depending on the day
+       
 
 
        yield return null;

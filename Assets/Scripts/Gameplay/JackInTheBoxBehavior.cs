@@ -20,6 +20,9 @@ public class JackInTheBoxBehavior : MonoBehaviour, IInteractable
     [Header("Interaction Values")]
     [SerializeField] private string _interactionPrompt;
     [SerializeField] private DialogueObjectBehavior _dialogueObject;
+    public static bool IsInteracted = false;
+
+
 
     public bool playerCanInteract;
 
@@ -110,12 +113,12 @@ public class JackInTheBoxBehavior : MonoBehaviour, IInteractable
         }
 
         //If the player is within range and player is interacting...
-        if (playerInput.isPlayerInteracting && playerCanInteract)
+        if (PlayerInputBehavior.isPlayerInteracting && playerCanInteract)
         {
             //set bool to true
             _playerRewindingBox = true;
         }
-        else if (!playerInput.isPlayerInteracting || !playerCanInteract)
+        else if (!PlayerInputBehavior.isPlayerInteracting || !playerCanInteract)
         {
             //Set to false if the player is no longer in range or the player is no longer interacting
             _playerRewindingBox = false;
@@ -173,9 +176,26 @@ public class JackInTheBoxBehavior : MonoBehaviour, IInteractable
     //A function that is inherited from Iinteractable
     public void Interact(Interactor Interactor)
     {
-        if(GraphicsBehavior.instance.IsDayTime)
+        if (TryGetComponent(out DialogueResponseEvents responseEvents) && responseEvents.DialogueObject == DialogueObject)
         {
+            Interactor.DialogueUI.AddResponseEvents(responseEvents.Events);
+        }
+
+
+        //If it is sunday morning and the task is to look around...
+        if (DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.task == DayManager.Tasks.LOOK_AROUND)
+        {
+            //sets to be equal to true
+            IsInteracted = true;
+
+            //shows the dialogue
             DialogueUIBehavior.instance.ShowDialogue(_dialogueObject);
+        }
+
+        //else if it 
+        else if(DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.task == DayManager.Tasks.CLEAN_UP)
+        {
+            Debug.Log("I can not move this object");
         }
         
     }
