@@ -79,7 +79,8 @@ public class DummyStateManager : MonoBehaviour, IInteractable
     [SerializeField] private string _interactionPrompt;
     [SerializeField] private DialogueObjectBehavior _dialogueObject;
     public static bool IsInteracted = false;
-
+    public int DummyInsideToyboxCounter = 0;  //Static int used to keep track of how many times the dumnmy was in the toybox (0 by default)
+    public bool dummyTeleportComplete = false; //bool used to check if the teleport phase was complete or not
 
     //Gets a public version of all the private variables
     public NavMeshAgent Agent { get { return _agent; } }
@@ -165,6 +166,44 @@ public class DummyStateManager : MonoBehaviour, IInteractable
         
     }
 
+
+    public IEnumerator TelportBackToOriginLocation()
+    {
+        DummyInsideToyboxCounter++;
+
+        switch (DummyInsideToyboxCounter)
+        {
+            case 1:
+                {
+                    yield return new WaitForSeconds(1);
+                    Debug.Log("Waiting...");
+                    yield return new WaitForSeconds(1);
+                    Debug.Log("Still waiting...");
+                    yield return new WaitForSeconds(1);
+                    Debug.Log("Okay its time to teleport!");
+                    yield return new WaitForSeconds(1);
+                    dummyThisBelongsTo.GetComponent<DummyStateManager>().gameObject.transform.position = dummyThisBelongsTo.GetComponent<DummyStateManager>().OriginPos.position;
+
+
+                    Debug.Log("Teleport complete!");
+                    yield return null;
+                    break;
+                }
+            case 2:
+                {
+                    yield return new WaitForSeconds(1);
+                    Debug.Log("Okay so you did it again for some reason man...");
+                    yield return new WaitForSeconds(1);
+                    Debug.Log("but lets teleport again i guess");
+                    yield return new WaitForSeconds(1);
+                    Debug.Log("telport complete! again.");
+                    break;
+                }
+        }
+
+        
+        
+    }
 
 
     //start up phase to initialize the dummy

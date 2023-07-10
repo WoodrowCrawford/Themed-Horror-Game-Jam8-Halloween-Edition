@@ -189,13 +189,16 @@ public class PlayerInputBehavior : MonoBehaviour
             playerCanUseFlashlight = false;
 
             //hide the flashlight during the day
-            flashlightBehavior.DisableFlashlight();
+            flashlightBehavior.flashlightGameObject.GetComponent<MeshRenderer>().enabled = false;
         }
         //else if it is nighttime...
         else if(GraphicsBehavior.instance.IsNightTime)
         {
             //the player can use the flashligt
             playerCanUseFlashlight = true;
+
+            //show the flashlight
+            flashlightBehavior.flashlightGameObject.GetComponent<MeshRenderer>().enabled = true;
 
             //show the flashlight at night
             flashlightBehavior.flashlightGameObject.gameObject.GetComponent<MeshRenderer>().enabled = true;

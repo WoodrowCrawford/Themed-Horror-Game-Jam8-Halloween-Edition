@@ -68,6 +68,10 @@ public class Interactor : MonoBehaviour
 
     void Update()
     {
+        //debug testing
+        Debug.DrawRay(_playerInput.Camera.transform.position, _playerInput.Camera.transform.forward, Color.green);
+     
+
         if(hit.collider != null)
         {
             hit.collider.GetComponentInParent<HighlightBehavior>()?.ToggleHighlight(false);

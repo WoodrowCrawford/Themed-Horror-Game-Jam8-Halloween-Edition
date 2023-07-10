@@ -53,7 +53,7 @@ public class DayManager : MonoBehaviour
     [Header("Sunday Morning Bools")]
     private bool _isSundayMorningInitialized = false;
     private bool _playerInteractedWithAllTheObjects { get { return BasketBallInteractable.IsInteracted && BeanbagInteractable.IsInteracted && JackInTheBoxBehavior.IsInteracted && ClownStateManager.IsInteracted && DummyStateManager.IsInteracted; } }
-
+    private bool _playerPutAllTheToysInTheToyBox = false;
 
     [Header("Sunday Morning Dialogue")]
     [SerializeField] private DialogueObjectBehavior _introDialogue;
@@ -189,17 +189,11 @@ public class DayManager : MonoBehaviour
 
 
 
-
-
-
             //Initializes the dummies
             DummyStateManager.InitializeDummyValues(_dummy1, 0, 0, 0, 0, false, new Vector3(0.5f, 0.5f, 0.5f));
             DummyStateManager.InitializeDummyValues(_dummy2, 0, 0, 0, 0, false, new Vector3(0.5f, 0.5f, 0.5f));
 
-            //set the size of the dummies here for day time
-
-
-
+      
             //Initializes the clown
             ClownStateManager.InitializeClown(_clown, 0, false);
 
@@ -245,7 +239,7 @@ public class DayManager : MonoBehaviour
 
 
             //The player will be able to interact pick up the dummies once they pick everything else up (use a bool to check for this)
-
+            //bool check if the player has put the objects in the toy box
 
             //When the player tries to put away the dummies, whenever the player is not looking at the dummies, move them back to the spot they began.
             //Do this a few times.

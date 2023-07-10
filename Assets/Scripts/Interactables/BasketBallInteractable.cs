@@ -20,6 +20,8 @@ public class BasketBallInteractable : MonoBehaviour, IInteractable
     //A bool used to show if the object has been interacted
     public static bool IsInteracted = false;
 
+    //A bool used to check if the ball is in the toy box
+    public static bool IsInTheToyBox = false;
     
 
     public string InteractionPrompt => _interactionPrompt;

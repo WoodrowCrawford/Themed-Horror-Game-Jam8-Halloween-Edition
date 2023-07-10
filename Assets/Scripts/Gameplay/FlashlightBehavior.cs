@@ -14,9 +14,7 @@ public class FlashlightBehavior : MonoBehaviour
     [SerializeField] private float _decreaseSpeed;
     [SerializeField] private Light _playerLight; //The main flashlight light component
     [SerializeField] private GameObject _flashlightTrigger; //The trigger box for the flashlight collider
-    
-    private bool _flashlightDisabled = false;
-    private bool _flashlightEnabled = false;
+   
 
     public GameObject flashlightGameObject; //The main game object that contains the flashlight components
     
@@ -80,79 +78,6 @@ public class FlashlightBehavior : MonoBehaviour
             }
         }
     }
-
-
-
-
-    public void DisableFlashlight()
-    {
-        if(!_flashlightDisabled)
-        {
-            _playerLight.gameObject.SetActive(false);
-
-            //Set the flashlight collider to be off
-            _flashlightTrigger.GetComponent<BoxCollider>().enabled = false;
-
-            _flashlightOn = false;
-
-            flashlightGameObject.gameObject.GetComponent<MeshRenderer>().enabled = false;
-
-            _flashlightDisabled = true;
-        }
-        else
-        {
-            return;
-        }
-
-       
-    }
-
-
-
-   
-
-
-
-    //Turns off the flashlight
-    public void TurnOffFlashlight()
-    {
-        if(PlayerInputBehavior.playerCanUseFlashlight)
-        {
-            _playerLight.gameObject.SetActive(false);
-
-            //Set the flashlight collider to be off
-            _flashlightTrigger.GetComponent<BoxCollider>().enabled = false;
-
-            _flashlightOn = false;
-        }
-        else
-        {
-            return;
-        }
-
-        
-    }
-
-
-    public void TurnOnFlashlight()
-    {
-        if (PlayerInputBehavior.playerCanUseFlashlight)
-        {
-            _playerLight.gameObject.SetActive(true);
-
-            //Set the flashlight collider to be off
-            _flashlightTrigger.GetComponent<BoxCollider>().enabled = true;
-
-
-            _flashlightOn = true;
-        }
-        else
-        {
-            return;
-        }
-        
-    }
-
 
 
 

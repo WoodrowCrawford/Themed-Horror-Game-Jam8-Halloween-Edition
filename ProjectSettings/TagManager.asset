@@ -30,6 +30,7 @@ TagManager:
   - Sun
   - PauseBackground
   - Dialogue
+  - Basketball
   layers:
   - Default
   - TransparentFX
