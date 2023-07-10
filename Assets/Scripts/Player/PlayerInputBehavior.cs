@@ -15,16 +15,24 @@ public class PlayerInputBehavior : MonoBehaviour
     public PauseSystem pauseSystem;
 
 
+
+    [Header("Input bools")]
+    public static bool playerCanUseFlashlight = false;
+    public static bool playerCanToggleUnderBed = true;
+    public static bool playerCanGetInWardrobe = true;
+    public static bool playerCanInteract = true;
+    public static bool playerCanMove = true;
+    public static bool playerCanGetOutOfBed = true;
+
+    [Header("Core Player Values")]
+    public bool playerIsHidden; 
+
     //Used for interaction
     [Header("Interaction")]
     public static bool isPlayerInteracting = false;
     public static bool interactionWasPerfomed = false;
 
-    public static bool playerCanInteract = true;
-
-
-    
-    
+ 
 
     //Camera stuff
     [Header("Camera Values")]
@@ -41,12 +49,14 @@ public class PlayerInputBehavior : MonoBehaviour
     [SerializeField] private float _speed;
 
 
+    
+
     [Header("Bed Values")]
     [SerializeField] private Transform _TopOfBedPos;
     [SerializeField] private Transform _UnderBedPos;
     [SerializeField] private Transform _outOfBedLeftPos;
     [SerializeField] private Transform _outOfBedRightPos;
-    public bool _isUnderBed = false;
+    public bool isUnderBed = false;
     public bool inBed = false;
 
 
@@ -54,11 +64,10 @@ public class PlayerInputBehavior : MonoBehaviour
     [SerializeField] private Transform _WardrobeHidingPos;
     [SerializeField] private Transform _OutOfWardrobePos;
     public bool playerIsInWardrobe;
-    public bool playerIsHidden;
-
+  
 
    
-
+    public Camera Camera { get { return _camera; } }
   
 
 
@@ -169,36 +178,33 @@ public class PlayerInputBehavior : MonoBehaviour
     {
         _yRotation = Mathf.CeilToInt(_playerBody.transform.eulerAngles.y);
 
+        //used for looking
         Look();
 
 
         //If it is currently daytime...
         if(GraphicsBehavior.instance.IsDayTime)
         {
-            //Cancel the sleeping and flashlight inputs
-            playerControls.InBed.Sleep.Disable();
-            playerControls.InBed.ToggleFlashlight.Disable();
-            playerControls.OutOfBed.ToggleFlashlight.Disable();
-            playerControls.InWardrobe.ToggleFlashlight.Disable();
+            //the player can not use the flashlight
+            playerCanUseFlashlight = false;
 
-            flashlightBehavior.TurnOffFlashlight();
-           
-
+            //hide the flashlight during the day
+            flashlightBehavior.DisableFlashlight();
         }
+        //else if it is nighttime...
         else if(GraphicsBehavior.instance.IsNightTime)
         {
-            //Cancel the sleeping and flashlight inputs
-           
-            playerControls.InBed.ToggleFlashlight.Enable();
-            playerControls.OutOfBed.ToggleFlashlight.Enable();
-            playerControls.InWardrobe.ToggleFlashlight.Enable();
+            //the player can use the flashligt
+            playerCanUseFlashlight = true;
 
-            flashlightBehavior.TurnOnFlashlight();
+            //show the flashlight at night
+            flashlightBehavior.flashlightGameObject.gameObject.GetComponent<MeshRenderer>().enabled = true;
+
         }
 
 
         //If the player is under the bed then they should not be able to sleep
-        if (_isUnderBed)
+        if (isUnderBed)
         {
             sleepBehavior.playerIsSleeping = false;
         }
@@ -273,18 +279,18 @@ public class PlayerInputBehavior : MonoBehaviour
     ////////////////Functions for Action Map #1 (In Bed)//////////////////////////////
     public void ToggleUnderBed(InputAction.CallbackContext context)
     {
-        if(!_isUnderBed && !sleepBehavior.playerIsSleeping && !PauseSystem.isPaused)
+        if(!isUnderBed && !sleepBehavior.playerIsSleeping && !PauseSystem.isPaused)
         {
             _playerBody.transform.position = _UnderBedPos.transform.position;
-            _isUnderBed = true;
+            isUnderBed = true;
             playerIsHidden= true;
             
            
         }
-        else if(_isUnderBed && !PauseSystem.isPaused)
+        else if(isUnderBed && !PauseSystem.isPaused)
         {
             _playerBody.transform.position = _TopOfBedPos.transform.position;
-            _isUnderBed = false;
+            isUnderBed = false;
             playerIsHidden = false;
         }
     }

@@ -13,8 +13,12 @@ public class FlashlightBehavior : MonoBehaviour
     [SerializeField] private float _batteryPower = 100;
     [SerializeField] private float _decreaseSpeed;
     [SerializeField] private Light _playerLight; //The main flashlight light component
-   
     [SerializeField] private GameObject _flashlightTrigger; //The trigger box for the flashlight collider
+    
+    private bool _flashlightDisabled = false;
+    private bool _flashlightEnabled = false;
+
+    public GameObject flashlightGameObject; //The main game object that contains the flashlight components
     
 
    
@@ -78,27 +82,75 @@ public class FlashlightBehavior : MonoBehaviour
     }
 
 
+
+
+    public void DisableFlashlight()
+    {
+        if(!_flashlightDisabled)
+        {
+            _playerLight.gameObject.SetActive(false);
+
+            //Set the flashlight collider to be off
+            _flashlightTrigger.GetComponent<BoxCollider>().enabled = false;
+
+            _flashlightOn = false;
+
+            flashlightGameObject.gameObject.GetComponent<MeshRenderer>().enabled = false;
+
+            _flashlightDisabled = true;
+        }
+        else
+        {
+            return;
+        }
+
+       
+    }
+
+
+
+   
+
+
+
     //Turns off the flashlight
     public void TurnOffFlashlight()
     {
-        _playerLight.gameObject.SetActive(false);
+        if(PlayerInputBehavior.playerCanUseFlashlight)
+        {
+            _playerLight.gameObject.SetActive(false);
 
-        //Set the flashlight collider to be off
-        _flashlightTrigger.GetComponent<BoxCollider>().enabled = false;
+            //Set the flashlight collider to be off
+            _flashlightTrigger.GetComponent<BoxCollider>().enabled = false;
 
-        _flashlightOn = false;
+            _flashlightOn = false;
+        }
+        else
+        {
+            return;
+        }
+
+        
     }
 
 
     public void TurnOnFlashlight()
     {
-        _playerLight.gameObject.SetActive(true);
+        if (PlayerInputBehavior.playerCanUseFlashlight)
+        {
+            _playerLight.gameObject.SetActive(true);
 
-        //Set the flashlight collider to be off
-        _flashlightTrigger.GetComponent<BoxCollider>().enabled = true;
+            //Set the flashlight collider to be off
+            _flashlightTrigger.GetComponent<BoxCollider>().enabled = true;
 
 
-        _flashlightOn = true;
+            _flashlightOn = true;
+        }
+        else
+        {
+            return;
+        }
+        
     }
 
 
@@ -108,7 +160,7 @@ public class FlashlightBehavior : MonoBehaviour
     public void ToggleFlashLight()
     {
         //If the game is not paused and the flash light is on..
-        if(!PauseSystem.isPaused && _flashlightOn)
+        if(!PauseSystem.isPaused && _flashlightOn && PlayerInputBehavior.playerCanUseFlashlight)
         {
             if(DialogueUIBehavior.IsOpen) { return; }
 
@@ -126,7 +178,7 @@ public class FlashlightBehavior : MonoBehaviour
         }
 
         //if the game is not paused and the flashlight is off
-        else if (!PauseSystem.isPaused && !_flashlightOn)
+        else if (!PauseSystem.isPaused && !_flashlightOn && PlayerInputBehavior.playerCanUseFlashlight)
         {
             if (DialogueUIBehavior.IsOpen) { return; }
 

@@ -8,7 +8,7 @@ public class BeanbagInteractable : MonoBehaviour, IInteractable
 
     [Header("Dialogues")]
     [SerializeField] private DialogueObjectBehavior _dialogueObject;
-
+    [SerializeField] private DialogueObjectBehavior _pickUpDialogue;
 
     public static bool IsInteracted = false;
 
@@ -23,6 +23,7 @@ public class BeanbagInteractable : MonoBehaviour, IInteractable
 
     public void Interact(Interactor Interactor)
     {
+        //set to be true
         IsInteracted = true;
 
         if (TryGetComponent(out DialogueResponseEvents responseEvents) && responseEvents.DialogueObject == DialogueObject)
@@ -31,17 +32,19 @@ public class BeanbagInteractable : MonoBehaviour, IInteractable
         }
 
 
-
-        if (DayManager.instance.days == DayManager.Days.SUNDAY_MORNING)
+        //if it is sunday morning and the task is to look around
+        if (DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.task == DayManager.Tasks.LOOK_AROUND)
         {
-            Debug.Log("First dialogue is playing");
+            //look around dialogue
             Interactor.DialogueUI.ShowDialogue(_dialogueObject);
 
         }
-        else if (DayManager.instance.days == DayManager.Days.SUNDAY_NIGHT)
+
+        //else if it is sunday morning and the task is to clean up
+        else if (DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.task == DayManager.Tasks.CLEAN_UP)
         {
-            Debug.Log("Second dialogue is playing");
-           // Interactor.DialogueUI.ShowDialogue(_dialogueObject2);
+            //pick up dialogue
+            Interactor.DialogueUI.ShowDialogue(_pickUpDialogue);
 
         }
     }

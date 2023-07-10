@@ -13,6 +13,9 @@ public class DummyLayingDownState : DummyDefaultState
         //Testing message
         Debug.Log("Dummy is in the laying down state");
 
+
+       
+
         //Starts the startup phase
         dummy.StartCoroutine(dummy.InitiateStartUp());
     }

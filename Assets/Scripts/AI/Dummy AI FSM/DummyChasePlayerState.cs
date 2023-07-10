@@ -36,7 +36,7 @@ public class DummyChasePlayerState : DummyDefaultState
     {
 
         //If player is in bed...
-        if (dummy.PlayerRef.GetComponent<PlayerInputBehavior>().playerControls.InBed.enabled)
+        if (dummy.PlayerRef.GetComponent<PlayerInputBehavior>().inBed)
         {
             //Set target to out of bed target (changes for each dummy)
             dummy.gameObject.GetComponent<DummyStateManager>().target = dummy.InBedTarget;

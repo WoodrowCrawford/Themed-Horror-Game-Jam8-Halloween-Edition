@@ -15,6 +15,8 @@ public class FlashlightTriggerBehavior : MonoBehaviour
     {
         if (other.CompareTag("Dummy1"))
         {
+            Debug.Log("Flashlight is hitting something");
+
             dummyLightIsHitting = other.gameObject;
 
             dummyLightIsHitting.GetComponent<DummyStateManager>().SetDummyIsHitWithLight(true);

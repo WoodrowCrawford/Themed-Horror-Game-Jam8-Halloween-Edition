@@ -19129,7 +19129,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh288624
+  m_Name: pb_Mesh36594
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -21790,13 +21790,29 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 6519131487252682017, guid: 692208d2e24c98f49a75b55d34bea91a, type: 3}
+      propertyPath: days
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6519131487252682017, guid: 692208d2e24c98f49a75b55d34bea91a, type: 3}
       propertyPath: _todaysDateGO
       value: 
       objectReference: {fileID: 1145843749}
     - target: {fileID: 6519131487252682017, guid: 692208d2e24c98f49a75b55d34bea91a, type: 3}
+      propertyPath: _introDialogue
+      value: 
+      objectReference: {fileID: 11400000, guid: 6f14bbe931ad6fb4d887773c426da8d6, type: 2}
+    - target: {fileID: 6519131487252682017, guid: 692208d2e24c98f49a75b55d34bea91a, type: 3}
+      propertyPath: _wakeUpDialouge
+      value: 
+      objectReference: {fileID: 11400000, guid: 6f14bbe931ad6fb4d887773c426da8d6, type: 2}
+    - target: {fileID: 6519131487252682017, guid: 692208d2e24c98f49a75b55d34bea91a, type: 3}
       propertyPath: _cleanUpDialogue
       value: 
       objectReference: {fileID: 11400000, guid: 3550b4e778a424942b078f6cb0fd7f86, type: 2}
+    - target: {fileID: 6519131487252682017, guid: 692208d2e24c98f49a75b55d34bea91a, type: 3}
+      propertyPath: _startUpDreamDialogue
+      value: 
+      objectReference: {fileID: 11400000, guid: 6f14bbe931ad6fb4d887773c426da8d6, type: 2}
     - target: {fileID: 6519131487252682044, guid: 692208d2e24c98f49a75b55d34bea91a, type: 3}
       propertyPath: m_Name
       value: GameManager

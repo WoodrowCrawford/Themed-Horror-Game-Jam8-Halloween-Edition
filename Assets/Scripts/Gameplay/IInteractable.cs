@@ -8,4 +8,6 @@ public interface IInteractable
 
     public DialogueObjectBehavior DialogueObject { get; }
     public void Interact(Interactor Interactor);
+
+   
 }

@@ -26,7 +26,6 @@ public class DummyStateManager : MonoBehaviour, IInteractable
     [SerializeField] private FlashlightBehavior _flashlightBehavior;
 
 
-
     [Header("Game Objects")]
     [SerializeField] private GameObject _originTrigger;
     [SerializeField] private GameObject _playerRef;
@@ -35,6 +34,7 @@ public class DummyStateManager : MonoBehaviour, IInteractable
 
     [Header("Inactive State Values")]
     public bool isActive; //Whether the dummy is active or not
+   
 
 
     [Header("Laying down state values")]
@@ -146,7 +146,7 @@ public class DummyStateManager : MonoBehaviour, IInteractable
 
 
     //sets up the dummy values (used in the game manager)
-    public static void InitializeDummyValues(GameObject dummyThisBelongsTo,  float minSpeed, float maxSpeed, float minTimeToAwake, float maxTimeToAwake, bool active)
+    public static void InitializeDummyValues(GameObject dummyThisBelongsTo,  float minSpeed, float maxSpeed, float minTimeToAwake, float maxTimeToAwake, bool active, Vector3 dummySize)
     {
 
         //Sets the values for min and max speed
@@ -159,6 +159,10 @@ public class DummyStateManager : MonoBehaviour, IInteractable
 
         //sets the active bool to be equal to the active bool in the dummy state manager
         dummyThisBelongsTo.GetComponent<DummyStateManager>().isActive = active;
+
+        //set the size of the dummies 
+        dummyThisBelongsTo.gameObject.transform.localScale = dummySize;
+        
     }
 
 
@@ -249,7 +253,7 @@ public class DummyStateManager : MonoBehaviour, IInteractable
         else if(DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.task == DayManager.Tasks.CLEAN_UP)
         {
             //put pick up code here!
-            Debug.Log("Player needs to pick this object up!");
+            StartCoroutine(Interactor.TogglePickUp(this.gameObject));
         }
     }
 }
