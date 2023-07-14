@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ToyboxTriggerBehavior : MonoBehaviour
@@ -38,14 +36,16 @@ public class ToyboxTriggerBehavior : MonoBehaviour
         {
             Debug.Log("Ball is no longer inside the toybox!");
 
-            //set the basketball is in the toy box variable to be true
-            BasketBallInteractable.IsInTheToyBox = true;
+            //set the basketball is in the toy box variable to be false
+            BasketBallInteractable.IsInTheToyBox = false;
         }
 
         //if the dummy is no longer inside the toybox
         else if (other.gameObject.CompareTag("Dummy1"))
         {
             Debug.Log("Dummy 1 is no longer inside the toybox!");
+
+           
         }
     }
 }

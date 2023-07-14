@@ -13,8 +13,16 @@ public class DummyLayingDownState : DummyDefaultState
         //Testing message
         Debug.Log("Dummy is in the laying down state");
 
+        //change the layer of the dummy to be enemy so that the player can not interact with it
+        dummy.gameObject.layer = 11;
 
-       
+
+        //changes the layer in each childed object in the dummy
+        var children = dummy.GetComponentsInChildren<Transform>(includeInactive: true);
+        foreach (var child in children)
+        {
+            child.gameObject.layer =11;
+        }
 
         //Starts the startup phase
         dummy.StartCoroutine(dummy.InitiateStartUp());

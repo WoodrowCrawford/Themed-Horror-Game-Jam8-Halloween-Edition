@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -14,8 +11,16 @@ public class DummyInactiveState : DummyDefaultState
         //Testing message
         Debug.Log( dummy.gameObject.name + "Dummy is in the inactive state");
 
-        //Make it so that the player can pick up the dummy here
-        
+        //Change the layer to be the interactable mask so that the player can interact with it
+        dummy.gameObject.layer = 8;
+
+        //changes the layer in each childed object in the dummy
+        var children = dummy.GetComponentsInChildren<Transform>(includeInactive: true);
+        foreach (var child in children)
+        {
+            child.gameObject.layer = 8;
+        }
+
         //Disable navmesh agent when the dummy is inactive
         dummy.Agent.enabled = false;
 

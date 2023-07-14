@@ -9,7 +9,7 @@ public class FlashlightBehavior : MonoBehaviour
     
 
     [Header("Flashlight Values")]
-    [SerializeField] private bool _flashlightOn = true;
+    [SerializeField] private bool _flashlightOn = false;
     [SerializeField] private float _batteryPower = 100;
     [SerializeField] private float _decreaseSpeed;
     [SerializeField] private Light _playerLight; //The main flashlight light component
@@ -35,6 +35,7 @@ public class FlashlightBehavior : MonoBehaviour
 
 
    
+
 
     // Update is called once per frame
     void Update()
@@ -77,6 +78,28 @@ public class FlashlightBehavior : MonoBehaviour
                 _batteryPower = 100f;
             }
         }
+    }
+
+    public void TurnOnFlashlight()
+    {
+      
+        _playerLight.gameObject.SetActive(true);
+
+        //Set the flashlight collider to be off
+        _flashlightTrigger.GetComponent<BoxCollider>().enabled = true;
+
+
+        _flashlightOn = true;
+    }
+
+    public void TurnOffFlashlight()
+    {
+        _playerLight.gameObject.SetActive(false);
+
+        //Set the flashlight collider to be off
+        _flashlightTrigger.GetComponent<BoxCollider>().enabled = false;
+
+        _flashlightOn = false;
     }
 
 

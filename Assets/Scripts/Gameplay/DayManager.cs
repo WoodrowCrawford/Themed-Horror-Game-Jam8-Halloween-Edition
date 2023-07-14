@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -7,7 +6,8 @@ public class DayManager : MonoBehaviour
 {
     //gets a static version of this class so that other classes can use it
     public static DayManager instance;
-
+    private FlashlightBehavior _flashlightBehavior;
+    private PlayerInputBehavior _playerInputBehavior;
 
     public enum Days
     {
@@ -38,7 +38,8 @@ public class DayManager : MonoBehaviour
     {
         NONE,
         LOOK_AROUND,
-        CLEAN_UP
+        CLEAN_UP,
+        GO_TO_BED
     }
 
     //A enum Days variable called days
@@ -52,8 +53,14 @@ public class DayManager : MonoBehaviour
     //Sunday morning values
     [Header("Sunday Morning Bools")]
     private bool _isSundayMorningInitialized = false;
+
+    //checks to see if the player has interacted with all the objects in the room
     private bool _playerInteractedWithAllTheObjects { get { return BasketBallInteractable.IsInteracted && BeanbagInteractable.IsInteracted && JackInTheBoxBehavior.IsInteracted && ClownStateManager.IsInteracted && DummyStateManager.IsInteracted; } }
-    private bool _playerPutAllTheToysInTheToyBox = false;
+
+    //checks to see if the player put all the toys in the toybox
+    public bool _playerPutAllTheToysInTheToyBox { get { return BasketBallInteractable.IsInTheToyBox; } }
+
+    public bool _startGoToBedPhase = false;
 
     [Header("Sunday Morning Dialogue")]
     [SerializeField] private DialogueObjectBehavior _introDialogue;
@@ -61,7 +68,12 @@ public class DayManager : MonoBehaviour
     [SerializeField] private DialogueObjectBehavior _wakeUpDialouge;
     [SerializeField] private DialogueObjectBehavior _cleanUpDialogue;
 
+    public DialogueObjectBehavior DummyReapperedFirstTimeDialogue;
+    public DialogueObjectBehavior DummyReappearedSecondTimeDialogue;
+    public DialogueObjectBehavior DummyReappearedThirdTimeDialogue;
+    public DialogueObjectBehavior DummyIsNoLongerTeleportingDialogue;
 
+    public DialogueObjectBehavior GoToBedDialogue;
 
     //Sunday night bools
     [Header("Sunday Night Bools")]
@@ -116,7 +128,7 @@ public class DayManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        
+       
     }
 
 
@@ -130,6 +142,10 @@ public class DayManager : MonoBehaviour
             //Reset all the initializers
             ResetInitializers();
         }
+
+        //gets the component
+        _flashlightBehavior = GameObject.FindGameObjectWithTag("Flashlight").GetComponent<FlashlightBehavior>();
+        _playerInputBehavior = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInputBehavior>();
     }
 
 
@@ -187,7 +203,10 @@ public class DayManager : MonoBehaviour
             GraphicsBehavior.instance.SetDayTime();
             FindAIEnemies();
 
-
+            //turn off the flashlight
+            _flashlightBehavior.TurnOffFlashlight();
+           
+            
 
             //Initializes the dummies
             DummyStateManager.InitializeDummyValues(_dummy1, 0, 0, 0, 0, false, new Vector3(0.5f, 0.5f, 0.5f));
@@ -203,8 +222,6 @@ public class DayManager : MonoBehaviour
 
 
 
-            //wait
-            //yield return new WaitForSeconds(1f);
 
             //Shows the "this is a demo" dialogue (can be disabled for now)
             DialogueUIBehavior.instance.ShowDialogue(_introDialogue);
@@ -236,22 +253,36 @@ public class DayManager : MonoBehaviour
             //(create a task for the player to clean up. items should do different things when interacted now, since they need to be picked up)
             task = Tasks.CLEAN_UP;
 
-
-
-            //The player will be able to interact pick up the dummies once they pick everything else up (use a bool to check for this)
-            //bool check if the player has put the objects in the toy box
-
             //When the player tries to put away the dummies, whenever the player is not looking at the dummies, move them back to the spot they began.
-            //Do this a few times.
-
-            //
-
+            //Do this a few times. (This will be done in the toybox trigger behavior)
             //Afterwards, the dummies will stay in the spot that the player moved them to, and the player will then get exhaused and try to go to sleep, starting the next phase.
-            
 
-            
 
-           
+            //check to see if the player can start to go to bed for the day
+            yield return new WaitUntil(() => _startGoToBedPhase);
+
+            //waits a few seconds
+            yield return new WaitForSeconds(2f);
+
+            //plays the dialogue 
+            DialogueUIBehavior.instance.ShowDialogue(GoToBedDialogue);
+
+            //wait until the dialogue box is closed
+            yield return new WaitUntil(() => !DialogueUIBehavior.IsOpen);
+
+            //sets the task to be "go to bed"
+            task = Tasks.GO_TO_BED;
+
+            //wait until the player is in the bed
+            yield return new WaitUntil(() => _playerInputBehavior.inBed);
+
+            yield return new WaitForSeconds(1f);
+
+
+            //the player goes to sleep, then the next phase happens
+            StartCoroutine(StartSundayNight());
+
+
         }
         
 
@@ -279,6 +310,8 @@ public class DayManager : MonoBehaviour
             GraphicsBehavior.instance.SetNightTime();
             FindAIEnemies();
 
+            //turn on the flashlight
+            _flashlightBehavior.TurnOnFlashlight();
 
 
             //Initializes the dummies

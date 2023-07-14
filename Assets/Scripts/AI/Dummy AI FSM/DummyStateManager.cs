@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -77,12 +75,20 @@ public class DummyStateManager : MonoBehaviour, IInteractable
 
     [Header("Interaction")]
     [SerializeField] private string _interactionPrompt;
-    [SerializeField] private DialogueObjectBehavior _dialogueObject;
+    
     public static bool IsInteracted = false;
     public int DummyInsideToyboxCounter = 0;  //Static int used to keep track of how many times the dumnmy was in the toybox (0 by default)
     public bool dummyTeleportComplete = false; //bool used to check if the teleport phase was complete or not
 
-    //Gets a public version of all the private variables
+
+    [Header("Dialouge")]
+    [SerializeField] private DialogueObjectBehavior _dialogueObject;
+    [SerializeField] private DialogueObjectBehavior _putOtherToysAwayFirst;
+
+
+
+
+    //////////////////////Gets a public version of all the private variables//////////////////////////////////////
     public NavMeshAgent Agent { get { return _agent; } }
     public Animator Animator { get { return _animator; } }
     public FlashlightBehavior FlashlightBehavior { get {  return _flashlightBehavior; } }
@@ -175,28 +181,57 @@ public class DummyStateManager : MonoBehaviour, IInteractable
         {
             case 1:
                 {
-                    yield return new WaitForSeconds(1);
-                    Debug.Log("Waiting...");
-                    yield return new WaitForSeconds(1);
-                    Debug.Log("Still waiting...");
-                    yield return new WaitForSeconds(1);
-                    Debug.Log("Okay its time to teleport!");
-                    yield return new WaitForSeconds(1);
+                    //wait some time
+                    yield return new WaitForSeconds(3f);
+                    
+                    //telelports the dummy to go back to the original location
                     dummyThisBelongsTo.GetComponent<DummyStateManager>().gameObject.transform.position = dummyThisBelongsTo.GetComponent<DummyStateManager>().OriginPos.position;
 
+                    yield return new WaitForSeconds(3f);
 
-                    Debug.Log("Teleport complete!");
+                    //show the dialogue
+                    DialogueUIBehavior.instance.ShowDialogue(DayManager.instance.DummyReapperedFirstTimeDialogue);
+
+                 
                     yield return null;
                     break;
                 }
             case 2:
                 {
-                    yield return new WaitForSeconds(1);
-                    Debug.Log("Okay so you did it again for some reason man...");
-                    yield return new WaitForSeconds(1);
-                    Debug.Log("but lets teleport again i guess");
-                    yield return new WaitForSeconds(1);
-                    Debug.Log("telport complete! again.");
+                    yield return new WaitForSeconds(3f);
+                    //telelports the dummy to go back to the original location
+                    dummyThisBelongsTo.GetComponent<DummyStateManager>().gameObject.transform.position = dummyThisBelongsTo.GetComponent<DummyStateManager>().OriginPos.position;
+
+                    //show the dialogue
+                    DialogueUIBehavior.instance.ShowDialogue(DayManager.instance.DummyReappearedSecondTimeDialogue);
+
+                    yield return null;
+                    break;
+                }
+            case 3:
+                {
+                    yield return new WaitForSeconds(3f);
+
+                    //telelports the dummy to go back to the original location
+                    dummyThisBelongsTo.GetComponent<DummyStateManager>().gameObject.transform.position = dummyThisBelongsTo.GetComponent<DummyStateManager>().OriginPos.position;
+
+                    //show the dialogue
+                    DialogueUIBehavior.instance.ShowDialogue(DayManager.instance.DummyReappearedThirdTimeDialogue);
+
+                    yield return null;
+                    break;
+                }
+            case 4:
+                {
+                    //wait 
+                    yield return new WaitForSeconds(3f);
+
+                    //show the dialogue
+                    DialogueUIBehavior.instance.ShowDialogue(DayManager.instance.DummyIsNoLongerTeleportingDialogue);
+
+                    //set player can go to bed phase to be true
+                    DayManager.instance._startGoToBedPhase = true;
+
                     break;
                 }
         }
@@ -287,6 +322,13 @@ public class DummyStateManager : MonoBehaviour, IInteractable
 
             DialogueUIBehavior.instance.ShowDialogue(_dialogueObject);
         }
+
+        else if(DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.task == DayManager.Tasks.CLEAN_UP && !DayManager.instance._playerPutAllTheToysInTheToyBox)
+        {
+            //show dialogue here that the player should put the other toys away first
+            DialogueUIBehavior.instance.ShowDialogue(_putOtherToysAwayFirst);
+        }
+
 
         //if it is sunday morning and the task for the day is to clean up...
         else if(DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.task == DayManager.Tasks.CLEAN_UP)

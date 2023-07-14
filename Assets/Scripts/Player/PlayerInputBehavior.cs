@@ -186,7 +186,7 @@ public class PlayerInputBehavior : MonoBehaviour
         if(GraphicsBehavior.instance.IsDayTime)
         {
             //the player can not use the flashlight
-            playerCanUseFlashlight = false;
+            playerCanUseFlashlight = true ;
 
             //hide the flashlight during the day
             flashlightBehavior.flashlightGameObject.GetComponent<MeshRenderer>().enabled = false;

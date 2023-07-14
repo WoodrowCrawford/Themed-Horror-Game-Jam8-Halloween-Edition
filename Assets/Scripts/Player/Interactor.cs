@@ -1,8 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.InputSystem;
+
 
 public class Interactor : MonoBehaviour
 {
@@ -31,9 +29,9 @@ public class Interactor : MonoBehaviour
     [SerializeField] private bool _pickUpToggleActive = false;
 
 
-    [Header("Physics Parameters")]
-    [SerializeField] private float _pickUpRange = 5.0f;
-    [SerializeField] private float _pickUpForce = 50f;
+  
+
+  
 
 
     [Header("Raycast Parameters")]
@@ -136,7 +134,15 @@ public class Interactor : MonoBehaviour
 
             objectToPickUp.transform.SetParent(_grabPoint);
 
-            objectToPickUp.layer = 10;
+            objectToPickUp.gameObject.layer = 10;
+
+            //fix so that each child gets changed in the layer mask
+            var children = objectToPickUp.GetComponentsInChildren<Transform>(includeInactive: true);
+            foreach (var child in children)
+            {
+
+                child.gameObject.layer = 10;
+            }
 
 
             //waits until the player releases the button
@@ -164,6 +170,12 @@ public class Interactor : MonoBehaviour
 
             objectToPickUp.layer = 8;
 
+
+            var children = objectToPickUp.GetComponentsInChildren<Transform>(includeInactive: true);
+            foreach (var child in children)
+            { 
+                child.gameObject.layer = 8;
+            }
             _heldObject = null;
 
 
