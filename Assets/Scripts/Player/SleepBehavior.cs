@@ -15,18 +15,27 @@ public class SleepBehavior : MonoBehaviour
    
     private void Update()
     {
-
-        if (playerIsSleeping)
-        {
-            _eyesClosed.gameObject.SetActive(true);
-            sleepMeter += Time.deltaTime * _sleepSpeed;
-        }
-        else if (!playerIsSleeping)
-        {
-            _eyesClosed.gameObject.SetActive(false);
-        }
+        Sleep();
+        
     }
 
+
+    public void Sleep()
+    {
+        if(PlayerInputBehavior.playerCanSleep)
+        {
+            if (playerIsSleeping)
+            {
+                _eyesClosed.gameObject.SetActive(true);
+                sleepMeter += Time.deltaTime * _sleepSpeed;
+            }
+            else if (!playerIsSleeping)
+            {
+                _eyesClosed.gameObject.SetActive(false);
+            }
+        }
+        return;
+    }
 
 
 }

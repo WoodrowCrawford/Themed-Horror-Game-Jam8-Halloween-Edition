@@ -26,6 +26,7 @@ public class LevelManager : MonoBehaviour
    public async void LoadScene(string sceneName)
     {
         var scene = SceneManager.LoadSceneAsync(sceneName);
+        StartCoroutine(DayManager.instance.ResetInitializers());
 
      
     }
@@ -35,10 +36,12 @@ public class LevelManager : MonoBehaviour
     public void ReloadScene()
     {
         var scene = SceneManager.GetActiveScene();
+        StartCoroutine(DayManager.instance.ResetInitializers());
+
         PauseSystem.instance.TogglePauseMenu();
         SceneManager.LoadScene(scene.name);
 
-        DayManager.instance.ResetInitializers();
+       
     }
 
     

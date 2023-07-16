@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -281,13 +282,21 @@ public class GameManager : MonoBehaviour
     //A function that can change the scene
     public static void ChangeScene(string sceneName)
     {
-        DayManager.instance.CallShowTodaysDate();
-    
-        PauseSystem.isPaused= false;
-        LevelManager.instance.LoadScene(sceneName);
+        // DayManager.instance.CallShowTodaysDate();
+
+        //StartCoroutine(TimerToChangeScene(sceneName));
+        PauseSystem.isPaused = false;
         Time.timeScale = 1.0f;
+
+        LevelManager.instance.LoadScene(sceneName);
+        
+       
+
+        
     }
 
+
+    
 
 
     

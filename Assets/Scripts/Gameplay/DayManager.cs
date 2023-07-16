@@ -141,6 +141,7 @@ public class DayManager : MonoBehaviour
         {
             //Reset all the initializers
             ResetInitializers();
+          
         }
 
         //gets the component
@@ -150,10 +151,25 @@ public class DayManager : MonoBehaviour
 
 
     //A function that resets all the initializers
-    public void ResetInitializers()
+    public IEnumerator ResetInitializers()
     {
+        //stops all coroutines
+        StopAllCoroutines();
+
+        //resets the bools
         _isSundayMorningInitialized = false;
-        _isSundayNightInitialized = false; 
+        _isSundayNightInitialized = false;
+
+        //sets the task to be nothing
+        task = Tasks.NONE;
+
+        yield return new WaitForSeconds(0.2f);
+        Debug.Log("Resetting functions");
+
+        FindAIEnemies();
+
+      
+        
 
 
     }
@@ -192,8 +208,14 @@ public class DayManager : MonoBehaviour
         //if sunday moring is true and the current scene is the bedroom scene...
         if (!_isSundayMorningInitialized && SceneManager.GetActiveScene() == SceneManager.GetSceneByName("BedroomScene"))
         {
-            //Set to be true
+            // Set to be true
             _isSundayMorningInitialized = true;
+
+            CallShowTodaysDate();
+
+
+            //turn off the flashlight
+            _flashlightBehavior.TurnOffFlashlight();
 
             //Sets current task to be nothing on start up
             task = Tasks.NONE;
@@ -201,16 +223,22 @@ public class DayManager : MonoBehaviour
             //Set up variables
             days = Days.SUNDAY_MORNING;
             GraphicsBehavior.instance.SetDayTime();
+
+            
+
+            //wait until the screen is finished loading
+            yield return new WaitUntil(() => TodaysDateBehavior.instance._loadingScreenFinished);
+
             FindAIEnemies();
 
-            //turn off the flashlight
-            _flashlightBehavior.TurnOffFlashlight();
-           
-            
+
+
+
 
             //Initializes the dummies
             DummyStateManager.InitializeDummyValues(_dummy1, 0, 0, 0, 0, false, new Vector3(0.5f, 0.5f, 0.5f));
             DummyStateManager.InitializeDummyValues(_dummy2, 0, 0, 0, 0, false, new Vector3(0.5f, 0.5f, 0.5f));
+           
 
       
             //Initializes the clown
@@ -223,14 +251,13 @@ public class DayManager : MonoBehaviour
 
 
 
-            //Shows the "this is a demo" dialogue (can be disabled for now)
-            DialogueUIBehavior.instance.ShowDialogue(_introDialogue);
+           
 
             //Wait until the dialouge box is closed
             //yield return new WaitUntil(() => !DialogueUIBehavior.IsOpen);
 
             //wait
-            yield return new WaitForSeconds(3f);
+           // yield return new WaitForSeconds(3f);
 
             //show the wake up dialogue
             DialogueUIBehavior.instance.ShowDialogue(_wakeUpDialouge);
@@ -274,7 +301,7 @@ public class DayManager : MonoBehaviour
             task = Tasks.GO_TO_BED;
 
             //wait until the player is in the bed
-            yield return new WaitUntil(() => _playerInputBehavior.inBed);
+            yield return new WaitUntil(() => _playerInputBehavior._inBed);
 
             yield return new WaitForSeconds(1f);
 

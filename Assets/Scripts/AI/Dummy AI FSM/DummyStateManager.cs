@@ -85,6 +85,12 @@ public class DummyStateManager : MonoBehaviour, IInteractable
     [SerializeField] private DialogueObjectBehavior _dialogueObject;
     [SerializeField] private DialogueObjectBehavior _putOtherToysAwayFirst;
 
+    [Header("Size Variables")]
+    [SerializeField] private float _xSize;
+    [SerializeField] private Vector3 _ySize;
+    [SerializeField] private Vector3 _zSize;
+
+
 
 
 
@@ -167,7 +173,7 @@ public class DummyStateManager : MonoBehaviour, IInteractable
         //sets the active bool to be equal to the active bool in the dummy state manager
         dummyThisBelongsTo.GetComponent<DummyStateManager>().isActive = active;
 
-        //set the size of the dummies 
+        //set the size of the dummies (somwthing here doesnt work)
         dummyThisBelongsTo.gameObject.transform.localScale = dummySize;
         
     }

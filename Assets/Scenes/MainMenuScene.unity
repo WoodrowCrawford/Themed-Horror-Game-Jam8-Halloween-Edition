@@ -294,7 +294,7 @@ MonoBehaviour:
   playerInputBehavior: {fileID: 0}
   animator: {fileID: 0}
   _interactionPrompt: 
-  _dialogueObject: {fileID: 0}
+  _wardrobeDialogue: {fileID: 0}
   _wardrobeDoorTrigger: {fileID: 0}
   _player: {fileID: 0}
   _insideWardrobePos: {fileID: 0}

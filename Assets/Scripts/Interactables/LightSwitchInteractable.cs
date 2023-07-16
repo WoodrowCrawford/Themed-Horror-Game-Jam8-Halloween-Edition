@@ -28,16 +28,16 @@ public class LightSwitchInteractable : MonoBehaviour, IInteractable
 
 
 
-    //Temporary for the demo
-    public void CallChangeToSundayMorning()
-    {
-        DayManager.instance.days = DayManager.Days.SUNDAY_MORNING;
-        DayManager.instance.ResetInitializers();
-    }
+    ////Temporary for the demo
+    //public void CallCkhangeToSundayMorning()
+    //{
+    //    DayManager.instance.days = DayManager.Days.SUNDAY_MORNING;
+    //    DayManager.instance.ResetInitializers();
+    //}
 
-    public void CallChangeToSundayNight()
-    {
-        DayManager.instance.days = DayManager.Days.SUNDAY_NIGHT;
-        DayManager.instance.ResetInitializers();
-    }
+    //public void CallChangeToSundayNight()
+    //{
+    //    DayManager.instance.days = DayManager.Days.SUNDAY_NIGHT;
+    //    DayManager.instance.ResetInitializers();
+    //}
 }

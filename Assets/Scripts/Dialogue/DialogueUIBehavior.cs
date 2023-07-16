@@ -47,21 +47,34 @@ public class DialogueUIBehavior : MonoBehaviour
     //A function that shows the dialogue box
     public void ShowDialogue(DialogueObjectBehavior dialogueObject)
     {
-        //Stops time and shows the Cursor while the dialogue is open
-        Cursor.visible = true;
-        Time.timeScale = 0.0f;
+        if(GameManager.instance.currentGameMode == GameManager.GameModes.MAIN_MENU)
+        {
+            return;
+        }
 
-        //Set to be false so that the player cant interact while dialogue is open
-        PlayerInputBehavior.playerCanInteract = false;
+        else if(GameManager.instance.currentGameMode != GameManager.GameModes.MAIN_MENU)
+        {
+            //Stops time and shows the Cursor while the dialogue is open
+            Cursor.visible = true;
+            Time.timeScale = 0.0f;
 
-        //Sets is open to be true
-        IsOpen = true;
+            //disables pausing while the dialogue is open
+            PlayerInputBehavior.playerCanPause = false;
 
-        //Enables the dialogue box game object
-        _dialogueBox.SetActive(true);
 
-       //Starts the step through dialogue coroutine
-       StartCoroutine(StepThroughDialogue(dialogueObject));
+            //Set to be false so that the player cant interact while dialogue is open
+            PlayerInputBehavior.playerCanInteract = false;
+
+            //Sets is open to be true
+            IsOpen = true;
+
+            //Enables the dialogue box game object
+            _dialogueBox.SetActive(true);
+
+            //Starts the step through dialogue coroutine
+            StartCoroutine(StepThroughDialogue(dialogueObject));
+        }
+        
     }
 
 
@@ -76,13 +89,17 @@ public class DialogueUIBehavior : MonoBehaviour
         //gets the length of the dialogue in dialogueObject
         for(int i =  0; i < dialogueObject.Dialogue.Length; i++)
         {
+           
+
             string dialogue = dialogueObject.Dialogue[i];
             yield return _typewritterEffect.Run(dialogue, _textLabel);
 
             if (i == dialogueObject.Dialogue.Length - 1 && dialogueObject.HasResponses)
             {
                 break;
-            } 
+            }
+
+         
 
             //Waits until the given input has been pressed before continuing 
             yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Mouse0) && !PauseSystem.isPaused);
@@ -114,6 +131,9 @@ public class DialogueUIBehavior : MonoBehaviour
         //Sets is open to false
         IsOpen = false;
 
+        //enables the player to pause the game when the dialogue box is closed
+        PlayerInputBehavior.playerCanPause = true;
+
         //Set to be true so that the player can interact while dialogue is open
         PlayerInputBehavior.playerCanInteract = true;
         
@@ -123,11 +143,5 @@ public class DialogueUIBehavior : MonoBehaviour
 
         //Sets the text label's text to be empty
         _textLabel.text = string.Empty;
-    }
-
-    public static void Test()
-    {
-        Debug.Log("This is working");
-    }
-    
+    } 
 }

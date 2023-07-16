@@ -7,25 +7,33 @@ using UnityEngine.Timeline;
 public class PlayerInputBehavior : MonoBehaviour
 {
     //Important scripts
-    public PlayerInputActions playerControls;
-    public FlashlightBehavior flashlightBehavior;
-    public GetInBedTriggerBehavior getInBedTriggerBehavior;
-    public SleepBehavior sleepBehavior;
-    public WardrobeBehavior wardrobeBehavior;
-    public PauseSystem pauseSystem;
+    public PlayerInputActions playerControls;                  //gets a script reference for the player input actions class
+    public FlashlightBehavior flashlightBehavior;              //gets a script reference for the flashlight behavior class
+    public GetInBedTriggerBehavior getInBedTriggerBehavior;    //gets a script reference for the get in the bed trigger class
+    public SleepBehavior sleepBehavior;                        //gets a script referecne for the sleep behavior class
+    public WardrobeBehavior wardrobeBehavior;                  //gets a script reference for the wardrobe behavior class
+    public PauseSystem pauseSystem;                            //gets a script reference for the pause system class
 
 
-
+    //Static bools used to determine if the player can do something or not
     [Header("Input bools")]
+    public static bool playerCanPause = true;
     public static bool playerCanUseFlashlight = false;
     public static bool playerCanToggleUnderBed = true;
     public static bool playerCanGetInWardrobe = true;
     public static bool playerCanInteract = true;
     public static bool playerCanMove = true;
+    public static bool playerCanLook = true;
     public static bool playerCanGetOutOfBed = true;
+    public static bool playerCanGetInBed = true;
+    public static bool playerCanSleep = false;
+    
 
     [Header("Core Player Values")]
-    public bool playerIsHidden; 
+    public bool _playerIsHidden;
+
+
+
 
     //Used for interaction
     [Header("Interaction")]
@@ -56,8 +64,8 @@ public class PlayerInputBehavior : MonoBehaviour
     [SerializeField] private Transform _UnderBedPos;
     [SerializeField] private Transform _outOfBedLeftPos;
     [SerializeField] private Transform _outOfBedRightPos;
-    public bool isUnderBed = false;
-    public bool inBed = false;
+    [SerializeField] public bool _isUnderBed = false;
+    [SerializeField] public bool _inBed = false;
 
 
     [Header("Wardrobe Values")]
@@ -176,38 +184,17 @@ public class PlayerInputBehavior : MonoBehaviour
 
     private void Update()
     {
+
+
         _yRotation = Mathf.CeilToInt(_playerBody.transform.eulerAngles.y);
 
         //used for looking
-        Look();
+        HandleLook();
 
-
-        //If it is currently daytime...
-        if(GraphicsBehavior.instance.IsDayTime)
-        {
-            //the player can not use the flashlight
-            playerCanUseFlashlight = true ;
-
-            //hide the flashlight during the day
-            flashlightBehavior.flashlightGameObject.GetComponent<MeshRenderer>().enabled = false;
-        }
-        //else if it is nighttime...
-        else if(GraphicsBehavior.instance.IsNightTime)
-        {
-            //the player can use the flashligt
-            playerCanUseFlashlight = true;
-
-            //show the flashlight
-            flashlightBehavior.flashlightGameObject.GetComponent<MeshRenderer>().enabled = true;
-
-            //show the flashlight at night
-            flashlightBehavior.flashlightGameObject.gameObject.GetComponent<MeshRenderer>().enabled = true;
-
-        }
 
 
         //If the player is under the bed then they should not be able to sleep
-        if (isUnderBed)
+        if (_isUnderBed)
         {
             sleepBehavior.playerIsSleeping = false;
         }
@@ -227,7 +214,7 @@ public class PlayerInputBehavior : MonoBehaviour
     private void FixedUpdate()
     {
         //Move is in fixed update so that the move speed is consistant with any screen size
-        Move();
+        HandleMove();   
     }
 
    
@@ -236,42 +223,55 @@ public class PlayerInputBehavior : MonoBehaviour
 
    ///////////Functions for both In Bed and out of bed/////////////////////////////////////////
   
-    public void Look()
+    public void HandleLook()
     {
-        //if the dialogue box is open then return
-        if (DialogueUIBehavior.IsOpen)
+        //if the player can look...
+        if(playerCanLook)
         {
-            return;
+            //if the dialogue box is open then return
+            if (DialogueUIBehavior.IsOpen)
+            {
+                return;
+            }
+
+
+            //Look values
+            float mouseXLook = playerControls.Default.Look.ReadValue<Vector2>().x * _sensitivity * Time.deltaTime;
+            float mouseYLook = playerControls.Default.Look.ReadValue<Vector2>().y * _sensitivity * Time.deltaTime;
+
+
+            _xRotation -= mouseYLook;
+            _xRotation = Mathf.Clamp(_xRotation, -90f, 90f);
+
+
+            _camera.transform.localRotation = Quaternion.Euler(_xRotation, 0f, 0f);
+            _playerBody.Rotate(Vector3.up * mouseXLook);
         }
 
-
-        //Look values
-        float mouseXLook = playerControls.Default.Look.ReadValue<Vector2>().x * _sensitivity * Time.deltaTime;
-        float mouseYLook = playerControls.Default.Look.ReadValue<Vector2>().y * _sensitivity * Time.deltaTime;
-       
-
-        _xRotation -= mouseYLook;
-        _xRotation = Mathf.Clamp(_xRotation, -90f, 90f);
-
-
-        _camera.transform.localRotation = Quaternion.Euler(_xRotation, 0f, 0f);
-        _playerBody.Rotate(Vector3.up * mouseXLook);       
+        return;
+           
     }
 
 
-    public void Move()
+    public void HandleMove()
     {
-        //if the dialogue box is open then return
-        if(DialogueUIBehavior.IsOpen)
+        if(playerCanMove)
         {
-            return;
+            //if the dialogue box is open then return
+            if (DialogueUIBehavior.IsOpen)
+            {
+                return;
+            }
+
+            float x = playerControls.OutOfBed.Move.ReadValue<Vector2>().x;
+            float y = playerControls.OutOfBed.Move.ReadValue<Vector2>().y;
+
+            Vector3 move = transform.right * x + transform.forward * y;
+            _rb.AddForce(move * _speed, ForceMode.Force);
         }
 
-        float x = playerControls.OutOfBed.Move.ReadValue<Vector2>().x;
-        float y = playerControls.OutOfBed.Move.ReadValue<Vector2>().y;
-
-        Vector3 move = transform.right * x + transform.forward * y;
-        _rb.AddForce(move * _speed, ForceMode.Force);
+        return;
+        
     }
 
 
@@ -282,49 +282,59 @@ public class PlayerInputBehavior : MonoBehaviour
     ////////////////Functions for Action Map #1 (In Bed)//////////////////////////////
     public void ToggleUnderBed(InputAction.CallbackContext context)
     {
-        if(!isUnderBed && !sleepBehavior.playerIsSleeping && !PauseSystem.isPaused)
+        //if the player is allowed to toggle under the bed and the dialogue ui box is not open...
+        if(playerCanToggleUnderBed && !DialogueUIBehavior.IsOpen)
         {
-            _playerBody.transform.position = _UnderBedPos.transform.position;
-            isUnderBed = true;
-            playerIsHidden= true;
-            
-           
+            if (!_isUnderBed && !sleepBehavior.playerIsSleeping && !PauseSystem.isPaused)
+            {
+                _playerBody.transform.position = _UnderBedPos.transform.position;
+                _isUnderBed = true;
+                _playerIsHidden = true;
+
+
+            }
+            else if (_isUnderBed && !PauseSystem.isPaused)
+            {
+                _playerBody.transform.position = _TopOfBedPos.transform.position;
+                _isUnderBed = false;
+                _playerIsHidden = false;
+            }
         }
-        else if(isUnderBed && !PauseSystem.isPaused)
-        {
-            _playerBody.transform.position = _TopOfBedPos.transform.position;
-            isUnderBed = false;
-            playerIsHidden = false;
-        }
+
+        return;
     }
 
     //Get out of the bed
     public void GetOutOfBed(InputAction.CallbackContext context)
     {
-       if(!PauseSystem.isPaused)
+        //if the player is allowed to get out of the bed and the dialogue ui is not open...
+        if (playerCanGetOutOfBed && !DialogueUIBehavior.IsOpen)
         {
-            Debug.Log("I am out of bed!");
-            
-
-            playerControls.InBed.Disable();
-            playerControls.OutOfBed.Enable();
-
-            //sets player is in bed bool to false
-            inBed = false;
-
-            playerIsHidden = false;
-
-
-            if (_yRotation >= 180)
+            //check if the game is not paused...
+            if (!PauseSystem.isPaused)
             {
-                _playerBody.transform.position = _outOfBedLeftPos.transform.position;
-            }
-            else if (_yRotation <= 180)
-            {
-                _playerBody.transform.position = _outOfBedRightPos.transform.position;
+
+                playerControls.InBed.Disable();
+                playerControls.OutOfBed.Enable();
+
+                //sets player is in bed bool to false
+                _inBed = false;
+
+                _playerIsHidden = false;
+
+
+                if (_yRotation >= 180)
+                {
+                    _playerBody.transform.position = _outOfBedLeftPos.transform.position;
+                }
+                else if (_yRotation <= 180)
+                {
+                    _playerBody.transform.position = _outOfBedRightPos.transform.position;
+                }
             }
         }
-        
+
+        return;
     }
 
 
@@ -333,16 +343,24 @@ public class PlayerInputBehavior : MonoBehaviour
 //////////////////Functions for Action Map #2 (Out of Bed)////////////////////////
     public void GetInBed(InputAction.CallbackContext context)
     {
-        if(getInBedTriggerBehavior.playerCanGetInBed && !PauseSystem.isPaused)
+        //if the player is allowed to get in the bed and the dialogue ui is not open...
+        if(playerCanGetInBed && !DialogueUIBehavior.IsOpen)
         {
-            _playerBody.transform.position = _TopOfBedPos.position;
-            playerControls.OutOfBed.Disable();
-            playerControls.InBed.Enable();
+            //check if the player is near the bed and make sure that the game is not paused
+            if (getInBedTriggerBehavior.playerCanGetInBed && !PauseSystem.isPaused)
+            {
+                _playerBody.transform.position = _TopOfBedPos.position;
+                playerControls.OutOfBed.Disable();
+                playerControls.InBed.Enable();
 
-            //sets the player in bed bool be true
-            inBed = true;
-            
+                //sets the player in bed bool be true
+                _inBed = true;
+
+            }
         }
+
+        return;
+        
     }
 
     
@@ -373,7 +391,7 @@ public class PlayerInputBehavior : MonoBehaviour
         {
             _playerBody.transform.position = _WardrobeHidingPos.transform.position;
             playerIsInWardrobe = true;
-            playerIsHidden = true;
+            _playerIsHidden = true;
 
             yield return new WaitForSeconds(1f);
 
@@ -386,7 +404,7 @@ public class PlayerInputBehavior : MonoBehaviour
 
             _playerBody.transform.position = _OutOfWardrobePos.transform.position;
             playerIsInWardrobe = false;
-            playerIsHidden = false;
+            _playerIsHidden = false;
 
             yield return new WaitForSeconds(0.5f);
             StartCoroutine(wardrobeBehavior.CloseWardrobeDoor());

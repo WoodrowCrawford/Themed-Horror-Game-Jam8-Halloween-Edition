@@ -40,6 +40,15 @@ public class FlashlightBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        SetFlashlight();
+        CheckIfPlayerIsSleeping();
+        HandleFlashlightBatteryPower();
+
+       
+    }
+
+    public void CheckIfPlayerIsSleeping()
+    {
         //If the player is sleeping then the flashlight should be off to prevent abuse of power
         if (sleepBehavior.playerIsSleeping)
         {
@@ -51,26 +60,30 @@ public class FlashlightBehavior : MonoBehaviour
 
             _flashlightOn = false;
         }
+    }
 
-       //if the flashlight is on...
-        if(_flashlightOn)
+
+    public void HandleFlashlightBatteryPower()
+    {
+        //if the flashlight is on...
+        if (_flashlightOn)
         {
             //Decrease the battery while the flashlight is on
             _batteryPower -= (Time.deltaTime * _decreaseSpeed);
-        
+
             //Turn off the flashlight if it reaches 0
-            if(_batteryPower <= 0)
+            if (_batteryPower <= 0)
             {
-               ToggleFlashLight();
+                ToggleFlashLight();
             }
         }
 
         //elsei f the flashlight is not on...
-        else if(!_flashlightOn)
+        else if (!_flashlightOn)
         {
             //Increase battery while off
             _batteryPower += Time.deltaTime * 9;
-          
+
             //once the battery power is equal to or greater than 100...
             if (_batteryPower >= 100f)
             {
@@ -79,6 +92,38 @@ public class FlashlightBehavior : MonoBehaviour
             }
         }
     }
+
+    public void SetFlashlight()
+    {
+        //if it is daytime...
+        if(GraphicsBehavior.instance.IsDayTime)
+        {
+            //the player can not use the flashlight
+            PlayerInputBehavior.playerCanUseFlashlight = false;
+
+            //hide the flashlight during the day
+            flashlightGameObject.GetComponent<MeshRenderer>().enabled = false;
+
+            //if the flashlight is off..
+            if(!_flashlightOn)
+            {
+                //make sure it is off by calling the function
+                TurnOffFlashlight();
+                Debug.Log("flashlight off");
+            }
+            //turn off the flashlight
+        }
+        //else if it is night time...
+        else if (GraphicsBehavior.instance.IsNightTime)
+        {
+            //the player can use the flashligt
+            PlayerInputBehavior.playerCanUseFlashlight = true;
+
+            //show the flashlight
+            flashlightGameObject.GetComponent<MeshRenderer>().enabled = true;
+        }
+    }
+
 
     public void TurnOnFlashlight()
     {

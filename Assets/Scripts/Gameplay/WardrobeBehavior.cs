@@ -12,7 +12,7 @@ public class WardrobeBehavior : MonoBehaviour, IInteractable
     public Animator animator;
 
     [SerializeField] private string _interactionPrompt;
-    [SerializeField] private DialogueObjectBehavior _dialogueObject;
+    [SerializeField] private DialogueObjectBehavior _wardrobeDialogue;
 
     [SerializeField] private GameObject _wardrobeDoorTrigger;
     [SerializeField] private GameObject _player;
@@ -27,13 +27,12 @@ public class WardrobeBehavior : MonoBehaviour, IInteractable
     public bool playerCanOpenWardrobe;
     public bool wardrobeDoorIsOpen = false;
     public bool playerCanGetInWardrobe = false;
-
     public bool playerIsInWardrobe = false;
 
 
     public string InteractionPrompt => _interactionPrompt;
 
-    public DialogueObjectBehavior DialogueObject => throw new System.NotImplementedException();
+    public DialogueObjectBehavior DialogueObject => _wardrobeDialogue;
 
     private void Update()
     {
@@ -73,20 +72,26 @@ public class WardrobeBehavior : MonoBehaviour, IInteractable
 
     public void Interact(Interactor Interactor)
     {
-        
-        if (!wardrobeDoorIsOpen && !actionOnCoolDown)
+        if(DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.task == DayManager.Tasks.LOOK_AROUND)
         {
-            //opens the door if the door is closed and there is no cooldown
-            StartCoroutine(OpenWardrobeDoor());
-            Interactor.DialogueUI.ShowDialogue(_dialogueObject);
-
-        }
-        else if (wardrobeDoorIsOpen && !actionOnCoolDown)
-        {
-            //Closes the door if the door is open and there is no cooldown
-            StartCoroutine(CloseWardrobeDoor());
+            DialogueUIBehavior.instance.ShowDialogue(_wardrobeDialogue);
         }
 
+        else if(DayManager.instance.days == DayManager.Days.MONDAY_NIGHT)
+        {
+            if (!wardrobeDoorIsOpen && !actionOnCoolDown)
+            {
+                //opens the door if the door is closed and there is no cooldown
+                StartCoroutine(OpenWardrobeDoor());
+               
+
+            }
+            else if (wardrobeDoorIsOpen && !actionOnCoolDown)
+            {
+                //Closes the door if the door is open and there is no cooldown
+                StartCoroutine(CloseWardrobeDoor());
+            }
+        }
     }
 
 

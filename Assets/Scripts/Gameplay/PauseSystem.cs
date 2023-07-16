@@ -51,8 +51,8 @@ public class PauseSystem : MonoBehaviour
     //Toggles the pause menu
     public void TogglePauseMenu()
     {
-        //Checks to make sure that the game is not in the main menu
-        if (!isPaused && GameManager.instance.currentGameMode != GameManager.GameModes.MAIN_MENU)
+        //Checks to make sure that the game is not in the main menu and that the player is allowed to pause
+        if (!isPaused && GameManager.instance.currentGameMode != GameManager.GameModes.MAIN_MENU && PlayerInputBehavior.playerCanPause)
         {
             PauseMenu.SetActive(true);
             

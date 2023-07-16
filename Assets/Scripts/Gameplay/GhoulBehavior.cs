@@ -54,7 +54,7 @@ public class GhoulBehavior : MonoBehaviour
 
 
         //if the ghoul can see the player then...
-        if (ghoulSightBehavior.canSeePlayer && !playerInputBehavior.playerIsHidden)
+        if (ghoulSightBehavior.canSeePlayer && !playerInputBehavior._playerIsHidden)
         {
             //Change the ai state to chase
             ghoulState = GhoulStates.CHASE;
