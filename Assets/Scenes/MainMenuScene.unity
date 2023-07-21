@@ -11578,6 +11578,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TodaysDateUI: {fileID: 1127413993}
   TodaysDateText: {fileID: 995244325}
+  _loadingScreenFinished: 0
 --- !u!4 &1145843751
 Transform:
   m_ObjectHideFlags: 0
@@ -21791,7 +21792,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6519131487252682017, guid: 692208d2e24c98f49a75b55d34bea91a, type: 3}
       propertyPath: days
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6519131487252682017, guid: 692208d2e24c98f49a75b55d34bea91a, type: 3}
       propertyPath: _todaysDateGO

@@ -102,6 +102,7 @@ public class DummyStateManager : MonoBehaviour, IInteractable
     public GameObject OriginTrigger { get { return _originTrigger; } }
     public GameObject PlayerRef { get { return _playerRef; } }
 
+
     
     public float MinSecondsToAwake { get { return _minSecondsToAwake; } set { _minSecondsToAwake = value; } }
 
@@ -177,6 +178,41 @@ public class DummyStateManager : MonoBehaviour, IInteractable
         dummyThisBelongsTo.gameObject.transform.localScale = dummySize;
         
     }
+
+
+
+    public void CheckIfTargetIsInRange()
+    {
+        //sets the min distance to be equal to the agents stopping distance
+        float minDistance = Agent.stoppingDistance;
+
+        //sets the distance
+        float distance = Vector3.Distance(target.transform.position, transform.position);
+
+        // If the target is in the bed and the enemy reaches the destination...
+        if (distance <= minDistance && target == InBedTarget)
+        {
+            //makes the agen
+           // Agent.transform.LookAt(PlayerRef.transform);
+        }
+
+        //else if the player is in range
+        else if (distance <= (minDistance + 2) && target == PlayerRef && currentState == chasePlayerState)
+        {
+            //if the ai is close to the player and is active...
+
+            //Test
+            Debug.Log("The player got caught!!!");
+            
+            //Put scary popup code here
+
+            //Set game over to be true
+        }
+    }
+
+
+
+
 
 
     public IEnumerator TelportBackToOriginLocation()

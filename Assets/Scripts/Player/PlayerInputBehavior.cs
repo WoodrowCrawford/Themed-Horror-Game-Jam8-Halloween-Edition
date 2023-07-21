@@ -180,6 +180,9 @@ public class PlayerInputBehavior : MonoBehaviour
 
         //Sets the players position to be on top of the bed (can move this to be called in the day mananger for story reasons)
         _playerBody.transform.position = _TopOfBedPos.position;
+
+        //sets the in bed variable to be true on startup
+        _inBed = true;
     }
 
     private void Update()

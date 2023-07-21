@@ -26,7 +26,10 @@ public class DummyChasePlayerState : DummyDefaultState
             ChaseTarget(dummy.dummyThisBelongsTo.GetComponent<DummyStateManager>());
         }
 
-        //If player is in range...
+        //checks if the dummy is in range
+        dummy.CheckIfTargetIsInRange();
+        
+
         //switch to the attack state
     }
 
