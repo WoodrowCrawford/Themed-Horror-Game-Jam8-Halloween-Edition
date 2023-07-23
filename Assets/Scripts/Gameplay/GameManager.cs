@@ -19,9 +19,10 @@ public class GameManager : MonoBehaviour
     
    
     [Header("Important  Values")]
-    PlayerInputActions playerInputActions;
-    public static GameManager instance;
-    public DayManager dayManagerRef;
+    PlayerInputActions playerInputActions;   //player input actions reference
+    public static GameManager instance;      //gets a static reference of the game manager
+    public DayManager dayManagerRef;         //gets a reference for the day manager
+    public static bool gameOver = false;     //A boolean used to determind if the game is over or not
 
 
 
@@ -288,11 +289,7 @@ public class GameManager : MonoBehaviour
         PauseSystem.isPaused = false;
         Time.timeScale = 1.0f;
 
-        LevelManager.instance.LoadScene(sceneName);
-        
-       
-
-        
+        LevelManager.instance.LoadScene(sceneName);    
     }
 
 

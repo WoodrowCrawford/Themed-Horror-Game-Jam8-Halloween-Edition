@@ -110,14 +110,14 @@ public class PlayerInputBehavior : MonoBehaviour
 
         //Action Map #1 (In Bed)
         playerControls.InBed.GetOutOfBed.performed += GetOutOfBed;
-        playerControls.InBed.ToggleFlashlight.performed += ctx => flashlightBehavior.ToggleFlashLight();
+        playerControls.InBed.ToggleFlashlight.performed += ctx => flashlightBehavior.NewToggleFlashlight();
         playerControls.InBed.ToggleGoUnderBed.performed += ToggleUnderBed;
         playerControls.InBed.Sleep.performed += ctx => sleepBehavior.playerIsSleeping = true;
         playerControls.InBed.Sleep.canceled += ctx => sleepBehavior.playerIsSleeping = false;
 
 
         //Action Map #2 (Out of Bed)
-        playerControls.OutOfBed.ToggleFlashlight.performed += ctx => flashlightBehavior.ToggleFlashLight();
+        playerControls.OutOfBed.ToggleFlashlight.performed += ctx => flashlightBehavior.NewToggleFlashlight();
         playerControls.OutOfBed.GetInBed.performed += GetInBed;
 
 
@@ -196,10 +196,18 @@ public class PlayerInputBehavior : MonoBehaviour
 
 
 
-        //If the player is under the bed then they should not be able to sleep
+        //If the player is under the bed then they should not be able to sleep or get out of the bed
         if (_isUnderBed)
         {
             sleepBehavior.playerIsSleeping = false;
+          
+          
+        }
+
+        //else if the player is not under the bed and it is currently night time
+        else if (!_isUnderBed && GraphicsBehavior.instance.IsNightTime)
+        {
+            playerCanSleep = true;
         }
 
         //Change the action map if the player is by the wardrobe
@@ -288,19 +296,45 @@ public class PlayerInputBehavior : MonoBehaviour
         //if the player is allowed to toggle under the bed and the dialogue ui box is not open...
         if(playerCanToggleUnderBed && !DialogueUIBehavior.IsOpen)
         {
+            ///if the player is not under the bed and the player is not sleeping and the game is not paused
             if (!_isUnderBed && !sleepBehavior.playerIsSleeping && !PauseSystem.isPaused)
             {
+                //set the player to be under the bed
                 _playerBody.transform.position = _UnderBedPos.transform.position;
+
+                //set isUnderBed to be true
                 _isUnderBed = true;
+
+                //Set player is hidden to be true
                 _playerIsHidden = true;
+
+                //the player can not sleep while under the bed
+                playerCanSleep = false;
+
+                //the player can not get out of bed while under it
+                playerCanGetOutOfBed = false;
 
 
             }
             else if (_isUnderBed && !PauseSystem.isPaused)
             {
+                //set the player to be on top of the bed
                 _playerBody.transform.position = _TopOfBedPos.transform.position;
+
+                //set isUnderBed to be false
                 _isUnderBed = false;
+
+                //set player is hidden to be false
                 _playerIsHidden = false;
+
+                //check if it is nighttime
+                if(GraphicsBehavior.instance.IsNightTime)
+                {
+                    //the player is allowed to sleep
+                    playerCanSleep = true;
+                }
+
+                playerCanGetOutOfBed = true;
             }
         }
 

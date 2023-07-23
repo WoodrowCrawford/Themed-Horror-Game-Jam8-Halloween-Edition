@@ -6,7 +6,7 @@ public class ClownAttackState : ClownBaseState
 {
     public override void EnterState(ClownStateManager clown)
     {
-        throw new System.NotImplementedException();
+        
     }
 
   

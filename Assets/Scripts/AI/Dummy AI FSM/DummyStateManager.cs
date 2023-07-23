@@ -201,12 +201,8 @@ public class DummyStateManager : MonoBehaviour, IInteractable
         {
             //if the ai is close to the player and is active...
 
-            //Test
-            Debug.Log("The player got caught!!!");
-            
-            //Put scary popup code here
-
-            //Set game over to be true
+            //switch to attack state
+            SwitchState(attackState);
         }
     }
 

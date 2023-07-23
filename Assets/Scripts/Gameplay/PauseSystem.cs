@@ -59,6 +59,9 @@ public class PauseSystem : MonoBehaviour
             //Makes it so that the player can not interact with things while paused
             PlayerInputBehavior.playerCanInteract = false;
 
+            //makes it so that the player can not sleep when the game is paused
+            PlayerInputBehavior.playerCanSleep = false;
+
             Cursor.visible = true;
             Time.timeScale = 0.0f;
             isPaused = true;
@@ -82,7 +85,7 @@ public class PauseSystem : MonoBehaviour
                 PlayerInputBehavior.playerCanInteract = true;
             }
 
-           
+          
             
 
             Time.timeScale = 1f;

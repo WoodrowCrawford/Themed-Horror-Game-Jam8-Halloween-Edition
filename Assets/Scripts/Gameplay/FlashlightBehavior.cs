@@ -101,6 +101,9 @@ public class FlashlightBehavior : MonoBehaviour
             //the player can not use the flashlight
             PlayerInputBehavior.playerCanUseFlashlight = false;
 
+            //turn off the flashlight
+            _flashlightOn = false;
+
             //hide the flashlight during the day
             flashlightGameObject.GetComponent<MeshRenderer>().enabled = false;
 
@@ -121,6 +124,9 @@ public class FlashlightBehavior : MonoBehaviour
 
             //show the flashlight
             flashlightGameObject.GetComponent<MeshRenderer>().enabled = true;
+
+            //set the flashlight variable to be true
+            _flashlightOn = true;
         }
     }
 
@@ -183,5 +189,13 @@ public class FlashlightBehavior : MonoBehaviour
 
             _flashlightOn = true;
         }
+    }
+
+
+
+    public void NewToggleFlashlight()
+    {
+        //first check if the player can even use the flashlight
+        Debug.Log("turn on or off the flashlight");
     }
 }

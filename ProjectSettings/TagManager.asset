@@ -68,3 +68,6 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: EyesClosed Layer
+    uniqueID: 2315899799
+    locked: 0

@@ -156,20 +156,43 @@ public class DayManager : MonoBehaviour
         //stops all coroutines
         StopAllCoroutines();
 
-        //resets the bools
-        _isSundayMorningInitialized = false;
-        _isSundayNightInitialized = false;
 
-        //sets the task to be nothing
-        task = Tasks.NONE;
+        //check to see what the current day is
+        if(days == Days.SUNDAY_MORNING)
+        {
+            //set sunday moring initialized to be false
+            _isSundayMorningInitialized = false;
+
+
+           
+
+
+        }
+        else if (days == Days.SUNDAY_NIGHT)
+        {
+            _isSundayNightInitialized = false;
+
+            //reset ai to be back to laying down state
+            
+
+        }
+
+        //resets the bools
+      
+      
+
+       
 
         yield return new WaitForSeconds(0.2f);
         Debug.Log("Resetting functions");
 
         FindAIEnemies();
 
-      
+        yield return new WaitForSeconds(0.4f);
+
+        Debug.Log("found dummies");
         
+        _dummy1.GetComponent<DummyStateManager>().SwitchState(_dummy1.GetComponent<DummyStateManager>().layingDownState);
 
 
     }
@@ -210,6 +233,9 @@ public class DayManager : MonoBehaviour
         {
             // Set to be true
             _isSundayMorningInitialized = true;
+
+            //the player is not able to sleep
+            PlayerInputBehavior.playerCanSleep = false;
 
             CallShowTodaysDate();
 
@@ -331,6 +357,9 @@ public class DayManager : MonoBehaviour
 
             //stops the sunday morning coroutine
             StopCoroutine(StartSundayMorning());
+
+            //the player can sleep
+            PlayerInputBehavior.playerCanSleep = true;
 
 
             days = Days.SUNDAY_NIGHT;

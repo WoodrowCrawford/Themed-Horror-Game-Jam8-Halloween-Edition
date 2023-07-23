@@ -7,6 +7,8 @@ public class DummyAttackState : DummyDefaultState
     public override void EnterState(DummyStateManager dummy)
     {
         Debug.Log("Dummy is in the attack state");
+
+       
     }
 
     public override void UpdateState(DummyStateManager dummy)
