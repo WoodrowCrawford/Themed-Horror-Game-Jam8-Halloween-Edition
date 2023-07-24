@@ -192,8 +192,7 @@ public class DummyStateManager : MonoBehaviour, IInteractable
         // If the target is in the bed and the enemy reaches the destination...
         if (distance <= minDistance && target == InBedTarget)
         {
-            //makes the agen
-           // Agent.transform.LookAt(PlayerRef.transform);
+            
         }
 
         //else if the player is in range

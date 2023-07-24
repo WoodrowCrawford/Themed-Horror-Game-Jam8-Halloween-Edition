@@ -4,11 +4,9 @@ using UnityEngine.SceneManagement;
 public class PauseSystem : MonoBehaviour
 {
     public static PauseSystem instance;
-    public GameObject PauseMenu;
-
     public static bool isPaused = false;
 
-    
+    public GameObject PauseMenu;
 
 
 

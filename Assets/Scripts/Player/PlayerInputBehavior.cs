@@ -110,14 +110,14 @@ public class PlayerInputBehavior : MonoBehaviour
 
         //Action Map #1 (In Bed)
         playerControls.InBed.GetOutOfBed.performed += GetOutOfBed;
-        playerControls.InBed.ToggleFlashlight.performed += ctx => flashlightBehavior.NewToggleFlashlight();
+        playerControls.InBed.ToggleFlashlight.performed += ctx => flashlightBehavior.ToggleFlashLight();
         playerControls.InBed.ToggleGoUnderBed.performed += ToggleUnderBed;
         playerControls.InBed.Sleep.performed += ctx => sleepBehavior.playerIsSleeping = true;
         playerControls.InBed.Sleep.canceled += ctx => sleepBehavior.playerIsSleeping = false;
 
 
         //Action Map #2 (Out of Bed)
-        playerControls.OutOfBed.ToggleFlashlight.performed += ctx => flashlightBehavior.NewToggleFlashlight();
+        playerControls.OutOfBed.ToggleFlashlight.performed += ctx => flashlightBehavior.ToggleFlashLight();
         playerControls.OutOfBed.GetInBed.performed += GetInBed;
 
 
@@ -186,29 +186,11 @@ public class PlayerInputBehavior : MonoBehaviour
     }
 
     private void Update()
-    {
-
-
+    { 
         _yRotation = Mathf.CeilToInt(_playerBody.transform.eulerAngles.y);
 
-        //used for looking
-        HandleLook();
-
-
-
-        //If the player is under the bed then they should not be able to sleep or get out of the bed
-        if (_isUnderBed)
-        {
-            sleepBehavior.playerIsSleeping = false;
-          
-          
-        }
-
-        //else if the player is not under the bed and it is currently night time
-        else if (!_isUnderBed && GraphicsBehavior.instance.IsNightTime)
-        {
-            playerCanSleep = true;
-        }
+        if (playerCanLook)
+            HandleLook();
 
         //Change the action map if the player is by the wardrobe
         if(wardrobeBehavior.playerCanOpenWardrobe)
@@ -236,31 +218,24 @@ public class PlayerInputBehavior : MonoBehaviour
   
     public void HandleLook()
     {
-        //if the player can look...
-        if(playerCanLook)
+        //if the dialogue box is open then return
+        if (DialogueUIBehavior.IsOpen)
         {
-            //if the dialogue box is open then return
-            if (DialogueUIBehavior.IsOpen)
-            {
-                return;
-            }
-
-
-            //Look values
-            float mouseXLook = playerControls.Default.Look.ReadValue<Vector2>().x * _sensitivity * Time.deltaTime;
-            float mouseYLook = playerControls.Default.Look.ReadValue<Vector2>().y * _sensitivity * Time.deltaTime;
-
-
-            _xRotation -= mouseYLook;
-            _xRotation = Mathf.Clamp(_xRotation, -90f, 90f);
-
-
-            _camera.transform.localRotation = Quaternion.Euler(_xRotation, 0f, 0f);
-            _playerBody.Rotate(Vector3.up * mouseXLook);
+            return;
         }
 
-        return;
-           
+
+        //Look values
+        float mouseXLook = playerControls.Default.Look.ReadValue<Vector2>().x * _sensitivity * Time.deltaTime;
+        float mouseYLook = playerControls.Default.Look.ReadValue<Vector2>().y * _sensitivity * Time.deltaTime;
+
+
+        _xRotation -= mouseYLook;
+        _xRotation = Mathf.Clamp(_xRotation, -90f, 90f);
+
+
+        _camera.transform.localRotation = Quaternion.Euler(_xRotation, 0f, 0f);
+        _playerBody.Rotate(Vector3.up * mouseXLook);
     }
 
 

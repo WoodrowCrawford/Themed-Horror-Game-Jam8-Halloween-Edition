@@ -34,15 +34,31 @@ public class FlashlightBehavior : MonoBehaviour
     }
 
 
-   
+    private void Start()
+    {
+        if(GraphicsBehavior.instance.IsDayTime)
+        {
+            _flashlightOn = false;
+        }
+        else
+        {
+            _flashlightOn = true;
+        }
+    }
 
 
     // Update is called once per frame
     void Update()
     {
+        //checks if the player can use the flashlight or not
         SetFlashlight();
+
+        //checks to see if the player is sleeping
         CheckIfPlayerIsSleeping();
+
+        //handles the battery power for the flashlight
         HandleFlashlightBatteryPower();
+
 
        
     }
@@ -101,39 +117,18 @@ public class FlashlightBehavior : MonoBehaviour
             //the player can not use the flashlight
             PlayerInputBehavior.playerCanUseFlashlight = false;
 
-            //turn off the flashlight
-            _flashlightOn = false;
-
-            //hide the flashlight during the day
-            flashlightGameObject.GetComponent<MeshRenderer>().enabled = false;
-
-            //if the flashlight is off..
-            if(!_flashlightOn)
-            {
-                //make sure it is off by calling the function
-                TurnOffFlashlight();
-                Debug.Log("flashlight off");
-            }
-            //turn off the flashlight
         }
         //else if it is night time...
         else if (GraphicsBehavior.instance.IsNightTime)
         {
             //the player can use the flashligt
             PlayerInputBehavior.playerCanUseFlashlight = true;
-
-            //show the flashlight
-            flashlightGameObject.GetComponent<MeshRenderer>().enabled = true;
-
-            //set the flashlight variable to be true
-            _flashlightOn = true;
         }
     }
 
 
     public void TurnOnFlashlight()
     {
-      
         _playerLight.gameObject.SetActive(true);
 
         //Set the flashlight collider to be off
@@ -193,9 +188,5 @@ public class FlashlightBehavior : MonoBehaviour
 
 
 
-    public void NewToggleFlashlight()
-    {
-        //first check if the player can even use the flashlight
-        Debug.Log("turn on or off the flashlight");
-    }
+   
 }

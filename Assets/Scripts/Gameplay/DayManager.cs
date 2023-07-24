@@ -158,13 +158,19 @@ public class DayManager : MonoBehaviour
 
 
         //check to see what the current day is
-        if(days == Days.SUNDAY_MORNING)
+        if (days == Days.SUNDAY_MORNING)
         {
+
+
             //set sunday moring initialized to be false
             _isSundayMorningInitialized = false;
 
+            yield return new WaitForSeconds(2f);
 
-           
+            FindAIEnemies();
+
+            yield return new WaitForSeconds(1.4f);
+
 
 
         }
@@ -172,29 +178,21 @@ public class DayManager : MonoBehaviour
         {
             _isSundayNightInitialized = false;
 
+            yield return new WaitForSeconds(2f);
+
+            FindAIEnemies();
+
+            yield return new WaitForSeconds(1.4f);
+
             //reset ai to be back to laying down state
-            
+            //Initializes the dummies
+            DummyStateManager.InitializeDummyValues(_dummy1, 1, 3, Random.Range(3, 15), Random.Range(16, 20), true, new Vector3(1f, 1f, 1f));
+            DummyStateManager.InitializeDummyValues(_dummy2, 1, 3, Random.Range(3, 15), Random.Range(16, 20), true, new Vector3(1f, 1f, 1f));
+
+            //_dummy1.GetComponent<DummyStateManager>().SwitchState(_dummy1.GetComponent<DummyStateManager>().layingDownState);
+            //_dummy1.GetComponent<DummyStateManager>().SwitchState(_dummy2.GetComponent<DummyStateManager>().layingDownState);
 
         }
-
-        //resets the bools
-      
-      
-
-       
-
-        yield return new WaitForSeconds(0.2f);
-        Debug.Log("Resetting functions");
-
-        FindAIEnemies();
-
-        yield return new WaitForSeconds(0.4f);
-
-        Debug.Log("found dummies");
-        
-        _dummy1.GetComponent<DummyStateManager>().SwitchState(_dummy1.GetComponent<DummyStateManager>().layingDownState);
-
-
     }
 
 
@@ -371,8 +369,8 @@ public class DayManager : MonoBehaviour
 
 
             //Initializes the dummies
-            DummyStateManager.InitializeDummyValues(_dummy1, 1, 3, 5, 20, true, new Vector3(1f, 1f, 1f));
-            DummyStateManager.InitializeDummyValues(_dummy2, 1, 3, 5, 20, true, new Vector3(1f, 1f, 1f));
+            DummyStateManager.InitializeDummyValues(_dummy1, 1, 3, Random.Range(3, 15), Random.Range(16, 20), true, new Vector3(1f, 1f, 1f));
+            DummyStateManager.InitializeDummyValues(_dummy2, 1, 3, Random.Range(3, 15), Random.Range(16, 20), true, new Vector3(1f, 1f, 1f));
 
             //set the dummy size here for nighttime
 
