@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SundayNightIntroDialogue
   m_EditorClassIdentifier: 
   _dialogue:
-  - (It is now night time!)
+  - (Welcome to the night time phase of the game!)
   - (Strange stuff happens at night, so be careful and watch out!)
-  - (If you ever want to switch back to morning time, interact with the lightswitch!)
+  - (Try to fall asleep, and shine the light on the dummies scare them away!
   _responses: []

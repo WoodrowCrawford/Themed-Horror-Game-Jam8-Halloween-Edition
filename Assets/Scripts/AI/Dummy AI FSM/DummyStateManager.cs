@@ -75,7 +75,7 @@ public class DummyStateManager : MonoBehaviour, IInteractable
 
     [Header("Interaction")]
     [SerializeField] private string _interactionPrompt;
-    
+    public bool canBeInteracted = true;
     public static bool IsInteracted = false;
     public int DummyInsideToyboxCounter = 0;  //Static int used to keep track of how many times the dumnmy was in the toybox (0 by default)
     public bool dummyTeleportComplete = false; //bool used to check if the teleport phase was complete or not
@@ -212,12 +212,17 @@ public class DummyStateManager : MonoBehaviour, IInteractable
 
     public IEnumerator TelportBackToOriginLocation()
     {
+        canBeInteracted = false;
+
         DummyInsideToyboxCounter++;
 
         switch (DummyInsideToyboxCounter)
         {
             case 1:
                 {
+                    //disables interaction while it is teleporting
+                    canBeInteracted = false;
+
                     //wait some time
                     yield return new WaitForSeconds(3f);
                     
@@ -229,12 +234,18 @@ public class DummyStateManager : MonoBehaviour, IInteractable
                     //show the dialogue
                     DialogueUIBehavior.instance.ShowDialogue(DayManager.instance.DummyReapperedFirstTimeDialogue);
 
-                 
+
+                    //enables interaction
+                    canBeInteracted = true;
+
                     yield return null;
                     break;
                 }
             case 2:
                 {
+                    //disables interaction while it is teleporting
+                    canBeInteracted = false;
+
                     yield return new WaitForSeconds(3f);
                     //telelports the dummy to go back to the original location
                     dummyThisBelongsTo.GetComponent<DummyStateManager>().gameObject.transform.position = dummyThisBelongsTo.GetComponent<DummyStateManager>().OriginPos.position;
@@ -242,11 +253,17 @@ public class DummyStateManager : MonoBehaviour, IInteractable
                     //show the dialogue
                     DialogueUIBehavior.instance.ShowDialogue(DayManager.instance.DummyReappearedSecondTimeDialogue);
 
+                    //enables interaction
+                    canBeInteracted = true;
+
                     yield return null;
                     break;
                 }
             case 3:
                 {
+                    //disables interaction while it is teleporting
+                    canBeInteracted = false;
+
                     yield return new WaitForSeconds(3f);
 
                     //telelports the dummy to go back to the original location
@@ -255,11 +272,17 @@ public class DummyStateManager : MonoBehaviour, IInteractable
                     //show the dialogue
                     DialogueUIBehavior.instance.ShowDialogue(DayManager.instance.DummyReappearedThirdTimeDialogue);
 
+                    //enables interaction
+                    canBeInteracted = true;
+
                     yield return null;
                     break;
                 }
             case 4:
                 {
+                    //disables interaction while it is teleporting
+                    canBeInteracted = false;
+
                     //wait 
                     yield return new WaitForSeconds(3f);
 
@@ -269,6 +292,8 @@ public class DummyStateManager : MonoBehaviour, IInteractable
                     //set player can go to bed phase to be true
                     DayManager.instance._startGoToBedPhase = true;
 
+
+                    yield return null;
                     break;
                 }
         }
@@ -352,7 +377,7 @@ public class DummyStateManager : MonoBehaviour, IInteractable
     public void Interact(Interactor Interactor)
     {
         //if it is sunday morning and the task for the day is to look around...
-        if (DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.task == DayManager.Tasks.LOOK_AROUND)
+        if (DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.task == DayManager.Tasks.LOOK_AROUND && canBeInteracted)
         {
             //sets to be true
             IsInteracted = true;
@@ -360,7 +385,7 @@ public class DummyStateManager : MonoBehaviour, IInteractable
             DialogueUIBehavior.instance.ShowDialogue(_dialogueObject);
         }
 
-        else if(DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.task == DayManager.Tasks.CLEAN_UP && !DayManager.instance._playerPutAllTheToysInTheToyBox)
+        else if(DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.task == DayManager.Tasks.CLEAN_UP && !DayManager.instance._playerPutAllTheToysInTheToyBox && canBeInteracted)
         {
             //show dialogue here that the player should put the other toys away first
             DialogueUIBehavior.instance.ShowDialogue(_putOtherToysAwayFirst);
@@ -368,7 +393,7 @@ public class DummyStateManager : MonoBehaviour, IInteractable
 
 
         //if it is sunday morning and the task for the day is to clean up...
-        else if(DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.task == DayManager.Tasks.CLEAN_UP)
+        else if(DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.task == DayManager.Tasks.CLEAN_UP && canBeInteracted)
         {
             //put pick up code here!
             StartCoroutine(Interactor.TogglePickUp(this.gameObject));

@@ -189,9 +189,7 @@ public class DayManager : MonoBehaviour
             DummyStateManager.InitializeDummyValues(_dummy1, 1, 3, Random.Range(3, 15), Random.Range(16, 20), true, new Vector3(1f, 1f, 1f));
             DummyStateManager.InitializeDummyValues(_dummy2, 1, 3, Random.Range(3, 15), Random.Range(16, 20), true, new Vector3(1f, 1f, 1f));
 
-            //_dummy1.GetComponent<DummyStateManager>().SwitchState(_dummy1.GetComponent<DummyStateManager>().layingDownState);
-            //_dummy1.GetComponent<DummyStateManager>().SwitchState(_dummy2.GetComponent<DummyStateManager>().layingDownState);
-
+           
         }
     }
 
@@ -356,17 +354,29 @@ public class DayManager : MonoBehaviour
             //stops the sunday morning coroutine
             StopCoroutine(StartSundayMorning());
 
+            //telelports the dummy to go back to the original location
+            Dummy1.GetComponent<DummyStateManager>().gameObject.transform.position = Dummy1.GetComponent<DummyStateManager>().OriginPos.position;
+
+            //telelports the dummy to go back to the original location
+            Dummy2.GetComponent<DummyStateManager>().gameObject.transform.position = Dummy2.GetComponent<DummyStateManager>().OriginPos.position;
+
+
             //the player can sleep
             PlayerInputBehavior.playerCanSleep = true;
 
-
+      
+            //set the day to be sunday night
             days = Days.SUNDAY_NIGHT;
+
             GraphicsBehavior.instance.SetNightTime();
             FindAIEnemies();
 
             //turn on the flashlight
             _flashlightBehavior.TurnOnFlashlight();
 
+
+
+            //put dialogue here for the beginning of the night
 
             //Initializes the dummies
             DummyStateManager.InitializeDummyValues(_dummy1, 1, 3, Random.Range(3, 15), Random.Range(16, 20), true, new Vector3(1f, 1f, 1f));
@@ -383,7 +393,13 @@ public class DayManager : MonoBehaviour
             GhoulStateManager.InitializeGhoulValues(_ghoul, 3, 7, true);
 
 
-           
+            yield return new WaitForSeconds(2f);
+
+            //show the wake up dialogue
+            DialogueUIBehavior.instance.ShowDialogue(_sundayNightIntroDialouge);
+
+            //Wait until the dialouge box is closed
+            yield return new WaitUntil(() => !DialogueUIBehavior.IsOpen);
 
 
 

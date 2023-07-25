@@ -21809,7 +21809,7 @@ PrefabInstance:
     - target: {fileID: 6519131487252682017, guid: 692208d2e24c98f49a75b55d34bea91a, type: 3}
       propertyPath: _wakeUpDialouge
       value: 
-      objectReference: {fileID: 11400000, guid: 6f14bbe931ad6fb4d887773c426da8d6, type: 2}
+      objectReference: {fileID: 11400000, guid: 0fbc1ecb62e954a429d3799fec20dc2c, type: 2}
     - target: {fileID: 6519131487252682017, guid: 692208d2e24c98f49a75b55d34bea91a, type: 3}
       propertyPath: _cleanUpDialogue
       value: 
@@ -21818,6 +21818,10 @@ PrefabInstance:
       propertyPath: _startUpDreamDialogue
       value: 
       objectReference: {fileID: 11400000, guid: 6f14bbe931ad6fb4d887773c426da8d6, type: 2}
+    - target: {fileID: 6519131487252682017, guid: 692208d2e24c98f49a75b55d34bea91a, type: 3}
+      propertyPath: _sundayNightIntroDialouge
+      value: 
+      objectReference: {fileID: 11400000, guid: 4e8c706636e72624e88a1eee1035bb2a, type: 2}
     - target: {fileID: 6519131487252682017, guid: 692208d2e24c98f49a75b55d34bea91a, type: 3}
       propertyPath: DummyReapperedFirstTimeDialogue
       value: 
