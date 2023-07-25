@@ -147,6 +147,36 @@ public class DayManager : MonoBehaviour
         //gets the component
         _flashlightBehavior = GameObject.FindGameObjectWithTag("Flashlight").GetComponent<FlashlightBehavior>();
         _playerInputBehavior = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInputBehavior>();
+
+
+
+
+        switch (days)
+        {
+            case Days.SUNDAY_MORNING:
+                {
+                    TodaysDateGO.GetComponent<TodaysDateBehavior>().TodaysDateText.text = ("Sunday Morning");
+
+                    if (GameManager.instance.currentGameMode == GameManager.GameModes.BEDROOM_CHAPTER)
+                    {
+                        StartCoroutine(StartSundayMorning());
+                    }
+
+                    break;
+                }
+
+            case Days.SUNDAY_NIGHT:
+                {
+                    TodaysDateGO.GetComponent<TodaysDateBehavior>().TodaysDateText.text = ("Sunday Night");
+
+                    if (GameManager.instance.currentGameMode == GameManager.GameModes.BEDROOM_CHAPTER)
+                    {
+                        StartCoroutine(StartSundayNight());
+                    }
+
+                    break;
+                }
+        }
     }
 
 

@@ -86,8 +86,8 @@ public class GameManager : MonoBehaviour
 
                     if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("BedroomScene"))
                     {
-                        //Start the sunday morning stuff
-                        StartCoroutine(dayManagerRef.StartSundayMorning());
+                        ////Start the sunday morning stuff
+                        //StartCoroutine(dayManagerRef.StartSundayMorning());
                     }
 
                     break;
@@ -100,8 +100,8 @@ public class GameManager : MonoBehaviour
 
                     if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("BedroomScene"))
                     {
-                        //Start sunday night stuff
-                        StartCoroutine(dayManagerRef.StartSundayNight());
+                        ////Start sunday night stuff
+                        //StartCoroutine(dayManagerRef.StartSundayNight());
                     }
 
                     break;
