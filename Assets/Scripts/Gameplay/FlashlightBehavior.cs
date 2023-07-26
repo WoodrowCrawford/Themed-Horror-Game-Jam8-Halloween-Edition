@@ -117,6 +117,9 @@ public class FlashlightBehavior : MonoBehaviour
             //the player can not use the flashlight
             PlayerInputBehavior.playerCanUseFlashlight = false;
 
+            //turn off the flashlight
+            TurnOffFlashlight();
+
         }
         //else if it is night time...
         else if (GraphicsBehavior.instance.IsNightTime)

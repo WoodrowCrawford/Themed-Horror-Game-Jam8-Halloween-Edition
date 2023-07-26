@@ -157,7 +157,7 @@ public class DayManager : MonoBehaviour
                 {
                     TodaysDateGO.GetComponent<TodaysDateBehavior>().TodaysDateText.text = ("Sunday Morning");
 
-                    if (GameManager.instance.currentGameMode == GameManager.GameModes.BEDROOM_CHAPTER)
+                    if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("BedroomScene"))
                     {
                         StartCoroutine(StartSundayMorning());
                     }
@@ -169,7 +169,7 @@ public class DayManager : MonoBehaviour
                 {
                     TodaysDateGO.GetComponent<TodaysDateBehavior>().TodaysDateText.text = ("Sunday Night");
 
-                    if (GameManager.instance.currentGameMode == GameManager.GameModes.BEDROOM_CHAPTER)
+                    if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("BedroomScene"))
                     {
                         StartCoroutine(StartSundayNight());
                     }
@@ -377,7 +377,7 @@ public class DayManager : MonoBehaviour
     public IEnumerator StartSundayNight()
     {
         //if not initialized...
-        if(!_isSundayNightInitialized)
+        if(!_isSundayNightInitialized && SceneManager.GetActiveScene() == SceneManager.GetSceneByName("BedroomScene"))
         {
             //set up everything once
 
