@@ -13,13 +13,18 @@ MonoBehaviour:
   m_Name: SundayNightTutorial
   m_EditorClassIdentifier: 
   _dialogue:
-  - (Welcome to the night time phase of the game! Strange things happen at night,
-    so you gotta be careful.  I'm assuming you're new here, so I will explain how
-    things work.)
-  - (It's pretty dark in your room, so if you ever need to have light for something,
-    or someone, just click the 'right mouse button' to toggle your flashlight.)
+  - (Okay no problem! Allow me to explain.)
+  - (On the left side of the screen is your flashlight battery meter.)
+  - (It's pretty dark in your room, you know....)
+  - (So if you ever need to have light for something, or someone, click the 'right
+    mouse button' to toggle your flashlight.)
   - (Careful though, it runs out after a certain amount of time. Give it some time
     and it will be available again.)
+  - (On the lower right side of the screen is your sleep meter. It will go up as
+    you fall asleep.)
+  - (In order to sleep, simply hold the 'spacebar' key.)
+  - (Sleeping does leave you vulunerable to...unwanted guests though, so always keep
+    an eye out!)
   - '(Since this is only the first night, you will only have to focus on one enemy
     this time: The dummies!)'
   - (These dummies like to play pretend a lot so you gotta watch them carefully.
@@ -29,8 +34,10 @@ MonoBehaviour:
   - (*Ahem*)
   - (.....)
   - (Anyways.... just... i don't know, shine a light on em?)
-  - (If I were a dummy, which I'm not by the way
-  - (Try to fall asleep, and shine the light on the dummies scare them away!)
+  - (If I were a dummy, which I'm not by the way, I would run away. But that's just
+    me.)
+  - (But yeah just try to fall asleep while not getting killed by the dummies! Seems
+    pretty simple, so I have no doubt that you got this!)
   _responses:
   - _responseText: Who are you?
     _dialogueObject: {fileID: 11400000, guid: 6862e6f69a19e844b9dfce81632e58be, type: 2}

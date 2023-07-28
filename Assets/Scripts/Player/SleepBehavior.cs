@@ -22,7 +22,7 @@ public class SleepBehavior : MonoBehaviour
 
     public void Sleep()
     {
-        if(PlayerInputBehavior.playerCanSleep && !PauseSystem.isPaused)
+        if(PlayerInputBehavior.playerCanSleep && !PauseSystem.isPaused && !DialogueUIBehavior.IsOpen)
         {
             if (playerIsSleeping)
             {

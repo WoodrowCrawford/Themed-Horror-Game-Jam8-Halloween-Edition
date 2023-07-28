@@ -39,7 +39,8 @@ public class DayManager : MonoBehaviour
         NONE,
         LOOK_AROUND,
         CLEAN_UP,
-        GO_TO_BED
+        GO_TO_BED,
+        SLEEP
     }
 
     //A enum Days variable called days
@@ -379,10 +380,41 @@ public class DayManager : MonoBehaviour
         //if not initialized...
         if(!_isSundayNightInitialized && SceneManager.GetActiveScene() == SceneManager.GetSceneByName("BedroomScene"))
         {
-            //set up everything once
 
-            //stops the sunday morning coroutine
+
+            // Set to be true
+            _isSundayNightInitialized = true;
+
+            //stop sunday morning
             StopCoroutine(StartSundayMorning());
+
+            
+
+            //the player is able to sleep
+            PlayerInputBehavior.playerCanSleep = true;
+
+            CallShowTodaysDate();
+
+
+            //turn on the flashlight
+            _flashlightBehavior.TurnOnFlashlight();
+
+            //Sets current task to be sleep
+            task = Tasks.SLEEP;
+
+            //Set up variables
+            days = Days.SUNDAY_NIGHT;
+            GraphicsBehavior.instance.SetNightTime();
+
+
+
+            //wait until the screen is finished loading
+            yield return new WaitUntil(() => TodaysDateBehavior.instance._loadingScreenFinished);
+
+            FindAIEnemies();
+            
+            //wait a few seconds
+            yield return new WaitForSeconds(0.6f);
 
             //telelports the dummy to go back to the original location
             Dummy1.GetComponent<DummyStateManager>().gameObject.transform.position = Dummy1.GetComponent<DummyStateManager>().OriginPos.position;
@@ -391,39 +423,29 @@ public class DayManager : MonoBehaviour
             Dummy2.GetComponent<DummyStateManager>().gameObject.transform.position = Dummy2.GetComponent<DummyStateManager>().OriginPos.position;
 
 
-            //the player can sleep
-            PlayerInputBehavior.playerCanSleep = true;
-
-      
-            //set the day to be sunday night
-            days = Days.SUNDAY_NIGHT;
-
-            GraphicsBehavior.instance.SetNightTime();
-            FindAIEnemies();
-
-            //turn on the flashlight
-            _flashlightBehavior.TurnOnFlashlight();
-
-
-
-            //put dialogue here for the beginning of the night
-
             //Initializes the dummies
-            DummyStateManager.InitializeDummyValues(_dummy1, 1, 3, Random.Range(3, 15), Random.Range(16, 20), true, new Vector3(1f, 1f, 1f));
-            DummyStateManager.InitializeDummyValues(_dummy2, 1, 3, Random.Range(3, 15), Random.Range(16, 20), true, new Vector3(1f, 1f, 1f));
+            DummyStateManager.InitializeDummyValues(_dummy1, 1, 5, Random.Range(1, 11), Random.Range(12, 20), true, new Vector3(1f, 1f, 1f));
+            DummyStateManager.InitializeDummyValues(_dummy2, 1, 5, Random.Range(1, 11), Random.Range(12, 20), true, new Vector3(1f, 1f, 1f));
 
-            //set the dummy size here for nighttime
 
 
             //Initializes the clown
-            ClownStateManager.InitializeClown(_clown, 6f, true);
+            ClownStateManager.InitializeClown(_clown, 0, false);
 
 
             //Initialize the ghoul
-            GhoulStateManager.InitializeGhoulValues(_ghoul, 3, 7, true);
+            GhoulStateManager.InitializeGhoulValues(_ghoul, 0, 0, false);
 
 
-            yield return new WaitForSeconds(2f);
+
+
+
+
+            //Wait until the dialouge box is closed
+            //yield return new WaitUntil(() => !DialogueUIBehavior.IsOpen);
+
+            //wait
+            // yield return new WaitForSeconds(3f);
 
             //show the wake up dialogue
             DialogueUIBehavior.instance.ShowDialogue(_sundayNightIntroDialouge);
@@ -431,12 +453,51 @@ public class DayManager : MonoBehaviour
             //Wait until the dialouge box is closed
             yield return new WaitUntil(() => !DialogueUIBehavior.IsOpen);
 
+            /////////The player is then tasked with looking around
+            /////////They will look around and interact with objects.
+            task = Tasks.LOOK_AROUND;
 
 
+            //Check to make sure that the player examined everything here
+            yield return new WaitUntil(() => _playerInteractedWithAllTheObjects && !DialogueUIBehavior.IsOpen);
+
+            //After examining everything, the player's parents will tell them that they need to clean up the room (start a dialogue here saying that)
+            DialogueUIBehavior.instance.ShowDialogue(_cleanUpDialogue);
+
+            //The player will then have the task of picking up items and putting them away.
+            //(create a task for the player to clean up. items should do different things when interacted now, since they need to be picked up)
+            task = Tasks.CLEAN_UP;
+
+            //When the player tries to put away the dummies, whenever the player is not looking at the dummies, move them back to the spot they began.
+            //Do this a few times. (This will be done in the toybox trigger behavior)
+            //Afterwards, the dummies will stay in the spot that the player moved them to, and the player will then get exhaused and try to go to sleep, starting the next phase.
 
 
-            //set to true
-            _isSundayNightInitialized = true;
+            //check to see if the player can start to go to bed for the day
+            yield return new WaitUntil(() => _startGoToBedPhase);
+
+            //waits a few seconds
+            yield return new WaitForSeconds(2f);
+
+            //plays the dialogue 
+            DialogueUIBehavior.instance.ShowDialogue(GoToBedDialogue);
+
+            //wait until the dialogue box is closed
+            yield return new WaitUntil(() => !DialogueUIBehavior.IsOpen);
+
+            //sets the task to be "go to bed"
+            task = Tasks.GO_TO_BED;
+
+            //wait until the player is in the bed
+            yield return new WaitUntil(() => _playerInputBehavior._inBed);
+
+            yield return new WaitForSeconds(1f);
+
+
+            //the player goes to sleep, then the next phase happens
+            StartCoroutine(StartSundayNight());
+
+
         }
 
         

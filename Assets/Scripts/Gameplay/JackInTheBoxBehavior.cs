@@ -72,6 +72,14 @@ public class JackInTheBoxBehavior : MonoBehaviour, IInteractable
                 }
             case DayManager.Days.SUNDAY_NIGHT:
                 {
+                    
+
+
+                    break;
+
+                }
+            case DayManager.Days.MONDAY_NIGHT:
+                {
                     //If the player is rewinding the box and the box is not already open then...
                     if (_playerRewindingBox && !jackInTheBoxOpen)
                     {
@@ -84,9 +92,7 @@ public class JackInTheBoxBehavior : MonoBehaviour, IInteractable
                         PlayMusicBox();
                     }
 
-
                     break;
-
                 }
 
         }

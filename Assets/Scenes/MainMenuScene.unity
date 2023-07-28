@@ -21792,7 +21792,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6519131487252682017, guid: 692208d2e24c98f49a75b55d34bea91a, type: 3}
       propertyPath: days
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6519131487252682017, guid: 692208d2e24c98f49a75b55d34bea91a, type: 3}
       propertyPath: _todaysDateGO
@@ -21821,7 +21821,7 @@ PrefabInstance:
     - target: {fileID: 6519131487252682017, guid: 692208d2e24c98f49a75b55d34bea91a, type: 3}
       propertyPath: _sundayNightIntroDialouge
       value: 
-      objectReference: {fileID: 11400000, guid: 4e8c706636e72624e88a1eee1035bb2a, type: 2}
+      objectReference: {fileID: 11400000, guid: 5b9542e37682a854685d3fafb2b21b91, type: 2}
     - target: {fileID: 6519131487252682017, guid: 692208d2e24c98f49a75b55d34bea91a, type: 3}
       propertyPath: DummyReapperedFirstTimeDialogue
       value: 

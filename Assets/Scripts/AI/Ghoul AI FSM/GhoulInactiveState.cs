@@ -15,5 +15,9 @@ public class GhoulInactiveState : GhoulBaseState
         {
             ghoul.SwitchState(ghoul.patrolState);
         }
+        else
+        {
+            Debug.Log("Ghoul is inactive!");
+        }
     }
 }

@@ -6,6 +6,9 @@ public class DummyChasePlayerState : DummyDefaultState
     {
         //Testing 
         Debug.Log(dummy.dummyThisBelongsTo.gameObject.name +  " is in the chase player state");
+
+        //change the stopping distance while the dummy is chasing the player
+        dummy.Agent.stoppingDistance = 1.5f;
     }
 
     public override void UpdateState(DummyStateManager dummy)
