@@ -13,13 +13,7 @@ MonoBehaviour:
   m_Name: BasketBall
   m_EditorClassIdentifier: 
   _dialogue:
-  - This is my very own basket ball that my father gave to me,,,, hmm
+  - This is my very own basket ball that my father gave to me.
   - I never really use it, as I'm not a fan of sports.
-  - Actually now that I think about it...
-  - I feel...
-  - I'm not sure
-  _responses:
-  - _responseText: Cool
-    _dialogueObject: {fileID: 11400000, guid: de77b0239d2e80449bbc88ffeb7eef2f, type: 2}
-  - _responseText: Oh
-    _dialogueObject: {fileID: 11400000, guid: 3183eb57e4d500f498afaf2c52776a86, type: 2}
+  - I do sometimes move it around a bit, just out of boredom.
+  _responses: []

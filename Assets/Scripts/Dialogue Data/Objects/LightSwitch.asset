@@ -13,9 +13,5 @@ MonoBehaviour:
   m_Name: LightSwitch
   m_EditorClassIdentifier: 
   _dialogue:
-  - What do you want to do?
-  _responses:
-  - _responseText: daytime
-    _dialogueObject: {fileID: 0}
-  - _responseText: nighttime
-    _dialogueObject: {fileID: 11400000, guid: 4e8c706636e72624e88a1eee1035bb2a, type: 2}
+  - This light switch is so adorable!
+  _responses: []

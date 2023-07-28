@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _dialogue:
   - My bed!
-  - I shouldnt sleep right now though.
+  - I should probably get out of it now though. (Press the left shift key to get
+    out the bed.)
   _responses: []
