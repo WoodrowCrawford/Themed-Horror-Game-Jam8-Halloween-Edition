@@ -15,5 +15,5 @@ MonoBehaviour:
   _dialogue:
   - (Who am I? I'm just the narrator of this game. I will spare you the details;
     I'm not sure you could handle something like that.)
-  - But yeah, did you have any other questions before you begin your
+  - (Anyways, good luck!~)
   _responses: []

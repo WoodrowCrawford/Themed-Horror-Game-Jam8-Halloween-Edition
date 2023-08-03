@@ -6,7 +6,7 @@ public class DummyAttackState : DummyDefaultState
 {
     public override void EnterState(DummyStateManager dummy)
     {
-        Debug.Log("Dummy is in the attack state");
+        GameOverBehavior.SetGameOver(true);
 
        
     }

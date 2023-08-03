@@ -250,7 +250,7 @@ MonoBehaviour:
   m_fontSize: 35
   m_fontSizeBase: 35
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
@@ -540,7 +540,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4976299deaeafa42a03b2cc4695e6ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _typewritterSpeed: 25
+  _typewritterSpeed: 30
 --- !u!114 &1578085491635417917
 MonoBehaviour:
   m_ObjectHideFlags: 0

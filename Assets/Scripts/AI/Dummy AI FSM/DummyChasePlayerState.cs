@@ -6,9 +6,6 @@ public class DummyChasePlayerState : DummyDefaultState
     {
         //Testing 
         Debug.Log(dummy.dummyThisBelongsTo.gameObject.name +  " is in the chase player state");
-
-        //change the stopping distance while the dummy is chasing the player
-        dummy.Agent.stoppingDistance = 1.5f;
     }
 
     public override void UpdateState(DummyStateManager dummy)
@@ -42,7 +39,7 @@ public class DummyChasePlayerState : DummyDefaultState
     {
 
         //If player is in bed...
-        if (dummy.PlayerRef.GetComponent<PlayerInputBehavior>()._inBed)
+        if (PlayerInputBehavior.inBed)
         {
             //Set target to out of bed target (changes for each dummy)
             dummy.gameObject.GetComponent<DummyStateManager>().target = dummy.InBedTarget;

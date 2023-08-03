@@ -188,8 +188,8 @@ public class JackInTheBoxBehavior : MonoBehaviour, IInteractable
         }
 
 
-        //If it is sunday morning and the task is to look around...
-        if (DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.task == DayManager.Tasks.LOOK_AROUND)
+        //If it is sunday morning...
+        if (DayManager.instance.days == DayManager.Days.SUNDAY_MORNING)
         {
             //sets to be equal to true
             IsInteracted = true;
@@ -198,11 +198,7 @@ public class JackInTheBoxBehavior : MonoBehaviour, IInteractable
             DialogueUIBehavior.instance.ShowDialogue(_dialogueObject);
         }
 
-        //else if it 
-        else if(DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.task == DayManager.Tasks.CLEAN_UP)
-        {
-            Debug.Log("I can not move this object");
-        }
+       
         
     }
 }

@@ -192,10 +192,10 @@ public class DummyStateManager : MonoBehaviour, IInteractable
         // If the target is in the bed and the enemy reaches the destination...
         if (distance <= minDistance && target == InBedTarget)
         {
-            
+            Debug.Log("Reached in bed target!");
         }
 
-        //else if the player is in range
+        //else if the player is in range and the dummy is currently in the chase player state...
         else if (distance <= (minDistance + 2) && target == PlayerRef && currentState == chasePlayerState)
         {
             //if the ai is close to the player and is active...

@@ -31,6 +31,7 @@ TagManager:
   - PauseBackground
   - Dialogue
   - Basketball
+  - GameOverScreen
   layers:
   - Default
   - TransparentFX

@@ -36,10 +36,9 @@ MonoBehaviour:
   - (Anyways.... just... i don't know, shine a light on em?)
   - (If I were a dummy, which I'm not by the way, I would run away. But that's just
     me.)
-  - (But yeah just try to fall asleep while not getting killed by the dummies! Seems
-    pretty simple, so I have no doubt that you got this!)
+  - (But that's about it! Seems pretty simple, yeah? Any questions?)
   _responses:
   - _responseText: Who are you?
     _dialogueObject: {fileID: 11400000, guid: 6862e6f69a19e844b9dfce81632e58be, type: 2}
-  - _responseText: What's going on
-    _dialogueObject: {fileID: 0}
+  - _responseText: What's going on?
+    _dialogueObject: {fileID: 11400000, guid: 4d9a8fca85864a7468be35be033b71ef, type: 2}

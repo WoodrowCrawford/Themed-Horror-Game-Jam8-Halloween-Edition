@@ -11,8 +11,7 @@ public class GameManager : MonoBehaviour
     public enum GameModes
     {
         MAIN_MENU,
-       TRANSITION_SCREEN,
-        BEDROOM_CHAPTER,
+        BEDROOM_CHAPTER
     }
 
 
@@ -22,14 +21,14 @@ public class GameManager : MonoBehaviour
     PlayerInputActions playerInputActions;   //player input actions reference
     public static GameManager instance;      //gets a static reference of the game manager
     public DayManager dayManagerRef;         //gets a reference for the day manager
-    public static bool gameOver = false;     //A boolean used to determind if the game is over or not
+   
 
 
 
     [Header("Current Game Mode")]
     public GameModes currentGameMode;
 
-
+   
 
  
 
@@ -50,8 +49,14 @@ public class GameManager : MonoBehaviour
 
 
 
+    
+
+
     void Update()
     {
+
+        
+
 
         //If the current scene is the main menu scene then...
         if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("MainMenuScene"))
@@ -61,15 +66,14 @@ public class GameManager : MonoBehaviour
 
         }
 
-        else if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("TransitionScreen"))
-        {
-            currentGameMode = GameModes.TRANSITION_SCREEN;
-        }
-
+        
+        //else if the current scene is the bedroom scene...
         else if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("BedroomScene"))
         {
-            //Sets the game 
+            //Sets the gamemode to be the bedroom chapeter
             currentGameMode = GameModes.BEDROOM_CHAPTER;
+
+           
         }
 
 
@@ -278,6 +282,10 @@ public class GameManager : MonoBehaviour
         }
 
     }
+
+
+   
+
 
 
     //A function that can change the scene

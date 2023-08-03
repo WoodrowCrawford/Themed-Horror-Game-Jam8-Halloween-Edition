@@ -7,8 +7,9 @@ public class BeanbagInteractable : MonoBehaviour, IInteractable
     [SerializeField] private string _interactionPrompt;
 
     [Header("Dialogues")]
-    [SerializeField] private DialogueObjectBehavior _dialogueObject;
+    [SerializeField] private DialogueObjectBehavior _lookAtBeanBagDialogue;
     [SerializeField] private DialogueObjectBehavior _pickUpDialogue;
+    [SerializeField] private DialogueObjectBehavior _cantSleepOnBagDialogue;
 
     public static bool IsInteracted = false;
 
@@ -16,7 +17,7 @@ public class BeanbagInteractable : MonoBehaviour, IInteractable
 
 
     //Gets and enables the dialogue object to be set
-    public DialogueObjectBehavior DialogueObject { get { return _dialogueObject; }  set { _dialogueObject = value; } }
+    public DialogueObjectBehavior DialogueObject { get { return _lookAtBeanBagDialogue; }  set { _lookAtBeanBagDialogue = value; } }
 
 
 
@@ -36,7 +37,7 @@ public class BeanbagInteractable : MonoBehaviour, IInteractable
         if (DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.task == DayManager.Tasks.LOOK_AROUND)
         {
             //look around dialogue
-            Interactor.DialogueUI.ShowDialogue(_dialogueObject);
+            Interactor.DialogueUI.ShowDialogue(_lookAtBeanBagDialogue);
 
         }
 
@@ -47,13 +48,23 @@ public class BeanbagInteractable : MonoBehaviour, IInteractable
             Interactor.DialogueUI.ShowDialogue(_pickUpDialogue);
 
         }
+
+
+
+        //else if it is sunday morning and the task is to go to bed...
+        else if (DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.task == DayManager.Tasks.GO_TO_BED)
+        {
+            //pick up dialogue
+            Interactor.DialogueUI.ShowDialogue(_cantSleepOnBagDialogue);
+
+        }
     }
 
 
     //Updates the dialogue after interacting with something
     public void UpdateDialogueObject(DialogueObjectBehavior dialogueObject)
     {
-        this._dialogueObject = dialogueObject;
+        this._lookAtBeanBagDialogue = dialogueObject;
     }
 
 }

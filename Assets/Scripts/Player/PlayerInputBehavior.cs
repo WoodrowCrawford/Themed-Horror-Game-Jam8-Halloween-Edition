@@ -65,7 +65,7 @@ public class PlayerInputBehavior : MonoBehaviour
     [SerializeField] private Transform _outOfBedLeftPos;
     [SerializeField] private Transform _outOfBedRightPos;
     [SerializeField] public bool _isUnderBed = false;
-    [SerializeField] public bool _inBed = false;
+    [SerializeField] public static bool inBed = false;
 
 
     [Header("Wardrobe Values")]
@@ -74,6 +74,7 @@ public class PlayerInputBehavior : MonoBehaviour
     public bool playerIsInWardrobe;
   
 
+   
    
     public Camera Camera { get { return _camera; } }
   
@@ -182,7 +183,7 @@ public class PlayerInputBehavior : MonoBehaviour
         _playerBody.transform.position = _TopOfBedPos.position;
 
         //sets the in bed variable to be true on startup
-        _inBed = true;
+        inBed = true;
     }
 
     private void Update()
@@ -330,7 +331,7 @@ public class PlayerInputBehavior : MonoBehaviour
                 playerControls.OutOfBed.Enable();
 
                 //sets player is in bed bool to false
-                _inBed = false;
+                inBed = false;
 
                 _playerIsHidden = false;
 
@@ -366,7 +367,7 @@ public class PlayerInputBehavior : MonoBehaviour
                 playerControls.InBed.Enable();
 
                 //sets the player in bed bool be true
-                _inBed = true;
+                inBed = true;
 
             }
         }

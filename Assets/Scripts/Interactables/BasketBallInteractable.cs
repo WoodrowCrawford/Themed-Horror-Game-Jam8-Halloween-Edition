@@ -9,10 +9,8 @@ public class BasketBallInteractable : MonoBehaviour, IInteractable
 
     //Dialogues for the object
     [Header("Dialogues")]
-    [SerializeField] private DialogueObjectBehavior _dialogueObject;
-    [SerializeField] private DialogueObjectBehavior _dialogueObject2;
-    [SerializeField] private DialogueObjectBehavior _dialogueObject3;
-    [SerializeField] private DialogueObjectBehavior _dialogueObject4;
+    [SerializeField] private DialogueObjectBehavior _ballInteractionDialogue;
+   
 
 
     //A bool used to show if the object has been interacted
@@ -23,7 +21,7 @@ public class BasketBallInteractable : MonoBehaviour, IInteractable
     
 
     public string InteractionPrompt => _interactionPrompt;
-    public DialogueObjectBehavior DialogueObject { get { return _dialogueObject; } set {  _dialogueObject = value; } }
+    public DialogueObjectBehavior DialogueObject { get { return _ballInteractionDialogue; } set {  _ballInteractionDialogue = value; } }
 
 
     
@@ -46,9 +44,12 @@ public class BasketBallInteractable : MonoBehaviour, IInteractable
         if (DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.task == DayManager.Tasks.LOOK_AROUND)
         {
             //show the dialogue
-            Interactor.DialogueUI.ShowDialogue(_dialogueObject);
+            Interactor.DialogueUI.ShowDialogue(_ballInteractionDialogue);
 
         }
+
+        
+
         //else if the day is sunday morning and the task is to clean up...
         else if (DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.task == DayManager.Tasks.CLEAN_UP)
         {
@@ -63,7 +64,7 @@ public class BasketBallInteractable : MonoBehaviour, IInteractable
     //Updates the dialogue after interacting with something
     public void UpdateDialogueObject(DialogueObjectBehavior dialogueObject)
     {
-        this._dialogueObject = dialogueObject;
+        this._ballInteractionDialogue = dialogueObject;
     }
 
     

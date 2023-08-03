@@ -6,11 +6,13 @@ public class LightSwitchInteractable : MonoBehaviour, IInteractable
 {
     [SerializeField] private string _interactionPrompt;
 
-    [SerializeField] private DialogueObjectBehavior _dialogueObject;
+    [Header("Dialogues")]
+    [SerializeField] private DialogueObjectBehavior _lookAtSwitchDialogue;
+    [SerializeField] private DialogueObjectBehavior _cantTurnLightOnDialogue;
 
     public string InteractionPrompt => _interactionPrompt;
 
-    public DialogueObjectBehavior DialogueObject => _dialogueObject;
+    public DialogueObjectBehavior DialogueObject => _lookAtSwitchDialogue;
 
 
     
@@ -22,22 +24,22 @@ public class LightSwitchInteractable : MonoBehaviour, IInteractable
             Interactor.DialogueUI.AddResponseEvents(responseEvents.Events);
         }
 
-        //Shows the dialoug
-        DialogueUIBehavior.instance.ShowDialogue(_dialogueObject);
+
+        //if the day is sunday morning...
+        if (DayManager.instance.days == DayManager.Days.SUNDAY_MORNING)
+        {
+            //show the dialogue
+            Interactor.DialogueUI.ShowDialogue(_lookAtSwitchDialogue);
+
+        }
+
+        //else if the day is sunday night...
+        else if (DayManager.instance.days == DayManager.Days.SUNDAY_NIGHT)
+        {
+            //show the dialogue
+            Interactor.DialogueUI.ShowDialogue(_cantTurnLightOnDialogue);
+        }
+
+       
     }
-
-
-
-    ////Temporary for the demo
-    //public void CallCkhangeToSundayMorning()
-    //{
-    //    DayManager.instance.days = DayManager.Days.SUNDAY_MORNING;
-    //    DayManager.instance.ResetInitializers();
-    //}
-
-    //public void CallChangeToSundayNight()
-    //{
-    //    DayManager.instance.days = DayManager.Days.SUNDAY_NIGHT;
-    //    DayManager.instance.ResetInitializers();
-    //}
 }

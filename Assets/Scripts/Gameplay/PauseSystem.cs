@@ -1,5 +1,7 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PauseSystem : MonoBehaviour
 {
@@ -8,6 +10,18 @@ public class PauseSystem : MonoBehaviour
 
     public GameObject PauseMenu;
 
+    [Header("Pause menu parameters")]
+    [SerializeField] private Image _pauseBG;
+
+
+    [Header("Pause BG Materials")]
+    [SerializeField] private Color _pauseBGColor;
+    [SerializeField] private Material _PauseBGMaterial;
+
+    [Header("Pause Screen Text Settings")]
+    [SerializeField] private TMP_Text _pauseText;
+    [SerializeField] private TMP_ColorGradient _daytimeTextColorGradient;
+    [SerializeField] private TMP_ColorGradient _nighttimeTextColorGradient;
 
 
     private void Awake()
@@ -36,6 +50,8 @@ public class PauseSystem : MonoBehaviour
         {
             PauseMenu.SetActive(false);
         }
+
+        UpdatePauseScreenLook();
     }
 
 
@@ -92,5 +108,37 @@ public class PauseSystem : MonoBehaviour
             
         }
 
+    }
+
+
+
+    public void UpdatePauseScreenLook()
+    {
+        if(GraphicsBehavior.instance.IsDayTime)
+        {
+            //set the background material to be normal
+            _pauseBG.material = null;
+
+            //change the color of the background
+            _pauseBG.color = new Color(_pauseBGColor.r, _pauseBGColor.g, _pauseBGColor.b);
+
+            //set the text to be the normal version
+            _pauseText.colorGradientPreset = _daytimeTextColorGradient;
+
+        }
+
+        else if(GraphicsBehavior.instance.IsNightTime)
+        {
+
+            //set the background material to be dark
+            _pauseBG.material = _PauseBGMaterial;
+
+            //change the color of the background
+            _pauseBG.color = Color.black;
+
+            //set the text to be the dark version
+            _pauseText.colorGradientPreset = _nighttimeTextColorGradient;
+
+        }
     }
 }

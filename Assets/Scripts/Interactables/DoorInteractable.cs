@@ -6,12 +6,15 @@ public class DoorInteractable : MonoBehaviour, IInteractable
 {
     [SerializeField] private string _interactionPrompt;
 
-    [SerializeField] private DialogueObjectBehavior _dialogueObject;
+    [Header("Dialogues")]
+    [SerializeField] private DialogueObjectBehavior _lookAtDoorDialogue;
     [SerializeField] private DialogueObjectBehavior _cleanUpRoomDialogue;
+    [SerializeField] private DialogueObjectBehavior _goToSleepDialogue;
+    [SerializeField] private DialogueObjectBehavior _cantLeaveDialogue;
 
     public string InteractionPrompt => _interactionPrompt;
 
-    public DialogueObjectBehavior DialogueObject => _dialogueObject;
+    public DialogueObjectBehavior DialogueObject => _lookAtDoorDialogue;
 
     public void Interact(Interactor Interactor)
     {
@@ -25,7 +28,7 @@ public class DoorInteractable : MonoBehaviour, IInteractable
         if (DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.task == DayManager.Tasks.LOOK_AROUND)
         {
             //play dialogue
-            Interactor.DialogueUI.ShowDialogue(_dialogueObject);
+            Interactor.DialogueUI.ShowDialogue(_lookAtDoorDialogue);
 
         }
         
@@ -37,7 +40,20 @@ public class DoorInteractable : MonoBehaviour, IInteractable
         }
 
 
-        
+        //else if it is sunday morning and the task is to go to bed...
+        else if (DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.task == DayManager.Tasks.GO_TO_BED)
+        {
+            //play dialogue
+            Interactor.DialogueUI.ShowDialogue(_goToSleepDialogue);
+        }
+
+
+        //else if it is sunday night...
+        else if (DayManager.instance.days == DayManager.Days.SUNDAY_NIGHT)
+        {
+            //play dialogue
+            Interactor.DialogueUI.ShowDialogue(_cantLeaveDialogue);
+        }
     }
 
    

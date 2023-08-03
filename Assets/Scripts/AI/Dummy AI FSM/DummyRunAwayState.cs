@@ -7,9 +7,6 @@ public class DummyRunAwayState : DummyDefaultState
     public override void EnterState(DummyStateManager dummy)
     {
         Debug.Log( dummy.dummyThisBelongsTo.gameObject.name +  "Dummy is in the run away state");
-
-        //change the stopping distance while running away
-        dummy.Agent.stoppingDistance = 0;
     }
 
     public override void UpdateState(DummyStateManager dummy)

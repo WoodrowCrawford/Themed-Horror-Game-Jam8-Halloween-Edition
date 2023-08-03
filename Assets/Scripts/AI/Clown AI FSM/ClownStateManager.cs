@@ -47,7 +47,8 @@ public class ClownStateManager : MonoBehaviour, IInteractable
 
     [Header("Interaction")]
     [SerializeField] private string _interactionPrompt;
-    [SerializeField] private DialogueObjectBehavior _dialogueObject;
+    [SerializeField] private DialogueObjectBehavior _lookAtClownDialogue;
+    [SerializeField] private DialogueObjectBehavior _notMovingTheClownDialogue;
     public static bool IsInteracted = false;
 
     public NavMeshAgent Agent { get { return _agent; } }
@@ -62,7 +63,7 @@ public class ClownStateManager : MonoBehaviour, IInteractable
 
     public string InteractionPrompt => _interactionPrompt;
 
-    public DialogueObjectBehavior DialogueObject => _dialogueObject;
+    public DialogueObjectBehavior DialogueObject => _lookAtClownDialogue;
 
     private void Awake()
     {
@@ -182,12 +183,20 @@ public class ClownStateManager : MonoBehaviour, IInteractable
 
     public void Interact(Interactor Interactor)
     {
-        if(DayManager.instance.days == DayManager.Days.SUNDAY_MORNING)
+        //if the day is sunday morning...
+        if (DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.task == DayManager.Tasks.LOOK_AROUND)
         {
             //sets to be true
             IsInteracted = true;
 
-            DialogueUIBehavior.instance.ShowDialogue(_dialogueObject);
+            DialogueUIBehavior.instance.ShowDialogue(_lookAtClownDialogue);
+        }
+
+        //else if the day is sunday morning and the task is to clean up...
+        else if (DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.task == DayManager.Tasks.CLEAN_UP)
+        {
+            //plays the dialogue
+            DialogueUIBehavior.instance.ShowDialogue(_notMovingTheClownDialogue);
         }
     }
 }

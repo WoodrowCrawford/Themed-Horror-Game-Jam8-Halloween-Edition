@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class DialogueUIBehavior : MonoBehaviour
 {
@@ -10,9 +11,29 @@ public class DialogueUIBehavior : MonoBehaviour
     private ResponseHandlerBehavior _responseHandler;
     private TypewritterEffectBehavior _typewritterEffect;
 
-    [SerializeField] private TMP_Text _textLabel;
-    [SerializeField] private DialogueObjectBehavior _testDialogue;
+    [Header("Dialogue Box Settings")]
     [SerializeField] private GameObject _dialogueBox;
+    [SerializeField] private Image _dialogueBackground;
+
+    [Header("Dialogue BG Materials")]
+    [SerializeField] private Color _dialogueBGColor;
+    [SerializeField] private Material _dialogueBackgroundMaterial;
+
+
+    [Header("Dialogue Text Settings")]
+    [SerializeField] private TMP_Text _textLabel;
+    [SerializeField] private TMP_ColorGradient _daytimeTextColorGradient;
+    [SerializeField] private TMP_ColorGradient _nighttimeTextColorGradient;
+
+
+    [Header("Response Box Settings")]
+    [SerializeField] private Image _responseBoxBG;
+
+
+
+    [Header("Response Text Settings")]
+    [SerializeField] private TMP_Text _responseText;
+
 
 
     //A bool to check if the dialogue box is open
@@ -22,6 +43,7 @@ public class DialogueUIBehavior : MonoBehaviour
 
     private void Awake()
     {
+       
         //Gets the components on awake
         _typewritterEffect = GetComponent<TypewritterEffectBehavior>();
         _responseHandler = GetComponent<ResponseHandlerBehavior>(); 
@@ -40,9 +62,17 @@ public class DialogueUIBehavior : MonoBehaviour
 
     private void Start()
     { 
+       
         //Closes the dialogue box on Startup
         CloseDialogueBox();
     }
+
+
+    private void Update()
+    {
+        UpdateDialogueBoxLook();
+    }
+
 
     //A function that shows the dialogue box
     public void ShowDialogue(DialogueObjectBehavior dialogueObject)
@@ -144,4 +174,54 @@ public class DialogueUIBehavior : MonoBehaviour
         //Sets the text label's text to be empty
         _textLabel.text = string.Empty;
     } 
+
+
+    public void UpdateDialogueBoxLook()
+    {
+        //if it is day time...
+        if(GraphicsBehavior.instance.IsDayTime)
+        {
+            //set the background material to be normal
+            _dialogueBackground.material = null;
+
+            //change the color of the background
+            _dialogueBackground.color = new Color(_dialogueBGColor.r, _dialogueBGColor.g, _dialogueBGColor.b);
+
+            //set the text to be the normal version
+            _textLabel.colorGradientPreset = _daytimeTextColorGradient;
+
+
+            //set the response box background material to be normal
+            _responseBoxBG.material = null;
+
+            //change the color of the response box background
+            _responseBoxBG.color = new Color(_dialogueBGColor.r, _dialogueBGColor.g, _dialogueBGColor.g);
+
+            //set the response text to be the normal version
+            _responseText.colorGradientPreset = _daytimeTextColorGradient;
+        }
+        
+        //if it is nighttime...
+        else if (GraphicsBehavior.instance.IsNightTime)
+        {
+            //set the background to be dark
+            _dialogueBackground.material = _dialogueBackgroundMaterial;
+
+            //change the color of the background
+            _dialogueBackground.color = Color.black;
+
+            //set the text to be the dark version
+            _textLabel.colorGradientPreset = _nighttimeTextColorGradient;
+
+
+            //set the response box background material to be dark
+            _responseBoxBG.material = _dialogueBackgroundMaterial;
+
+            //change the color of the response box background
+            _responseBoxBG.color = Color.black;
+
+            //set the response text to be the dark version
+            _responseText.colorGradientPreset = _nighttimeTextColorGradient;
+        }
+    }
 }

@@ -187,6 +187,12 @@ public class DayManager : MonoBehaviour
         //stops all coroutines
         StopAllCoroutines();
 
+        //sets game over to be false if it wasnt already
+        GameOverBehavior.instance.gameOver = false;
+
+       
+      
+        //PauseSystem.instance.PauseMenu.SetActive(false);
 
         //check to see what the current day is
         if (days == Days.SUNDAY_MORNING)
@@ -354,7 +360,7 @@ public class DayManager : MonoBehaviour
             task = Tasks.GO_TO_BED;
 
             //wait until the player is in the bed
-            yield return new WaitUntil(() => _playerInputBehavior._inBed);
+            yield return new WaitUntil(() => PlayerInputBehavior.inBed);
 
             yield return new WaitForSeconds(1f);
 
@@ -414,7 +420,7 @@ public class DayManager : MonoBehaviour
             FindAIEnemies();
             
             //wait a few seconds
-            yield return new WaitForSeconds(0.6f);
+            yield return new WaitForSeconds(0.1f);
 
             //telelports the dummy to go back to the original location
             Dummy1.GetComponent<DummyStateManager>().gameObject.transform.position = Dummy1.GetComponent<DummyStateManager>().OriginPos.position;
@@ -437,7 +443,7 @@ public class DayManager : MonoBehaviour
             GhoulStateManager.InitializeGhoulValues(_ghoul, 0, 0, false);
 
 
-
+            yield return new WaitForSeconds(0.5f);
 
 
 
@@ -453,49 +459,7 @@ public class DayManager : MonoBehaviour
             //Wait until the dialouge box is closed
             yield return new WaitUntil(() => !DialogueUIBehavior.IsOpen);
 
-            /////////The player is then tasked with looking around
-            /////////They will look around and interact with objects.
-            task = Tasks.LOOK_AROUND;
-
-
-            //Check to make sure that the player examined everything here
-            yield return new WaitUntil(() => _playerInteractedWithAllTheObjects && !DialogueUIBehavior.IsOpen);
-
-            //After examining everything, the player's parents will tell them that they need to clean up the room (start a dialogue here saying that)
-            DialogueUIBehavior.instance.ShowDialogue(_cleanUpDialogue);
-
-            //The player will then have the task of picking up items and putting them away.
-            //(create a task for the player to clean up. items should do different things when interacted now, since they need to be picked up)
-            task = Tasks.CLEAN_UP;
-
-            //When the player tries to put away the dummies, whenever the player is not looking at the dummies, move them back to the spot they began.
-            //Do this a few times. (This will be done in the toybox trigger behavior)
-            //Afterwards, the dummies will stay in the spot that the player moved them to, and the player will then get exhaused and try to go to sleep, starting the next phase.
-
-
-            //check to see if the player can start to go to bed for the day
-            yield return new WaitUntil(() => _startGoToBedPhase);
-
-            //waits a few seconds
-            yield return new WaitForSeconds(2f);
-
-            //plays the dialogue 
-            DialogueUIBehavior.instance.ShowDialogue(GoToBedDialogue);
-
-            //wait until the dialogue box is closed
-            yield return new WaitUntil(() => !DialogueUIBehavior.IsOpen);
-
-            //sets the task to be "go to bed"
-            task = Tasks.GO_TO_BED;
-
-            //wait until the player is in the bed
-            yield return new WaitUntil(() => _playerInputBehavior._inBed);
-
-            yield return new WaitForSeconds(1f);
-
-
-            //the player goes to sleep, then the next phase happens
-            StartCoroutine(StartSundayNight());
+           
 
 
         }
