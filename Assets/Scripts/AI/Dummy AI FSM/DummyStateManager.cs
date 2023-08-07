@@ -290,7 +290,7 @@ public class DummyStateManager : MonoBehaviour, IInteractable
                     DialogueUIBehavior.instance.ShowDialogue(DayManager.instance.DummyIsNoLongerTeleportingDialogue);
 
                     //set player can go to bed phase to be true
-                    DayManager.instance._startGoToBedPhase = true;
+                    DayManager.instance.startGoToBedPhase = true;
 
 
                     yield return null;
@@ -385,7 +385,7 @@ public class DummyStateManager : MonoBehaviour, IInteractable
             DialogueUIBehavior.instance.ShowDialogue(_dialogueObject);
         }
 
-        else if(DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.task == DayManager.Tasks.CLEAN_UP && !DayManager.instance._playerPutAllTheToysInTheToyBox && canBeInteracted)
+        else if(DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.task == DayManager.Tasks.CLEAN_UP && !DayManager.instance.playerPutAllTheToysInTheToyBox && canBeInteracted)
         {
             //show dialogue here that the player should put the other toys away first
             DialogueUIBehavior.instance.ShowDialogue(_putOtherToysAwayFirst);

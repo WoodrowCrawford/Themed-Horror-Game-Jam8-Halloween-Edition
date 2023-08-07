@@ -22721,9 +22721,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 3550b4e778a424942b078f6cb0fd7f86, type: 2}
     - target: {fileID: 6519131487252682017, guid: 692208d2e24c98f49a75b55d34bea91a, type: 3}
+      propertyPath: _goToBedDialogue
+      value: 
+      objectReference: {fileID: 11400000, guid: daab217c68a7abf4d840b87bbc1c21c9, type: 2}
+    - target: {fileID: 6519131487252682017, guid: 692208d2e24c98f49a75b55d34bea91a, type: 3}
       propertyPath: _startUpDreamDialogue
       value: 
       objectReference: {fileID: 11400000, guid: 6f14bbe931ad6fb4d887773c426da8d6, type: 2}
+    - target: {fileID: 6519131487252682017, guid: 692208d2e24c98f49a75b55d34bea91a, type: 3}
+      propertyPath: _gettingSleepyDialogue
+      value: 
+      objectReference: {fileID: 11400000, guid: 59df26a9875a45c4999bb889418a1d15, type: 2}
     - target: {fileID: 6519131487252682017, guid: 692208d2e24c98f49a75b55d34bea91a, type: 3}
       propertyPath: _sundayNightIntroDialouge
       value: 

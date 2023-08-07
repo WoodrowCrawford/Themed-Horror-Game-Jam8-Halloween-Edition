@@ -12,6 +12,10 @@ public class TeadybearInteractable : MonoBehaviour, IInteractable
     [SerializeField] private DialogueObjectBehavior _dontWantToMoveDialogue;
     [SerializeField] private DialogueObjectBehavior _goodNightTeddyDialogue;
 
+    [Header("Bools")]
+    public static bool playerSaidGoodnight = false;
+
+
     public string InteractionPrompt => _interactionPrompt;
 
     public DialogueObjectBehavior DialogueObject => _lookAtDialogue;
@@ -44,10 +48,13 @@ public class TeadybearInteractable : MonoBehaviour, IInteractable
 
 
         //if the day is sunday morning and the task is to go to bed...
-        else if (DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.task == DayManager.Tasks.GO_TO_BED)
+        else if (DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.task == DayManager.Tasks.SAY_GOODNIGHT_TO_TOYS)
         {
             //show the dialogue
             Interactor.DialogueUI.ShowDialogue(_goodNightTeddyDialogue);
+
+            //player said goodnight to little teddy!
+            playerSaidGoodnight = true;
 
         }
 

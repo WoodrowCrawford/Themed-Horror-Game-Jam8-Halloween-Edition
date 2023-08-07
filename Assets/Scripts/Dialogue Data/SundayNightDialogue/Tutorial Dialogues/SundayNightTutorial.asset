@@ -39,6 +39,6 @@ MonoBehaviour:
   - (But that's about it! Seems pretty simple, yeah? Any questions?)
   _responses:
   - _responseText: Who are you?
-    _dialogueObject: {fileID: 11400000, guid: 6862e6f69a19e844b9dfce81632e58be, type: 2}
+    _dialogueObject: {fileID: 11400000, guid: 4d9a8fca85864a7468be35be033b71ef, type: 2}
   - _responseText: What's going on?
     _dialogueObject: {fileID: 11400000, guid: 4d9a8fca85864a7468be35be033b71ef, type: 2}

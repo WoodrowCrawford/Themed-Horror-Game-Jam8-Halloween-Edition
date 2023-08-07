@@ -12,6 +12,9 @@ public class RexDogInteractable : MonoBehaviour, IInteractable
     [SerializeField] private DialogueObjectBehavior _dontWantToMoveRexDialogue;
     [SerializeField] private DialogueObjectBehavior _goodNightRexDialogue;
 
+    [Header("Bools")]
+    public static bool playerSaidGoodnight = false;
+
     public string InteractionPrompt => _interactionPrompt;
 
     public DialogueObjectBehavior DialogueObject => _lookAtRexDialogue;
@@ -46,10 +49,13 @@ public class RexDogInteractable : MonoBehaviour, IInteractable
 
 
         //if the day is sunday morning and the task is to go to bed
-        else if (DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.task == DayManager.Tasks.GO_TO_BED)
+        else if (DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.task == DayManager.Tasks.SAY_GOODNIGHT_TO_TOYS)
         {
             //show the dialogue
             Interactor.DialogueUI.ShowDialogue(_goodNightRexDialogue);
+
+            //the player said goodnight to rex!
+            playerSaidGoodnight = true;
 
         }
     }

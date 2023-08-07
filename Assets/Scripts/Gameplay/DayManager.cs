@@ -39,6 +39,7 @@ public class DayManager : MonoBehaviour
         NONE,
         LOOK_AROUND,
         CLEAN_UP,
+        SAY_GOODNIGHT_TO_TOYS,
         GO_TO_BED,
         SLEEP
     }
@@ -56,25 +57,33 @@ public class DayManager : MonoBehaviour
     private bool _isSundayMorningInitialized = false;
 
     //checks to see if the player has interacted with all the objects in the room
-    private bool _playerInteractedWithAllTheObjects { get { return BasketBallInteractable.IsInteracted && BeanbagInteractable.IsInteracted && JackInTheBoxBehavior.IsInteracted && ClownStateManager.IsInteracted && DummyStateManager.IsInteracted; } }
+    [SerializeField] private bool _playerInteractedWithAllTheObjects { get { return BasketBallInteractable.IsInteracted && BeanbagInteractable.IsInteracted && JackInTheBoxBehavior.IsInteracted && ClownStateManager.IsInteracted && DummyStateManager.IsInteracted; } }
 
-    //checks to see if the player put all the toys in the toybox
-    public bool _playerPutAllTheToysInTheToyBox { get { return BasketBallInteractable.IsInTheToyBox; } }
+    public bool saidGoodnightToAllToys { get { return RexDogInteractable.playerSaidGoodnight && TeadybearInteractable.playerSaidGoodnight; } }
 
-    public bool _startGoToBedPhase = false;
+
+   //checks to see if the player put all the toys in the toybox
+   public bool playerPutAllTheToysInTheToyBox { get { return BasketBallInteractable.IsInTheToyBox; } }
+   
+   public bool startGoToBedPhase = false;
+    
+
 
     [Header("Sunday Morning Dialogue")]
     [SerializeField] private DialogueObjectBehavior _introDialogue;
     [SerializeField] private DialogueObjectBehavior _startUpDreamDialogue;
     [SerializeField] private DialogueObjectBehavior _wakeUpDialouge;
     [SerializeField] private DialogueObjectBehavior _cleanUpDialogue;
+    [SerializeField] private DialogueObjectBehavior _gettingSleepyDialogue;
+    [SerializeField] private DialogueObjectBehavior _goToBedDialogue;
+
 
     public DialogueObjectBehavior DummyReapperedFirstTimeDialogue;
     public DialogueObjectBehavior DummyReappearedSecondTimeDialogue;
     public DialogueObjectBehavior DummyReappearedThirdTimeDialogue;
     public DialogueObjectBehavior DummyIsNoLongerTeleportingDialogue;
 
-    public DialogueObjectBehavior GoToBedDialogue;
+    
 
     //Sunday night bools
     [Header("Sunday Night Bools")]
@@ -345,16 +354,29 @@ public class DayManager : MonoBehaviour
 
 
             //check to see if the player can start to go to bed for the day
-            yield return new WaitUntil(() => _startGoToBedPhase);
+            yield return new WaitUntil(() => startGoToBedPhase);
 
             //waits a few seconds
             yield return new WaitForSeconds(2f);
 
             //plays the dialogue 
-            DialogueUIBehavior.instance.ShowDialogue(GoToBedDialogue);
+            DialogueUIBehavior.instance.ShowDialogue(_gettingSleepyDialogue);
 
             //wait until the dialogue box is closed
             yield return new WaitUntil(() => !DialogueUIBehavior.IsOpen);
+
+            //set the task to be say goodnight to the toys
+            task = Tasks.SAY_GOODNIGHT_TO_TOYS;
+
+            //wait until the player said goodnight to all the toys
+            yield return new WaitUntil(() => saidGoodnightToAllToys);
+
+            //wait a few seconds0
+            yield return new WaitForSeconds(2f);
+
+            //show the dialogue
+            DialogueUIBehavior.instance.ShowDialogue(_goToBedDialogue);
+
 
             //sets the task to be "go to bed"
             task = Tasks.GO_TO_BED;
@@ -459,7 +481,7 @@ public class DayManager : MonoBehaviour
             //Wait until the dialouge box is closed
             yield return new WaitUntil(() => !DialogueUIBehavior.IsOpen);
 
-           
+            task = Tasks.SLEEP;
 
 
         }

@@ -13,8 +13,6 @@ MonoBehaviour:
   m_Name: GoToBedDialogue
   m_EditorClassIdentifier: 
   _dialogue:
-  - Well, that's all the toys I was supposed to put away.
-  - '*Yawn*'
-  - Man, all that moving got me exhausted...
-  - I know I just woke up, but I could really go for a nap right about now...
+  - Okay, I've said goodnight to Rex and Little Teady.
+  - I guess all that's left to do now is sleep!
   _responses: []

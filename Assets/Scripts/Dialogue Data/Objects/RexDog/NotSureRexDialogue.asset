@@ -10,13 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3667a4296b0115b40ad167e804a58408, type: 3}
-  m_Name: GoodNightRex
+  m_Name: NotSureRexDialogue
   m_EditorClassIdentifier: 
   _dialogue:
-  - 'Good night, Rex! '
-  - '"Good night, Timmy! I hope you sleep well tonight!"'
-  _responses:
-  - _responseText: Thanks
-    _dialogueObject: {fileID: 11400000, guid: eb3e7aad2a3612542a5022484800f04b, type: 2}
-  - _responseText: I don't know...
-    _dialogueObject: {fileID: 11400000, guid: 6bc0adde32aaf8f418c1357765d597f5, type: 2}
+  - I really hope so too, but I'm not sure if I will...
+  _responses: []

@@ -716,7 +716,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh421728
+  m_Name: pb_Mesh288682
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2769,7 +2769,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh471718
+  m_Name: pb_Mesh289156
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -4118,6 +4118,28 @@ MonoBehaviour:
   _lookAtRexDialogue: {fileID: 11400000, guid: 3aa331da7fef4d14791397c455bc3164, type: 2}
   _dontWantToMoveRexDialogue: {fileID: 11400000, guid: 5c9bc6a978d223a48927de4a64717c39, type: 2}
   _goodNightRexDialogue: {fileID: 11400000, guid: 3a7082147bda6604ebd9baaed890c797, type: 2}
+--- !u!114 &258580153
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 258580149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92875e46a7e0c3e418162a279ff115f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dialogueObject: {fileID: 11400000, guid: 3a7082147bda6604ebd9baaed890c797, type: 2}
+  _events:
+  - name: Thanks
+    _onPickedResponse:
+      m_PersistentCalls:
+        m_Calls: []
+  - name: I don't know...
+    _onPickedResponse:
+      m_PersistentCalls:
+        m_Calls: []
 --- !u!1 &269426482 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1651331151985062, guid: 27f36f035884d434c9e9d53bb7bfd5b9, type: 3}
@@ -5298,7 +5320,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh423496
+  m_Name: pb_Mesh290480
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -14188,7 +14210,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh423212
+  m_Name: pb_Mesh290192
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -15779,7 +15801,39 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dialogueObject: {fileID: 11400000, guid: 3d36e8499f0692240aca091cc4dedca7, type: 2}
-  _events: []
+  _events:
+  - name: (Yeah it's weird)
+    _onPickedResponse:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 977544169}
+          m_TargetAssemblyTypeName: BasketBallInteractable, Assembly-CSharp
+          m_MethodName: UpdateDialogueObject
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 11400000, guid: 60c077583e7ad4b48bd2513bd6e7fce5, type: 2}
+            m_ObjectArgumentAssemblyTypeName: DialogueObjectBehavior, Assembly-CSharp
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - name: (No it's not weird
+    _onPickedResponse:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 977544169}
+          m_TargetAssemblyTypeName: BasketBallInteractable, Assembly-CSharp
+          m_MethodName: UpdateDialogueObject
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 11400000, guid: f9081fd65b8128d4e98264c41813ed0b, type: 2}
+            m_ObjectArgumentAssemblyTypeName: DialogueObjectBehavior, Assembly-CSharp
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!114 &977544171
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17045,7 +17099,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1578085490917141363, guid: 86dec0b61590a9143bb47d1ec06a9aea, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 27
+      value: 44.6509
       objectReference: {fileID: 0}
     - target: {fileID: 1578085491411759492, guid: 86dec0b61590a9143bb47d1ec06a9aea, type: 3}
       propertyPath: m_text
@@ -24391,6 +24445,7 @@ Transform:
   - {fileID: 455985438}
   - {fileID: 1480446192}
   - {fileID: 748264995}
+  - {fileID: 1796390365}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -28465,6 +28520,38 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4511516895582642, guid: 6219448898dc4b64da00e9066d30b60c, type: 3}
   m_PrefabInstance: {fileID: 1781206704}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1796390364
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1796390365}
+  m_Layer: 0
+  m_Name: ResponseEventsManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1796390365
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1796390364}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2007945823}
+  m_Father: {fileID: 1512401682}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1801494685
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -30741,7 +30828,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh422956
+  m_Name: pb_Mesh289932
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -31873,6 +31960,56 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4055462184641722, guid: 0c0c135b0ae75fe4b8c02ccc8a8b3f5f, type: 3}
   m_PrefabInstance: {fileID: 2001175942}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2007945822
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2007945823}
+  - component: {fileID: 2007945824}
+  m_Layer: 0
+  m_Name: TutorialResponseEvents
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2007945823
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2007945822}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1796390365}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2007945824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2007945822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92875e46a7e0c3e418162a279ff115f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dialogueObject: {fileID: 11400000, guid: 5b9542e37682a854685d3fafb2b21b91, type: 2}
+  _events:
+  - name: Sure
+    _onPickedResponse:
+      m_PersistentCalls:
+        m_Calls: []
 --- !u!1 &2008092849 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1912897199270088, guid: df363d899261c0747a6ae31628978ee2, type: 3}

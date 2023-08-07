@@ -16,4 +16,9 @@ MonoBehaviour:
   - This is my very own basket ball that my father gave to me.
   - I never really use it, as I'm not a fan of sports.
   - I do sometimes move it around a bit, just out of boredom.
-  _responses: []
+  - That's not weird, is it?
+  _responses:
+  - _responseText: (Yeah it's weird)
+    _dialogueObject: {fileID: 11400000, guid: 260daad1ab15dd9409c5e5fe741c7077, type: 2}
+  - _responseText: (No it's not weird)
+    _dialogueObject: {fileID: 11400000, guid: 47a2bd093cac0d141b31b90aeaa36023, type: 2}
