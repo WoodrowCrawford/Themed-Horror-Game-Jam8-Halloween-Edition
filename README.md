@@ -7,11 +7,11 @@
 
  # Story
  
- You play as a boy named Timmy who suffers from insomnia and other mental ailments do to trauma. 
+ You play as a boy named Timmy who suffers from insomnia and other mental ailments due to trauma. 
  Your demons have manifested themselves and now want to torture you. Do whatever it takes to survive and sleep in this first person horror game!
  
  
- More to come as game develops! Until then, feel free to download the alpha version to see how its coming along!
+ More to come as the game develops! Until then, feel free to download the alpha version to see how it's coming along!
  
  ## Download the latest release here!
- https://github.com/WoodrowCrawford/Themed-Horror-Game-Jam8-Halloween-Edition/releases/download/v0.2-Alpha/Insomnia-v0.2-Alpha.zip
+ https://github.com/WoodrowCrawford/Themed-Horror-Game-Jam8-Halloween-Edition/releases/download/v0.2.1-Alpha/Insomnia-v0.2.1-Alpha.zip
