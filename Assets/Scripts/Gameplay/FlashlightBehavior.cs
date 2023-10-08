@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 
@@ -6,7 +7,13 @@ public class FlashlightBehavior : MonoBehaviour
     //Functions needed for this script to work
     public SleepBehavior sleepBehavior;
     public FlashlightTriggerBehavior flashlightTriggerBehavior;
+
+
+ 
     
+
+   
+
 
     [Header("Flashlight Values")]
     [SerializeField] private bool _flashlightOn = false;
@@ -26,6 +33,20 @@ public class FlashlightBehavior : MonoBehaviour
 
 
 
+
+
+    private void OnEnable()
+    {
+        PlayerInputBehavior.onFlashlightToggled += ToggleFlashLight;
+    }
+
+    private void OnDisable()
+    {
+        PlayerInputBehavior.onFlashlightToggled -= ToggleFlashLight;
+    }
+
+
+
     private void Awake()
     {
         //Gets the components when awake is called
@@ -36,7 +57,9 @@ public class FlashlightBehavior : MonoBehaviour
 
     private void Start()
     {
-        if(GraphicsBehavior.instance.IsDayTime)
+       
+
+        if (GraphicsBehavior.instance.IsDayTime)
         {
             _flashlightOn = false;
         }
@@ -63,10 +86,15 @@ public class FlashlightBehavior : MonoBehaviour
        
     }
 
+    public void Test()
+    {
+        Debug.Log("test");
+    }
+
     public void CheckIfPlayerIsSleeping()
     {
         //If the player is sleeping then the flashlight should be off to prevent abuse of power
-        if (sleepBehavior.playerIsSleeping)
+        if (SleepBehavior.playerIsSleeping)
         {
             //Sets the flashlight to be off
             _playerLight.gameObject.SetActive(false);
@@ -190,6 +218,4 @@ public class FlashlightBehavior : MonoBehaviour
     }
 
 
-
-   
 }

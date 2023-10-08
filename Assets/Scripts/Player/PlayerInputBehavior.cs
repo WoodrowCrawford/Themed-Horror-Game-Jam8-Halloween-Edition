@@ -1,16 +1,13 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Timeline;
+
 
 
 public class PlayerInputBehavior : MonoBehaviour
 {
     //Important scripts
     public PlayerInputActions playerControls;                  //gets a script reference for the player input actions class
-    public FlashlightBehavior flashlightBehavior;              //gets a script reference for the flashlight behavior class
-    public GetInBedTriggerBehavior getInBedTriggerBehavior;    //gets a script reference for the get in the bed trigger class
-    public SleepBehavior sleepBehavior;                        //gets a script referecne for the sleep behavior class
     public WardrobeBehavior wardrobeBehavior;                  //gets a script reference for the wardrobe behavior class
     public PauseSystem pauseSystem;                            //gets a script reference for the pause system class
 
@@ -32,6 +29,17 @@ public class PlayerInputBehavior : MonoBehaviour
     [Header("Core Player Values")]
     public bool _playerIsHidden;
 
+
+
+    //Delegates
+    public delegate void FlashlightToggle();
+    public delegate void SleepToggle();
+
+
+    //Events
+    public static event FlashlightToggle onFlashlightToggled;
+    public static event SleepToggle onEyesClosed;
+    public static event SleepToggle onEyesOpened;
 
 
 
@@ -84,15 +92,16 @@ public class PlayerInputBehavior : MonoBehaviour
     {
         //Gets the components
         _rb = GetComponent<Rigidbody>();
-        flashlightBehavior = GameObject.FindGameObjectWithTag("Flashlight").GetComponent<FlashlightBehavior>();
-        getInBedTriggerBehavior = GameObject.FindGameObjectWithTag("GetInBedTrigger").GetComponent<GetInBedTriggerBehavior>();
-        sleepBehavior = GameObject.FindGameObjectWithTag("Player").GetComponent<SleepBehavior>();
         wardrobeBehavior = GameObject.FindGameObjectWithTag("Wardrobe").GetComponent<WardrobeBehavior>();
         pauseSystem = GameObject.FindGameObjectWithTag("PauseSystem").GetComponent<PauseSystem>(); 
     }
 
     public void OnEnable()
     {
+        //Invokes the events when script is enabled
+        //onFlashlightToggled?.Invoke();
+        
+
         //Creates the Action Maps
         playerControls = new PlayerInputActions();
         playerControls.InBed.Enable();
@@ -111,14 +120,15 @@ public class PlayerInputBehavior : MonoBehaviour
 
         //Action Map #1 (In Bed)
         playerControls.InBed.GetOutOfBed.performed += GetOutOfBed;
-        playerControls.InBed.ToggleFlashlight.performed += ctx => flashlightBehavior.ToggleFlashLight();
+        playerControls.InBed.ToggleFlashlight.performed += ctx => onFlashlightToggled?.Invoke();                         
         playerControls.InBed.ToggleGoUnderBed.performed += ToggleUnderBed;
-        playerControls.InBed.Sleep.performed += ctx => sleepBehavior.playerIsSleeping = true;
-        playerControls.InBed.Sleep.canceled += ctx => sleepBehavior.playerIsSleeping = false;
+
+        playerControls.InBed.Sleep.performed += ctx => onEyesClosed?.Invoke();
+        playerControls.InBed.Sleep.canceled += ctx => onEyesOpened?.Invoke();      
 
 
         //Action Map #2 (Out of Bed)
-        playerControls.OutOfBed.ToggleFlashlight.performed += ctx => flashlightBehavior.ToggleFlashLight();
+        playerControls.OutOfBed.ToggleFlashlight.performed += ctx => onFlashlightToggled?.Invoke();
         playerControls.OutOfBed.GetInBed.performed += GetInBed;
 
 
@@ -126,7 +136,7 @@ public class PlayerInputBehavior : MonoBehaviour
         //Action Map #3 (In Wardrobe)
         playerControls.InWardrobe.ToggleWardrobeDoor.performed += ctx => StartCoroutine(ToggleWardrobeDoor());
         playerControls.InWardrobe.ToggleInOutWardrobe.performed += ctx => StartCoroutine(ToggleInOutWardrobe());
-        playerControls.InWardrobe.ToggleFlashlight.performed += ctx => flashlightBehavior.ToggleFlashLight();
+        playerControls.InWardrobe.ToggleFlashlight.performed += ctx => onFlashlightToggled?.Invoke();
     }
 
     public void OnDisable()
@@ -149,14 +159,14 @@ public class PlayerInputBehavior : MonoBehaviour
 
         //Action Map #1 (In Bed)
         playerControls.InBed.GetOutOfBed.performed -= GetOutOfBed;
-        playerControls.InBed.ToggleFlashlight.performed -= ctx => flashlightBehavior.ToggleFlashLight();
+        playerControls.InBed.ToggleFlashlight.performed -= ctx => onFlashlightToggled?.Invoke();
         playerControls.InBed.ToggleGoUnderBed.performed -= ToggleUnderBed;
-        playerControls.InBed.Sleep.performed -= ctx => sleepBehavior.playerIsSleeping = true;
-        playerControls.InBed.Sleep.canceled -= ctx => sleepBehavior.playerIsSleeping = false;
+        playerControls.InBed.Sleep.performed -= ctx => onEyesClosed?.Invoke();
+        playerControls.InBed.Sleep.canceled -= ctx => onEyesOpened?.Invoke();
 
 
         //Action Map #2 (Out of Bed)
-        playerControls.OutOfBed.ToggleFlashlight.performed -= ctx => flashlightBehavior.ToggleFlashLight();
+        playerControls.OutOfBed.ToggleFlashlight.performed -= ctx => onFlashlightToggled?.Invoke();
         playerControls.OutOfBed.GetInBed.performed -= GetInBed;
 
 
@@ -164,7 +174,7 @@ public class PlayerInputBehavior : MonoBehaviour
         //Action Map #3 (In Wardrobe)
         playerControls.InWardrobe.ToggleWardrobeDoor.performed -= ctx => StartCoroutine(ToggleWardrobeDoor());
         playerControls.InWardrobe.ToggleInOutWardrobe.performed -= ctx => StartCoroutine(ToggleInOutWardrobe());
-        playerControls.InWardrobe.ToggleFlashlight.performed -= ctx => flashlightBehavior.ToggleFlashLight();
+        playerControls.InWardrobe.ToggleFlashlight.performed -= ctx => onFlashlightToggled?.Invoke();
     }
 
 
@@ -273,7 +283,7 @@ public class PlayerInputBehavior : MonoBehaviour
         if(playerCanToggleUnderBed && !DialogueUIBehavior.IsOpen)
         {
             ///if the player is not under the bed and the player is not sleeping and the game is not paused
-            if (!_isUnderBed && !sleepBehavior.playerIsSleeping && !PauseSystem.isPaused)
+            if (!_isUnderBed && !SleepBehavior.playerIsSleeping && !PauseSystem.isPaused)
             {
                 //set the player to be under the bed
                 _playerBody.transform.position = _UnderBedPos.transform.position;
@@ -360,7 +370,7 @@ public class PlayerInputBehavior : MonoBehaviour
         if(playerCanGetInBed && !DialogueUIBehavior.IsOpen)
         {
             //check if the player is near the bed and make sure that the game is not paused
-            if (getInBedTriggerBehavior.playerCanGetInBed && !PauseSystem.isPaused)
+            if (GetInBedTriggerBehavior.playerCanGetInBed && !PauseSystem.isPaused)
             {
                 _playerBody.transform.position = _TopOfBedPos.position;
                 playerControls.OutOfBed.Disable();

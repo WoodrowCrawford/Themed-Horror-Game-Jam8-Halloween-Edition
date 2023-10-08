@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class DummyRunAwayState : DummyDefaultState
@@ -33,6 +31,4 @@ public class DummyRunAwayState : DummyDefaultState
 
        
     }
-
-    
 }

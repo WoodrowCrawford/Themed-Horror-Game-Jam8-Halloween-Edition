@@ -1,20 +1,20 @@
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class TodaysDateBehavior : MonoBehaviour
 {
-   
-    public GameObject TodaysDateUI;  //UI background for the date
-
-    public TMP_Text TodaysDateText;
-
     public static TodaysDateBehavior instance;
 
-    public bool _loadingScreenFinished = false;
+    [SerializeField] private GameObject _todaysDateUI;  //UI background for the date
+    [SerializeField] private TMP_Text _todaysDateText;  //text for the todays date
 
+   
+    public bool loadingScreenFinished = false;
+
+
+    public TMP_Text TodaysDateText { get { return _todaysDateText;} set {  _todaysDateText = value; } }
 
     private void Awake()
     {
@@ -29,14 +29,17 @@ public class TodaysDateBehavior : MonoBehaviour
         }
     }
 
-   
 
-    
+    public void SetTodaysDate(string TodaysDate)
+    {
+        _todaysDateText.text = TodaysDate;
+    }
+
 
     public IEnumerator ShowTodaysDate()
     {
         //set to be false on startup
-        _loadingScreenFinished = false;
+        loadingScreenFinished = false;
 
 
         //disable pausing while screen is showing
@@ -48,13 +51,13 @@ public class TodaysDateBehavior : MonoBehaviour
         PlayerInputBehavior.playerCanGetOutOfBed = false;
         PlayerInputBehavior.playerCanToggleUnderBed = false;
 
-        TodaysDateUI.SetActive(true);
+        _todaysDateUI.SetActive(true);
 
         //waits a few seconds
         yield return new WaitForSeconds(2f);
 
         //sets the loading screen to be false
-        TodaysDateUI.SetActive(false);
+        _todaysDateUI.SetActive(false);
         
 
         //enable player movement stuff
@@ -67,7 +70,7 @@ public class TodaysDateBehavior : MonoBehaviour
         PlayerInputBehavior.playerCanPause = true;
 
         //sets to be true
-        _loadingScreenFinished = true;
+        loadingScreenFinished = true;
 
     }
 }

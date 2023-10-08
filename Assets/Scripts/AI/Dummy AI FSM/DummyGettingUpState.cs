@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class DummyGettingUpState : DummyDefaultState
@@ -17,12 +15,6 @@ public class DummyGettingUpState : DummyDefaultState
 
         //Enable navmesh agent when the dummy is getting up
         dummy.Agent.enabled = true;
-
-       
-
-      
-
-
     }
 
     public override void UpdateState(DummyStateManager dummy)
@@ -34,8 +26,4 @@ public class DummyGettingUpState : DummyDefaultState
             dummy.dummyThisBelongsTo.GetComponent<DummyStateManager>().SwitchState(dummy.chasePlayerState);
         }
     }
-
-   
-    
-
 }

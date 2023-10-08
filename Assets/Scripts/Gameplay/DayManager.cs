@@ -6,7 +6,7 @@ public class DayManager : MonoBehaviour
 {
     //gets a static version of this class so that other classes can use it
     public static DayManager instance;
-    private FlashlightBehavior _flashlightBehavior;
+    private FlashlightBehavior _flashlightBehavior;   //get 
     private PlayerInputBehavior _playerInputBehavior;
 
     public enum Days
@@ -165,6 +165,8 @@ public class DayManager : MonoBehaviour
         {
             case Days.SUNDAY_MORNING:
                 {
+                    //use events to set up todays date
+
                     TodaysDateGO.GetComponent<TodaysDateBehavior>().TodaysDateText.text = ("Sunday Morning");
 
                     if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("BedroomScene"))
@@ -295,7 +297,7 @@ public class DayManager : MonoBehaviour
             
 
             //wait until the screen is finished loading
-            yield return new WaitUntil(() => TodaysDateBehavior.instance._loadingScreenFinished);
+            yield return new WaitUntil(() => TodaysDateBehavior.instance.loadingScreenFinished);
 
             FindAIEnemies();
 
@@ -437,7 +439,7 @@ public class DayManager : MonoBehaviour
 
 
             //wait until the screen is finished loading
-            yield return new WaitUntil(() => TodaysDateBehavior.instance._loadingScreenFinished);
+            yield return new WaitUntil(() => TodaysDateBehavior.instance.loadingScreenFinished);
 
             FindAIEnemies();
             

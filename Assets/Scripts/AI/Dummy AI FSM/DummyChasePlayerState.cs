@@ -42,17 +42,17 @@ public class DummyChasePlayerState : DummyDefaultState
         if (PlayerInputBehavior.inBed)
         {
             //Set target to out of bed target (changes for each dummy)
-            dummy.gameObject.GetComponent<DummyStateManager>().target = dummy.InBedTarget;
+            dummy.gameObject.GetComponent<DummyStateManager>().Target = dummy.InBedTarget;
             
         }
         else
         {
             //Set target to be the player
-            dummy.gameObject.GetComponent<DummyStateManager>().target = dummy.PlayerRef;
+            dummy.gameObject.GetComponent<DummyStateManager>().Target = dummy.PlayerRef;
         }
 
         //Chases target
-        dummy.Agent.SetDestination(dummy.target.transform.position);
+        dummy.Agent.SetDestination(dummy.Target.transform.position);
 
         //If player is in range.... attack (switch to attack state)
 

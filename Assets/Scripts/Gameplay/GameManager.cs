@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -15,22 +14,25 @@ public class GameManager : MonoBehaviour
     }
 
 
+   //the delegates 
+    public delegate void GameStart();
+    public delegate void GameOver();
+
+
+    //events created with the delegate types
+    public static event GameStart onGameStarted;
+    public static event GameOver onGameOver;
+
+
+    private bool _gameStarted;
+
     
-   
     [Header("Important  Values")]
-    PlayerInputActions playerInputActions;   //player input actions reference
     public static GameManager instance;      //gets a static reference of the game manager
-    public DayManager dayManagerRef;         //gets a reference for the day manager
-   
-
-
 
     [Header("Current Game Mode")]
     public GameModes currentGameMode;
 
-   
-
- 
 
     private void Awake()
     {
@@ -44,20 +46,19 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        dayManagerRef = GetComponent<DayManager>();
+       
+    }
+
+
+    private void Start()
+    {
+       
     }
 
 
 
-    
-
-
     void Update()
     {
-
-        
-
-
         //If the current scene is the main menu scene then...
         if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("MainMenuScene"))
         {
@@ -72,220 +73,10 @@ public class GameManager : MonoBehaviour
         {
             //Sets the gamemode to be the bedroom chapeter
             currentGameMode = GameModes.BEDROOM_CHAPTER;
-
+            onGameStarted.Invoke();
            
         }
-
-
-
-
-        //A swtich case for the current day
-        switch (dayManagerRef.days)
-        {
-            case DayManager.Days.SUNDAY_MORNING:
-                {
-
-                    //Sets todays date text to be Sunday Morning
-                    dayManagerRef.TodaysDateGO.GetComponent<TodaysDateBehavior>().TodaysDateText.text = ("Sunday Morning");
-
-                    if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("BedroomScene"))
-                    {
-                        ////Start the sunday morning stuff
-                        //StartCoroutine(dayManagerRef.StartSundayMorning());
-                    }
-
-                    break;
-                }
-
-            case DayManager.Days.SUNDAY_NIGHT:
-                {
-                    //Sets todays date text to be Sunday Morning
-                   dayManagerRef.TodaysDateGO.GetComponent<TodaysDateBehavior>().TodaysDateText.text = ("Sunday Night");
-
-                    if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("BedroomScene"))
-                    {
-                        ////Start sunday night stuff
-                        //StartCoroutine(dayManagerRef.StartSundayNight());
-                    }
-
-                    break;
-                }
-
-            case DayManager.Days.MONDAY_MORNING:
-                {
-                    //Sets todays date text to be Sunday Morning
-                       dayManagerRef.TodaysDateGO.GetComponent<TodaysDateBehavior>().TodaysDateText.text = ("Monday Morning");
-
-                    if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("BedroomScene"))
-                    {
-                        //start monday morning
-                        StartCoroutine(dayManagerRef.StartMondayMorning());
-                    }
-
-                    break;
-                }
-
-            case DayManager.Days.MONDAY_NIGHT:
-                {
-                    //Sets todays date text to be Sunday Morning
-                   dayManagerRef.TodaysDateGO.GetComponent<TodaysDateBehavior>().TodaysDateText.text = ("Monday Night");
-
-                    if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("BedroomScene"))
-                    {
-                        //start monday night stuff
-                        StartCoroutine(dayManagerRef.StartMondayNight());
-                    }
-
-                    break;
-                }
-
-            case DayManager.Days.TUESDAY_MORNING:
-                {
-                    //Sets todays date text to be Sunday Morning
-                   dayManagerRef.TodaysDateGO.GetComponent<TodaysDateBehavior>().TodaysDateText.text = ("Tuesday Morning");
-
-
-                    if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("BedroomScene"))
-                    {
-                        //start tuesday morning stuff
-                        StartCoroutine(dayManagerRef.StartTuesdayMorning());
-                    }
-                    
-                    break;
-                }
-
-            case DayManager.Days.TUESDAY_NIGHT:
-                {
-
-                    //Sets todays date text to be Sunday Morning
-                    dayManagerRef.TodaysDateGO.GetComponent<TodaysDateBehavior>().TodaysDateText.text = ("Tuesday Night");
-
-                    if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("BedroomScene"))
-                    {
-                        //start tuesday night stuff
-                        StartCoroutine(dayManagerRef.StartTuesdayNight());
-                    }
-
-                    break;
-                }
-
-            case DayManager.Days.WEDNESDAY_MORNING:
-                {
-                    //Sets todays date text to be Sunday Morning
-                    dayManagerRef.TodaysDateGO.GetComponent<TodaysDateBehavior>().TodaysDateText.text = ("Wednesday Morning");
-
-                    if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("BedroomScene"))
-                    {
-                        //start wednesday morning stuff
-                        StartCoroutine(dayManagerRef.StartWednesdayMorning());
-                    }
-
-                    break;
-                }
-
-            case DayManager.Days.WEDNESDAY_NIGHT:
-                {
-
-                    //Sets todays date text to be Sunday Morning
-                    dayManagerRef.TodaysDateGO.GetComponent<TodaysDateBehavior>().TodaysDateText.text = ("Wednesday Night");
-
-                    if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("BedroomScene"))
-                    {
-                        //start wednesday night stuff
-                        StartCoroutine(dayManagerRef.StartWednesdayNight());
-                    }
-
-                  
-                    break;
-                }
-
-            case DayManager.Days.THURSDAY_MORNING:
-                {
-
-                    //Sets todays date text to be Sunday Morning
-                    dayManagerRef.TodaysDateGO.GetComponent<TodaysDateBehavior>().TodaysDateText.text = ("Thursday Morning");
-
-                    if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("BedroomScene"))
-                    {
-                        //start thursday morning stuff
-                        StartCoroutine(dayManagerRef.StartThursdayMorning());
-                    }
-
-                   
-                    break;
-                }
-
-            case DayManager.Days.THURSDAY_NIGHT:
-                {
-                    //Sets todays date text to be Sunday Morning
-                   dayManagerRef.TodaysDateGO.GetComponent<TodaysDateBehavior>().TodaysDateText.text = ("Thursday Night");
-
-                    if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("BedroomScene"))
-                    {
-                        //start thursday night stuff 
-                        StartCoroutine(dayManagerRef.StartThursdayNight());
-                    }
-                    break;
-                }
-
-            case DayManager.Days.FRIDAY_MORNING:
-                {
-                    //Sets todays date text to be Sunday Morning
-                    dayManagerRef.TodaysDateGO.GetComponent<TodaysDateBehavior>().TodaysDateText.text = ("Friday Morning");
-
-                    if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("BedroomScene"))
-                    {
-                        //Put night code here
-                        StartCoroutine(dayManagerRef.StartFridayMorning());
-                    }
-                    break;
-                }
-
-            case DayManager.Days.FRIDAY_NIGHT:
-                {
-                    //Sets todays date text to be Sunday Morning
-                    dayManagerRef.TodaysDateGO.GetComponent<TodaysDateBehavior>().TodaysDateText.text = ("Friday Night");
-
-                    if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("BedroomScene"))
-                    {
-                        //Put night code here
-                        StartCoroutine(dayManagerRef.StartFridayNight());
-                    }
-                    break;
-                }
-
-            case DayManager.Days.SATURDAY_MORNING:
-                {
-                    //Sets todays date text to be Sunday Morning
-                    dayManagerRef.TodaysDateGO.GetComponent<TodaysDateBehavior>().TodaysDateText.text = ("Saturday Morning");
-
-                    if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("BedroomScene"))
-                    {
-                        //Put night code here
-                        StartCoroutine(dayManagerRef.StartSaturdayMorning());
-                    }
-                    break;
-                }
-
-            case DayManager.Days.SATURDAY_NIGHT:
-                {
-                    //Sets todays date text to be Sunday Morning
-                    dayManagerRef.TodaysDateGO.GetComponent<TodaysDateBehavior>().TodaysDateText.text = ("Saturday Night");
-
-                    if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("BedroomScene"))
-                    {
-                        //Put night code here
-                        StartCoroutine(dayManagerRef.StartSaturdayNight());
-                    }
-                    break;
-                }
-        }
-
     }
-
-
-   
-
 
 
     //A function that can change the scene
@@ -300,13 +91,8 @@ public class GameManager : MonoBehaviour
         LevelManager.instance.LoadScene(sceneName);    
     }
 
+    public void StartGame()
+    {
 
-    
-
-
-    
-
-   
-
-    
+    }
 }

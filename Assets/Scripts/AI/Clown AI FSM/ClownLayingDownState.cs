@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ClownLayingDownState : ClownBaseState
@@ -17,10 +15,6 @@ public class ClownLayingDownState : ClownBaseState
         {
             //switch to getting up state
             clown.SwitchState(clown.gettingUpState);
-        }
-
-        
-
-        
+        } 
     }
 }

@@ -5,79 +5,78 @@ using UnityEngine.AI;
 public class DummyStateManager : MonoBehaviour, IInteractable
 {
     [Header("States")]
-    DummyDefaultState currentState;
-    public DummyGettingUpState gettingUpState = new DummyGettingUpState();
-    public DummyChasePlayerState chasePlayerState = new DummyChasePlayerState();
-    public DummyInactiveState inactiveState = new DummyInactiveState();
-    public DummyLayBackDownState layBackDownState = new DummyLayBackDownState();
-    public DummyLayingDownState layingDownState = new DummyLayingDownState();
-    public DummyRunAwayState runAwayState = new DummyRunAwayState();
-    public DummyAttackState attackState = new DummyAttackState();
+    DummyDefaultState currentState;                                                         //the current state for the dummy
+    public DummyGettingUpState gettingUpState = new DummyGettingUpState();                  //the getting up state for the dummy
+    public DummyChasePlayerState chasePlayerState = new DummyChasePlayerState();            //the chase player state for the dummy
+    public DummyInactiveState inactiveState = new DummyInactiveState();                     //the inactive state for the dummy
+    public DummyLayBackDownState layBackDownState = new DummyLayBackDownState();            //the lay back down state for the dummy
+    public DummyLayingDownState layingDownState = new DummyLayingDownState();               //the laying down state for the dummy
+    public DummyRunAwayState runAwayState = new DummyRunAwayState();                        //the run away state for the dummy
+    public DummyAttackState attackState = new DummyAttackState();                           //the attack state for the dummy
 
 
 
 
     [Header("Core")]
-    public GameObject dummyThisBelongsTo;
-    [SerializeField] private NavMeshAgent _agent;
-    [SerializeField] private Animator _animator;
-    [SerializeField] private FlashlightBehavior _flashlightBehavior;
+    public GameObject dummyThisBelongsTo;                                 //dummy this belongs to 
+    [SerializeField] private NavMeshAgent _agent;                         //private reference for the agent
+    [SerializeField] private Animator _animator;                          //private reference for animator
+    [SerializeField] private FlashlightBehavior _flashlightBehavior;      //private reference for the flashlight behavior script (remove this)
 
 
     [Header("Game Objects")]
-    [SerializeField] private GameObject _originTrigger;
-    [SerializeField] private GameObject _playerRef;
+    [SerializeField] private GameObject _originTrigger;                   //private reference for the origin trigger                
+    [SerializeField] private GameObject _playerRef;                       //private reference for the player ref
 
 
 
     [Header("Inactive State Values")]
-    public bool isActive; //Whether the dummy is active or not
+    public bool isActive;                       //Whether the dummy is active or not
    
 
 
     [Header("Laying down state values")]
-    public bool initiatePhaseComplete = false;
+    public bool initiatePhaseComplete = false;  //private bool used to check if the initiate phase is complete
    
 
 
     [Header("Getting Up state values")]
-    public bool isDummyUp = false;
+    public bool isDummyUp = false;              //bool used to check if the dummy is up or not  
 
 
     [Header("Chase player state values")]
-    
-    public bool dummyIsHitWithLight;  //checks to see if the dummy is hit with light
+     public bool dummyIsHitWithLight;                 //checks to see if the dummy is hit with light
 
 
     [Header("Run away state values")]
-    public bool dummyIsAtOrigin; //Checks to see if the dummy is at origin
+    public bool dummyIsAtOrigin;     //checks to see if the dummy is at origin
 
 
 
     [Header("Awake Frequency")]
     [SerializeField] private float _minSecondsToAwake;  //The minimum seconds the dummy will take to awake
     [SerializeField] private float _maxSecondsToAwake;  //The maximum seconds the dummy will take to awake
-    [SerializeField] private float _secondsToAwake;  //The returned seconds to awake that the dummy will have
+    [SerializeField] private float _secondsToAwake;     //The returned seconds to awake that the dummy will have
 
 
 
     [Header("Speed on Awake")]
     [SerializeField] private float _minMovementSpeed; //The minimum speed the dummy will have
     [SerializeField] private float _maxMovementSpeed; //the max speed the dummy will have
-    [SerializeField] private float _speed; //The returned speed that the dummy will have
+    [SerializeField] private float _speed;            //The returned speed that the dummy will have
 
 
     [Header("Targets")]
-    public GameObject target; //The main target that will be updated
-    [SerializeField] private GameObject _inBedTarget; //The target that the dummy will go to when the player is in bed
-    [SerializeField] private Transform _originPos;  //the original postion of where the dummy started
+    [SerializeField] private GameObject _target;       //The main target that will be updated
+    [SerializeField] private GameObject _inBedTarget;  //The target that the dummy will go to when the player is in bed
+    [SerializeField] private Transform _originPos;     //the original postion of where the dummy started
 
 
     [Header("Interaction")]
-    [SerializeField] private string _interactionPrompt;
+    [SerializeField] private string _interactionPrompt;   //the interaction prompt
     public bool canBeInteracted = true;
     public static bool IsInteracted = false;
-    public int DummyInsideToyboxCounter = 0;  //Static int used to keep track of how many times the dumnmy was in the toybox (0 by default)
+    public int DummyInsideToyboxCounter = 0;   //Static int used to keep track of how many times the dumnmy was in the toybox (0 by default)
     public bool dummyTeleportComplete = false; //bool used to check if the teleport phase was complete or not
 
 
@@ -115,6 +114,8 @@ public class DummyStateManager : MonoBehaviour, IInteractable
 
     public float Speed { get { return _speed; } set { _speed = value; } }
 
+
+    public GameObject Target { get { return _target; } set { _target = value; } }
 
     public GameObject InBedTarget { get { return _inBedTarget; } }
 
@@ -187,16 +188,16 @@ public class DummyStateManager : MonoBehaviour, IInteractable
         float minDistance = Agent.stoppingDistance;
 
         //sets the distance
-        float distance = Vector3.Distance(target.transform.position, transform.position);
+        float distance = Vector3.Distance(_target.transform.position, transform.position);
 
         // If the target is in the bed and the enemy reaches the destination...
-        if (distance <= minDistance && target == InBedTarget)
+        if (distance <= minDistance && _target == InBedTarget)
         {
             Debug.Log("Reached in bed target!");
         }
 
         //else if the player is in range and the dummy is currently in the chase player state...
-        else if (distance <= (minDistance + 2) && target == PlayerRef && currentState == chasePlayerState)
+        else if (distance <= (minDistance + 2) && _target == PlayerRef && currentState == chasePlayerState)
         {
             //if the ai is close to the player and is active...
 

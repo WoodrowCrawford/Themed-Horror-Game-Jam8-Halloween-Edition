@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -32,16 +30,16 @@ public class ClownStateManager : MonoBehaviour, IInteractable
 
 
     [Header("Inactive State Values")]
-    public bool isActive; //Whether the clown is active or not
+    private bool _isActive; //Whether the clown is active or not
 
 
     [Header("Laying down state values")]
-    public bool clownIsUp = false;
+    private bool _clownIsUp = false;
 
 
 
     [Header("Chase player values")]
-    public bool clownIsChasing = false;
+    private bool _clownIsChasing = false;
 
 
 
@@ -54,6 +52,9 @@ public class ClownStateManager : MonoBehaviour, IInteractable
     public NavMeshAgent Agent { get { return _agent; } }
     public Animator Animator { get { return _animator; } }
 
+    public bool IsActive { get { return _isActive; } }
+
+    public bool ClownIsUp { get {  return _clownIsUp; } }
 
     public GameObject PlayerRef { get { return _playerRef; } }
     public GameObject Target { get { return _target; } set { _target = value; } }
@@ -100,7 +101,7 @@ public class ClownStateManager : MonoBehaviour, IInteractable
     public static void InitializeClown(GameObject clownThisBelongsTo, float jackboxDecreaseSpeed, bool active)
     {
         
-        clownThisBelongsTo.GetComponent<ClownStateManager>().isActive = active;
+        clownThisBelongsTo.GetComponent<ClownStateManager>()._isActive = active;
 
         //Sets the decrease speed for the jack in the box (used to adjust difficulty)
         clownThisBelongsTo.GetComponent<ClownStateManager>().JackInTheBoxBehavior.DecreaseSpeed = jackboxDecreaseSpeed;
@@ -117,7 +118,7 @@ public class ClownStateManager : MonoBehaviour, IInteractable
         yield return new WaitForSeconds(3f);
 
         //Sets the clown is up bool to true
-        clownIsUp = true;
+        _clownIsUp = true;
 
     }
 
@@ -142,7 +143,7 @@ public class ClownStateManager : MonoBehaviour, IInteractable
         }
 
         //else if the player is in range
-        else if (distance <= (minDistance + 2) && Target == PlayerRef && clownIsUp)
+        else if (distance <= (minDistance + 2) && Target == PlayerRef && _clownIsUp)
         {
             //if the ai is close to the player and is active...
 
@@ -156,7 +157,7 @@ public class ClownStateManager : MonoBehaviour, IInteractable
     //Chases the current target
     public void ChaseTarget()
     {
-        clownIsChasing = true;
+        _clownIsChasing = true;
 
 
 

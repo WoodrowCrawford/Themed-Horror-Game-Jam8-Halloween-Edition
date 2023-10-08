@@ -1,7 +1,5 @@
 using System.Collections;
-using System.Diagnostics;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using Debug = UnityEngine.Debug;
 
@@ -11,6 +9,7 @@ public class WardrobeBehavior : MonoBehaviour, IInteractable
     public PlayerInputBehavior playerInputBehavior;
     public Animator animator;
 
+    [Header("Dialogue")]
     [SerializeField] private string _interactionPrompt;
     [SerializeField] private DialogueObjectBehavior _wardrobeDialogue;
 
@@ -33,6 +32,20 @@ public class WardrobeBehavior : MonoBehaviour, IInteractable
     public string InteractionPrompt => _interactionPrompt;
 
     public DialogueObjectBehavior DialogueObject => _wardrobeDialogue;
+
+
+
+    private void OnEnable()
+    {
+        GameManager.onGameStarted += test;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.onGameStarted -= test;
+    }
+
+
 
     private void Update()
     {
@@ -127,5 +140,12 @@ public class WardrobeBehavior : MonoBehaviour, IInteractable
     private void OnTriggerExit(Collider other)
     {
        playerCanGetInWardrobe = false;
+    }
+
+
+    public void test()
+    {
+        Debug.Log("testing!");
+        Debug.Log("YEP");
     }
 }

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ClownGettingUpState : ClownBaseState
@@ -16,7 +14,7 @@ public class ClownGettingUpState : ClownBaseState
     public override void UpdateState(ClownStateManager clown)
     {
         //if the clown is fully up...
-        if(clown.clownIsUp)
+        if(clown.ClownIsUp)
         {
             //switch to the chase state
             clown.SwitchState(clown.chasePlayerState);

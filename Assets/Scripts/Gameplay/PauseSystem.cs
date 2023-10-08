@@ -99,11 +99,13 @@ public class PauseSystem : MonoBehaviour
                 PlayerInputBehavior.playerCanInteract = true;
             }
 
-          
-            
 
+
+            PlayerInputBehavior.playerCanSleep = true;
             Time.timeScale = 1f;
             Cursor.visible = false;
+
+            Debug.Log("game is no longer paused");
             isPaused = false;
             
         }
