@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,7 +8,7 @@ public class DayManager : MonoBehaviour
     //gets a static version of this class so that other classes can use it
     public static DayManager instance;
     private FlashlightBehavior _flashlightBehavior;   //get 
-    private PlayerInputBehavior _playerInputBehavior;
+    
 
     public enum Days
     {
@@ -49,8 +50,8 @@ public class DayManager : MonoBehaviour
 
     //A enum Tasks variable called task
     public Tasks task;
-   
 
+    public bool test;
 
     //Sunday morning values
     [Header("Sunday Morning Bools")]
@@ -138,7 +139,175 @@ public class DayManager : MonoBehaviour
             Destroy(gameObject);
         }
 
+        
+    }
+
+
+    private void OnEnable()
+    {
+        GameManager.onGameStarted += GetInitializers;
+
+        GameManager.onStartStory += CheckWhichDayToStart;
+        GameManager.onStopStory += CheckWhichDayToEnd;
        
+    }
+
+    private void OnDisable()
+    {
+        GameManager.onGameStarted -= GetInitializers;
+
+        GameManager.onStartStory -= CheckWhichDayToStart;
+        GameManager.onStopStory -= CheckWhichDayToEnd;
+    }
+
+
+
+   
+
+
+    public void CheckWhichDayToStart()
+    {
+
+        if (days == Days.SUNDAY_MORNING)
+        {
+            TodaysDateGO.GetComponent<TodaysDateBehavior>().TodaysDateText.text = ("Sunday Morning");
+            StartCoroutine(StartSundayMorning());
+
+        }
+        else if (days == Days.SUNDAY_NIGHT)
+        {
+            TodaysDateGO.GetComponent<TodaysDateBehavior>().TodaysDateText.text = ("Sunday Night");
+            StartCoroutine (StartSundayNight());
+
+        }
+        else if(days == Days.MONDAY_MORNING)
+        {
+            StartCoroutine(StartMondayMorning());
+        }
+        else if (days == Days.MONDAY_NIGHT)
+        {
+            StartCoroutine(StartMondayNight());
+        }
+        else if (days == Days.TUESDAY_MORNING)
+        {
+            StartCoroutine(StartTuesdayMorning());
+        }
+        else if (days == Days.TUESDAY_NIGHT)
+        {
+            StartCoroutine(StartTuesdayNight());
+        }
+        else if (days == Days.WEDNESDAY_MORNING)
+        {
+            StartCoroutine(StartWednesdayMorning());
+        }
+        else if (days == Days.WEDNESDAY_NIGHT)
+        {
+            StartCoroutine(StartWednesdayNight());
+        }
+        else if (days == Days.THURSDAY_MORNING)
+        {
+            StartCoroutine(StartThursdayMorning());
+        }
+        else if (days == Days.THURSDAY_NIGHT)
+        {
+            StartCoroutine(StartThursdayNight());
+        }
+        else if (days == Days.FRIDAY_MORNING)
+        {
+            StartCoroutine(StartFridayMorning());
+        }
+        else if (days == Days.FRIDAY_NIGHT)
+        {
+            StartCoroutine(StartFridayNight());
+        }
+        else if (days == Days.SATURDAY_MORNING)
+        {
+            StartCoroutine(StartSaturdayMorning());
+        }
+        else if (days == Days.SATURDAY_NIGHT)
+        {
+            StartCoroutine(StartSaturdayNight());
+        }
+        else if (days == Days.SUNDAY_MORNING)
+        {
+            StartCoroutine(StartSundayMorning());
+        }
+        else if (days == Days.SUNDAY_NIGHT)
+        {
+            StartCoroutine(StartSundayNight());
+        }
+    }
+
+
+    public void CheckWhichDayToEnd()
+    {
+
+        if (days == Days.SUNDAY_MORNING)
+        {
+            StopCoroutine(StartSundayMorning());
+
+        }
+        else if (days == Days.SUNDAY_NIGHT)
+        {
+            StopCoroutine(StartSundayNight());
+
+        }
+        else if (days == Days.MONDAY_MORNING)
+        {
+            StopCoroutine(StartMondayMorning());
+        }
+        else if (days == Days.MONDAY_NIGHT)
+        {
+            StopCoroutine(StartMondayNight());
+        }
+        else if (days == Days.TUESDAY_MORNING)
+        {
+            StopCoroutine(StartTuesdayMorning());
+        }
+        else if (days == Days.TUESDAY_NIGHT)
+        {
+            StopCoroutine(StartTuesdayNight());
+        }
+        else if (days == Days.WEDNESDAY_MORNING)
+        {
+            StopCoroutine(StartWednesdayMorning());
+        }
+        else if (days == Days.WEDNESDAY_NIGHT)
+        {
+            StopCoroutine(StartWednesdayNight());
+        }
+        else if (days == Days.THURSDAY_MORNING)
+        {
+            StopCoroutine(StartThursdayMorning());
+        }
+        else if (days == Days.THURSDAY_NIGHT)
+        {
+            StopCoroutine(StartThursdayNight());
+        }
+        else if (days == Days.FRIDAY_MORNING)
+        {
+            StopCoroutine(StartFridayMorning());
+        }
+        else if (days == Days.FRIDAY_NIGHT)
+        {
+            StopCoroutine(StartFridayNight());
+        }
+        else if (days == Days.SATURDAY_MORNING)
+        {
+            StopCoroutine(StartSaturdayMorning());
+        }
+        else if (days == Days.SATURDAY_NIGHT)
+        {
+            StopCoroutine(StartSaturdayNight());
+        }
+        else if (days == Days.SUNDAY_MORNING)
+        {
+            StopCoroutine(StartSundayMorning());
+        }
+        else if (days == Days.SUNDAY_NIGHT)
+        {
+            StopCoroutine(StartSundayNight());
+        }
     }
 
 
@@ -150,13 +319,14 @@ public class DayManager : MonoBehaviour
         if (scene == SceneManager.GetSceneByName("MainMenuScene"))
         {
             //Reset all the initializers
+
+            Debug.Log("resetting things the old way");
             ResetInitializers();
           
         }
 
-        //gets the component
-        _flashlightBehavior = GameObject.FindGameObjectWithTag("Flashlight").GetComponent<FlashlightBehavior>();
-        _playerInputBehavior = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInputBehavior>();
+        
+       
 
 
 
@@ -167,11 +337,12 @@ public class DayManager : MonoBehaviour
                 {
                     //use events to set up todays date
 
-                    TodaysDateGO.GetComponent<TodaysDateBehavior>().TodaysDateText.text = ("Sunday Morning");
+                   
 
                     if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("BedroomScene"))
                     {
-                        StartCoroutine(StartSundayMorning());
+                        Debug.Log("starting story the old way");
+                        //StartCoroutine(StartSundayMorning());
                     }
 
                     break;
@@ -179,17 +350,22 @@ public class DayManager : MonoBehaviour
 
             case Days.SUNDAY_NIGHT:
                 {
-                    TodaysDateGO.GetComponent<TodaysDateBehavior>().TodaysDateText.text = ("Sunday Night");
+                    
 
                     if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("BedroomScene"))
                     {
-                        StartCoroutine(StartSundayNight());
+                        Debug.Log("starting the story the old way");
+
+                        //StartCoroutine(StartSundayNight());
                     }
 
                     break;
                 }
         }
     }
+
+
+    
 
 
     //A function that resets all the initializers
@@ -261,8 +437,13 @@ public class DayManager : MonoBehaviour
     }
 
 
-  
-    
+    public void GetInitializers()
+    {
+        //gets the component
+        _flashlightBehavior = GameObject.FindGameObjectWithTag("Flashlight").GetComponent<FlashlightBehavior>();
+    }
+
+
 
 
     public IEnumerator StartSundayMorning()

@@ -1,10 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Rendering;
-using UnityEngine.Rendering.PostProcessing;
-using UnityEngine.SceneManagement;
 
 public class GraphicsBehavior : MonoBehaviour
 {
@@ -12,6 +6,14 @@ public class GraphicsBehavior : MonoBehaviour
 
 
     public static GraphicsBehavior instance;
+
+    //delegates
+    public delegate void  TimeChange();
+
+
+    //events
+    public static TimeChange OnDayTime;
+    public static TimeChange OnNightTime;
 
    
     public GameObject Graphics; //the game object used for graphics

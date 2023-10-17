@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,11 @@ using UnityEngine.SceneManagement;
 public class LevelManager : MonoBehaviour
 {
     public static LevelManager instance;
+
+
+
+    
+
 
 
     private void Awake()
@@ -27,8 +33,10 @@ public class LevelManager : MonoBehaviour
     {
         var scene = SceneManager.LoadSceneAsync(sceneName);
 
+      
+
         //resets all the initializers
-        StartCoroutine(DayManager.instance.ResetInitializers());
+       // StartCoroutine(DayManager.instance.ResetInitializers());
 
      
     }
@@ -45,6 +53,8 @@ public class LevelManager : MonoBehaviour
 
        
     }
+
+   
 
     public void ReloadSceneGameOver()
     {

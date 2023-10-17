@@ -4,17 +4,7 @@ using UnityEngine;
 
 public class FlashlightBehavior : MonoBehaviour
 {
-    //Functions needed for this script to work
-    public SleepBehavior sleepBehavior;
-    public FlashlightTriggerBehavior flashlightTriggerBehavior;
-
-
- 
     
-
-   
-
-
     [Header("Flashlight Values")]
     [SerializeField] private bool _flashlightOn = false;
     [SerializeField] private float _batteryPower = 100;
@@ -47,12 +37,7 @@ public class FlashlightBehavior : MonoBehaviour
 
 
 
-    private void Awake()
-    {
-        //Gets the components when awake is called
-        sleepBehavior = GameObject.FindGameObjectWithTag("Player").GetComponent<SleepBehavior>();
-        flashlightTriggerBehavior = GameObject.FindGameObjectWithTag("FlashlightTriggerBox").GetComponent<FlashlightTriggerBehavior>();
-    }
+   
 
 
     private void Start()
