@@ -1,5 +1,4 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -51,7 +50,6 @@ public class DayManager : MonoBehaviour
     //A enum Tasks variable called task
     public Tasks task;
 
-    public bool test;
 
     //Sunday morning values
     [Header("Sunday Morning Bools")]
@@ -146,6 +144,7 @@ public class DayManager : MonoBehaviour
     private void OnEnable()
     {
         GameManager.onGameStarted += GetInitializers;
+        GameManager.onGameEnded += ResetInitializers;
 
         GameManager.onStartStory += CheckWhichDayToStart;
         GameManager.onStopStory += CheckWhichDayToEnd;
@@ -155,6 +154,7 @@ public class DayManager : MonoBehaviour
     private void OnDisable()
     {
         GameManager.onGameStarted -= GetInitializers;
+        GameManager.onGameEnded -= ResetInitializers;
 
         GameManager.onStartStory -= CheckWhichDayToStart;
         GameManager.onStopStory -= CheckWhichDayToEnd;
@@ -249,6 +249,7 @@ public class DayManager : MonoBehaviour
         }
         else if (days == Days.SUNDAY_NIGHT)
         {
+            Debug.Log("Ending the sunday night story");
             StopCoroutine(StartSundayNight());
 
         }
@@ -311,111 +312,24 @@ public class DayManager : MonoBehaviour
     }
 
 
-    private void Update()
-    {
-        var scene = SceneManager.GetActiveScene();
-
-        //if the current scene is the main menu scene...
-        if (scene == SceneManager.GetSceneByName("MainMenuScene"))
-        {
-            //Reset all the initializers
-
-            Debug.Log("resetting things the old way");
-            ResetInitializers();
-          
-        }
-
-        
-       
+   
 
 
 
-
-        switch (days)
-        {
-            case Days.SUNDAY_MORNING:
-                {
-                    //use events to set up todays date
-
-                   
-
-                    if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("BedroomScene"))
-                    {
-                        Debug.Log("starting story the old way");
-                        //StartCoroutine(StartSundayMorning());
-                    }
-
-                    break;
-                }
-
-            case Days.SUNDAY_NIGHT:
-                {
-                    
-
-                    if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("BedroomScene"))
-                    {
-                        Debug.Log("starting the story the old way");
-
-                        //StartCoroutine(StartSundayNight());
-                    }
-
-                    break;
-                }
-        }
-    }
-
-
-    
 
 
     //A function that resets all the initializers
-    public IEnumerator ResetInitializers()
+    public void ResetInitializers()
     {
-        //stops all coroutines
-        StopAllCoroutines();
-
         //sets game over to be false if it wasnt already
-        GameOverBehavior.instance.gameOver = false;
+       // GameOverBehavior.instance.gameOver = false;
 
-       
-      
-        //PauseSystem.instance.PauseMenu.SetActive(false);
+        //set sunday moring initialized to be false
+        _isSundayMorningInitialized = false;
 
-        //check to see what the current day is
-        if (days == Days.SUNDAY_MORNING)
-        {
-
-
-            //set sunday moring initialized to be false
-            _isSundayMorningInitialized = false;
-
-            yield return new WaitForSeconds(2f);
-
-            FindAIEnemies();
-
-            yield return new WaitForSeconds(1.4f);
-
-
-
-        }
-        else if (days == Days.SUNDAY_NIGHT)
-        {
-            _isSundayNightInitialized = false;
-
-            yield return new WaitForSeconds(2f);
-
-            FindAIEnemies();
-
-            yield return new WaitForSeconds(1.4f);
-
-            //reset ai to be back to laying down state
-            //Initializes the dummies
-            DummyStateManager.InitializeDummyValues(_dummy1, 1, 3, Random.Range(3, 15), Random.Range(16, 20), true, new Vector3(1f, 1f, 1f));
-            DummyStateManager.InitializeDummyValues(_dummy2, 1, 3, Random.Range(3, 15), Random.Range(16, 20), true, new Vector3(1f, 1f, 1f));
-
-           
-        }
+        _isSundayNightInitialized = false;
     }
+    
 
 
     
@@ -427,18 +341,17 @@ public class DayManager : MonoBehaviour
         StartCoroutine(_todaysDateGO.GetComponent<TodaysDateBehavior>().ShowTodaysDate());
     }
 
-    public void FindAIEnemies()
+   
+
+
+    public void GetInitializers()
     {
         //Finds the Ai enemies if they are present in the scene
         _dummy1 = GameObject.FindGameObjectWithTag("Dummy1");
         _dummy2 = GameObject.FindGameObjectWithTag("Dummy2");
         _ghoul = GameObject.FindGameObjectWithTag("Ghoul");
         _clown = GameObject.FindGameObjectWithTag("Clown");
-    }
 
-
-    public void GetInitializers()
-    {
         //gets the component
         _flashlightBehavior = GameObject.FindGameObjectWithTag("Flashlight").GetComponent<FlashlightBehavior>();
     }
@@ -480,7 +393,8 @@ public class DayManager : MonoBehaviour
             //wait until the screen is finished loading
             yield return new WaitUntil(() => TodaysDateBehavior.instance.loadingScreenFinished);
 
-            FindAIEnemies();
+
+            GetInitializers();
 
 
 
@@ -622,7 +536,7 @@ public class DayManager : MonoBehaviour
             //wait until the screen is finished loading
             yield return new WaitUntil(() => TodaysDateBehavior.instance.loadingScreenFinished);
 
-            FindAIEnemies();
+            GetInitializers();
             
             //wait a few seconds
             yield return new WaitForSeconds(0.1f);
@@ -697,7 +611,7 @@ public class DayManager : MonoBehaviour
     {
         days= Days.MONDAY_NIGHT;
         GraphicsBehavior.instance.SetNightTime();
-        FindAIEnemies();
+        GetInitializers();
 
       
 
@@ -711,7 +625,7 @@ public class DayManager : MonoBehaviour
     {
         days = Days.TUESDAY_MORNING;
         GraphicsBehavior.instance.SetDayTime();
-        FindAIEnemies();
+        GetInitializers();
 
        
         yield return null;
@@ -722,7 +636,7 @@ public class DayManager : MonoBehaviour
     {
         days = Days.TUESDAY_NIGHT;
         GraphicsBehavior.instance.SetNightTime();
-        FindAIEnemies();
+        GetInitializers();
 
        
 
@@ -736,7 +650,7 @@ public class DayManager : MonoBehaviour
     {
         days = Days.WEDNESDAY_MORNING;
         GraphicsBehavior.instance.SetDayTime();
-        FindAIEnemies();
+        GetInitializers();
 
        
 
@@ -747,7 +661,7 @@ public class DayManager : MonoBehaviour
     {
         days = Days.WEDNESDAY_NIGHT;
         GraphicsBehavior.instance.SetNightTime();
-        FindAIEnemies();
+        GetInitializers();
 
       
 
@@ -762,7 +676,7 @@ public class DayManager : MonoBehaviour
     {
         days = Days.THURSDAY_MORNING;
         GraphicsBehavior.instance.SetDayTime();
-        FindAIEnemies();
+        GetInitializers();
 
         
 
@@ -773,7 +687,7 @@ public class DayManager : MonoBehaviour
     {
         days = Days.THURSDAY_NIGHT;
         GraphicsBehavior.instance.SetNightTime();
-        FindAIEnemies();
+        GetInitializers();
 
         
 
@@ -788,7 +702,7 @@ public class DayManager : MonoBehaviour
     {
         days = Days.FRIDAY_MORNING;
         GraphicsBehavior.instance.SetDayTime();
-        FindAIEnemies();
+        GetInitializers();
 
        
 
@@ -800,7 +714,7 @@ public class DayManager : MonoBehaviour
     {
         days = Days.FRIDAY_NIGHT;
         GraphicsBehavior.instance.SetDayTime();
-        FindAIEnemies();
+        GetInitializers();
 
        
 
@@ -816,7 +730,7 @@ public class DayManager : MonoBehaviour
     {
         days = Days.SATURDAY_MORNING;
         GraphicsBehavior.instance.SetDayTime();
-        FindAIEnemies();
+        GetInitializers();
 
         
 
@@ -828,7 +742,7 @@ public class DayManager : MonoBehaviour
     {
         days = Days.SATURDAY_NIGHT;
         GraphicsBehavior.instance.SetDayTime();
-        FindAIEnemies();
+        GetInitializers();
 
         
 

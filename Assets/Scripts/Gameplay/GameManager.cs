@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -38,7 +37,7 @@ public class GameManager : MonoBehaviour
 
     
 
-    private bool _gameStarted;
+    
 
 
     [Header("Important  Values")]
@@ -46,6 +45,10 @@ public class GameManager : MonoBehaviour
 
     [Header("Current Game Mode")]
     public GameModes currentGameMode;
+
+    [Header("Game Over Stuff")]
+    public GameObject gameOverScreen;
+    public bool gameOver = false;     //A boolean used to determind if the game is over or not
 
 
     private void OnEnable()
@@ -77,18 +80,6 @@ public class GameManager : MonoBehaviour
     }
 
 
-    //A function that can change the scene
-    public static void ChangeScene(string sceneName)
-    {
-       
-        PauseSystem.isPaused = false;
-        Time.timeScale = 1.0f;
-
-        LevelManager.instance.LoadScene(sceneName);    
-    }
-
-
-
     public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         Debug.Log("On scene loaded:" + scene.name);
@@ -100,13 +91,16 @@ public class GameManager : MonoBehaviour
             //set the game mode to be main menu
             currentGameMode = GameModes.MAIN_MENU;
 
-            //call the on game ended event
-            onGameEnded?.Invoke();
+            //set game over to be false
+            gameOver = false;
+
+            //hide the game over screen
+            gameOverScreen.SetActive(false);
 
             //stop the corurtiens running for the story
             onStopStory?.Invoke();
 
-            Debug.Log("Do the main menu stuff");   
+            Debug.Log("Do the main menu stuff");
         }
 
         //if the scene is the bedroom scene
@@ -114,7 +108,11 @@ public class GameManager : MonoBehaviour
         {
             //Sets the gamemode to be the bedroom chapeter
             currentGameMode = GameModes.BEDROOM_CHAPTER;
-            
+
+            gameOver = false;
+
+            gameOverScreen.SetActive(false);
+
             //do all the stuff needed to start the game
             onGameStarted?.Invoke();
 
@@ -126,24 +124,56 @@ public class GameManager : MonoBehaviour
         }
     }
 
-
     public void OnSceneUnloaded(Scene scene)
     {
         Debug.Log("On Scene Unloaded:" + scene.name);
         Debug.Log("mode");
 
+        //the the currnt scene was the main menu and it changes...
         if (scene == SceneManager.GetSceneByBuildIndex(0))
         {
+            //unload all main menu stuff
             Debug.Log("Do unloading stuff for main menu scene");
         }
+
+        //if the current scene was the bedroom scene and it changes...
         else if (scene == SceneManager.GetSceneByBuildIndex(1))
         {
+            //unload all bedroom stuff
             Debug.Log("Do unloading stuff for the bedroom scene");
+
+            //call the on game ended event
+            onGameEnded?.Invoke();
         }
 
 
     }
 
+    //A function that can change the scene
+    public static void ChangeScene(string sceneName)
+    {
+        PauseSystem.isPaused = false;
+        Time.timeScale = 1.0f;
+        LevelManager.instance.LoadScene(sceneName);    
+    }
 
-    
+
+    //controls the game over screen
+    public void SetGameOver()
+    {
+        //sets to be true
+        gameOver = true;
+
+
+        //show the game over screen
+        gameOverScreen.gameObject.SetActive(true);
+
+
+        //calls the event onGameOver
+        onGameOver?.Invoke();
+
+        Cursor.visible = true;
+      
+
+    }
 }

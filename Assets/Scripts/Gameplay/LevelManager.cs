@@ -1,18 +1,9 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
     public static LevelManager instance;
-
-
-
-    
-
-
 
     private void Awake()
     {
@@ -32,13 +23,6 @@ public class LevelManager : MonoBehaviour
    public async void LoadScene(string sceneName)
     {
         var scene = SceneManager.LoadSceneAsync(sceneName);
-
-      
-
-        //resets all the initializers
-       // StartCoroutine(DayManager.instance.ResetInitializers());
-
-     
     }
 
    
@@ -46,12 +30,9 @@ public class LevelManager : MonoBehaviour
     public void ReloadScene()
     {
         var scene = SceneManager.GetActiveScene();
-        StartCoroutine(DayManager.instance.ResetInitializers());
-
+     
         PauseSystem.instance.TogglePauseMenu();
         SceneManager.LoadScene(scene.name);
-
-       
     }
 
    
@@ -59,9 +40,6 @@ public class LevelManager : MonoBehaviour
     public void ReloadSceneGameOver()
     {
         var scene = SceneManager.GetActiveScene();
-        StartCoroutine(DayManager.instance.ResetInitializers());
-
-       // PauseSystem.instance.TogglePauseMenu();
         SceneManager.LoadScene(scene.name);
     }
 
@@ -70,8 +48,6 @@ public class LevelManager : MonoBehaviour
     {
         Debug.Log("Quitting");
         Application.Quit();
-
-      
     }
     
 }

@@ -4,6 +4,7 @@ public class DummyChasePlayerState : DummyDefaultState
 {
     public override void EnterState(DummyStateManager dummy)
     {
+        
         //Testing 
         Debug.Log(dummy.dummyThisBelongsTo.gameObject.name +  " is in the chase player state");
     }

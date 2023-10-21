@@ -24,6 +24,8 @@ public class GraphicsBehavior : MonoBehaviour
     public bool IsNightTime = false;
 
 
+    
+
     private void Awake()
     {
         //Finds the graphics game object
@@ -65,7 +67,7 @@ public class GraphicsBehavior : MonoBehaviour
     public void SetNightTime()
     {
         //Disables the light component in the sun object
-        Sun.GetComponent <Light>().enabled = false;
+        Sun.GetComponent<Light>().enabled = false;
 
         IsNightTime = true;
         IsDayTime = false;

@@ -9607,7 +9607,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 906771531}
-  - component: {fileID: 906771530}
+  - component: {fileID: 906771532}
   m_Layer: 0
   m_Name: GameOverContainer
   m_TagString: Untagged
@@ -9615,20 +9615,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &906771530
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 906771529}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a592ffac598cd44d9bb5ec7b86c5a6e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameOverScreen: {fileID: 1438003728}
-  gameOver: 0
 --- !u!4 &906771531
 Transform:
   m_ObjectHideFlags: 0
@@ -9645,6 +9631,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &906771532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 906771529}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40e9fb9ff4447d34da25512f21f86b06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &907867613
 GameObject:
   m_ObjectHideFlags: 0
@@ -21347,7 +21345,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2036560972}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40e9fb9ff4447d34da25512f21f86b06, type: 3}
+  m_Script: {fileID: 11500000, guid: a99a93770d8835446a8ce8b754967abc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2038650107
@@ -22761,7 +22759,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6519131487252682017, guid: 692208d2e24c98f49a75b55d34bea91a, type: 3}
       propertyPath: days
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6519131487252682017, guid: 692208d2e24c98f49a75b55d34bea91a, type: 3}
       propertyPath: _todaysDateGO
@@ -22864,6 +22862,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6519131487252682047, guid: 692208d2e24c98f49a75b55d34bea91a, type: 3}
+      propertyPath: gameOver
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6519131487252682047, guid: 692208d2e24c98f49a75b55d34bea91a, type: 3}
       propertyPath: onGameOver
       value: 
       objectReference: {fileID: 11400000, guid: 1c9cb5c099f08a845b876763bf538208, type: 2}
@@ -22871,6 +22873,10 @@ PrefabInstance:
       propertyPath: onGameStart
       value: 
       objectReference: {fileID: 11400000, guid: 3730d047fb8af8d478e1591b9bf7dd0d, type: 2}
+    - target: {fileID: 6519131487252682047, guid: 692208d2e24c98f49a75b55d34bea91a, type: 3}
+      propertyPath: gameOverScreen
+      value: 
+      objectReference: {fileID: 1438003728}
     - target: {fileID: 6519131487252682047, guid: 692208d2e24c98f49a75b55d34bea91a, type: 3}
       propertyPath: onGameFinished.m_PersistentCalls.m_Calls.Array.size
       value: 1

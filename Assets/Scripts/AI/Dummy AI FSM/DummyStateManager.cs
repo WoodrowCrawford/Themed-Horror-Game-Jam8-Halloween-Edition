@@ -128,6 +128,20 @@ public class DummyStateManager : MonoBehaviour, IInteractable
     ////////////////////////////////////////////////////////////////
 
 
+    private void OnEnable()
+    {
+        GameManager.onGameOver += GameoverTest;
+    }
+
+
+    private void OnDisable()
+    {
+        GameManager.onGameOver -= GameoverTest;
+    }
+
+
+
+
     //Gets the components for the ai on startup
     private void Awake()
     {
@@ -151,6 +165,11 @@ public class DummyStateManager : MonoBehaviour, IInteractable
     {
         //Gets the reference to the state that is currently being used
         currentState.UpdateState(this);
+    }
+
+    public void GameoverTest()
+    {
+        Debug.Log("hey the game is over mate");
     }
 
    public void SwitchState(DummyDefaultState state)
