@@ -24,7 +24,17 @@ public class GraphicsBehavior : MonoBehaviour
     public bool IsNightTime = false;
 
 
-    
+
+
+    private void OnEnable()
+    {
+        GameManager.onGameStarted += Test;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.onGameStarted -= Test;
+    }
 
     private void Awake()
     {
@@ -76,4 +86,9 @@ public class GraphicsBehavior : MonoBehaviour
         Graphics.SetActive(true);
     }
 
+
+    public void Test()
+    {
+        Debug.Log("hey i should find the sun now");
+    }
 }
