@@ -10,7 +10,6 @@ public class GraphicsBehavior : MonoBehaviour
     //delegates
     public delegate void  TimeChange();
 
-
     //events
     public static TimeChange OnDayTime;
     public static TimeChange OnNightTime;
@@ -28,12 +27,14 @@ public class GraphicsBehavior : MonoBehaviour
 
     private void OnEnable()
     {
-        GameManager.onGameStarted += Test;
+        GameManager.onGameStarted += FindSun;
+        GameManager.onGameEnded += EndTest;
     }
 
     private void OnDisable()
     {
-        GameManager.onGameStarted -= Test;
+        GameManager.onGameStarted -= FindSun;
+        GameManager.onGameEnded -= FindSun;
     }
 
     private void Awake()
@@ -87,8 +88,15 @@ public class GraphicsBehavior : MonoBehaviour
     }
 
 
-    public void Test()
+    public void EndTest()
     {
+        Sun = null;
+        Debug.Log("Graphics behavior is playing what happens when the game ends");
+    }
+
+    public void FindSun()
+    {
+        Sun = GameObject.FindGameObjectWithTag("Sun");
         Debug.Log("hey i should find the sun now");
     }
 }

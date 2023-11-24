@@ -23,9 +23,6 @@ public class GameManager : MonoBehaviour
     public delegate void StopStory();
 
     
-
-
-
     //events created with the delegate types
     public static event GameStart onGameStarted;    //used to initialize variables
     public static event GameEnded onGameEnded;   //used to de initialize the variables
@@ -35,9 +32,7 @@ public class GameManager : MonoBehaviour
     public static event StopStory onStopStory;     //what happens when the story is eneded
 
 
-    
-
-    
+   
 
 
     [Header("Important  Values")]

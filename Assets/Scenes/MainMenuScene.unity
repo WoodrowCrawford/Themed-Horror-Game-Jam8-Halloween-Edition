@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731704, g: 0.13414727, b: 0.121078536, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -16769,7 +16769,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fc88679d0b1cad42840ccf6c69e51cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Graphics: {fileID: 0}
+  Graphics: {fileID: 1623073382}
   Sun: {fileID: 0}
   IsDayTime: 0
   IsNightTime: 0
@@ -22652,7 +22652,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6519131487252682017, guid: 692208d2e24c98f49a75b55d34bea91a, type: 3}
       propertyPath: days
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6519131487252682017, guid: 692208d2e24c98f49a75b55d34bea91a, type: 3}
       propertyPath: _todaysDateGO
