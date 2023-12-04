@@ -23,15 +23,11 @@ public class Interactor : MonoBehaviour
     [SerializeField] private Transform _grabPoint;
     private GameObject _heldObject;
     private Rigidbody _heldObjectRB;
-    [SerializeField] private bool _itemIsPickedUp = false;
+    public static bool itemIsPickedUp = false;
     [SerializeField] private bool _itemIsDropped = false;
     [SerializeField] private bool _functionWasAlreadyCalled = false;
     [SerializeField] private bool _pickUpToggleActive = false;
 
-
-  
-
-  
 
 
     [Header("Raycast Parameters")]
@@ -59,8 +55,6 @@ public class Interactor : MonoBehaviour
         _playerInput = GetComponent<PlayerInputBehavior>();
         _interactableMask = LayerMask.GetMask("Interactable");
         _pickUpMask = LayerMask.GetMask("PickedUpMask");
-
-        
     }
 
 
@@ -72,6 +66,7 @@ public class Interactor : MonoBehaviour
 
         if(hit.collider != null)
         {
+
             hit.collider.GetComponentInParent<HighlightBehavior>()?.ToggleHighlight(false);
             _interactionUI.Close();
 
@@ -84,8 +79,6 @@ public class Interactor : MonoBehaviour
             //Debug.Log(hit.collider.name);
             hit.collider.GetComponentInParent<IInteractable>();
             hit.collider.GetComponentInParent<HighlightBehavior>().ToggleHighlight(true);
-
-           
 
 
             //if the interaction ui is not displayed...
@@ -107,19 +100,17 @@ public class Interactor : MonoBehaviour
 
 
 
-    
-
 
     public IEnumerator TogglePickUp(GameObject objectToPickUp)
     {
         //if the object is not picked up and the player pressed the pickup button and the toggle is not true...
-        if(!_itemIsPickedUp && PlayerInputBehavior.isPlayerInteracting && !_pickUpToggleActive)
+        if(!itemIsPickedUp && PlayerInputBehavior.isPlayerInteracting && !_pickUpToggleActive)
         {
             //disable the interaction mask
             _interactableMask = LayerMask.GetMask("Default");
 
             //set to true so this line of code runs once
-            _itemIsPickedUp = true;
+            itemIsPickedUp = true;
 
             
 
@@ -154,13 +145,13 @@ public class Interactor : MonoBehaviour
         }
 
         //else if the object is picked up and the player pressed the pickup button and the toggle is true...
-        else if (_itemIsPickedUp && PlayerInputBehavior.isPlayerInteracting && _pickUpToggleActive)
+        else if (itemIsPickedUp && PlayerInputBehavior.isPlayerInteracting && _pickUpToggleActive)
         {
             //enable the interaction mask
             _interactableMask = LayerMask.GetMask("Interactable");
 
             //set to be false so this line of code runs once
-            _itemIsPickedUp = false;
+            itemIsPickedUp = false;
 
        
 
@@ -185,6 +176,10 @@ public class Interactor : MonoBehaviour
 
             //sets the toggle to be false
             _pickUpToggleActive = false;
+            
+
+            
+
         }
     }
 

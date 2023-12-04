@@ -1,6 +1,8 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Playables;
+using UnityEngine.Timeline;
 
 public class DummyStateManager : MonoBehaviour, IInteractable
 {
@@ -15,6 +17,10 @@ public class DummyStateManager : MonoBehaviour, IInteractable
     public DummyAttackState attackState = new DummyAttackState();                           //the attack state for the dummy
 
 
+    [Header("Test Cutscene")]
+    [SerializeField] private TimelineAsset _dummyJumpscare;
+    [SerializeField] private PlayableDirector _director;
+
 
 
     [Header("Core")]
@@ -22,6 +28,8 @@ public class DummyStateManager : MonoBehaviour, IInteractable
     [SerializeField] private NavMeshAgent _agent;                         //private reference for the agent
     [SerializeField] private Animator _animator;                          //private reference for animator
     [SerializeField] private FlashlightBehavior _flashlightBehavior;      //private reference for the flashlight behavior script (remove this)
+
+
 
 
     [Header("Game Objects")]
@@ -125,6 +133,10 @@ public class DummyStateManager : MonoBehaviour, IInteractable
     public string InteractionPrompt => _interactionPrompt;
     public DialogueObjectBehavior DialogueObject => _dialogueObject;
 
+    public Transform OriginalPos => _originPos;
+
+
+
     ////////////////////////////////////////////////////////////////
 
 
@@ -169,7 +181,7 @@ public class DummyStateManager : MonoBehaviour, IInteractable
 
     public void GameoverTest()
     {
-        Debug.Log("hey the game is over mate");
+        _director.Play(_dummyJumpscare);
     }
 
    public void SwitchState(DummyDefaultState state)
@@ -418,5 +430,10 @@ public class DummyStateManager : MonoBehaviour, IInteractable
             //put pick up code here!
             StartCoroutine(Interactor.TogglePickUp(this.gameObject));
         }
+    }
+
+    public void ResetPosition()
+    {
+        gameObject.transform.position = _originPos.transform.position;
     }
 }

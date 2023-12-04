@@ -8,7 +8,7 @@ public class GraphicsBehavior : MonoBehaviour
     public static GraphicsBehavior instance;
 
     //delegates
-    public delegate void  TimeChange();
+    public delegate void TimeChange();
 
     //events
     public static TimeChange OnDayTime;
@@ -16,6 +16,7 @@ public class GraphicsBehavior : MonoBehaviour
 
    
     public GameObject Graphics; //the game object used for graphics
+    public GameObject PostProcessing; //the pp used for the lighting
     public GameObject Sun;  //The sun used for lighting
 
 
@@ -69,7 +70,7 @@ public class GraphicsBehavior : MonoBehaviour
         IsNightTime = false;
 
         //sets the graphic game object to be false
-        Graphics.SetActive(false);
+        PostProcessing.SetActive(false);
 
         Debug.Log("Set to day time!!!!!");
     }
@@ -84,7 +85,7 @@ public class GraphicsBehavior : MonoBehaviour
         IsDayTime = false;
 
         //sets the graphic game object to be true
-        Graphics.SetActive(true);
+        PostProcessing.SetActive(true);
     }
 
 

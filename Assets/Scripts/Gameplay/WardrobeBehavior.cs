@@ -19,6 +19,7 @@ public class WardrobeBehavior : MonoBehaviour, IInteractable
     [Header("Wardrobe Positions")]
     [SerializeField] private Transform _insideWardrobePos;
     [SerializeField] private Transform _outsideWardrobePos;
+    [SerializeField] private Transform _originalPos;
 
 
 
@@ -33,7 +34,7 @@ public class WardrobeBehavior : MonoBehaviour, IInteractable
 
     public DialogueObjectBehavior DialogueObject => _wardrobeDialogue;
 
-
+    public Transform OriginalPos => _originalPos;
 
     private void OnEnable()
     {
@@ -147,5 +148,10 @@ public class WardrobeBehavior : MonoBehaviour, IInteractable
     {
         Debug.Log("testing!");
         Debug.Log("YEP");
+    }
+
+    public void ResetPosition()
+    {
+        throw new System.NotImplementedException();
     }
 }

@@ -10,7 +10,13 @@ public class BasketBallInteractable : MonoBehaviour, IInteractable
     //Dialogues for the object
     [Header("Dialogues")]
     [SerializeField] private DialogueObjectBehavior _ballInteractionDialogue;
-   
+
+
+    [Header("Position")]
+    [SerializeField] private Transform _originalPos;
+
+
+  
 
 
     //A bool used to show if the object has been interacted
@@ -23,6 +29,7 @@ public class BasketBallInteractable : MonoBehaviour, IInteractable
     public string InteractionPrompt => _interactionPrompt;
     public DialogueObjectBehavior DialogueObject { get { return _ballInteractionDialogue; } set {  _ballInteractionDialogue = value; } }
 
+    public Transform OriginalPos => _originalPos;
 
     
 
@@ -67,5 +74,8 @@ public class BasketBallInteractable : MonoBehaviour, IInteractable
         this._ballInteractionDialogue = dialogueObject;
     }
 
-    
+    public void ResetPosition()
+    {
+        gameObject.transform.position = _originalPos.transform.position;
+    }
 }

@@ -10,9 +10,14 @@ public class BedInteractable : MonoBehaviour, IInteractable
     [SerializeField] private DialogueObjectBehavior _cleanUpBeforeSleepingDialogue;
     [SerializeField] private DialogueObjectBehavior _tellPlayerHowToGetInBedDialogue;
 
+    [Header("Positions")]
+    [SerializeField] private Transform _originalPos;
+
     public string InteractionPrompt => _interactionPrompt;
 
     public DialogueObjectBehavior DialogueObject => _getOutOfBedDialogue;
+
+    public Transform OriginalPos => _originalPos;
 
     public void Interact(Interactor Interactor)
     {
@@ -46,5 +51,10 @@ public class BedInteractable : MonoBehaviour, IInteractable
             
             DialogueUIBehavior.instance.ShowDialogue(_tellPlayerHowToGetInBedDialogue);
         }
+    }
+
+    public void ResetPosition()
+    {
+        throw new System.NotImplementedException();
     }
 }

@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 
 public class JackInTheBoxBehavior : MonoBehaviour, IInteractable
@@ -16,6 +15,9 @@ public class JackInTheBoxBehavior : MonoBehaviour, IInteractable
     [SerializeField] private float _increaseSpeed;
     [SerializeField] public static bool _playerRewindingBox;
     public bool jackInTheBoxOpen;
+
+    [Header("Positions")]
+    [SerializeField] private Transform _originalPos;
 
     [Header("Interaction Values")]
     [SerializeField] private string _interactionPrompt;
@@ -38,6 +40,8 @@ public class JackInTheBoxBehavior : MonoBehaviour, IInteractable
 
 
     public DialogueObjectBehavior DialogueObject => _dialogueObject;
+
+    public Transform OriginalPos => _originalPos;
 
     private void Awake()
     {
@@ -65,7 +69,7 @@ public class JackInTheBoxBehavior : MonoBehaviour, IInteractable
             case DayManager.Days.SUNDAY_MORNING:
                 {
                     //Disable the jack in the box moving
-                    Debug.Log("Jack in the box disabled!");
+                    //Debug.Log("Jack in the box disabled!");
 
                     _interactionPrompt = "Interact";
                     break;
@@ -200,6 +204,11 @@ public class JackInTheBoxBehavior : MonoBehaviour, IInteractable
 
        
         
+    }
+
+    public void ResetPosition()
+    {
+        gameObject.transform.position = _originalPos.transform.position;
     }
 }
 

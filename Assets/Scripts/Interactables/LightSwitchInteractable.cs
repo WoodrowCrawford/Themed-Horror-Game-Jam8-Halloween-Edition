@@ -10,12 +10,15 @@ public class LightSwitchInteractable : MonoBehaviour, IInteractable
     [SerializeField] private DialogueObjectBehavior _lookAtSwitchDialogue;
     [SerializeField] private DialogueObjectBehavior _cantTurnLightOnDialogue;
 
+    [Header("Positions")]
+    [SerializeField] private Transform _originalPos;
+
     public string InteractionPrompt => _interactionPrompt;
 
     public DialogueObjectBehavior DialogueObject => _lookAtSwitchDialogue;
 
+    public Transform OriginalPos { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
 
-    
     public void Interact(Interactor Interactor)
     {
         //Gets the response events from the dialouge object if there are any
@@ -41,5 +44,10 @@ public class LightSwitchInteractable : MonoBehaviour, IInteractable
         }
 
        
+    }
+
+    public void ResetPosition()
+    {
+        gameObject.transform.position = _originalPos.transform.position;
     }
 }

@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -52,13 +53,23 @@ public class PlayerInputBehavior : MonoBehaviour
 
     //Camera stuff
     [Header("Camera Values")]
-    [SerializeField] private Camera _camera;
+    //[SerializeField] private Camera _camera;
+    [SerializeField] private CinemachineVirtualCamera _camera;
+    [SerializeField] private AxisState _axisState;
     [SerializeField] private Transform _playerBody;
     [SerializeField] private Transform _startLookAt;
     [SerializeField] private float _sensitivity;
+   
     [SerializeField] private float _xRotation = 0f;
     [SerializeField] private float _yRotation = 0f;
- 
+
+
+
+    [Header("Cinemachine Pov Camera")]
+    [SerializeField] private float _povXRotation;
+    [SerializeField] private float _povYRotation;
+
+
     //Movement stuff
     [Header("Movement Values")]
     [SerializeField] private Rigidbody _rb;
@@ -84,7 +95,7 @@ public class PlayerInputBehavior : MonoBehaviour
 
    
    
-    public Camera Camera { get { return _camera; } }
+    public CinemachineVirtualCamera Camera { get { return _camera; } }
   
 
 
@@ -93,7 +104,9 @@ public class PlayerInputBehavior : MonoBehaviour
         //Gets the components
         _rb = GetComponent<Rigidbody>();
         wardrobeBehavior = GameObject.FindGameObjectWithTag("Wardrobe").GetComponent<WardrobeBehavior>();
-        pauseSystem = GameObject.FindGameObjectWithTag("PauseSystem").GetComponent<PauseSystem>(); 
+        pauseSystem = GameObject.FindGameObjectWithTag("PauseSystem").GetComponent<PauseSystem>();
+        
+        
     }
 
     public void OnEnable()
@@ -101,7 +114,7 @@ public class PlayerInputBehavior : MonoBehaviour
         //Invokes the events when script is enabled
         //onFlashlightToggled?.Invoke();
         
-
+       
         //Creates the Action Maps
         playerControls = new PlayerInputActions();
         playerControls.InBed.Enable();
@@ -181,7 +194,7 @@ public class PlayerInputBehavior : MonoBehaviour
     private void Start()
     {
         //Gets the player camera
-        _camera = GetComponentInChildren<Camera>();
+        _camera = GameObject.FindGameObjectWithTag("MainVCam").GetComponent<CinemachineVirtualCamera>();
 
         //Hides the mouse
         Cursor.visible = false;
@@ -198,6 +211,7 @@ public class PlayerInputBehavior : MonoBehaviour
 
     private void Update()
     { 
+        
         _yRotation = Mathf.CeilToInt(_playerBody.transform.eulerAngles.y);
 
         if (playerCanLook)
@@ -235,9 +249,13 @@ public class PlayerInputBehavior : MonoBehaviour
             return;
         }
 
+        //Cinimachine sens
+       
+        
 
-        //Look values
-        float mouseXLook = playerControls.Default.Look.ReadValue<Vector2>().x * _sensitivity * Time.deltaTime;
+
+        ////Look values
+        float mouseXLook = playerControls.Default.Look.ReadValue<Vector2>().x * _sensitivity  * Time.deltaTime;
         float mouseYLook = playerControls.Default.Look.ReadValue<Vector2>().y * _sensitivity * Time.deltaTime;
 
 

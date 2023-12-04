@@ -50,9 +50,10 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
         SceneManager.sceneUnloaded += OnSceneUnloaded;
+      
     }
 
-
+   
 
     private void OnDisable()
     {
@@ -74,6 +75,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+  
 
     public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {

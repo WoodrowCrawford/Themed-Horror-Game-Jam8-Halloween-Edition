@@ -4,7 +4,7 @@ using UnityEngine.AI;
 
 public class ClownStateManager : MonoBehaviour, IInteractable
 {
-    public JackInTheBoxBehavior JackInTheBoxBehavior;
+    public JackInTheBoxStateManager JackInTheBoxStateManager;
 
 
     [Header("States")]
@@ -26,6 +26,9 @@ public class ClownStateManager : MonoBehaviour, IInteractable
     [SerializeField] private GameObject _target;
     [SerializeField] private GameObject _inBedTarget;
     private Vector3 _playerPos;
+
+    [Header("Postion")]
+    [SerializeField] private Transform _originalPos;
 
 
 
@@ -66,10 +69,12 @@ public class ClownStateManager : MonoBehaviour, IInteractable
 
     public DialogueObjectBehavior DialogueObject => _lookAtClownDialogue;
 
+    public Transform OriginalPos => _originalPos;
+
     private void Awake()
     {
         //Finds the jack in the box component on awake
-        JackInTheBoxBehavior = GameObject.FindGameObjectWithTag("JackIntheBox").GetComponent<JackInTheBoxBehavior>();
+        JackInTheBoxStateManager = GameObject.FindGameObjectWithTag("JackIntheBox").GetComponent<JackInTheBoxStateManager>();
     }
 
 
@@ -98,13 +103,11 @@ public class ClownStateManager : MonoBehaviour, IInteractable
 
 
     //Initializes the clown (used by the game manager)
-    public static void InitializeClown(GameObject clownThisBelongsTo, float jackboxDecreaseSpeed, bool active)
+    public static void InitializeClown(GameObject clownThisBelongsTo, bool active)
     {
         
         clownThisBelongsTo.GetComponent<ClownStateManager>()._isActive = active;
 
-        //Sets the decrease speed for the jack in the box (used to adjust difficulty)
-        clownThisBelongsTo.GetComponent<ClownStateManager>().JackInTheBoxBehavior.DecreaseSpeed = jackboxDecreaseSpeed;
     }
 
 
@@ -199,5 +202,10 @@ public class ClownStateManager : MonoBehaviour, IInteractable
             //plays the dialogue
             DialogueUIBehavior.instance.ShowDialogue(_notMovingTheClownDialogue);
         }
+    }
+
+    public void ResetPosition()
+    {
+        gameObject.transform.position = _originalPos.transform.position;
     }
 }

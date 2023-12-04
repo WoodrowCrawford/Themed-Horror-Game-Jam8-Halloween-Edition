@@ -32,6 +32,8 @@ TagManager:
   - Dialogue
   - Basketball
   - GameOverScreen
+  - test
+  - MainVCam
   layers:
   - Default
   - TransparentFX

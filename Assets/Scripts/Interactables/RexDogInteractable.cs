@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class RexDogInteractable : MonoBehaviour, IInteractable
@@ -12,12 +10,17 @@ public class RexDogInteractable : MonoBehaviour, IInteractable
     [SerializeField] private DialogueObjectBehavior _dontWantToMoveRexDialogue;
     [SerializeField] private DialogueObjectBehavior _goodNightRexDialogue;
 
+    [Header("Positions")]
+    [SerializeField] private Transform _originalPos;
+
     [Header("Bools")]
     public static bool playerSaidGoodnight = false;
 
     public string InteractionPrompt => _interactionPrompt;
 
     public DialogueObjectBehavior DialogueObject => _lookAtRexDialogue;
+
+    public Transform OriginalPos => _originalPos;
 
     public void Interact(Interactor Interactor)
     {
@@ -58,5 +61,10 @@ public class RexDogInteractable : MonoBehaviour, IInteractable
             playerSaidGoodnight = true;
 
         }
+    }
+
+    public void ResetPosition()
+    {
+        gameObject.transform.position = _originalPos.transform.position;
     }
 }

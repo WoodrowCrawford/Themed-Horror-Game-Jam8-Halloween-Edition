@@ -9,12 +9,15 @@ public class SchoolBagInteractable : MonoBehaviour, IInteractable
     [Header("Dialogues")]
     [SerializeField] private DialogueObjectBehavior _lookAtSchoolBagDialogue;
 
+    [Header("Positions")]
+    [SerializeField] private Transform _originalPos;
+
 
     public string InteractionPrompt => _interactionPrompt;
 
     public DialogueObjectBehavior DialogueObject => _lookAtSchoolBagDialogue;
 
-
+    public Transform OriginalPos => _originalPos;
 
     public void Interact(Interactor Interactor)
     {
@@ -33,5 +36,10 @@ public class SchoolBagInteractable : MonoBehaviour, IInteractable
             Interactor.DialogueUI.ShowDialogue(_lookAtSchoolBagDialogue);
 
         }
+    }
+
+    public void ResetPosition()
+    {
+        gameObject.transform.position = _originalPos.transform.position;
     }
 }

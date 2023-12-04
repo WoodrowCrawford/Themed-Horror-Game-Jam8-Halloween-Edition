@@ -12,6 +12,10 @@ public class TeadybearInteractable : MonoBehaviour, IInteractable
     [SerializeField] private DialogueObjectBehavior _dontWantToMoveDialogue;
     [SerializeField] private DialogueObjectBehavior _goodNightTeddyDialogue;
 
+
+    [Header("Positions")]
+    [SerializeField] private Transform _originalPos;
+
     [Header("Bools")]
     public static bool playerSaidGoodnight = false;
 
@@ -19,6 +23,8 @@ public class TeadybearInteractable : MonoBehaviour, IInteractable
     public string InteractionPrompt => _interactionPrompt;
 
     public DialogueObjectBehavior DialogueObject => _lookAtDialogue;
+
+    public Transform OriginalPos => _originalPos;
 
     public void Interact(Interactor Interactor)
     {
@@ -60,5 +66,8 @@ public class TeadybearInteractable : MonoBehaviour, IInteractable
 
     }
 
-   
+    public void ResetPosition()
+    {
+        gameObject.transform.position = _originalPos.transform.position;
+    }
 }

@@ -12,9 +12,14 @@ public class DoorInteractable : MonoBehaviour, IInteractable
     [SerializeField] private DialogueObjectBehavior _goToSleepDialogue;
     [SerializeField] private DialogueObjectBehavior _cantLeaveDialogue;
 
+    [Header("Position")]
+    [SerializeField] private Transform _originalPos;
+
     public string InteractionPrompt => _interactionPrompt;
 
     public DialogueObjectBehavior DialogueObject => _lookAtDoorDialogue;
+
+    public Transform OriginalPos => _originalPos;
 
     public void Interact(Interactor Interactor)
     {
@@ -56,5 +61,8 @@ public class DoorInteractable : MonoBehaviour, IInteractable
         }
     }
 
-   
+    public void ResetPosition()
+    {
+        gameObject.transform.position = _originalPos.transform.position;
+    }
 }

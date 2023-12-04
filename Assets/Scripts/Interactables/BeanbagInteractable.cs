@@ -11,6 +11,9 @@ public class BeanbagInteractable : MonoBehaviour, IInteractable
     [SerializeField] private DialogueObjectBehavior _pickUpDialogue;
     [SerializeField] private DialogueObjectBehavior _cantSleepOnBagDialogue;
 
+    [Header("Positions")]
+    [SerializeField] private Transform _originalPos;
+
     public static bool IsInteracted = false;
 
     public string InteractionPrompt => _interactionPrompt;
@@ -19,8 +22,7 @@ public class BeanbagInteractable : MonoBehaviour, IInteractable
     //Gets and enables the dialogue object to be set
     public DialogueObjectBehavior DialogueObject { get { return _lookAtBeanBagDialogue; }  set { _lookAtBeanBagDialogue = value; } }
 
-
-
+    public Transform OriginalPos => _originalPos;
 
     public void Interact(Interactor Interactor)
     {
@@ -67,4 +69,10 @@ public class BeanbagInteractable : MonoBehaviour, IInteractable
         this._lookAtBeanBagDialogue = dialogueObject;
     }
 
+    
+    //Resets game object to the original position
+    public void ResetPosition()
+    {
+        throw new System.NotImplementedException();
+    }
 }

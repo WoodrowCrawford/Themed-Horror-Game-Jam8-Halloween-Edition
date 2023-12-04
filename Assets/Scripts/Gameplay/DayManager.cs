@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,7 +8,7 @@ public class DayManager : MonoBehaviour
     //gets a static version of this class so that other classes can use it
     public static DayManager instance;
     private FlashlightBehavior _flashlightBehavior;   //get 
-    
+    private GraphicsBehavior _graphicsBehavior;
 
     public enum Days
     {
@@ -61,11 +62,11 @@ public class DayManager : MonoBehaviour
     public bool saidGoodnightToAllToys { get { return RexDogInteractable.playerSaidGoodnight && TeadybearInteractable.playerSaidGoodnight; } }
 
 
-   //checks to see if the player put all the toys in the toybox
-   public bool playerPutAllTheToysInTheToyBox { get { return BasketBallInteractable.IsInTheToyBox; } }
-   
-   public bool startGoToBedPhase = false;
-    
+    //checks to see if the player put all the toys in the toybox
+    public bool playerPutAllTheToysInTheToyBox { get { return BasketBallInteractable.IsInTheToyBox; } }
+
+    public bool startGoToBedPhase = false;
+
 
 
     [Header("Sunday Morning Dialogue")]
@@ -82,7 +83,7 @@ public class DayManager : MonoBehaviour
     public DialogueObjectBehavior DummyReappearedThirdTimeDialogue;
     public DialogueObjectBehavior DummyIsNoLongerTeleportingDialogue;
 
-    
+
 
     //Sunday night bools
     [Header("Sunday Night Bools")]
@@ -112,6 +113,10 @@ public class DayManager : MonoBehaviour
 
     [Header("Clown Settings")]
     [SerializeField] private GameObject _clown;
+
+
+    [Header("Jack In The Box Settings")]
+    [SerializeField] private GameObject _jackInTheBox;
 
    
 
@@ -351,9 +356,12 @@ public class DayManager : MonoBehaviour
         _dummy2 = GameObject.FindGameObjectWithTag("Dummy2");
         _ghoul = GameObject.FindGameObjectWithTag("Ghoul");
         _clown = GameObject.FindGameObjectWithTag("Clown");
+        _jackInTheBox = GameObject.FindGameObjectWithTag("JackIntheBox");
 
         //gets the component
         _flashlightBehavior = GameObject.FindGameObjectWithTag("Flashlight").GetComponent<FlashlightBehavior>();
+
+        _graphicsBehavior = GameObject.FindGameObjectWithTag("Graphics").GetComponent<GraphicsBehavior>();
     }
 
 
@@ -374,6 +382,9 @@ public class DayManager : MonoBehaviour
 
             //the player is not able to sleep
             PlayerInputBehavior.playerCanSleep = false;
+
+            //find the sun
+            _graphicsBehavior.Sun = GameObject.FindGameObjectWithTag("Sun");
 
             CallShowTodaysDate();
 
@@ -407,11 +418,12 @@ public class DayManager : MonoBehaviour
 
       
             //Initializes the clown
-            ClownStateManager.InitializeClown(_clown, 0, false);
+            ClownStateManager.InitializeClown(_clown, false);
 
 
             //Initialize the ghoul
             GhoulStateManager.InitializeGhoulValues(_ghoul, 0, 0, false);
+            
 
 
 
@@ -484,10 +496,14 @@ public class DayManager : MonoBehaviour
             yield return new WaitForSeconds(1f);
 
 
+
+
             //the player goes to sleep, then the next phase happens
+
+            days = Days.SUNDAY_NIGHT;
             StartCoroutine(StartSundayNight());
 
-
+            
         }
         
 
@@ -555,7 +571,9 @@ public class DayManager : MonoBehaviour
 
 
             //Initializes the clown
-            ClownStateManager.InitializeClown(_clown, 0, false);
+            ClownStateManager.InitializeClown(_clown, false);
+
+            _jackInTheBox.GetComponent<JackInTheBoxStateManager>().InitializeJackBox(2f, 1f, false);
 
 
             //Initialize the ghoul
