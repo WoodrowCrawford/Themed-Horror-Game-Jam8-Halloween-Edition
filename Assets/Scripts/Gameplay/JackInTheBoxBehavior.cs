@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using UnityEngine.InputSystem;
 
 public class JackInTheBoxBehavior : MonoBehaviour, IInteractable
 {
@@ -8,6 +8,7 @@ public class JackInTheBoxBehavior : MonoBehaviour, IInteractable
     [SerializeField] private Animator _animator;
     [SerializeField] private GameObject _handle;
     public PlayerInputBehavior playerInput;
+
 
     [Header("Jack In the Box Values")]
     [SerializeField] private float _musicDuration = 100;

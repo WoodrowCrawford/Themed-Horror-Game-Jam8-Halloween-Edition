@@ -13,6 +13,10 @@ public class PlayerInputBehavior : MonoBehaviour
     public PauseSystem pauseSystem;                            //gets a script reference for the pause system class
 
 
+    public CinemachineVirtualCamera Camera { get { return _camera; } }
+
+    [SerializeField] private InputActionMap _currentActionMap { get; set; }
+
     //Static bools used to determine if the player can do something or not
     [Header("Input bools")]
     public static bool playerCanPause = true;
@@ -95,7 +99,7 @@ public class PlayerInputBehavior : MonoBehaviour
 
    
    
-    public CinemachineVirtualCamera Camera { get { return _camera; } }
+   
   
 
 
@@ -191,6 +195,19 @@ public class PlayerInputBehavior : MonoBehaviour
     }
 
 
+    public void DisableControls()
+    {
+        playerControls.Disable();
+    }
+
+    //Enables the controls
+    public void EnableControls()
+    {
+        playerControls.Default.Enable();
+        _currentActionMap.Enable();
+    }
+
+
     private void Start()
     {
         //Gets the player camera
@@ -210,7 +227,9 @@ public class PlayerInputBehavior : MonoBehaviour
     }
 
     private void Update()
-    { 
+    {
+        Debug.Log(_currentActionMap);
+
         
         _yRotation = Mathf.CeilToInt(_playerBody.transform.eulerAngles.y);
 
@@ -221,6 +240,7 @@ public class PlayerInputBehavior : MonoBehaviour
         if(wardrobeBehavior.playerCanOpenWardrobe)
         {
             playerControls.InWardrobe.Enable();
+            _currentActionMap = playerControls.InWardrobe;
         }
 
         else if(!wardrobeBehavior.playerCanOpenWardrobe)
@@ -237,6 +257,11 @@ public class PlayerInputBehavior : MonoBehaviour
 
    
 
+   
+    
+
+
+
 
 
    ///////////Functions for both In Bed and out of bed/////////////////////////////////////////
@@ -249,7 +274,7 @@ public class PlayerInputBehavior : MonoBehaviour
             return;
         }
 
-        //Cinimachine sens
+       
        
         
 
@@ -356,7 +381,10 @@ public class PlayerInputBehavior : MonoBehaviour
             {
 
                 playerControls.InBed.Disable();
+
+
                 playerControls.OutOfBed.Enable();
+                _currentActionMap = playerControls.OutOfBed;
 
                 //sets player is in bed bool to false
                 inBed = false;
@@ -392,7 +420,9 @@ public class PlayerInputBehavior : MonoBehaviour
             {
                 _playerBody.transform.position = _TopOfBedPos.position;
                 playerControls.OutOfBed.Disable();
+
                 playerControls.InBed.Enable();
+                _currentActionMap = playerControls.InBed;
 
                 //sets the player in bed bool be true
                 inBed = true;

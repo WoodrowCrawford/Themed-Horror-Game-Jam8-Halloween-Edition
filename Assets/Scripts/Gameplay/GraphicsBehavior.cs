@@ -65,7 +65,9 @@ public class GraphicsBehavior : MonoBehaviour
     {
         //Enables the light component in the sun object
         Sun.GetComponent<Light>().enabled = true;
-        
+
+    
+
         IsDayTime = true;
         IsNightTime = false;
 
@@ -80,6 +82,8 @@ public class GraphicsBehavior : MonoBehaviour
     {
         //Disables the light component in the sun object
         Sun.GetComponent<Light>().enabled = false;
+
+       
 
         IsNightTime = true;
         IsDayTime = false;
