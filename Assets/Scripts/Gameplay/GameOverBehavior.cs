@@ -1,10 +1,9 @@
 using UnityEngine;
-using static GameManager;
+
 
 public class GameOverBehavior : MonoBehaviour
 {
-
-    public static GameOverBehavior instance;
+    
 
     //delegates
     public delegate void GameOver();
@@ -20,17 +19,18 @@ public class GameOverBehavior : MonoBehaviour
     [SerializeField] private GameObject gameOverScreen;
 
 
-    private void Awake()
+
+    
+
+
+    private void OnEnable()
     {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        GameManager.onGameStarted += ResetVariables;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.onGameStarted -= ResetVariables;
     }
 
 
@@ -67,4 +67,12 @@ public class GameOverBehavior : MonoBehaviour
 
 
     }
+
+    public void ResetVariables()
+    {
+        gameOver = false;
+        gameOverScreen.SetActive(false);
+    }
+
+   
 }

@@ -73,7 +73,7 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
+   
   
 
     public void OnSceneLoaded(Scene scene, LoadSceneMode mode)

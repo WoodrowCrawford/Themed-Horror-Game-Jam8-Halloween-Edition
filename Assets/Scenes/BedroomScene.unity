@@ -5186,7 +5186,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &322672849
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8243,7 +8243,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: b604f686826f1544690d629ac0e4c30c, type: 2}
     - {fileID: 11400000, guid: ae87670a9db822648a68b1a8b5298eed, type: 2}
     - {fileID: 11400000, guid: 291dc1eefb8df39419119f2e0ee0a350, type: 2}
-    - {fileID: 11400000, guid: fd40c97a140568f458adea096fcc5132, type: 2}
+    - {fileID: 11400000, guid: 8a8816ddc1f088d44870e3ba4c868424, type: 2}
     m_Events:
     - m_PersistentCalls:
         m_Calls:
@@ -8338,7 +8338,7 @@ MonoBehaviour:
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
-          m_CallState: 1
+          m_CallState: 2
 --- !u!1001 &500699049
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22041,7 +22041,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1240122980}
-  - component: {fileID: 1240122979}
   - component: {fileID: 1240122978}
   m_Layer: 0
   m_Name: GameOverContainer
@@ -22063,18 +22062,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameOverScreen: {fileID: 322672848}
---- !u!114 &1240122979
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1240122977}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40e9fb9ff4447d34da25512f21f86b06, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1240122980
 Transform:
   m_ObjectHideFlags: 0
@@ -22686,7 +22673,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8834687189891151815, guid: 73683a13feeabac47a845d510b9b5fa6, type: 3}
         m_TargetAssemblyTypeName: LevelManager, Assembly-CSharp
-        m_MethodName: ReloadScene
+        m_MethodName: ReloadSceneGameOver
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
