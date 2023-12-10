@@ -142,13 +142,13 @@ public class DummyStateManager : MonoBehaviour, IInteractable
 
     private void OnEnable()
     {
-        GameManager.onGameOver += GameoverTest;
+        GameOverBehavior.onGameOver += GameoverTest;
     }
 
 
     private void OnDisable()
     {
-        GameManager.onGameOver -= GameoverTest;
+        GameOverBehavior.onGameOver -= GameoverTest;
     }
 
 

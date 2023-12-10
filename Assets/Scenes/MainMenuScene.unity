@@ -9907,11 +9907,11 @@ GameObject:
   - component: {fileID: 906771532}
   m_Layer: 0
   m_Name: GameOverContainer
-  m_TagString: Untagged
+  m_TagString: GameOverScreen
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &906771531
 Transform:
   m_ObjectHideFlags: 0
@@ -23476,7 +23476,7 @@ PrefabInstance:
     - target: {fileID: 6519131487252682047, guid: 692208d2e24c98f49a75b55d34bea91a, type: 3}
       propertyPath: gameOverScreen
       value: 
-      objectReference: {fileID: 1438003728}
+      objectReference: {fileID: 0}
     - target: {fileID: 6519131487252682047, guid: 692208d2e24c98f49a75b55d34bea91a, type: 3}
       propertyPath: onGameFinished.m_PersistentCalls.m_Calls.Array.size
       value: 1

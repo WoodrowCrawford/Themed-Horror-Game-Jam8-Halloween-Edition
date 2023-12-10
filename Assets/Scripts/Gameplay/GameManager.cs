@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     //the delegates 
     public delegate void GameStart();
     public delegate void GameEnded();
-    public delegate void GameOver();
+  
 
     public delegate void StartStory();
     public delegate void StopStory();
@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
     //events created with the delegate types
     public static event GameStart onGameStarted;    //used to initialize variables
     public static event GameEnded onGameEnded;   //used to de initialize the variables
-    public static event GameOver onGameOver;     //uses to call game over stuff
+    
 
     public static event StartStory onStartStory;   //what happens when the story is started
     public static event StopStory onStopStory;     //what happens when the story is eneded
@@ -41,9 +41,8 @@ public class GameManager : MonoBehaviour
     [Header("Current Game Mode")]
     public GameModes currentGameMode;
 
-    [Header("Game Over Stuff")]
-    public GameObject gameOverScreen;
-    public bool gameOver = false;     //A boolean used to determind if the game is over or not
+    
+    
 
 
     private void OnEnable()
@@ -88,11 +87,10 @@ public class GameManager : MonoBehaviour
             //set the game mode to be main menu
             currentGameMode = GameModes.MAIN_MENU;
 
-            //set game over to be false
-            gameOver = false;
 
             //hide the game over screen
-            gameOverScreen.SetActive(false);
+           // GameOverBehavior.instance.SetGameOverScreen(false);
+           
 
             //stop the corurtiens running for the story
             onStopStory?.Invoke();
@@ -106,9 +104,12 @@ public class GameManager : MonoBehaviour
             //Sets the gamemode to be the bedroom chapeter
             currentGameMode = GameModes.BEDROOM_CHAPTER;
 
-            gameOver = false;
+            //Get the game over game object
+           // gameOverScreen = GameObject.Find("GameOverContainer");
 
-            gameOverScreen.SetActive(false);
+            GameOverBehavior.gameOver = false;
+
+          
 
             //do all the stuff needed to start the game
             onGameStarted?.Invoke();
@@ -156,21 +157,5 @@ public class GameManager : MonoBehaviour
 
 
     //controls the game over screen
-    public void SetGameOver()
-    {
-        //sets to be true
-        gameOver = true;
-
-
-        //show the game over screen
-        gameOverScreen.gameObject.SetActive(true);
-
-
-        //calls the event onGameOver
-        onGameOver?.Invoke();
-
-        Cursor.visible = true;
-      
-
-    }
+   
 }
