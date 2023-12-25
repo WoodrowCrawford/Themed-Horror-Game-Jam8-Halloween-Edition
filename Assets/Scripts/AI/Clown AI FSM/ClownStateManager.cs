@@ -188,7 +188,7 @@ public class ClownStateManager : MonoBehaviour, IInteractable
     public void Interact(Interactor Interactor)
     {
         //if the day is sunday morning...
-        if (DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.task == DayManager.Tasks.LOOK_AROUND)
+        if (DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.task == SundayMorning.SundayMorningTasks.LOOK_AROUND)
         {
             //sets to be true
             IsInteracted = true;
@@ -197,7 +197,7 @@ public class ClownStateManager : MonoBehaviour, IInteractable
         }
 
         //else if the day is sunday morning and the task is to clean up...
-        else if (DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.task == DayManager.Tasks.CLEAN_UP)
+        else if (DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.task == SundayMorning.SundayMorningTasks.CLEAN_UP)
         {
             //plays the dialogue
             DialogueUIBehavior.instance.ShowDialogue(_notMovingTheClownDialogue);

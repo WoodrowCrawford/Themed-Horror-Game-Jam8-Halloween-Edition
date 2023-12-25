@@ -3,9 +3,7 @@ using UnityEngine;
 
 public class DummyAttackState : DummyDefaultState
 {
-    
-
-
+   
     public override void EnterState(DummyStateManager dummy)
     {
         //GameManager.instance.SetGameOver();
@@ -14,7 +12,7 @@ public class DummyAttackState : DummyDefaultState
 
         dummy.GameoverTest();
 
-
+       
        
     }
 

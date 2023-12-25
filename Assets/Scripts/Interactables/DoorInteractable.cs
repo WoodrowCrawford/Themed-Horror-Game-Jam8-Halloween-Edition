@@ -30,7 +30,7 @@ public class DoorInteractable : MonoBehaviour, IInteractable
 
 
         //if it is sunday morning and the task is to look around...
-        if (DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.task == DayManager.Tasks.LOOK_AROUND)
+        if (DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.task == SundayMorning.SundayMorningTasks.LOOK_AROUND)
         {
             //play dialogue
             Interactor.DialogueUI.ShowDialogue(_lookAtDoorDialogue);
@@ -38,7 +38,7 @@ public class DoorInteractable : MonoBehaviour, IInteractable
         }
         
         //else if it is sunday morning and the task is to clean up...
-        else if (DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.task == DayManager.Tasks.CLEAN_UP)
+        else if (DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.task == SundayMorning.SundayMorningTasks.CLEAN_UP)
         {
             //play dialogue
             Interactor.DialogueUI.ShowDialogue(_cleanUpRoomDialogue);
@@ -46,7 +46,7 @@ public class DoorInteractable : MonoBehaviour, IInteractable
 
 
         //else if it is sunday morning and the task is to go to bed...
-        else if (DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.task == DayManager.Tasks.GO_TO_BED)
+        else if (DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.task == SundayMorning.SundayMorningTasks.GO_TO_BED)
         {
             //play dialogue
             Interactor.DialogueUI.ShowDialogue(_goToSleepDialogue);

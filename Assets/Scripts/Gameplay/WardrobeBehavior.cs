@@ -86,7 +86,7 @@ public class WardrobeBehavior : MonoBehaviour, IInteractable
 
     public void Interact(Interactor Interactor)
     {
-        if(DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.task == DayManager.Tasks.LOOK_AROUND)
+        if(DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.task == SundayMorning.SundayMorningTasks.LOOK_AROUND)
         {
             DialogueUIBehavior.instance.ShowDialogue(_wardrobeDialogue);
         }

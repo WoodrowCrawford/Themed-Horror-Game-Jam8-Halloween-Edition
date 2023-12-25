@@ -33,7 +33,7 @@ public class RexDogInteractable : MonoBehaviour, IInteractable
 
 
         //if the day is sunday morning and the task is to look around...
-        if (DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.task == DayManager.Tasks.LOOK_AROUND)
+        if (DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.task == SundayMorning.SundayMorningTasks.LOOK_AROUND)
         {
             //show the dialogue
             Interactor.DialogueUI.ShowDialogue(_lookAtRexDialogue);
@@ -42,7 +42,7 @@ public class RexDogInteractable : MonoBehaviour, IInteractable
 
 
         //if the day is sunday morning and the task is to clean up
-        else if (DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.task == DayManager.Tasks.CLEAN_UP)
+        else if (DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.task == SundayMorning.SundayMorningTasks.CLEAN_UP)
         {
             //show the dialogue
             Interactor.DialogueUI.ShowDialogue(_dontWantToMoveRexDialogue);
@@ -52,7 +52,7 @@ public class RexDogInteractable : MonoBehaviour, IInteractable
 
 
         //if the day is sunday morning and the task is to go to bed
-        else if (DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.task == DayManager.Tasks.SAY_GOODNIGHT_TO_TOYS)
+        else if (DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.task == SundayMorning.SundayMorningTasks.SAY_GOODNIGHT_TO_TOYS)
         {
             //show the dialogue
             Interactor.DialogueUI.ShowDialogue(_goodNightRexDialogue);

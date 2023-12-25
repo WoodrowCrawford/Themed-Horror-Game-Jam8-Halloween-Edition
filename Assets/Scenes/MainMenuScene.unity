@@ -1064,8 +1064,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 82015132}
-  m_LocalRotation: {x: 0.12123586, y: 0.406338, z: -0.053495917, w: 0.90406275}
-  m_LocalPosition: {x: 13.154216, y: -3.019073, z: 12.739842}
+  m_LocalRotation: {x: 0, y: 0.9989457, z: -0, w: -0.045907475}
+  m_LocalPosition: {x: 30.163094, y: -4.076863, z: 15.13485}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -22461,16 +22461,24 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6519131487252682017, guid: 692208d2e24c98f49a75b55d34bea91a, type: 3}
       propertyPath: days
-      value: 1
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 6519131487252682017, guid: 692208d2e24c98f49a75b55d34bea91a, type: 3}
       propertyPath: _todaysDateGO
       value: 
       objectReference: {fileID: 1145843749}
     - target: {fileID: 6519131487252682017, guid: 692208d2e24c98f49a75b55d34bea91a, type: 3}
+      propertyPath: introDialogue
+      value: 
+      objectReference: {fileID: 11400000, guid: 6f9ac4f9da1fa2b4793d435b4807e94d, type: 2}
+    - target: {fileID: 6519131487252682017, guid: 692208d2e24c98f49a75b55d34bea91a, type: 3}
       propertyPath: _introDialogue
       value: 
       objectReference: {fileID: 11400000, guid: 6f14bbe931ad6fb4d887773c426da8d6, type: 2}
+    - target: {fileID: 6519131487252682017, guid: 692208d2e24c98f49a75b55d34bea91a, type: 3}
+      propertyPath: wakeUpDialouge
+      value: 
+      objectReference: {fileID: 11400000, guid: 0fbc1ecb62e954a429d3799fec20dc2c, type: 2}
     - target: {fileID: 6519131487252682017, guid: 692208d2e24c98f49a75b55d34bea91a, type: 3}
       propertyPath: GoToBedDialogue
       value: 
@@ -22480,6 +22488,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 0fbc1ecb62e954a429d3799fec20dc2c, type: 2}
     - target: {fileID: 6519131487252682017, guid: 692208d2e24c98f49a75b55d34bea91a, type: 3}
+      propertyPath: cleanUpDialogue
+      value: 
+      objectReference: {fileID: 11400000, guid: 3550b4e778a424942b078f6cb0fd7f86, type: 2}
+    - target: {fileID: 6519131487252682017, guid: 692208d2e24c98f49a75b55d34bea91a, type: 3}
+      propertyPath: goToBedDialogue
+      value: 
+      objectReference: {fileID: 11400000, guid: daab217c68a7abf4d840b87bbc1c21c9, type: 2}
+    - target: {fileID: 6519131487252682017, guid: 692208d2e24c98f49a75b55d34bea91a, type: 3}
       propertyPath: _cleanUpDialogue
       value: 
       objectReference: {fileID: 11400000, guid: 3550b4e778a424942b078f6cb0fd7f86, type: 2}
@@ -22488,9 +22504,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: daab217c68a7abf4d840b87bbc1c21c9, type: 2}
     - target: {fileID: 6519131487252682017, guid: 692208d2e24c98f49a75b55d34bea91a, type: 3}
+      propertyPath: demoIntroDialogue
+      value: 
+      objectReference: {fileID: 11400000, guid: dc8898973e9af6e42a862b2d60a8eb5c, type: 2}
+    - target: {fileID: 6519131487252682017, guid: 692208d2e24c98f49a75b55d34bea91a, type: 3}
+      propertyPath: startUpDreamDialogue
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6519131487252682017, guid: 692208d2e24c98f49a75b55d34bea91a, type: 3}
       propertyPath: _startUpDreamDialogue
       value: 
       objectReference: {fileID: 11400000, guid: 6f14bbe931ad6fb4d887773c426da8d6, type: 2}
+    - target: {fileID: 6519131487252682017, guid: 692208d2e24c98f49a75b55d34bea91a, type: 3}
+      propertyPath: gettingSleepyDialogue
+      value: 
+      objectReference: {fileID: 11400000, guid: 59df26a9875a45c4999bb889418a1d15, type: 2}
     - target: {fileID: 6519131487252682017, guid: 692208d2e24c98f49a75b55d34bea91a, type: 3}
       propertyPath: _gettingSleepyDialogue
       value: 

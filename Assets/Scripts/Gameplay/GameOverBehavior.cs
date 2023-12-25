@@ -3,8 +3,6 @@ using UnityEngine;
 
 public class GameOverBehavior : MonoBehaviour
 {
-    
-
     //delegates
     public delegate void GameOver();
 
@@ -20,11 +18,9 @@ public class GameOverBehavior : MonoBehaviour
 
 
 
-    
-
-
     private void OnEnable()
     {
+        //Resets all the variables when the game is started
         GameManager.onGameStarted += ResetVariables;
     }
 
@@ -44,6 +40,7 @@ public class GameOverBehavior : MonoBehaviour
     }
 
 
+    
     public void SetGameOverScreen(bool active)
     {
         gameOverScreen.SetActive(active);
@@ -64,8 +61,6 @@ public class GameOverBehavior : MonoBehaviour
         onGameOver?.Invoke();
 
         Cursor.visible = true;
-
-
     }
 
     public void ResetVariables()

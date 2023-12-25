@@ -2,9 +2,11 @@ using UnityEngine;
 
 public class DummyGettingUpState : DummyDefaultState
 {
+    
     public override void EnterState(DummyStateManager dummy)
     {
         //Test
+      
         Debug.Log(dummy.dummyThisBelongsTo.name + " is getting up! yeah");
 
         //Set the movement speed for the dummy
@@ -26,4 +28,6 @@ public class DummyGettingUpState : DummyDefaultState
             dummy.dummyThisBelongsTo.GetComponent<DummyStateManager>().SwitchState(dummy.chasePlayerState);
         }
     }
+
+    
 }

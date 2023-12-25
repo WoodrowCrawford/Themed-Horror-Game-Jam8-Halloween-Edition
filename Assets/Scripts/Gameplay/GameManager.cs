@@ -13,43 +13,36 @@ public class GameManager : MonoBehaviour
         BEDROOM_CHAPTER
     }
 
+    public static GameManager instance;      //gets a static reference of the game manager
+
 
     //the delegates 
     public delegate void GameStart();
     public delegate void GameEnded();
   
-
     public delegate void StartStory();
     public delegate void StopStory();
 
     
     //events created with the delegate types
     public static event GameStart onGameStarted;    //used to initialize variables
-    public static event GameEnded onGameEnded;   //used to de initialize the variables
+    public static event GameEnded onGameEnded;      //used to de initialize the variables
     
 
     public static event StartStory onStartStory;   //what happens when the story is started
     public static event StopStory onStopStory;     //what happens when the story is eneded
 
 
-   
-
-
-    [Header("Important  Values")]
-    public static GameManager instance;      //gets a static reference of the game manager
-
     [Header("Current Game Mode")]
     public GameModes currentGameMode;
 
-    
-    
+  
 
 
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
         SceneManager.sceneUnloaded += OnSceneUnloaded;
-      
     }
 
    
@@ -88,10 +81,7 @@ public class GameManager : MonoBehaviour
             currentGameMode = GameModes.MAIN_MENU;
 
 
-            //hide the game over screen
-           // GameOverBehavior.instance.SetGameOverScreen(false);
            
-
             //stop the corurtiens running for the story
             onStopStory?.Invoke();
 
@@ -116,7 +106,7 @@ public class GameManager : MonoBehaviour
 
             Debug.Log("Do bedroom stuff");
 
-            //start the story call here
+            //start the story call here (check to see what day to start)
             onStartStory?.Invoke();
             Debug.Log("calling start story");
         }

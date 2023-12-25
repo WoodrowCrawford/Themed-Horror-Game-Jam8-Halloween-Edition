@@ -8,6 +8,7 @@ public class DummyStateManager : MonoBehaviour, IInteractable
 {
     [Header("States")]
     DummyDefaultState currentState;                                                         //the current state for the dummy
+    public DummyDisabledState disabledState = new DummyDisabledState();
     public DummyGettingUpState gettingUpState = new DummyGettingUpState();                  //the getting up state for the dummy
     public DummyChasePlayerState chasePlayerState = new DummyChasePlayerState();            //the chase player state for the dummy
     public DummyInactiveState inactiveState = new DummyInactiveState();                     //the inactive state for the dummy
@@ -142,13 +143,14 @@ public class DummyStateManager : MonoBehaviour, IInteractable
 
     private void OnEnable()
     {
-        GameOverBehavior.onGameOver += GameoverTest;
+        //disables the ai when the game is over
+        GameOverBehavior.onGameOver += DisableAI;
     }
 
 
     private void OnDisable()
     {
-        GameOverBehavior.onGameOver -= GameoverTest;
+       GameOverBehavior.onGameOver -= DisableAI;
     }
 
 
@@ -177,6 +179,7 @@ public class DummyStateManager : MonoBehaviour, IInteractable
     {
         //Gets the reference to the state that is currently being used
         currentState.UpdateState(this);
+       
     }
 
     public void GameoverTest()
@@ -188,6 +191,12 @@ public class DummyStateManager : MonoBehaviour, IInteractable
     {
         currentState = state;
         state.EnterState(this);
+    }
+
+    public void DisableAI()
+    {
+        Debug.Log("dummy is disabled");
+        SwitchState(disabledState);
     }
 
 
@@ -322,7 +331,7 @@ public class DummyStateManager : MonoBehaviour, IInteractable
                     DialogueUIBehavior.instance.ShowDialogue(DayManager.instance.DummyIsNoLongerTeleportingDialogue);
 
                     //set player can go to bed phase to be true
-                    DayManager.instance.startGoToBedPhase = true;
+                    SundayMorning.startGoToBedPhase = true;
 
 
                     yield return null;
@@ -409,7 +418,7 @@ public class DummyStateManager : MonoBehaviour, IInteractable
     public void Interact(Interactor Interactor)
     {
         //if it is sunday morning and the task for the day is to look around...
-        if (DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.task == DayManager.Tasks.LOOK_AROUND && canBeInteracted)
+        if (DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.task == SundayMorning.SundayMorningTasks.LOOK_AROUND && canBeInteracted)
         {
             //sets to be true
             IsInteracted = true;
@@ -417,7 +426,7 @@ public class DummyStateManager : MonoBehaviour, IInteractable
             DialogueUIBehavior.instance.ShowDialogue(_dialogueObject);
         }
 
-        else if(DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.task == DayManager.Tasks.CLEAN_UP && !DayManager.instance.playerPutAllTheToysInTheToyBox && canBeInteracted)
+        else if(DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.task == SundayMorning.SundayMorningTasks.CLEAN_UP && !SundayMorning.playerPutAllTheToysInTheToyBox && canBeInteracted)
         {
             //show dialogue here that the player should put the other toys away first
             DialogueUIBehavior.instance.ShowDialogue(_putOtherToysAwayFirst);
@@ -425,7 +434,7 @@ public class DummyStateManager : MonoBehaviour, IInteractable
 
 
         //if it is sunday morning and the task for the day is to clean up...
-        else if(DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.task == DayManager.Tasks.CLEAN_UP && canBeInteracted)
+        else if(DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.task == SundayMorning.SundayMorningTasks.CLEAN_UP && canBeInteracted)
         {
             //put pick up code here!
             StartCoroutine(Interactor.TogglePickUp(this.gameObject));
