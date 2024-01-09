@@ -36,7 +36,7 @@ public class BeanbagInteractable : MonoBehaviour, IInteractable
 
 
         //if it is sunday morning and the task is to look around
-        if (DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.task == SundayMorning.SundayMorningTasks.LOOK_AROUND)
+        if (DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.currentSundayMorningTask == SundayMorning.SundayMorningTasks.LOOK_AROUND)
         {
             //look around dialogue
             Interactor.DialogueUI.ShowDialogue(_lookAtBeanBagDialogue);
@@ -44,7 +44,7 @@ public class BeanbagInteractable : MonoBehaviour, IInteractable
         }
 
         //else if it is sunday morning and the task is to clean up
-        else if (DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.task == SundayMorning.SundayMorningTasks.CLEAN_UP)
+        else if (DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.currentSundayMorningTask == SundayMorning.SundayMorningTasks.CLEAN_UP)
         {
             //pick up dialogue
             Interactor.DialogueUI.ShowDialogue(_pickUpDialogue);
@@ -54,7 +54,7 @@ public class BeanbagInteractable : MonoBehaviour, IInteractable
 
 
         //else if it is sunday morning and the task is to go to bed...
-        else if (DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.task == SundayMorning.SundayMorningTasks.GO_TO_BED)
+        else if (DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.currentSundayMorningTask == SundayMorning.SundayMorningTasks.GO_TO_BED)
         {
             //pick up dialogue
             Interactor.DialogueUI.ShowDialogue(_cantSleepOnBagDialogue);

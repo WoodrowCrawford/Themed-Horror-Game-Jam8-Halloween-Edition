@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class TuesdayMorning : BaseDay
 {
+
     public override void EnterState(DayManager day)
     {
         Debug.Log("Tuesday morning is now in the enter state");
@@ -17,4 +18,6 @@ public class TuesdayMorning : BaseDay
     {
         Debug.Log("Tuesday morning over. Stopping story...");
     }
+
+   
 }

@@ -12,6 +12,7 @@ public class MondayNight : BaseDay
         Debug.Log("monday night exit state");
     }
 
+ 
 
     public override void UpdateState(DayManager day)
     {

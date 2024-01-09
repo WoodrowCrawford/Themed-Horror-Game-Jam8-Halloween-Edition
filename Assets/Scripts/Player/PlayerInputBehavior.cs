@@ -237,13 +237,13 @@ public class PlayerInputBehavior : MonoBehaviour
             HandleLook();
 
         //Change the action map if the player is by the wardrobe
-        if(wardrobeBehavior.playerCanOpenWardrobe)
+        if(wardrobeBehavior.PlayerCanOpenWardrobe)
         {
             playerControls.InWardrobe.Enable();
             _currentActionMap = playerControls.InWardrobe;
         }
 
-        else if(!wardrobeBehavior.playerCanOpenWardrobe)
+        else if(!wardrobeBehavior.PlayerCanOpenWardrobe)
         {
             playerControls.InWardrobe.Disable();
         }
@@ -442,12 +442,12 @@ public class PlayerInputBehavior : MonoBehaviour
     public IEnumerator ToggleWardrobeDoor()
     {
         //If the door is not open then open it
-        if(!wardrobeBehavior.wardrobeDoorIsOpen && !wardrobeBehavior.actionOnCoolDown && !PauseSystem.isPaused)
+        if(!wardrobeBehavior.WardrobeDoorIsOpen && !wardrobeBehavior.ActionOnCoolDown && !PauseSystem.isPaused)
         {
             StartCoroutine(wardrobeBehavior.OpenWardrobeDoor());
         }
 
-        else if (wardrobeBehavior.wardrobeDoorIsOpen && !wardrobeBehavior.actionOnCoolDown && !PauseSystem.isPaused)
+        else if (wardrobeBehavior.WardrobeDoorIsOpen && !wardrobeBehavior.ActionOnCoolDown && !PauseSystem.isPaused)
         {
             //else close the door
             StartCoroutine(wardrobeBehavior.CloseWardrobeDoor());
@@ -458,7 +458,7 @@ public class PlayerInputBehavior : MonoBehaviour
 
     public IEnumerator ToggleInOutWardrobe()
     {
-        if (wardrobeBehavior.wardrobeDoorIsOpen && !wardrobeBehavior.actionOnCoolDown && !playerIsInWardrobe && !PauseSystem.isPaused)
+        if (wardrobeBehavior.WardrobeDoorIsOpen && !wardrobeBehavior.ActionOnCoolDown && !playerIsInWardrobe && !PauseSystem.isPaused)
         {
             _playerBody.transform.position = _WardrobeHidingPos.transform.position;
             playerIsInWardrobe = true;
@@ -470,7 +470,7 @@ public class PlayerInputBehavior : MonoBehaviour
             StartCoroutine(wardrobeBehavior.CloseWardrobeDoor());
         }
 
-        else if (wardrobeBehavior.wardrobeDoorIsOpen && playerIsInWardrobe && !PauseSystem.isPaused)
+        else if (wardrobeBehavior.WardrobeDoorIsOpen && playerIsInWardrobe && !PauseSystem.isPaused)
         {   
 
             _playerBody.transform.position = _OutOfWardrobePos.transform.position;

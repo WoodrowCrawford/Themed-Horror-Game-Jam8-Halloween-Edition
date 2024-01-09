@@ -5,6 +5,8 @@ public abstract class BaseDay
     public static Exit onSwitchState;
 
 
+   
+
     public abstract void EnterState(DayManager day);       //Enter state
 
     public abstract void UpdateState(DayManager day);      //Update state

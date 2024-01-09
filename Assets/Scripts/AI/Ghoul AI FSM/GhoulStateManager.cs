@@ -1,24 +1,30 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 public class GhoulStateManager : MonoBehaviour
 {
-    GhoulBaseState currentState;                                         //The current state that the ghoul is in
-    public GhoulInactiveState inactiveState = new GhoulInactiveState();  //Inactive state for the ghoul
-    public GhoulPatrolState patrolState = new GhoulPatrolState();        //Patrol state for the ghoul
-    public GhoulChaseState chaseState = new GhoulChaseState();           //Chase state for the ghoul
-    public GhoulAttackState attackState = new GhoulAttackState();        //Attack state for the ghoul
-
-
     public GhoulSightBehavior ghoulSightBehavior;
     public PlayerInputBehavior playerInputBehavior;
 
-    public NavMeshAgent agent;
-    [SerializeField] private Animator _animator;
+
+    GhoulBaseState currentState;                                         //The current state that the ghoul is in
+    public GhoulInactiveState inactiveState = new GhoulInactiveState();  //Inactive state for the ghoul
+    public GhoulPatrolState patrolState = new GhoulPatrolState();        //Patrol state for the ghoul
+    public GhoulWanderState wanderState = new GhoulWanderState();        //Wander state for the ghoul
+    public GhoulChaseState chaseState = new GhoulChaseState();           //Chase state for the ghoul
+    public GhoulAttackState attackState = new GhoulAttackState();        //Attack state for the ghoul
 
     public bool isActive;
+
+
+
+    [SerializeField] private NavMeshAgent _agent;
+    [SerializeField] private Animator _animator;
+
+    
 
 
     [Header("Patrol Values")]
@@ -29,13 +35,29 @@ public class GhoulStateManager : MonoBehaviour
     [SerializeField] private float _minSecondsToWait;
     [SerializeField] private float _maxSecondsToWait;
     [SerializeField] private float _secondsToWait;
+    private float _decimalPatrolTimer;
+    [SerializeField] private float _patrolTimer;
+
+
+    [Header("Wander Values")]
+    [SerializeField] public Vector3 currentDestination;
+    [SerializeField] private float _maxWalkDistance = 50f;
+
 
 
     [Header("Target")]
     [SerializeField] private GameObject _playerRef;
 
 
-   
+
+    
+    public NavMeshHit navHit;
+
+    
+
+
+
+    public NavMeshAgent Agent { get { return _agent; } }
     public Animator Animator { get { return _animator; } }
     public Transform[] Waypoints { get { return _waypoints; } }
     public int WaypointIndex { get { return _waypointIndex; } }
@@ -43,6 +65,10 @@ public class GhoulStateManager : MonoBehaviour
    
     public float MinSecondsToWait { get { return _minSecondsToWait; } set { _minSecondsToWait = value; } }
     public float MaxSecondsToWait { get { return _maxSecondsToWait; } set { _maxSecondsToWait = value; } }  
+
+  
+    public float MaxWalkDistance { get { return _maxWalkDistance; } }
+
 
     public float SecondsToWait { get { return _secondsToWait; } set { _secondsToWait = value; } }
     public GameObject PlayerRef { get { return _playerRef; } }
@@ -52,11 +78,29 @@ public class GhoulStateManager : MonoBehaviour
     private void Awake()
     {
         //Gets the components needed on awake
-        agent = GetComponent<NavMeshAgent>();
+        _agent = GetComponent<NavMeshAgent>();
         _playerRef = GameObject.FindGameObjectWithTag("Player");
         ghoulSightBehavior = GameObject.FindGameObjectWithTag("Ghoul").GetComponent<GhoulSightBehavior>();
         playerInputBehavior = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInputBehavior>();
 
+    }
+
+    private void OnEnable()
+    {
+        GhoulBaseState.onSwitchState += inactiveState.ExitState;
+        GhoulBaseState.onSwitchState += patrolState.ExitState;
+        GhoulBaseState.onSwitchState += wanderState.ExitState;
+        GhoulBaseState.onSwitchState += chaseState.ExitState;
+        GhoulBaseState.onSwitchState += attackState.ExitState;
+    }
+
+    private void OnDisable()
+    {
+        GhoulBaseState.onSwitchState -= inactiveState.ExitState;
+        GhoulBaseState.onSwitchState -= patrolState.ExitState;
+        GhoulBaseState.onSwitchState -= wanderState.ExitState;
+        GhoulBaseState.onSwitchState -= chaseState.ExitState;
+        GhoulBaseState.onSwitchState -= attackState.ExitState;
     }
 
 
@@ -74,12 +118,17 @@ public class GhoulStateManager : MonoBehaviour
     {
         //Gets the reference to the state that is currently being used
         currentState.UpdateState(this);
+
+        _decimalPatrolTimer += Time.deltaTime;
+
+        _patrolTimer = Mathf.RoundToInt(_decimalPatrolTimer);
     }
 
     public void SwitchState(GhoulBaseState state)
     {
         currentState = state;
         state.EnterState(this);
+        GhoulBaseState.onSwitchState?.Invoke();
     }
 
 
@@ -95,10 +144,24 @@ public class GhoulStateManager : MonoBehaviour
     }
 
 
+    public void SetSecondsToWait()
+    {
+        //set the seconds to wait to be a random value
+        _secondsToWait = Random.Range(Mathf.FloorToInt(_minSecondsToWait), Mathf.FloorToInt(_maxSecondsToWait));
+    }
+
+
+
+    public void AnimateGhoul()
+    {
+        Animator.SetFloat("Speed", Agent.velocity.magnitude);
+    }
+
+
     public void UpdateDestination()
     {
         _target = _waypoints[_waypointIndex].position;
-        agent.SetDestination(_target);
+        _agent.SetDestination(_target);
     }
 
     public void IterateWaypointIndex()
@@ -110,24 +173,133 @@ public class GhoulStateManager : MonoBehaviour
         }
     }
 
-    public void SetSecondsToWait()
+   
+
+
+    public IEnumerator Patrol()
     {
-        //set the seconds to wait to be a random value
-        _secondsToWait = Random.Range(Mathf.FloorToInt(_minSecondsToWait), Mathf.FloorToInt(_maxSecondsToWait));
+
+        //Moves after a random time has passed 
+        yield return new WaitForSeconds(SecondsToWait);
+        UpdateDestination();
+
+        
+
+        //Moves after a random time has passed
+        yield return new WaitForSeconds(SecondsToWait);
+        IterateWaypointIndex();
+
+
+        if (ghoulSightBehavior.canSeePlayer)
+        {
+
+            Debug.Log("Ending loop");
+            yield break;
+        }
     }
 
-    
-    public IEnumerator Patrol()
+    public void NewPatrol()
+    {
+        
+
+        //update the destination of the ghoul
+        UpdateDestination();
+
+       
+
+        //check to see if the ghoul reached the destination
+        if (Agent.remainingDistance <= Agent.stoppingDistance && _patrolTimer == 20f)
+        {
+            _decimalPatrolTimer = 0f;
+
+            //if it did, iterate to the next waypoint
+            IterateWaypointIndex();
+
+           
+
+            //update destination of the ghoul for the new waypoint
+            UpdateDestination();
+
+            
+        }
+
+
+    }
+
+
+    public void CheckIfAgentReachedDestination()
+    {
+        if (!Agent.pathPending)
+        {
+            if (Agent.remainingDistance <= Agent.stoppingDistance)
+            {
+                if (!Agent.hasPath || Agent.velocity.sqrMagnitude == 0f)
+                {
+                    if(currentState == patrolState)
+                    {
+                       NewPatrol();
+                    }
+                    else if(currentState == wanderState) 
+                    {
+                       SetNewDestination();
+                    }
+
+                   
+                }
+            }
+        }
+    }
+
+
+
+
+
+
+    //WANDER
+
+    public void SetNewDestination()
     {
         while (true)
         {
-            //Moves after a random time has passed 
-            yield return new WaitForSeconds(SecondsToWait);
-            UpdateDestination();
+            NavMesh.SamplePosition(((Random.insideUnitSphere * MaxWalkDistance) + transform.position), out navHit, MaxWalkDistance, -1);
 
-            //Moves after a random time has passed
-            yield return new WaitForSeconds(SecondsToWait);
-            IterateWaypointIndex();
+            if (currentDestination != navHit.position)
+            {
+                currentDestination = navHit.position;
+                Debug.Log("Moving");
+                Agent.SetDestination(currentDestination);
+                break;
+               
+            }
+
         }
+    }
+
+
+
+
+
+  public void CheckIfAgentReachedDestinationForWander()
+    {
+        if (!Agent.pathPending)
+        {
+            if (Agent.remainingDistance <= Agent.stoppingDistance)
+            {
+                if (!Agent.hasPath || Agent.velocity.sqrMagnitude == 0f)
+                {
+                    SetNewDestination();
+                }
+            }
+        }
+    }
+
+
+    //Timer for how long the ghoul will wander before switching back to patrol
+    public IEnumerator WanderTimer()
+    {
+        yield return new WaitForSeconds(Random.Range(Mathf.FloorToInt(6), Mathf.FloorToInt(15)));
+        SwitchState(patrolState);
+
+        _waypointIndex = 0;
     }
 }

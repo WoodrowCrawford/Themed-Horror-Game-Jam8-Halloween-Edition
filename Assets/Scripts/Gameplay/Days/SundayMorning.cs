@@ -4,6 +4,7 @@ using static DayManager;
 
 public class SundayMorning : BaseDay
 {
+    
 
     public enum SundayMorningTasks
     {
@@ -64,7 +65,7 @@ public class SundayMorning : BaseDay
         instance.flashlightBehavior.TurnOffFlashlight();
 
         //Sets current task to be nothing on start up
-        instance.task = SundayMorningTasks.NONE;
+        instance.currentSundayMorningTask = SundayMorningTasks.NONE;
 
         //Set up variables
         instance.days = Days.SUNDAY_MORNING;
@@ -107,14 +108,15 @@ public class SundayMorning : BaseDay
         // yield return new WaitForSeconds(3f);
 
         //show the wake up dialogue
-        DialogueUIBehavior.instance.ShowDialogue(instance.wakeUpDialouge);
+        SundayMorningDialogueManager.instance.PlayDialogue(SundayMorningDialogueManager.instance.wakeUpDialouge);
+   
 
         //Wait until the dialouge box is closed
         yield return new WaitUntil(() => !DialogueUIBehavior.IsOpen);
 
         /////////The player is then tasked with looking around
         /////////They will look around and interact with objects.
-        instance.task = SundayMorningTasks.LOOK_AROUND;
+        instance.currentSundayMorningTask = SundayMorningTasks.LOOK_AROUND;
         
 
 
@@ -122,11 +124,11 @@ public class SundayMorning : BaseDay
         yield return new WaitUntil(() => _playerInteractedWithAllTheObjects && !DialogueUIBehavior.IsOpen);
 
         //After examining everything, the player's parents will tell them that they need to clean up the room (start a dialogue here saying that)
-        DialogueUIBehavior.instance.ShowDialogue(instance.cleanUpDialogue);
+        SundayMorningDialogueManager.instance.PlayDialogue(SundayMorningDialogueManager.instance.cleanUpDialogue);
 
         //The player will then have the task of picking up items and putting them away.
         //(create a task for the player to clean up. items should do different things when interacted now, since they need to be picked up)
-        instance.task = SundayMorningTasks.CLEAN_UP;
+        instance.currentSundayMorningTask = SundayMorningTasks.CLEAN_UP;
 
         //When the player tries to put away the dummies, whenever the player is not looking at the dummies, move them back to the spot they began.
         //Do this a few times. (This will be done in the toybox trigger behavior)
@@ -140,13 +142,15 @@ public class SundayMorning : BaseDay
         yield return new WaitForSeconds(2f);
 
         //plays the dialogue 
-        DialogueUIBehavior.instance.ShowDialogue(instance.gettingSleepyDialogue);
+        SundayMorningDialogueManager.instance.PlayDialogue(SundayMorningDialogueManager.instance.gettingSleepyDialogue);
+
+      
 
         //wait until the dialogue box is closed
         yield return new WaitUntil(() => !DialogueUIBehavior.IsOpen);
 
         //set the task to be say goodnight to the toys
-        instance.task = SundayMorningTasks.SAY_GOODNIGHT_TO_TOYS;
+        instance.currentSundayMorningTask = SundayMorningTasks.SAY_GOODNIGHT_TO_TOYS;
 
         //wait until the player said goodnight to all the toys
         yield return new WaitUntil(() => _saidGoodnightToAllToys);
@@ -155,11 +159,12 @@ public class SundayMorning : BaseDay
         yield return new WaitForSeconds(2f);
 
         //show the dialogue
-        DialogueUIBehavior.instance.ShowDialogue(instance.goToBedDialogue);
+        SundayMorningDialogueManager.instance.PlayDialogue(SundayMorningDialogueManager.instance.goToBedDialogue);
+   
 
 
         //sets the task to be "go to bed"
-        instance.task = SundayMorningTasks.GO_TO_BED;
+        instance.currentSundayMorningTask = SundayMorningTasks.GO_TO_BED;
 
         //wait until the player is in the bed
         yield return new WaitUntil(() => PlayerInputBehavior.inBed);
@@ -185,7 +190,5 @@ public class SundayMorning : BaseDay
         yield return null;
     }
 
-    
-
-    
+  
 }

@@ -6,5 +6,4 @@ public abstract class ClownBaseState
 
     public abstract void UpdateState(ClownStateManager clown);
 
-
 }

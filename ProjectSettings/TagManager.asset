@@ -34,6 +34,8 @@ TagManager:
   - GameOverScreen
   - test
   - MainVCam
+  - DemoNightDialogues
+  - DialogueDataManager
   layers:
   - Default
   - TransparentFX

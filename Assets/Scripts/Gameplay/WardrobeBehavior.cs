@@ -13,7 +13,12 @@ public class WardrobeBehavior : MonoBehaviour, IInteractable
     [SerializeField] private string _interactionPrompt;
     [SerializeField] private DialogueObjectBehavior _wardrobeDialogue;
 
+    [Header("Demo Dialogue")]
+    [SerializeField] private DialogueObjectBehavior _wardrobeTutorialDialogue;
+
+    [Header("Triggers")]
     [SerializeField] private GameObject _wardrobeDoorTrigger;
+
     [SerializeField] private GameObject _player;
 
     [Header("Wardrobe Positions")]
@@ -23,13 +28,19 @@ public class WardrobeBehavior : MonoBehaviour, IInteractable
 
 
 
-    public bool actionOnCoolDown = false;
-    public bool playerCanOpenWardrobe;
-    public bool wardrobeDoorIsOpen = false;
-    public bool playerCanGetInWardrobe = false;
-    public bool playerIsInWardrobe = false;
+    [SerializeField] private bool _actionOnCoolDown = false;
+    [SerializeField] private bool _playerCanOpenWardrobe;
+    [SerializeField] private bool _wardrobeDoorIsOpen = false;
+    [SerializeField] private bool _playerCanGetInWardrobe = false;
+    [SerializeField] private bool _playerIsInWardrobe = false;
 
 
+
+    public bool ActionOnCoolDown { get { return _actionOnCoolDown; } }
+    public bool PlayerCanOpenWardrobe { get { return _playerCanOpenWardrobe;} }
+    public bool WardrobeDoorIsOpen { get { return _wardrobeDoorIsOpen; } }
+    public bool PlayerCanGetInWardrobe { get { return _playerCanGetInWardrobe;} }
+    public bool PlayerIsInWardrobe { get { return _playerIsInWardrobe;} }
     public string InteractionPrompt => _interactionPrompt;
 
     public DialogueObjectBehavior DialogueObject => _wardrobeDialogue;
@@ -38,26 +49,22 @@ public class WardrobeBehavior : MonoBehaviour, IInteractable
 
     private void OnEnable()
     {
-        GameManager.onGameStarted += test;
+        GameManager.onGameStarted += GetInitializers;
+        GameManager.onGameEnded += ResetInitializers;
     }
 
     private void OnDisable()
     {
-        GameManager.onGameStarted -= test;
+        GameManager.onGameStarted -= GetInitializers;
+        GameManager.onGameEnded -= ResetInitializers;
     }
 
 
 
     private void Update()
     {
-        //Gets the player input behavior when the player is in the bedroom scene
-        if(SceneManager.GetActiveScene() == SceneManager.GetSceneByName("BedroomScene"))
-        {
-            playerInputBehavior = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInputBehavior>();
-        }
-
-
-        if (playerCanGetInWardrobe && playerInputBehavior.playerControls.OutOfBed.GetInBed.WasPerformedThisFrame())
+        //if the player can get in the wardrobe and the get in bed action was performed this frame
+        if (_playerCanGetInWardrobe && playerInputBehavior.playerControls.OutOfBed.GetInBed.WasPerformedThisFrame())
         {
             ToggleGetInOutOfWardrobe();
         }
@@ -66,44 +73,73 @@ public class WardrobeBehavior : MonoBehaviour, IInteractable
     public IEnumerator OpenWardrobeDoor()
     {
         animator.Play("WardrobeDoorOpenAnim");
-        actionOnCoolDown = true;
-        wardrobeDoorIsOpen = true;
+        _actionOnCoolDown = true;
+        _wardrobeDoorIsOpen = true;
         yield return new WaitForSeconds(1.2f);
 
-        actionOnCoolDown = false;
+        _actionOnCoolDown = false;
         
     }
 
     public IEnumerator CloseWardrobeDoor()
     {
         animator.Play("WardrobeDoorCloseAnim");
-        actionOnCoolDown = true;
-        wardrobeDoorIsOpen = false;
+        _actionOnCoolDown = true;
+        _wardrobeDoorIsOpen = false;
         yield return new WaitForSeconds(1.2f);
-        actionOnCoolDown = false;
+        _actionOnCoolDown = false;
     }
 
 
     public void Interact(Interactor Interactor)
     {
-        if(DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.task == SundayMorning.SundayMorningTasks.LOOK_AROUND)
+        //if it is sunday morning and the current task is to look around...
+        if(DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.currentSundayMorningTask == SundayMorning.SundayMorningTasks.LOOK_AROUND)
         {
+            //play the wardrobe dialogue
             DialogueUIBehavior.instance.ShowDialogue(_wardrobeDialogue);
         }
 
+        //else if it is monday night
         else if(DayManager.instance.days == DayManager.Days.MONDAY_NIGHT)
         {
-            if (!wardrobeDoorIsOpen && !actionOnCoolDown)
+            if (!_wardrobeDoorIsOpen && !_actionOnCoolDown)
             {
                 //opens the door if the door is closed and there is no cooldown
                 StartCoroutine(OpenWardrobeDoor());
                
 
             }
-            else if (wardrobeDoorIsOpen && !actionOnCoolDown)
+            else if (_wardrobeDoorIsOpen && !_actionOnCoolDown)
             {
                 //Closes the door if the door is open and there is no cooldown
                 StartCoroutine(CloseWardrobeDoor());
+            }
+        }
+
+        //else if it is the demo night and the current task is to examine the room...
+        else if(DayManager.instance.days == DayManager.Days.DEMO && DayManager.instance.currentDemoNightTask == DemoNight.DemoNightTasks.EXAMINE_ROOM)
+        {
+            DialogueUIBehavior.instance.ShowDialogue(_wardrobeTutorialDialogue);
+        }
+        
+        //else if it is the demo night and the current task is to sleep...
+        else if(DayManager.instance.days == DayManager.Days.DEMO && DayManager.instance.currentDemoNightTask == DemoNight.DemoNightTasks.SLEEP)
+        {
+            //if the wardrobe is not open and the action is not on cooldown...
+            if (!_wardrobeDoorIsOpen && !_actionOnCoolDown)
+            {
+                //opens the door if the door is closed and there is no cooldown
+                StartCoroutine(OpenWardrobeDoor());
+
+
+            }
+            
+            //else if the wardrobe is open and the action is not on cooldown...
+            else if (_wardrobeDoorIsOpen && !_actionOnCoolDown)
+            {
+                //Closes the door if the door is open and there is no cooldown
+                StartCoroutine(CloseWardrobeDoor()); 
             }
         }
     }
@@ -111,16 +147,16 @@ public class WardrobeBehavior : MonoBehaviour, IInteractable
 
     public void ToggleGetInOutOfWardrobe()
     {
-        if(!playerIsInWardrobe)
+        if(!_playerIsInWardrobe)
         {
             _player.transform.position = _insideWardrobePos.transform.position;
-            playerIsInWardrobe= true;
+            _playerIsInWardrobe= true;
 
         }
-        else if(playerIsInWardrobe)
+        else if(_playerIsInWardrobe)
         {
             _player.transform.position = _outsideWardrobePos.transform.position;
-            playerIsInWardrobe= false;
+            _playerIsInWardrobe= false;
         }
     }
 
@@ -128,26 +164,33 @@ public class WardrobeBehavior : MonoBehaviour, IInteractable
     //Checks to see if the player is close enough to the wardrobe to get inside it and if the door is already open
     private void OnTriggerStay(Collider other)
     {
-        if(wardrobeDoorIsOpen)
+        //if the door is open
+        if(_wardrobeDoorIsOpen)
         {
-            playerCanGetInWardrobe = true;
+            //the player is allowed to get in 
+            _playerCanGetInWardrobe = true;
         }
         else
         {
-            playerCanGetInWardrobe = false;
+            //the player is not allowed to get in
+            _playerCanGetInWardrobe = false;
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-       playerCanGetInWardrobe = false;
+       _playerCanGetInWardrobe = false;
     }
 
 
-    public void test()
+    public void GetInitializers()
     {
-        Debug.Log("testing!");
-        Debug.Log("YEP");
+        playerInputBehavior = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInputBehavior>();
+    }
+
+    public void ResetInitializers()
+    {
+        playerInputBehavior = null;
     }
 
     public void ResetPosition()

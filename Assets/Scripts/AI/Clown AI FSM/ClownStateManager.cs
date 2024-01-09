@@ -50,6 +50,7 @@ public class ClownStateManager : MonoBehaviour, IInteractable
     [SerializeField] private string _interactionPrompt;
     [SerializeField] private DialogueObjectBehavior _lookAtClownDialogue;
     [SerializeField] private DialogueObjectBehavior _notMovingTheClownDialogue;
+    [SerializeField] private DialogueObjectBehavior _clownTutorialDialouge;
     public static bool IsInteracted = false;
 
     public NavMeshAgent Agent { get { return _agent; } }
@@ -105,9 +106,7 @@ public class ClownStateManager : MonoBehaviour, IInteractable
     //Initializes the clown (used by the game manager)
     public static void InitializeClown(GameObject clownThisBelongsTo, bool active)
     {
-        
         clownThisBelongsTo.GetComponent<ClownStateManager>()._isActive = active;
-
     }
 
 
@@ -123,13 +122,6 @@ public class ClownStateManager : MonoBehaviour, IInteractable
         //Sets the clown is up bool to true
         _clownIsUp = true;
 
-    }
-
-
-    //A function used to check if the player is in bed
-    public void CheckIfPlayerIsInBed()
-    {
-       
     }
 
 
@@ -187,8 +179,8 @@ public class ClownStateManager : MonoBehaviour, IInteractable
 
     public void Interact(Interactor Interactor)
     {
-        //if the day is sunday morning...
-        if (DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.task == SundayMorning.SundayMorningTasks.LOOK_AROUND)
+        //if the day is sunday morning and the current task is to look around
+        if (DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.currentSundayMorningTask == SundayMorning.SundayMorningTasks.LOOK_AROUND)
         {
             //sets to be true
             IsInteracted = true;
@@ -197,10 +189,16 @@ public class ClownStateManager : MonoBehaviour, IInteractable
         }
 
         //else if the day is sunday morning and the task is to clean up...
-        else if (DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.task == SundayMorning.SundayMorningTasks.CLEAN_UP)
+        else if (DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.currentSundayMorningTask == SundayMorning.SundayMorningTasks.CLEAN_UP)
         {
             //plays the dialogue
             DialogueUIBehavior.instance.ShowDialogue(_notMovingTheClownDialogue);
+        }
+
+        //If it is the demo and the task is to examine the room...
+        else if(DayManager.instance.days == DayManager.Days.DEMO && DayManager.instance.currentDemoNightTask == DemoNight.DemoNightTasks.EXAMINE_ROOM)
+        {
+            DialogueUIBehavior.instance.ShowDialogue(_clownTutorialDialouge);
         }
     }
 

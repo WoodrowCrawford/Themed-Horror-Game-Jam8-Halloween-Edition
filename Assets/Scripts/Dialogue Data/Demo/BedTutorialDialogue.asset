@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3667a4296b0115b40ad167e804a58408, type: 3}
+  m_Name: BedTutorialDialogue
+  m_EditorClassIdentifier: 
+  _dialogue:
+  - (This is your very own bed! Press the left shift key to get in it.)
+  - (While in the bed, you can still look around and use your flashlight as you would
+    if you were out of bed.)
+  - (Hold the spacebar to close your eyes and sleep.)
+  - (Keep in mind that your flashlight will automatifcally turn off when you sleep.)
+  - (You can also hide under the bed by pressing the "Q" key.)
+  _responses: []

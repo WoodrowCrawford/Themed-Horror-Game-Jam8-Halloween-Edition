@@ -9,6 +9,8 @@ public class GhoulInactiveState : GhoulBaseState
         Debug.Log("Ghoul is in the inactive state");
     }
 
+   
+
     public override void UpdateState(GhoulStateManager ghoul)
     {
         if(ghoul.isActive)
@@ -19,5 +21,10 @@ public class GhoulInactiveState : GhoulBaseState
         {
             Debug.Log("Ghoul is inactive!");
         }
+    } 
+    
+    public override void ExitState()
+    {
+        Debug.Log("ghoul inactive exit state");
     }
 }

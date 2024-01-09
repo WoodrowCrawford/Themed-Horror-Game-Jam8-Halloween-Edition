@@ -108,6 +108,9 @@ public class DialogueUIBehavior : MonoBehaviour
     }
 
 
+
+    
+
     //A function that adds response events
     public void AddResponseEvents(ResponseEvent[] responseEvents)
     {

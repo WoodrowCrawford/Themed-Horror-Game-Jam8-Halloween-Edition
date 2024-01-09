@@ -68,6 +68,7 @@ public class GameManager : MonoBehaviour
     }
    
   
+  
 
     public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
@@ -143,9 +144,5 @@ public class GameManager : MonoBehaviour
         PauseSystem.isPaused = false;
         Time.timeScale = 1.0f;
         LevelManager.instance.LoadScene(sceneName);    
-    }
-
-
-    //controls the game over screen
-   
+    }   
 }

@@ -4,7 +4,6 @@ using static DayManager;
 
 public class SundayNight : BaseDay
 {
-
     public override void EnterState(DayManager day)
     {
         Debug.Log("Sunday night enter state");
@@ -101,4 +100,6 @@ public class SundayNight : BaseDay
 
         yield return null;
     }
+
+    
 }

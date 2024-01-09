@@ -14,11 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _dialogue:
   - (Hello, hello, welcome to the demo night of Insomnia!)
-  - (I know you probably have a lot of questions, and I will try to get to them shortly.)
-  - (But let's get the most important things out the way first. This is a DEMO, understand?)
-  - (That means that everything you see now is not final.)
-  - (This demo will also most likely be a tad bit difficult, but you seem like a
-    skillful individual, so you will probably be fine.)
-  - (This demo will also most likely be a tad bit difficult, but you seem like a
-    skillful individual, so you will probably be fine.)
-  _responses: []
+  - (Rather than explaining all the mechanics to you in a big wall of text, I'm going
+    to let you walk around the room and examine things on your own.)
+  - (Whenever you are ready, get back into bed and interact with it to start the
+    game.)
+  _responses:
+  - _responseText: Yes
+    _dialogueObject: {fileID: 11400000, guid: 9c4ae8d9731b6eb4f87f1bd5c2bf832f, type: 2}
+  - _responseText: No
+    _dialogueObject: {fileID: 11400000, guid: f091c47c2e541594e8a2d053c642a932, type: 2}

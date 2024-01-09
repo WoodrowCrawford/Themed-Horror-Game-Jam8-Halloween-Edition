@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 using Debug = UnityEngine.Debug;
 
 public class DayManager : MonoBehaviour
@@ -19,6 +20,8 @@ public class DayManager : MonoBehaviour
     public TuesdayMorning tuesdayMorning = new TuesdayMorning();
     public DemoNight demoNight = new DemoNight();
 
+
+    
 
     public enum Days
     {
@@ -47,34 +50,21 @@ public class DayManager : MonoBehaviour
     }
 
 
-    
+
 
     //A enum Days variable called days
     public Days days;
 
 
+
     
-    [Header("Sunday Morning Dialogue")]
-    public DialogueObjectBehavior introDialogue;
-    public DialogueObjectBehavior startUpDreamDialogue;
-    public DialogueObjectBehavior wakeUpDialouge;
-    public DialogueObjectBehavior cleanUpDialogue;
-    public DialogueObjectBehavior gettingSleepyDialogue;
-    public DialogueObjectBehavior goToBedDialogue;
-    public DialogueObjectBehavior DummyReapperedFirstTimeDialogue;
-    public DialogueObjectBehavior DummyReappearedSecondTimeDialogue;
-    public DialogueObjectBehavior DummyReappearedThirdTimeDialogue;
-    public DialogueObjectBehavior DummyIsNoLongerTeleportingDialogue;
 
 
     //A enum Tasks variable called task
-    public SundayMorning.SundayMorningTasks task;
+    public SundayMorning.SundayMorningTasks currentSundayMorningTask;
+    public DemoNight.DemoNightTasks currentDemoNightTask;
 
 
-  
-
-
-    
 
 
     [Header("Sunday Night Dialogue")]
@@ -82,9 +72,9 @@ public class DayManager : MonoBehaviour
 
 
 
-    [Header("Demo Dialogue")]
-    public DialogueObjectBehavior demoIntroDialogue;
-    
+    public DemoDialogueManager demoDialogueManager;
+   
+
 
 
     [Header("Today's Date Game Object")]
@@ -125,6 +115,8 @@ public class DayManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        demoDialogueManager = GameObject.FindGameObjectWithTag("DemoNightDialogues").GetComponent<DemoDialogueManager>();
     }
 
 
@@ -150,7 +142,7 @@ public class DayManager : MonoBehaviour
         //tuesday on stop story
         GameManager.onStopStory += tuesdayMorning.ExitState;
 
-
+        //demo on stop story
         GameManager.onStopStory += demoNight.ExitState;
 
         //sunday on switch state
@@ -161,15 +153,16 @@ public class DayManager : MonoBehaviour
         BaseDay.onSwitchState += mondayMorning.ExitState;
         BaseDay.onSwitchState += mondayNight.ExitState;
 
+        //demo night on switch state
         BaseDay.onSwitchState += demoNight.ExitState;
 
-
+       
 
     }
 
     private void OnDisable()
     {
-        //Unsubscribes the events on disable
+        //Unsubscribes to the events when this gameobject is disabled
 
         GameManager.onGameStarted -= GetInitializers;
         GameManager.onStartStory -= CheckWhichDayToStart;
@@ -177,20 +170,30 @@ public class DayManager : MonoBehaviour
 
 
         //What happens when the story is stopped by quitting the game
+
+        //sunday on stop story
         GameManager.onStopStory -= sundayMorning.ExitState;
         GameManager.onStopStory -= sundayNight.ExitState;
 
-
+        //monday on stop story
         GameManager.onStopStory -= mondayMorning.ExitState;
+        GameManager.onStopStory -= mondayNight.ExitState;
 
+        //tuesday on stop story
+        GameManager.onStopStory -= tuesdayMorning.ExitState;
+
+        //demo on stop story
         GameManager.onStopStory -= demoNight.ExitState;
 
-
+        //sunday on switch state
         BaseDay.onSwitchState -= sundayMorning.ExitState;
         BaseDay.onSwitchState -= sundayNight.ExitState;
 
+        //monday on switch state
         BaseDay.onSwitchState -= mondayMorning.ExitState;
+        BaseDay.onSwitchState -= mondayNight.ExitState;
 
+        //demo night on switch state
         BaseDay.onSwitchState -= demoNight.ExitState;
 
     }
@@ -214,7 +217,23 @@ public class DayManager : MonoBehaviour
     }
 
 
-    //This script will run once when the story started event fires
+
+    //A function that changes the task based off of the string given
+    public void ChangeTask(string taskName)
+    {
+        if(taskName == "Examine Room")
+        {
+            currentDemoNightTask = DemoNight.DemoNightTasks.EXAMINE_ROOM;
+        }
+
+        else if(taskName == "Sleep")
+        {
+            currentDemoNightTask = DemoNight.DemoNightTasks.SLEEP;
+        }
+    }
+
+   
+    //A function that checks what day to start when the event is called
     public void CheckWhichDayToStart()
     {
         if (days == Days.SUNDAY_MORNING)
@@ -234,62 +253,62 @@ public class DayManager : MonoBehaviour
         else if (days == Days.MONDAY_MORNING)
         {
             //Monday morning
-            StartCoroutine(StartMondayMorning());
+            Debug.Log("Start monday morning");
         }
         else if (days == Days.MONDAY_NIGHT)
         {
             //Monday night
-            StartCoroutine(StartMondayNight());
+            Debug.Log("Start monday night");
         }
         else if (days == Days.TUESDAY_MORNING)
         {
             //Tuesday morning
-            StartCoroutine(StartTuesdayMorning());
+            Debug.Log("Start Tuesday morning");
         }
         else if (days == Days.TUESDAY_NIGHT)
         {
             //Tuesday night
-            StartCoroutine(StartTuesdayNight());
+            Debug.Log("Start tuesday night");
         }
         else if (days == Days.WEDNESDAY_MORNING)
         {
             //Wednesday morning
-            StartCoroutine(StartWednesdayMorning());
+            Debug.Log("start wednesday morning");
         }
         else if (days == Days.WEDNESDAY_NIGHT)
         {
             //Wednesday night
-            StartCoroutine(StartWednesdayNight());
+            Debug.Log("Start wednesday night");
         }
         else if (days == Days.THURSDAY_MORNING)
         {
             //Thursday morning
-            StartCoroutine(StartThursdayMorning());
+            Debug.Log("Start thursday morning");
         }
         else if (days == Days.THURSDAY_NIGHT)
         {
             //Thursday night
-            StartCoroutine(StartThursdayNight());
+            Debug.Log("start thursday night");
         }
         else if (days == Days.FRIDAY_MORNING)
         {
             //Friday morning
-            StartCoroutine(StartFridayMorning());
+            Debug.Log("start friday morning");
         }
         else if (days == Days.FRIDAY_NIGHT)
         {
             //Friday night
-            StartCoroutine(StartFridayNight());
+            Debug.Log("start friday night");
         }
         else if (days == Days.SATURDAY_MORNING)
         {
             //Saturday morning
-            StartCoroutine(StartSaturdayMorning());
+            Debug.Log("Start saturday morning");
         }
         else if (days == Days.SATURDAY_NIGHT)
         {
             //Saturday night
-            StartCoroutine(StartSaturdayNight());
+            Debug.Log("start saturday night");
         }
         else if (days == Days.DEMO)
         {
@@ -301,7 +320,7 @@ public class DayManager : MonoBehaviour
     
         
     
-
+    //A function that shows the current day
     public void CallShowTodaysDate()
     {
         StartCoroutine(_todaysDateGO.GetComponent<TodaysDateBehavior>().ShowTodaysDate());
@@ -324,175 +343,5 @@ public class DayManager : MonoBehaviour
 
         graphicsBehavior = GameObject.FindGameObjectWithTag("Graphics").GetComponent<GraphicsBehavior>();
     }
-
-
-
-
-
-
-    
-
-
-
-
-    
-
-
-    public IEnumerator StartMondayMorning()
-    {
-
-
-        //days = Days.MONDAY_MORNING;
-        //GraphicsBehavior.instance.SetDayTime();
-        //FindAIEnemies();
-
-        UnityEngine.Debug.Log("monday");
-
-        yield return null;
-    }
-
-    public IEnumerator StartMondayNight()
-    {
-        days= Days.MONDAY_NIGHT;
-        GraphicsBehavior.instance.SetNightTime();
-        GetInitializers();
-
-      
-
-         yield return null;
-    }
-
-
-
-
-    public IEnumerator StartTuesdayMorning()
-    {
-        days = Days.TUESDAY_MORNING;
-        GraphicsBehavior.instance.SetDayTime();
-        GetInitializers();
-
-       
-        yield return null;
-    }
-
-
-    public IEnumerator StartTuesdayNight()
-    {
-        days = Days.TUESDAY_NIGHT;
-        GraphicsBehavior.instance.SetNightTime();
-        GetInitializers();
-
-       
-
-        yield return null;
-    }
-
-
-
-
-    public IEnumerator StartWednesdayMorning()
-    {
-        days = Days.WEDNESDAY_MORNING;
-        GraphicsBehavior.instance.SetDayTime();
-        GetInitializers();
-
-       
-
-        yield return null;
-    }
-
-    public IEnumerator StartWednesdayNight()
-    {
-        days = Days.WEDNESDAY_NIGHT;
-        GraphicsBehavior.instance.SetNightTime();
-        GetInitializers();
-
-      
-
-        yield return null;
-    }
-
-
-
-
-
-    public IEnumerator StartThursdayMorning()
-    {
-        days = Days.THURSDAY_MORNING;
-        GraphicsBehavior.instance.SetDayTime();
-        GetInitializers();
-
-        
-
-        yield return null;
-    }
-
-    public IEnumerator StartThursdayNight()
-    {
-        days = Days.THURSDAY_NIGHT;
-        GraphicsBehavior.instance.SetNightTime();
-        GetInitializers();
-
-        
-
-        yield return null;
-    }
-
-
-
-
-
-    public IEnumerator StartFridayMorning()
-    {
-        days = Days.FRIDAY_MORNING;
-        GraphicsBehavior.instance.SetDayTime();
-        GetInitializers();
-
-       
-
-        yield return null;
-    }
-
-
-    public IEnumerator StartFridayNight()
-    {
-        days = Days.FRIDAY_NIGHT;
-        GraphicsBehavior.instance.SetDayTime();
-        GetInitializers();
-
-       
-
-
-        yield return null;
-    }
-
-
-
-
-
-    public IEnumerator StartSaturdayMorning()
-    {
-        days = Days.SATURDAY_MORNING;
-        GraphicsBehavior.instance.SetDayTime();
-        GetInitializers();
-
-        
-
-        yield return null;
-    }
-
-
-    public IEnumerator StartSaturdayNight()
-    {
-        days = Days.SATURDAY_NIGHT;
-        GraphicsBehavior.instance.SetDayTime();
-        GetInitializers();
-
-        
-
-        yield return null;
-    }
-
-
     
 }

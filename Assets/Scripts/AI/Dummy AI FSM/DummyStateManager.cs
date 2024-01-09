@@ -273,7 +273,8 @@ public class DummyStateManager : MonoBehaviour, IInteractable
                     yield return new WaitForSeconds(3f);
 
                     //show the dialogue
-                    DialogueUIBehavior.instance.ShowDialogue(DayManager.instance.DummyReapperedFirstTimeDialogue);
+                    SundayMorningDialogueManager.instance.PlayDialogue(SundayMorningDialogueManager.instance.DummyReapperedFirstTimeDialogue);
+
 
 
                     //enables interaction
@@ -292,7 +293,7 @@ public class DummyStateManager : MonoBehaviour, IInteractable
                     dummyThisBelongsTo.GetComponent<DummyStateManager>().gameObject.transform.position = dummyThisBelongsTo.GetComponent<DummyStateManager>().OriginPos.position;
 
                     //show the dialogue
-                    DialogueUIBehavior.instance.ShowDialogue(DayManager.instance.DummyReappearedSecondTimeDialogue);
+                    SundayMorningDialogueManager.instance.PlayDialogue(SundayMorningDialogueManager.instance.DummyReappearedSecondTimeDialogue);
 
                     //enables interaction
                     canBeInteracted = true;
@@ -311,7 +312,7 @@ public class DummyStateManager : MonoBehaviour, IInteractable
                     dummyThisBelongsTo.GetComponent<DummyStateManager>().gameObject.transform.position = dummyThisBelongsTo.GetComponent<DummyStateManager>().OriginPos.position;
 
                     //show the dialogue
-                    DialogueUIBehavior.instance.ShowDialogue(DayManager.instance.DummyReappearedThirdTimeDialogue);
+                    SundayMorningDialogueManager.instance.PlayDialogue(SundayMorningDialogueManager.instance.DummyReappearedThirdTimeDialogue);
 
                     //enables interaction
                     canBeInteracted = true;
@@ -328,7 +329,7 @@ public class DummyStateManager : MonoBehaviour, IInteractable
                     yield return new WaitForSeconds(3f);
 
                     //show the dialogue
-                    DialogueUIBehavior.instance.ShowDialogue(DayManager.instance.DummyIsNoLongerTeleportingDialogue);
+                    SundayMorningDialogueManager.instance.PlayDialogue(SundayMorningDialogueManager.instance.DummyIsNoLongerTeleportingDialogue);
 
                     //set player can go to bed phase to be true
                     SundayMorning.startGoToBedPhase = true;
@@ -418,7 +419,7 @@ public class DummyStateManager : MonoBehaviour, IInteractable
     public void Interact(Interactor Interactor)
     {
         //if it is sunday morning and the task for the day is to look around...
-        if (DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.task == SundayMorning.SundayMorningTasks.LOOK_AROUND && canBeInteracted)
+        if (DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.currentSundayMorningTask == SundayMorning.SundayMorningTasks.LOOK_AROUND && canBeInteracted)
         {
             //sets to be true
             IsInteracted = true;
@@ -426,7 +427,7 @@ public class DummyStateManager : MonoBehaviour, IInteractable
             DialogueUIBehavior.instance.ShowDialogue(_dialogueObject);
         }
 
-        else if(DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.task == SundayMorning.SundayMorningTasks.CLEAN_UP && !SundayMorning.playerPutAllTheToysInTheToyBox && canBeInteracted)
+        else if(DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.currentSundayMorningTask == SundayMorning.SundayMorningTasks.CLEAN_UP && !SundayMorning.playerPutAllTheToysInTheToyBox && canBeInteracted)
         {
             //show dialogue here that the player should put the other toys away first
             DialogueUIBehavior.instance.ShowDialogue(_putOtherToysAwayFirst);
@@ -434,7 +435,7 @@ public class DummyStateManager : MonoBehaviour, IInteractable
 
 
         //if it is sunday morning and the task for the day is to clean up...
-        else if(DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.task == SundayMorning.SundayMorningTasks.CLEAN_UP && canBeInteracted)
+        else if(DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.currentSundayMorningTask == SundayMorning.SundayMorningTasks.CLEAN_UP && canBeInteracted)
         {
             //put pick up code here!
             StartCoroutine(Interactor.TogglePickUp(this.gameObject));

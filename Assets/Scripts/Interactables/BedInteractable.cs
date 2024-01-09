@@ -10,6 +10,11 @@ public class BedInteractable : MonoBehaviour, IInteractable
     [SerializeField] private DialogueObjectBehavior _cleanUpBeforeSleepingDialogue;
     [SerializeField] private DialogueObjectBehavior _tellPlayerHowToGetInBedDialogue;
 
+    [Header("Demo Dialogue")]
+    public DialogueObjectBehavior _bedTutorialDialogue;
+    public DialogueObjectBehavior _startTheDemoDialogue;
+  
+
     [Header("Positions")]
     [SerializeField] private Transform _originalPos;
 
@@ -21,10 +26,19 @@ public class BedInteractable : MonoBehaviour, IInteractable
 
     public void Interact(Interactor Interactor)
     {
-        
+
+        //If the object has responses
+        if (TryGetComponent(out DialogueResponseEvents responseEvents) && responseEvents.DialogueObject == DialogueObject)
+        {
+            //get the responses
+            Interactor.DialogueUI.AddResponseEvents(responseEvents.Events);
+        }
+
+
+
 
         //if it is sunday morning and the task is to look around and the player is in the bed already
-        if (DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.task == SundayMorning.SundayMorningTasks.LOOK_AROUND && PlayerInputBehavior.inBed)
+        if (DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.currentSundayMorningTask == SundayMorning.SundayMorningTasks.LOOK_AROUND && PlayerInputBehavior.inBed)
         {
             //show dialogue
             DialogueUIBehavior.instance.ShowDialogue(_getOutOfBedDialogue);
@@ -32,24 +46,55 @@ public class BedInteractable : MonoBehaviour, IInteractable
 
 
         //if it is sunday morning and the task is to look around and the player is not in the bed
-        if (DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.task == SundayMorning.SundayMorningTasks.LOOK_AROUND && !PlayerInputBehavior.inBed)
+        if (DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.currentSundayMorningTask == SundayMorning.SundayMorningTasks.LOOK_AROUND && !PlayerInputBehavior.inBed)
         {
             //show dialogue
             DialogueUIBehavior.instance.ShowDialogue(_lookingAtTheBedDialogue);
         }
 
         //else if it is sunday morning and the task is to clean up...
-        else if (DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.task == SundayMorning.SundayMorningTasks.CLEAN_UP)
+        else if (DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.currentSundayMorningTask == SundayMorning.SundayMorningTasks.CLEAN_UP)
         {
             //show dialogue
             DialogueUIBehavior.instance.ShowDialogue(_cleanUpBeforeSleepingDialogue);
         }
 
         //else if it is sunday morning and the task is to go bed
-        else if (DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.task == SundayMorning.SundayMorningTasks.GO_TO_BED)
+        else if (DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.currentSundayMorningTask == SundayMorning.SundayMorningTasks.GO_TO_BED)
         {
-            
             DialogueUIBehavior.instance.ShowDialogue(_tellPlayerHowToGetInBedDialogue);
+        }
+
+        //else if it is the demo night and the player wants to look around the room and is NOT in bed
+        else if(DayManager.instance.days == DayManager.Days.DEMO && DayManager.instance.currentDemoNightTask == DemoNight.DemoNightTasks.EXAMINE_ROOM && !PlayerInputBehavior.inBed)
+        {
+            DialogueUIBehavior.instance.ShowDialogue(_bedTutorialDialogue);
+        }
+
+        //else if it is the demo night and the task is to examine the room and the player is in the bed
+        else if(DayManager.instance.days == DayManager.Days.DEMO && DayManager.instance.currentDemoNightTask == DemoNight.DemoNightTasks.EXAMINE_ROOM && PlayerInputBehavior.inBed)
+        {
+            //Ask the player if they want to start the demo or not
+            //DialogueUIBehavior.instance.ShowDialogue(_startTheDemoDialogue);
+            PlayBedDialogue(_startTheDemoDialogue);
+        }
+    }
+
+    public void CallChangeTask(string taskName)
+    {
+        Debug.Log("Bed event works");
+        DayManager.instance.ChangeTask(taskName);
+    }
+
+    private void PlayBedDialogue(DialogueObjectBehavior dialogueToPlay)
+    {
+        DialogueUIBehavior.instance.ShowDialogue(dialogueToPlay);
+
+        //If the object has responses
+        if (TryGetComponent(out DialogueResponseEvents responseEvents) && responseEvents.DialogueObject == dialogueToPlay)
+        {
+            //get the responses
+            DialogueUIBehavior.instance.AddResponseEvents(responseEvents.Events);
         }
     }
 
