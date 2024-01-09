@@ -119,6 +119,7 @@ public class GhoulStateManager : MonoBehaviour
         //Gets the reference to the state that is currently being used
         currentState.UpdateState(this);
 
+       
         _decimalPatrolTimer += Time.deltaTime;
 
         _patrolTimer = Mathf.RoundToInt(_decimalPatrolTimer);
@@ -176,27 +177,7 @@ public class GhoulStateManager : MonoBehaviour
    
 
 
-    public IEnumerator Patrol()
-    {
-
-        //Moves after a random time has passed 
-        yield return new WaitForSeconds(SecondsToWait);
-        UpdateDestination();
-
-        
-
-        //Moves after a random time has passed
-        yield return new WaitForSeconds(SecondsToWait);
-        IterateWaypointIndex();
-
-
-        if (ghoulSightBehavior.canSeePlayer)
-        {
-
-            Debug.Log("Ending loop");
-            yield break;
-        }
-    }
+   
 
     public void NewPatrol()
     {
@@ -207,12 +188,16 @@ public class GhoulStateManager : MonoBehaviour
 
        
 
-        //check to see if the ghoul reached the destination
-        if (Agent.remainingDistance <= Agent.stoppingDistance && _patrolTimer == 20f)
+        //check to see if the ghoul reached the destination and if the patrol timer is greater than or equal to the seconds to wait
+        if (Agent.remainingDistance <= Agent.stoppingDistance && _patrolTimer >= _secondsToWait)
         {
+            //restart the timer
             _decimalPatrolTimer = 0f;
 
-            //if it did, iterate to the next waypoint
+            //sets seconds to wait to a random number
+            SetSecondsToWait();
+
+            //iterate to the next waypoint
             IterateWaypointIndex();
 
            

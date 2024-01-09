@@ -52,7 +52,7 @@ public class DemoNight : BaseDay
     {
         //This is the demo night
         //The player will be hit with the all the enemies and will have to sleep in order to win
-        GhoulStateManager.InitializeGhoulValues(instance.Ghoul, Random.Range(1, 4), Random.Range(5, 7), true);
+        GhoulStateManager.InitializeGhoulValues(instance.Ghoul, 15, 35, true);
 
         
 

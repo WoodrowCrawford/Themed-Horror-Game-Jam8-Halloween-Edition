@@ -26,7 +26,7 @@ public class GhoulWanderState : GhoulBaseState
 
     public override void ExitState()
     {
-        ghoulStateManager.StopCoroutine(ghoulStateManager.WanderTimer());
+        ghoulStateManager?.StopCoroutine(ghoulStateManager.WanderTimer());
         Debug.Log("Ghoul wander exit state");
     }
 

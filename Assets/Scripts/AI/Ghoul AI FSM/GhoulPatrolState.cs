@@ -9,10 +9,9 @@ public class GhoulPatrolState : GhoulBaseState
 
     public override void EnterState(GhoulStateManager ghoul)
     {
-       
         Debug.Log("Ghoul is in the patrol state");
+   
         ghoul.SetSecondsToWait();
-       
 
         ghoulStateManager = GameObject.FindGameObjectWithTag("Ghoul").GetComponent<GhoulStateManager>();
     }
@@ -40,7 +39,7 @@ public class GhoulPatrolState : GhoulBaseState
 
     public override void ExitState()
     {
-        ghoulStateManager.StopCoroutine(ghoulStateManager.Patrol());
+        
     }
 
 }
