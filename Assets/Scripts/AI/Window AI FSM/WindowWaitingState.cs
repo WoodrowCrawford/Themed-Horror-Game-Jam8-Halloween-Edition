@@ -1,0 +1,46 @@
+using System.Collections;
+using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEngine;
+
+public class WindowWaitingState : WindowBaseState
+{
+    public WindowStateManager windowStateManger;
+
+    public override void EnterState(WindowStateManager window)
+    {
+        //gets the component
+       windowStateManger = GameObject.FindGameObjectWithTag("Window").GetComponent<WindowStateManager>();
+
+        //calculates the wait time on startup
+        window.StartCoroutine(CalculateWaitTime());
+    }
+
+
+    public override void UpdateState(WindowStateManager window)
+    {
+        //testing
+        Debug.Log("window waiting state update");  
+    } 
+    
+
+    public override void ExitState()
+    {
+        //testing
+        Debug.Log("window waiting state exit");
+
+        //stops the coroutine when the exit state is called
+        windowStateManger.StopCoroutine(CalculateWaitTime());
+    }
+
+
+    public IEnumerator CalculateWaitTime()
+    {
+       //wait a random amount of seconds between the min seconds to wait and the max seconds to wait
+        yield return new WaitForSeconds(Random.Range(windowStateManger.MinSecondsToWait, windowStateManger.MaxSecondsToWait));
+
+        //switch to the opening state
+        windowStateManger.SwitchState(windowStateManger.openingState);
+        
+    }
+}

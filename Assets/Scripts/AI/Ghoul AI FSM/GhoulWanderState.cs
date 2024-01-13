@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -7,8 +6,7 @@ public class GhoulWanderState : GhoulBaseState
     public GhoulStateManager ghoulStateManager;
 
     public override void EnterState(GhoulStateManager ghoul)
-    {
-       
+    { 
         Debug.Log("Ghoul is wandering");
         ghoul.StartCoroutine(ghoul.WanderTimer());
       
@@ -29,9 +27,5 @@ public class GhoulWanderState : GhoulBaseState
         ghoulStateManager?.StopCoroutine(ghoulStateManager.WanderTimer());
         Debug.Log("Ghoul wander exit state");
     }
-
-    
-
-   
 
 }

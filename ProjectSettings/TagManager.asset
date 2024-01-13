@@ -36,6 +36,7 @@ TagManager:
   - MainVCam
   - DemoNightDialogues
   - DialogueDataManager
+  - Window
   layers:
   - Default
   - TransparentFX

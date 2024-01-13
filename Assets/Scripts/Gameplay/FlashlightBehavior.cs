@@ -7,6 +7,7 @@ public class FlashlightBehavior : MonoBehaviour
     
     [Header("Flashlight Values")]
     [SerializeField] private bool _flashlightOn = false;
+    public static bool flashlightCanDeplete = false;
     [SerializeField] private float _batteryPower = 100;
     [SerializeField] private float _decreaseSpeed;
     [SerializeField] private Light _playerLight; //The main flashlight light component
@@ -28,11 +29,13 @@ public class FlashlightBehavior : MonoBehaviour
     private void OnEnable()
     {
         PlayerInputBehavior.onFlashlightToggled += ToggleFlashLight;
+      
     }
 
     private void OnDisable()
     {
         PlayerInputBehavior.onFlashlightToggled -= ToggleFlashLight;
+      
     }
 
 
@@ -42,8 +45,8 @@ public class FlashlightBehavior : MonoBehaviour
 
     private void Start()
     {
-       
 
+       
         if (GraphicsBehavior.instance.IsDayTime)
         {
             _flashlightOn = false;
@@ -71,10 +74,7 @@ public class FlashlightBehavior : MonoBehaviour
        
     }
 
-    public void Test()
-    {
-        Debug.Log("test");
-    }
+  
 
     public void CheckIfPlayerIsSleeping()
     {
@@ -94,8 +94,8 @@ public class FlashlightBehavior : MonoBehaviour
 
     public void HandleFlashlightBatteryPower()
     {
-        //if the flashlight is on...
-        if (_flashlightOn)
+        //if the flashlight is on and the battery is able to deplete...
+        if (_flashlightOn && flashlightCanDeplete)
         {
             //Decrease the battery while the flashlight is on
             _batteryPower -= (Time.deltaTime * _decreaseSpeed);
@@ -203,4 +203,5 @@ public class FlashlightBehavior : MonoBehaviour
     }
 
 
+    
 }

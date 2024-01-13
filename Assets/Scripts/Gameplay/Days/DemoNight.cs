@@ -39,12 +39,18 @@ public class DemoNight : BaseDay
     public void ExamnineRoomTask()
     {
         Debug.Log("Examine room event is running");
+
+        //tell the flashlight that it can not deplete the battery
+        FlashlightBehavior.flashlightCanDeplete = false;
     }
 
     public void SleepTask()
     {
         //Make enemies active here
         Debug.Log("sleep task event is running");
+
+        //Tell the flashlight that it can start delpleting the battery
+        FlashlightBehavior.flashlightCanDeplete = true;
     }
 
 
