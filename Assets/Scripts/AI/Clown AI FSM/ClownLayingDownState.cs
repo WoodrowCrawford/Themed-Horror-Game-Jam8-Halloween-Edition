@@ -5,6 +5,8 @@ public class ClownLayingDownState : ClownBaseState
     public override void EnterState(ClownStateManager clown)
     {
         Debug.Log("clown is in the laying down state");
+        clown.InteractionPrompt = "";
+        clown.highlightBehavior.isActive = false;
         
     }
 

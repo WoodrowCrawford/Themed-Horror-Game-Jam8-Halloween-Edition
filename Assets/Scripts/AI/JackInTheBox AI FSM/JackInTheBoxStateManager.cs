@@ -4,6 +4,7 @@ public class JackInTheBoxStateManager : MonoBehaviour, IInteractable
 {
     public PlayerInputBehavior playerInput;
     public JackInTheBoxRangeBehavior jackInTheBoxRangeBehavior;
+    public HighlightBehavior highlightBehavior;
 
     [Header("States")]
     JackInTheBoxBaseState currentState;
@@ -11,13 +12,13 @@ public class JackInTheBoxStateManager : MonoBehaviour, IInteractable
     public JackInTheBoxActiveState activeState = new JackInTheBoxActiveState();          //The active state for the jack in the box
     public JackInTheBoxOpenState openState = new JackInTheBoxOpenState();                //The open state for the jack in the box
 
-
   
 
     [Header("Jack In the Box Components")]
     public Animator animator;
     [SerializeField] private GameObject _handle;
     public bool isActive = false;
+
 
     [Header("Music Box Values")]
     public float musicDuration = 100.0f;
@@ -33,9 +34,11 @@ public class JackInTheBoxStateManager : MonoBehaviour, IInteractable
     [SerializeField] private string _interactionPrompt;
     [SerializeField] private DialogueObjectBehavior _dialogueObject;
     public static bool IsInteracted = false;
-
     public bool playerCanInteract;
 
+
+    public float DecreaseSpeed { get { return _decreaseSpeed; } set { _decreaseSpeed = value; } }
+    public float IncreaseSpeed { get { return _increaseSpeed; } set { _increaseSpeed = value; } }
     public string InteractionPrompt { get { return _interactionPrompt; } set { _interactionPrompt = value; } }
 
     public DialogueObjectBehavior DialogueObject => _dialogueObject;
@@ -48,6 +51,7 @@ public class JackInTheBoxStateManager : MonoBehaviour, IInteractable
         animator = GetComponent<Animator>();
         playerInput = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInputBehavior>();
         jackInTheBoxRangeBehavior = GetComponentInChildren<JackInTheBoxRangeBehavior>();
+        highlightBehavior = GetComponentInChildren<HighlightBehavior>();
 
         playerCanInteract = false;
     }
@@ -67,8 +71,30 @@ public class JackInTheBoxStateManager : MonoBehaviour, IInteractable
     {
         //Gets the reference to the state that is currently being used
         currentState.UpdateState(this);
+
+        //if it is the demo night and the current task is to examine the room...
+        if (DayManager.instance.days == DayManager.Days.DEMO && DayManager.instance.currentDemoNightTask == DemoNight.DemoNightTasks.EXAMINE_ROOM)
+        {
+            _interactionPrompt = "Examine";
+            highlightBehavior.isActive = true;
+        }
+
+        //else if it is the demo night and the current task is to sleep...
+        else if(DayManager.instance.days == DayManager.Days.DEMO && DayManager.instance.currentDemoNightTask == DemoNight.DemoNightTasks.SLEEP)
+        {
+            _interactionPrompt = "Interact";
+            highlightBehavior.isActive = true;
+        }
     }
 
+
+    public static void InitializeJackInTheBox(GameObject jackInTheBox, float increaseSpeed, float decreaseSpeed, bool isActive)
+    {
+        jackInTheBox.GetComponent<JackInTheBoxStateManager>().IncreaseSpeed = increaseSpeed;
+        jackInTheBox.GetComponent<JackInTheBoxStateManager>().DecreaseSpeed = decreaseSpeed;
+        jackInTheBox.GetComponent<JackInTheBoxStateManager>().isActive = isActive;
+        
+    }
 
 
     public void SwitchState(JackInTheBoxBaseState state)
@@ -78,14 +104,7 @@ public class JackInTheBoxStateManager : MonoBehaviour, IInteractable
     }
 
 
-    public void InitializeJackBox(float decreaseSpeed, float increaseSpeed, bool isActive)
-    {
-      _decreaseSpeed = decreaseSpeed;
-      _increaseSpeed = increaseSpeed;
-      this.isActive = isActive;
-    }
-
-
+    
 
     //Plays the music box
     public void PlayMusicBox()

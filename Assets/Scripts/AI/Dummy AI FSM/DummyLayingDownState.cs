@@ -11,6 +11,9 @@ public class DummyLayingDownState : DummyDefaultState
         //Testing message
         Debug.Log("Dummy is in the laying down state");
 
+        dummy.InteractionPrompt = "";
+        dummy.highlightBehavior.isActive = false;
+
         //change the layer of the dummy to be enemy so that the player can not interact with it
         dummy.gameObject.layer = 11;
 

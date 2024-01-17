@@ -5,6 +5,7 @@ using Debug = UnityEngine.Debug;
 
 public class WardrobeBehavior : MonoBehaviour, IInteractable
 {
+    public HighlightBehavior highlightBehavior;
   
     public PlayerInputBehavior playerInputBehavior;
     public Animator animator;
@@ -60,6 +61,12 @@ public class WardrobeBehavior : MonoBehaviour, IInteractable
     }
 
 
+    private void Awake()
+    {
+        highlightBehavior = GetComponentInChildren<HighlightBehavior>();
+    }
+
+
 
     private void Update()
     {
@@ -68,6 +75,19 @@ public class WardrobeBehavior : MonoBehaviour, IInteractable
         {
             ToggleGetInOutOfWardrobe();
         }
+
+        //if the current night is the demo night...
+        if(DayManager.instance.days == DayManager.Days.DEMO)
+        {
+            _interactionPrompt = "";
+            if(highlightBehavior != null)
+            {
+                highlightBehavior.isActive = false;
+            }
+
+            
+        }
+       
     }
 
     public IEnumerator OpenWardrobeDoor()
@@ -114,32 +134,6 @@ public class WardrobeBehavior : MonoBehaviour, IInteractable
             {
                 //Closes the door if the door is open and there is no cooldown
                 StartCoroutine(CloseWardrobeDoor());
-            }
-        }
-
-        //else if it is the demo night and the current task is to examine the room...
-        else if(DayManager.instance.days == DayManager.Days.DEMO && DayManager.instance.currentDemoNightTask == DemoNight.DemoNightTasks.EXAMINE_ROOM)
-        {
-            DialogueUIBehavior.instance.ShowDialogue(_wardrobeTutorialDialogue);
-        }
-        
-        //else if it is the demo night and the current task is to sleep...
-        else if(DayManager.instance.days == DayManager.Days.DEMO && DayManager.instance.currentDemoNightTask == DemoNight.DemoNightTasks.SLEEP)
-        {
-            //if the wardrobe is not open and the action is not on cooldown...
-            if (!_wardrobeDoorIsOpen && !_actionOnCoolDown)
-            {
-                //opens the door if the door is closed and there is no cooldown
-                StartCoroutine(OpenWardrobeDoor());
-
-
-            }
-            
-            //else if the wardrobe is open and the action is not on cooldown...
-            else if (_wardrobeDoorIsOpen && !_actionOnCoolDown)
-            {
-                //Closes the door if the door is open and there is no cooldown
-                StartCoroutine(CloseWardrobeDoor()); 
             }
         }
     }

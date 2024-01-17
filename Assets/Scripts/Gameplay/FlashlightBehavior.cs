@@ -3,7 +3,8 @@ using UnityEngine;
 
 
 public class FlashlightBehavior : MonoBehaviour
-{
+{ 
+
     
     [Header("Flashlight Values")]
     [SerializeField] private bool _flashlightOn = false;
@@ -15,9 +16,9 @@ public class FlashlightBehavior : MonoBehaviour
    
 
     public GameObject flashlightGameObject; //The main game object that contains the flashlight components
-    
 
-   
+
+    
     public bool FlashlightOn { get { return _flashlightOn; } set {  _flashlightOn = value; } }
     public float BatteryPower { get { return _batteryPower; } set { _batteryPower = value; } }
     public float DecreaseSpeed { get { return _decreaseSpeed; } set { _decreaseSpeed = value; } }
@@ -29,13 +30,19 @@ public class FlashlightBehavior : MonoBehaviour
     private void OnEnable()
     {
         PlayerInputBehavior.onFlashlightToggled += ToggleFlashLight;
+        WindowStateManager.onWindowOpened += () => SetFlashlightDecreaseSpeed(25f);
+        WindowStateManager.onWindowClosed += () => SetFlashlightDecreaseSpeed(9f);
+       
       
     }
 
     private void OnDisable()
     {
         PlayerInputBehavior.onFlashlightToggled -= ToggleFlashLight;
-      
+
+        WindowStateManager.onWindowOpened -= () => SetFlashlightDecreaseSpeed(25f);
+        WindowStateManager.onWindowClosed -= () => SetFlashlightDecreaseSpeed(9f);
+
     }
 
 
@@ -45,14 +52,15 @@ public class FlashlightBehavior : MonoBehaviour
 
     private void Start()
     {
-
-       
+        //if it is daytime...
         if (GraphicsBehavior.instance.IsDayTime)
         {
+            //set to be false
             _flashlightOn = false;
         }
         else
         {
+            //set to be true
             _flashlightOn = true;
         }
     }
@@ -91,6 +99,13 @@ public class FlashlightBehavior : MonoBehaviour
         }
     }
 
+    public void SetFlashlightDecreaseSpeed(float speed)
+    {
+        _decreaseSpeed = speed;
+        Debug.Log("flashlight decrease speed is " + speed);
+    }
+
+
 
     public void HandleFlashlightBatteryPower()
     {
@@ -100,14 +115,15 @@ public class FlashlightBehavior : MonoBehaviour
             //Decrease the battery while the flashlight is on
             _batteryPower -= (Time.deltaTime * _decreaseSpeed);
 
-            //Turn off the flashlight if it reaches 0
+            //if the flashlight power is less than or equal to 0...
             if (_batteryPower <= 0)
             {
+                //toggle the flashlight (turns it off in this case)
                 ToggleFlashLight();
             }
         }
 
-        //elsei f the flashlight is not on...
+        //else if the flashlight is not on...
         else if (!_flashlightOn)
         {
             //Increase battery while off
@@ -141,6 +157,8 @@ public class FlashlightBehavior : MonoBehaviour
             PlayerInputBehavior.playerCanUseFlashlight = true;
         }
     }
+
+   
 
 
     public void TurnOnFlashlight()

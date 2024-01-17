@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class SchoolBagInteractable : MonoBehaviour, IInteractable
 {
+    public HighlightBehavior highlightBehavior;
+
     //The interaction prompt for the object
     [SerializeField] private string _interactionPrompt;
 
@@ -18,6 +20,24 @@ public class SchoolBagInteractable : MonoBehaviour, IInteractable
     public DialogueObjectBehavior DialogueObject => _lookAtSchoolBagDialogue;
 
     public Transform OriginalPos => _originalPos;
+
+
+    private void Awake()
+    {
+        highlightBehavior = GetComponentInChildren<HighlightBehavior>();
+    }
+
+
+
+    private void Update()
+    {
+        if (DayManager.instance.days == DayManager.Days.DEMO)
+        {
+            _interactionPrompt = "";
+            highlightBehavior.isActive = false;
+        }
+    }
+
 
     public void Interact(Interactor Interactor)
     {

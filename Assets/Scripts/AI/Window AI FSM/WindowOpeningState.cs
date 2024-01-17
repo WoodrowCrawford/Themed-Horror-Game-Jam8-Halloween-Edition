@@ -20,6 +20,10 @@ public class WindowOpeningState : WindowBaseState
         //if the window rotation is equal to 0...
         if (Mathf.Round(window.WindowThatMoves.transform.localEulerAngles.y) == 0)
         {
+            //call window is closed event here
+            WindowStateManager.onWindowClosed?.Invoke();
+
+
             //switch to the waiting state
             window.SwitchState(window.waitingState);
 
@@ -31,7 +35,7 @@ public class WindowOpeningState : WindowBaseState
         else if(Mathf.Round(window.WindowThatMoves.transform.localEulerAngles.y) >= 1 && (Mathf.Round(window.WindowThatMoves.transform.localEulerAngles.y) < 90))
         {
            //rotate the window by 1 times the window opening speed
-            window.WindowThatMoves.gameObject.transform.Rotate(new Vector3(0, 1, 0) * window.WindowOpeningSpeed);
+            window.WindowThatMoves.gameObject.transform.Rotate(new Vector3(0, 1, 0) * (window.WindowOpeningSpeed * Time.deltaTime));
 
             //testing
             Debug.Log("window rotation is currently " + Mathf.Round(window.WindowThatMoves.transform.localEulerAngles.y));
@@ -42,8 +46,8 @@ public class WindowOpeningState : WindowBaseState
         //else if the window rotation is greater than or equal to 90
         else if(Mathf.Round(window.WindowThatMoves.transform.localEulerAngles.y)  >= 90)
         {
-            //call the flashlight event here
-            Debug.Log("Start calling the flashlight event");
+            //call window is open event here
+            WindowStateManager.onWindowOpened?.Invoke();
         }
         
     }

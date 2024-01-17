@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class TeadybearInteractable : MonoBehaviour, IInteractable
 {
+    public HighlightBehavior highlightBehavior;
+
     [SerializeField] private string _interactionPrompt;
 
 
@@ -25,6 +27,22 @@ public class TeadybearInteractable : MonoBehaviour, IInteractable
     public DialogueObjectBehavior DialogueObject => _lookAtDialogue;
 
     public Transform OriginalPos => _originalPos;
+
+
+    private void Awake()
+    {
+        highlightBehavior = GetComponentInChildren<HighlightBehavior>();
+    }
+
+
+    private void Update()
+    {
+        if(DayManager.instance.days == DayManager.Days.DEMO)
+        {
+            _interactionPrompt = "";
+            highlightBehavior.isActive = false;
+        }
+    }
 
     public void Interact(Interactor Interactor)
     {

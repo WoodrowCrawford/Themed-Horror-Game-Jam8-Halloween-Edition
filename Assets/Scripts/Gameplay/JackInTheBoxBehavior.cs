@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 public class JackInTheBoxBehavior : MonoBehaviour, IInteractable
 {
-
+    public HighlightBehavior highlightBehavior;
 
     [SerializeField] private Animator _animator;
     [SerializeField] private GameObject _handle;
@@ -95,6 +95,33 @@ public class JackInTheBoxBehavior : MonoBehaviour, IInteractable
                     {
                         //If the player is not rewinding the music box then the box should play as normal
                         PlayMusicBox();
+                    }
+
+                    break;
+                }
+            case DayManager.Days.DEMO:
+                {
+                    if(DayManager.instance.currentDemoNightTask == DemoNight.DemoNightTasks.EXAMINE_ROOM)
+                    {
+                        _interactionPrompt = "Examine";
+                        highlightBehavior.isActive = true;
+                    }
+                    else if(DayManager.instance.currentDemoNightTask == DemoNight.DemoNightTasks.SLEEP)
+                    {
+                        _interactionPrompt = "Interact";
+                        highlightBehavior.isActive = true;
+
+                        //If the player is rewinding the box and the box is not already open then...
+                        if (_playerRewindingBox && !jackInTheBoxOpen)
+                        {
+                            //Rewinds the music box
+                            RewindMusicBox();
+                        }
+                        else
+                        {
+                            //If the player is not rewinding the music box then the box should play as normal
+                            PlayMusicBox();
+                        }
                     }
 
                     break;

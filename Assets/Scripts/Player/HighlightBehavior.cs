@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,6 +7,9 @@ public class HighlightBehavior : MonoBehaviour
 
     [SerializeField] private List<Renderer> renderers;
     private List<Material> materials;
+
+    [Header("Highlight Settings")]
+    public bool isActive;
 
     [Header("Color Settings")]
     [SerializeField] private Color color;
@@ -29,7 +31,7 @@ public class HighlightBehavior : MonoBehaviour
 
     public void ToggleHighlight(bool val)
     {
-        if (val)
+        if (val && isActive)
         {
             foreach (var material in materials)
             {

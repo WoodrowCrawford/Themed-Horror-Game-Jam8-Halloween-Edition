@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class BedInteractable : MonoBehaviour, IInteractable
 {
+    public HighlightBehavior highlightBehavior;
+
     [SerializeField] private string _interactionPrompt;
 
     [Header("Dialogues")]
@@ -23,6 +25,47 @@ public class BedInteractable : MonoBehaviour, IInteractable
     public DialogueObjectBehavior DialogueObject => _getOutOfBedDialogue;
 
     public Transform OriginalPos => _originalPos;
+
+
+    private void Awake()
+    {
+        highlightBehavior = GetComponentInChildren<HighlightBehavior>();
+    }
+
+    
+
+    private void Update()
+    {
+        //if it is the demo night and the task is to examine the room and the player is NOT in the bed...
+        if (DayManager.instance.days == DayManager.Days.DEMO && DayManager.instance.currentDemoNightTask == DemoNight.DemoNightTasks.EXAMINE_ROOM && !PlayerInputBehavior.inBed)
+        {
+            //change the interaction prompt
+            _interactionPrompt = "Examine";
+            highlightBehavior.isActive = true;
+        }
+
+        //else if it is the demo night and the task is to examine the room and the player is in the bed...
+        else if (DayManager.instance.days == DayManager.Days.DEMO && DayManager.instance.currentDemoNightTask == DemoNight.DemoNightTasks.EXAMINE_ROOM && PlayerInputBehavior.inBed)
+        {
+            //change the interaction prompt
+            _interactionPrompt = "Start the night";
+            highlightBehavior.isActive = true;
+        }
+
+        //else if it is the demo night and the task is to sleep and the player is NOT in bed...
+        else if(DayManager.instance.days == DayManager.Days.DEMO && DayManager.instance.currentDemoNightTask == DemoNight.DemoNightTasks.SLEEP && !PlayerInputBehavior.inBed)
+        {
+            _interactionPrompt = "Get in bed";
+            highlightBehavior.isActive = true;
+        }
+
+        else if(DayManager.instance.days == DayManager.Days.DEMO && DayManager.instance.currentDemoNightTask == DemoNight.DemoNightTasks.SLEEP && PlayerInputBehavior.inBed)
+        {
+            _interactionPrompt = "";
+            highlightBehavior.isActive = false;
+        }
+    }
+
 
     public void Interact(Interactor Interactor)
     {

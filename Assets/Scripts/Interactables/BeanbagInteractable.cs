@@ -1,9 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BeanbagInteractable : MonoBehaviour, IInteractable
 {
+    public HighlightBehavior highlightBehavior;
+
     [SerializeField] private string _interactionPrompt;
 
     [Header("Dialogues")]
@@ -23,6 +23,22 @@ public class BeanbagInteractable : MonoBehaviour, IInteractable
     public DialogueObjectBehavior DialogueObject { get { return _lookAtBeanBagDialogue; }  set { _lookAtBeanBagDialogue = value; } }
 
     public Transform OriginalPos => _originalPos;
+
+
+    private void Awake()
+    {
+        highlightBehavior = GetComponentInChildren<HighlightBehavior>();
+    }
+
+
+    private void Update()
+    {
+        if(DayManager.instance.days == DayManager.Days.DEMO)
+        {
+            _interactionPrompt = "";
+            highlightBehavior.isActive = false;
+        }
+    }
 
     public void Interact(Interactor Interactor)
     {

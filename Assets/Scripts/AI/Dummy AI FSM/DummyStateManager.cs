@@ -6,6 +6,8 @@ using UnityEngine.Timeline;
 
 public class DummyStateManager : MonoBehaviour, IInteractable
 {
+    public HighlightBehavior highlightBehavior;
+
     [Header("States")]
     DummyDefaultState currentState;                                                         //the current state for the dummy
     public DummyDisabledState disabledState = new DummyDisabledState();
@@ -91,6 +93,7 @@ public class DummyStateManager : MonoBehaviour, IInteractable
 
     [Header("Dialouge")]
     [SerializeField] private DialogueObjectBehavior _dialogueObject;
+    [SerializeField] private DialogueObjectBehavior _dummyTutorialDialogue;
     [SerializeField] private DialogueObjectBehavior _putOtherToysAwayFirst;
 
     [Header("Size Variables")]
@@ -131,7 +134,7 @@ public class DummyStateManager : MonoBehaviour, IInteractable
     public Transform OriginPos { get { return _originPos; } }
 
 
-    public string InteractionPrompt => _interactionPrompt;
+    public string InteractionPrompt { get { return _interactionPrompt; } set { _interactionPrompt = value; } }
     public DialogueObjectBehavior DialogueObject => _dialogueObject;
 
     public Transform OriginalPos => _originPos;
@@ -161,6 +164,7 @@ public class DummyStateManager : MonoBehaviour, IInteractable
     {
         _agent = GetComponent<NavMeshAgent>();
         _animator = GetComponent<Animator>();
+        highlightBehavior = GetComponentInChildren<HighlightBehavior>();
     }
 
 
@@ -439,6 +443,11 @@ public class DummyStateManager : MonoBehaviour, IInteractable
         {
             //put pick up code here!
             StartCoroutine(Interactor.TogglePickUp(this.gameObject));
+        }
+
+        else if(DayManager.instance.days == DayManager.Days.DEMO && DayManager.instance.currentDemoNightTask == DemoNight.DemoNightTasks.EXAMINE_ROOM)
+        {
+            DialogueUIBehavior.instance.ShowDialogue(_dummyTutorialDialogue);
         }
     }
 

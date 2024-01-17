@@ -295,16 +295,17 @@ MonoBehaviour:
   animator: {fileID: 0}
   _interactionPrompt: 
   _wardrobeDialogue: {fileID: 0}
+  _wardrobeTutorialDialogue: {fileID: 0}
   _wardrobeDoorTrigger: {fileID: 0}
   _player: {fileID: 0}
   _insideWardrobePos: {fileID: 0}
   _outsideWardrobePos: {fileID: 0}
   _originalPos: {fileID: 0}
-  actionOnCoolDown: 0
-  playerCanOpenWardrobe: 0
-  wardrobeDoorIsOpen: 0
-  playerCanGetInWardrobe: 0
-  playerIsInWardrobe: 0
+  _actionOnCoolDown: 0
+  _playerCanOpenWardrobe: 0
+  _wardrobeDoorIsOpen: 0
+  _playerCanGetInWardrobe: 0
+  _playerIsInWardrobe: 0
 --- !u!1001 &14430558
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8110,7 +8111,15 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4924815207894086971, guid: 9b0403e3487078a43845ce6f8328fd32, type: 3}
+      propertyPath: _events.Array.data[1]._onPickedResponse.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4924815207894086971, guid: 9b0403e3487078a43845ce6f8328fd32, type: 3}
       propertyPath: _events.Array.data[0]._onPickedResponse.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1408164752}
+    - target: {fileID: 4924815207894086971, guid: 9b0403e3487078a43845ce6f8328fd32, type: 3}
+      propertyPath: _events.Array.data[1]._onPickedResponse.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1408164752}
     - target: {fileID: 4924815207894086971, guid: 9b0403e3487078a43845ce6f8328fd32, type: 3}
@@ -8118,12 +8127,24 @@ PrefabInstance:
       value: ChangeTask
       objectReference: {fileID: 0}
     - target: {fileID: 4924815207894086971, guid: 9b0403e3487078a43845ce6f8328fd32, type: 3}
+      propertyPath: _events.Array.data[1]._onPickedResponse.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ChangeTask
+      objectReference: {fileID: 0}
+    - target: {fileID: 4924815207894086971, guid: 9b0403e3487078a43845ce6f8328fd32, type: 3}
       propertyPath: _events.Array.data[0]._onPickedResponse.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: DayManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4924815207894086971, guid: 9b0403e3487078a43845ce6f8328fd32, type: 3}
+      propertyPath: _events.Array.data[1]._onPickedResponse.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: DayManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 4924815207894086971, guid: 9b0403e3487078a43845ce6f8328fd32, type: 3}
       propertyPath: _events.Array.data[0]._onPickedResponse.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
       value: Examine Room
+      objectReference: {fileID: 0}
+    - target: {fileID: 4924815207894086971, guid: 9b0403e3487078a43845ce6f8328fd32, type: 3}
+      propertyPath: _events.Array.data[1]._onPickedResponse.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: Sleep
       objectReference: {fileID: 0}
     - target: {fileID: 4924815208456041706, guid: 9b0403e3487078a43845ce6f8328fd32, type: 3}
       propertyPath: m_RootOrder

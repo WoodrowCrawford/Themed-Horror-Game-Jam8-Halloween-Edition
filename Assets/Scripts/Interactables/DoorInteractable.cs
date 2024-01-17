@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class DoorInteractable : MonoBehaviour, IInteractable
 {
+    public HighlightBehavior highlightBehavior;
+
     [SerializeField] private string _interactionPrompt;
 
     [Header("Dialogues")]
@@ -21,6 +23,31 @@ public class DoorInteractable : MonoBehaviour, IInteractable
     public DialogueObjectBehavior DialogueObject => _lookAtDoorDialogue;
 
     public Transform OriginalPos => _originalPos;
+
+
+    private void Awake()
+    {
+        highlightBehavior = GetComponentInChildren<HighlightBehavior>();
+    }
+
+    private void Update()
+    {
+        //if it is the demo night and the current task is to examine the room
+        if(DayManager.instance.days == DayManager.Days.DEMO && DayManager.instance.currentDemoNightTask == DemoNight.DemoNightTasks.EXAMINE_ROOM) 
+        {
+            //change the interaction prompt
+            _interactionPrompt = "Examine";
+            highlightBehavior.isActive = true;
+        }
+        
+        //else if it is the demo night and the current task is to sleep
+        else if (DayManager.instance.days == DayManager.Days.DEMO && DayManager.instance.currentDemoNightTask == DemoNight.DemoNightTasks.SLEEP)
+        {
+            //disable the interaction prompt
+            _interactionPrompt = "";
+            highlightBehavior.isActive = false;
+        }
+    }
 
     public void Interact(Interactor Interactor)
     {

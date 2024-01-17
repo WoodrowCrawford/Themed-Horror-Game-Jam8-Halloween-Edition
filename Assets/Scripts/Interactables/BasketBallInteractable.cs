@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class BasketBallInteractable : MonoBehaviour, IInteractable
 {
+    public HighlightBehavior highlightBehavior;
+
     //The interaction prompt for the object
     [SerializeField] private string _interactionPrompt;
 
@@ -31,7 +33,24 @@ public class BasketBallInteractable : MonoBehaviour, IInteractable
 
     public Transform OriginalPos => _originalPos;
 
-    
+
+    private void Awake()
+    {
+        highlightBehavior = GetComponentInChildren<HighlightBehavior>();
+    }
+
+
+    private void Update()
+    {
+        //if the current day is the demo night...
+        if(DayManager.instance.days == DayManager.Days.DEMO)
+        {
+            //disable the interaction prompt
+            _interactionPrompt = "";
+            highlightBehavior.isActive = false;
+        }
+    }
+
 
     public void Interact(Interactor Interactor)
     {

@@ -1,16 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.PackageManager.UI;
 using UnityEngine;
 
 public class WindowStateManager : MonoBehaviour, IInteractable
 {
+    public HighlightBehavior highlightBehavior;
+
     WindowBaseState currentState;
     public WindowDisabledState disabledState = new WindowDisabledState();
     public WindowWaitingState waitingState = new WindowWaitingState();
     public WindowOpeningState openingState = new WindowOpeningState();
 
+    //delegates
+    public delegate void WindowEvents();
 
+    //events
+    public static WindowEvents onWindowOpened;
+    public static WindowEvents onWindowClosed;
 
 
     [Header("WindowParameters")]
@@ -27,13 +31,15 @@ public class WindowStateManager : MonoBehaviour, IInteractable
     [SerializeField] private float _windowOpeningSpeed;
     [SerializeField] private float _windowClosingSpeed;
 
+    
 
 
-    public GameObject WindowThatMoves { get { return _windowThatMoves; } }
-    public string InteractionPrompt => _interactionPrompt;
+
+    public GameObject WindowThatMoves { get { return _windowThatMoves; } set { _windowThatMoves = value; } }
+    public string InteractionPrompt { get { return _interactionPrompt;  } set { _interactionPrompt = value; } }
     public DialogueObjectBehavior DialogueObject => _dialogueObject;
-    public float MinSecondsToWait { get { return _minSecondsToWait; } }
-    public float MaxSecondsToWait { get { return _maxSecondsToWait; } }
+    public float MinSecondsToWait { get { return _minSecondsToWait; } set { _minSecondsToWait = value; } }
+    public float MaxSecondsToWait { get { return _maxSecondsToWait; } set { _maxSecondsToWait = value; } }
     public float WindowOpeningSpeed => _windowOpeningSpeed;
     public float WindowClosingSpeed => _windowClosingSpeed;
   
@@ -96,6 +102,15 @@ public class WindowStateManager : MonoBehaviour, IInteractable
         WindowBaseState.onSwitchState?.Invoke();
     }
 
+    
+    //Creates the window values for other scripts to use
+    public static void InitializeWindowValues(GameObject window, float minSecondsToWait, float maxSecondsToWait, float windowOpeningSpeed, float windowClosingSpeed, bool isActive)
+    {
+        
+        window.GetComponent<WindowStateManager>().MinSecondsToWait = minSecondsToWait;
+        window.GetComponent<WindowStateManager>().MaxSecondsToWait = maxSecondsToWait;
+        window.GetComponent<WindowStateManager>().isActive = isActive;
+    }
 
     public void CloseWindow()
     {
@@ -110,7 +125,7 @@ public class WindowStateManager : MonoBehaviour, IInteractable
         if(Mathf.Round(_windowThatMoves.transform.localEulerAngles.y) >= 1 && Mathf.Round(_windowThatMoves.transform.localEulerAngles.y) <= 90)
         {
             //rotates the window by -1 times the window closing speed
-            _windowThatMoves.gameObject.transform.Rotate(new Vector3(0, -1, 0) * _windowClosingSpeed);
+            _windowThatMoves.gameObject.transform.Rotate(new Vector3(0, -1, 0) * (_windowClosingSpeed * Time.deltaTime));
 
             //testing
             Debug.Log("closing window...");

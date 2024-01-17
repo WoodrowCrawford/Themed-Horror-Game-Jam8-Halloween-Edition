@@ -72,7 +72,7 @@ public class SundayNight : BaseDay
         //Initializes the clown
         ClownStateManager.InitializeClown(instance.Clown, false);
 
-         instance.JackInTheBox.GetComponent<JackInTheBoxStateManager>().InitializeJackBox(2f, 1f, false);
+        
 
 
         //Initialize the ghoul

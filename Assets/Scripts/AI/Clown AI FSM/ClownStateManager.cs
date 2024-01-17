@@ -5,6 +5,7 @@ using UnityEngine.AI;
 public class ClownStateManager : MonoBehaviour, IInteractable
 {
     public JackInTheBoxStateManager JackInTheBoxStateManager;
+    public HighlightBehavior highlightBehavior;
 
 
     [Header("States")]
@@ -66,7 +67,7 @@ public class ClownStateManager : MonoBehaviour, IInteractable
 
     public Vector3 PlayerPos { get { return _playerPos; } set { _playerPos = value; } }
 
-    public string InteractionPrompt => _interactionPrompt;
+    public string InteractionPrompt { get { return _interactionPrompt;  } set { _interactionPrompt = value; } }
 
     public DialogueObjectBehavior DialogueObject => _lookAtClownDialogue;
 
@@ -76,6 +77,7 @@ public class ClownStateManager : MonoBehaviour, IInteractable
     {
         //Finds the jack in the box component on awake
         JackInTheBoxStateManager = GameObject.FindGameObjectWithTag("JackIntheBox").GetComponent<JackInTheBoxStateManager>();
+        highlightBehavior = GetComponentInChildren<HighlightBehavior>();
     }
 
 

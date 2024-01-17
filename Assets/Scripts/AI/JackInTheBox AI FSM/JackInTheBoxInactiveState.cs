@@ -5,7 +5,7 @@ public class JackInTheBoxInactiveState : JackInTheBoxBaseState
     public override void EnterState(JackInTheBoxStateManager jackInTheBox)
     {
         Debug.Log("Box is in the inactive state");
-        jackInTheBox.InteractionPrompt = "Inactive!";
+        jackInTheBox.InteractionPrompt = " ";
     }
 
     public override void UpdateState(JackInTheBoxStateManager jackInTheBox)
@@ -14,5 +14,7 @@ public class JackInTheBoxInactiveState : JackInTheBoxBaseState
         {
             jackInTheBox.SwitchState(jackInTheBox.activeState);
         }
+
+       
     }
 }

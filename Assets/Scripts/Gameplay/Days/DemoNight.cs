@@ -47,6 +47,16 @@ public class DemoNight : BaseDay
     public void SleepTask()
     {
         //Make enemies active here
+        GhoulStateManager.InitializeGhoulValues(instance.Ghoul, 15, 35, true);
+        WindowStateManager.InitializeWindowValues(instance.Window, 9, 20, 6, 10, true);
+        JackInTheBoxStateManager.InitializeJackInTheBox(instance.JackInTheBox, 4f, 6f, true);
+        ClownStateManager.InitializeClown(instance.Clown, true);
+
+        DummyStateManager.InitializeDummyValues(instance.Dummy1, 3f, 6f, 10f, 20f, true, new Vector3(0.5f, 0.5f, 0.5f));
+        DummyStateManager.InitializeDummyValues(instance.Dummy2, 3f, 6f, 10f, 20f, true, new Vector3(0.5f, 0.5f, 0.5f));
+
+
+
         Debug.Log("sleep task event is running");
 
         //Tell the flashlight that it can start delpleting the battery
@@ -58,9 +68,9 @@ public class DemoNight : BaseDay
     {
         //This is the demo night
         //The player will be hit with the all the enemies and will have to sleep in order to win
-        GhoulStateManager.InitializeGhoulValues(instance.Ghoul, 15, 35, true);
+       
 
-        
+
 
         instance.days = Days.DEMO;
         GraphicsBehavior.instance.SetNightTime();

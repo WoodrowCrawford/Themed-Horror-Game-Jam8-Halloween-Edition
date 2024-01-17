@@ -4294,6 +4294,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   renderers:
   - {fileID: 258580150}
+  isActive: 0
   color: {r: 1, g: 1, b: 1, a: 0.4}
   _colorStrength: 0.5
 --- !u!114 &258580152
@@ -4308,6 +4309,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb3513e5f8eccc549afb593bd4443817, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  highlightBehavior: {fileID: 0}
   _interactionPrompt: Interact
   _lookAtRexDialogue: {fileID: 11400000, guid: 3aa331da7fef4d14791397c455bc3164, type: 2}
   _dontWantToMoveRexDialogue: {fileID: 11400000, guid: 5c9bc6a978d223a48927de4a64717c39, type: 2}
@@ -7047,8 +7049,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -8869,6 +8871,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 64113333030762294, guid: 2755fba8dcb54554bbb4e68da7490b70, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2755fba8dcb54554bbb4e68da7490b70, type: 3}
 --- !u!4 &531474430 stripped
@@ -9095,6 +9101,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4186023656021010, guid: d8501b10602cb814cb2648dde464248b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 64189380517927322, guid: d8501b10602cb814cb2648dde464248b, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -10158,6 +10168,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   renderers:
   - {fileID: 597446487}
+  isActive: 0
   color: {r: 1, g: 1, b: 1, a: 0.4}
   _colorStrength: 0.5
 --- !u!54 &597446489
@@ -10188,6 +10199,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c27a962d270b52a4aabbb9c89a06adec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  highlightBehavior: {fileID: 0}
   _interactionPrompt: Interact
   _lookAtDialogue: {fileID: 11400000, guid: f16d04010d23ac845b948ab3248ec311, type: 2}
   _dontWantToMoveDialogue: {fileID: 11400000, guid: 0216020829b946f4eb6c8d918196ad14, type: 2}
@@ -12180,6 +12192,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 64623390931990706, guid: 616c57951d4503e4ba68fa1bc27c54e4, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 616c57951d4503e4ba68fa1bc27c54e4, type: 3}
 --- !u!4 &645991544 stripped
@@ -12816,6 +12832,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4675414327184810, guid: 3a5fa88ab121df74fa31fca14cc22d70, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 64851598344665966, guid: 3a5fa88ab121df74fa31fca14cc22d70, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -14240,6 +14260,7 @@ MonoBehaviour:
   - {fileID: 508662539}
   - {fileID: 508662538}
   - {fileID: 508662537}
+  isActive: 1
   color: {r: 0.7264151, g: 0.60648805, b: 0.60648805, a: 1}
   _colorStrength: 0.26
 --- !u!114 &769271246
@@ -14254,17 +14275,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1b231964e26f824a9c72f8bdca4d9c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  highlightBehavior: {fileID: 769271245}
   _windowThatMoves: {fileID: 400902996}
   _interactionPrompt: Test
   _dialogueObject: {fileID: 0}
-  isActive: 1
+  isActive: 0
   _minSecondsToWait: 6
   _maxSecondsToWait: 18
-  _originalRotaion: {x: 0, y: 0, z: 0}
-  _currentRotation: {x: 0, y: 0, z: 0}
-  _desiredRotaion: {x: 0, y: 0, z: 0}
-  _windowOpeningSpeed: 0.2
-  _windowClosingSpeed: 0.4
+  _windowOpeningSpeed: 2
+  _windowClosingSpeed: 4
 --- !u!1001 &775345390
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15064,6 +15083,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c24fd29ddb437e4fa08a180208e03fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  highlightBehavior: {fileID: 0}
   playerInputBehavior: {fileID: 0}
   animator: {fileID: 570895923}
   _interactionPrompt: Interact
@@ -15111,8 +15131,9 @@ MonoBehaviour:
   - {fileID: 1649537647}
   - {fileID: 1649537646}
   - {fileID: 23042110}
+  isActive: 0
   color: {r: 1, g: 1, b: 1, a: 0.4}
-  _colorStrength: 0.5
+  _colorStrength: 1
 --- !u!1001 &825668377
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17205,6 +17226,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13fe0b8478f3fba448c3850bb9f09fb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  highlightBehavior: {fileID: 0}
   _interactionPrompt: Interact
   _ballInteractionDialogue: {fileID: 11400000, guid: 3d36e8499f0692240aca091cc4dedca7, type: 2}
   _originalPos: {fileID: 1981066066}
@@ -17280,6 +17302,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   renderers:
   - {fileID: 977544172}
+  isActive: 0
   color: {r: 1, g: 1, b: 1, a: 0.4}
   _colorStrength: 0.5
 --- !u!23 &977544172 stripped
@@ -17809,6 +17832,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c87d8d6fbdafc34e99fcb9994980b99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  highlightBehavior: {fileID: 0}
   _interactionPrompt: Interact
   _lookAtBeanBagDialogue: {fileID: 11400000, guid: 0cf07e80cf07f6440adfd7c0cb8e331d, type: 2}
   _pickUpDialogue: {fileID: 11400000, guid: 95451298a6f498c43952c6256a2a0feb, type: 2}
@@ -17838,6 +17862,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   renderers:
   - {fileID: 1003477693}
+  isActive: 0
   color: {r: 1, g: 1, b: 1, a: 0.4}
   _colorStrength: 0.5
 --- !u!1001 &1006175307
@@ -18503,6 +18528,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1578085490565092380, guid: 86dec0b61590a9143bb47d1ec06a9aea, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1578085490565092381, guid: 86dec0b61590a9143bb47d1ec06a9aea, type: 3}
       propertyPath: m_SizeDelta.x
       value: 500
@@ -20461,6 +20490,7 @@ MonoBehaviour:
   - {fileID: 184093642}
   - {fileID: 184093641}
   - {fileID: 184093640}
+  isActive: 0
   color: {r: 1, g: 1, b: 1, a: 0.4}
   _colorStrength: 0.5
 --- !u!114 &1141631477
@@ -20477,6 +20507,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerInput: {fileID: 7556417767544489046}
   jackInTheBoxRangeBehavior: {fileID: 0}
+  highlightBehavior: {fileID: 0}
   animator: {fileID: 0}
   _handle: {fileID: 1385578170}
   isActive: 0
@@ -23620,6 +23651,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   renderers:
   - {fileID: 6920001836290223654}
+  isActive: 0
   color: {r: 1, g: 1, b: 1, a: 0.4}
   _colorStrength: 0.5
 --- !u!64 &1329639781
@@ -25049,7 +25081,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ghoulSightBehavior: {fileID: 1409680703}
   playerInputBehavior: {fileID: 7556417767544489046}
-  isActive: 1
+  isActive: 0
   _agent: {fileID: 8293665413038420608}
   _animator: {fileID: 1409680702}
   _waypoints:
@@ -25306,6 +25338,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4511516895582642, guid: 6219448898dc4b64da00e9066d30b60c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 64940583348339588, guid: 6219448898dc4b64da00e9066d30b60c, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -26670,6 +26706,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 64011353302214394, guid: b861e597f9e0d614cbce584081e858ef, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b861e597f9e0d614cbce584081e858ef, type: 3}
 --- !u!4 &1520828012 stripped
@@ -26738,6 +26778,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4663806421013654, guid: c3526a80e098fd246969e834a40f82e1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 64093693233432094, guid: c3526a80e098fd246969e834a40f82e1, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -29514,6 +29558,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 64015614084738304, guid: 1083675a97a5c4a439af984172e787b7, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1083675a97a5c4a439af984172e787b7, type: 3}
 --- !u!4 &1685827011 stripped
@@ -29723,6 +29771,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   renderers:
   - {fileID: 1688059871}
+  isActive: 0
   color: {r: 1, g: 1, b: 1, a: 0.4}
   _colorStrength: 0.5
 --- !u!1 &1691520683
@@ -30595,6 +30644,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   renderers:
   - {fileID: 1184505618}
+  isActive: 0
   color: {r: 1, g: 1, b: 1, a: 0.4}
   _colorStrength: 0.5
 --- !u!114 &1736633085
@@ -30609,6 +30659,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b8f60e28ebf75c42a027fa45306c68f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  highlightBehavior: {fileID: 0}
   _interactionPrompt: Interact
   _lookAtSchoolBagDialogue: {fileID: 11400000, guid: 099e409949e6ed54a89845ba6f4cc087, type: 2}
   _originalPos: {fileID: 0}
@@ -31529,6 +31580,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   JackInTheBoxStateManager: {fileID: 0}
+  highlightBehavior: {fileID: 0}
   _agent: {fileID: 1829985405}
   _animator: {fileID: 1829985406}
   _playerRef: {fileID: 7556417767544489053}
@@ -31553,6 +31605,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   renderers:
   - {fileID: 642816484}
+  isActive: 0
   color: {r: 1, g: 1, b: 1, a: 0.4}
   _colorStrength: 0.5
 --- !u!1001 &1830849476
@@ -35868,7 +35921,7 @@ GameObject:
   - component: {fileID: 2061971081}
   - component: {fileID: 2061971083}
   - component: {fileID: 2061971084}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: InteractRange
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -35978,6 +36031,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4692815472149848, guid: 107110aa7ef6a49408055982eab9a40e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 64480626547326094, guid: 107110aa7ef6a49408055982eab9a40e, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -36563,6 +36620,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c8cf411d9e7c05439f370ce7f0143d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  highlightBehavior: {fileID: 0}
   _interactionPrompt: Open Door
   _lookAtDoorDialogue: {fileID: 11400000, guid: fb950f4a68bf07741884a10ff14ba902, type: 2}
   _cleanUpRoomDialogue: {fileID: 11400000, guid: ce6b7bd7245c4624b9b4346b7a81fe60, type: 2}
@@ -36590,6 +36648,7 @@ MonoBehaviour:
   renderers:
   - {fileID: 2083874001}
   - {fileID: 2083874003}
+  isActive: 0
   color: {r: 1, g: 1, b: 1, a: 0.4}
   _colorStrength: 0.5
 --- !u!23 &2083874003 stripped
@@ -38028,6 +38087,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7556417769366231398}
     - target: {fileID: 8849201457156182753, guid: aa4828e292d232041ab45048af64dab9, type: 3}
+      propertyPath: _dummyTutorialDialogue
+      value: 
+      objectReference: {fileID: 11400000, guid: 8ac3085aad486004383cb62b9238b8ee, type: 2}
+    - target: {fileID: 8849201457156182753, guid: aa4828e292d232041ab45048af64dab9, type: 3}
       propertyPath: _putOtherToysAwayFirst
       value: 
       objectReference: {fileID: 11400000, guid: 4e907324bc7782342ae4635402b0c6a0, type: 2}
@@ -38070,6 +38133,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   renderers:
   - {fileID: 2604968383673235661}
+  isActive: 0
   color: {r: 1, g: 1, b: 1, a: 0.4}
   _colorStrength: 0.5
 --- !u!64 &2604968383673235663
@@ -39056,6 +39120,10 @@ PrefabInstance:
       propertyPath: _flashlightBehavior
       value: 
       objectReference: {fileID: 7556417769366231398}
+    - target: {fileID: 6920001836307949260, guid: 77d39b0e20c8d374a8381cfffdc9b835, type: 3}
+      propertyPath: _dummyTutorialDialogue
+      value: 
+      objectReference: {fileID: 11400000, guid: 8ac3085aad486004383cb62b9238b8ee, type: 2}
     - target: {fileID: 6920001836307949260, guid: 77d39b0e20c8d374a8381cfffdc9b835, type: 3}
       propertyPath: _putOtherToysAwayFirst
       value: 
@@ -40285,7 +40353,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _flashlightOn: 0
   _batteryPower: 100
-  _decreaseSpeed: 5
+  _decreaseSpeed: 9
   _playerLight: {fileID: 7556417767507211327}
   _flashlightTrigger: {fileID: 6146022414545253312}
   flashlightGameObject: {fileID: 7556417769366231405}

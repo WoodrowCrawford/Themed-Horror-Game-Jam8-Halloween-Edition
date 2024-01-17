@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class RexDogInteractable : MonoBehaviour, IInteractable
 {
+    public HighlightBehavior highlightBehavior;
+
     //The interaction prompt for the object
     [SerializeField] private string _interactionPrompt;
 
@@ -21,6 +23,22 @@ public class RexDogInteractable : MonoBehaviour, IInteractable
     public DialogueObjectBehavior DialogueObject => _lookAtRexDialogue;
 
     public Transform OriginalPos => _originalPos;
+
+
+    private void Awake()
+    {
+        highlightBehavior = GetComponent<HighlightBehavior>();
+    }
+
+
+    private void Update()
+    {
+        if(DayManager.instance.days == DayManager.Days.DEMO)
+        {
+            _interactionPrompt = "";
+            highlightBehavior.isActive = false;
+        }
+    }
 
     public void Interact(Interactor Interactor)
     {

@@ -87,6 +87,7 @@ public class DayManager : MonoBehaviour
     [SerializeField] private GameObject _ghoul;
     [SerializeField] private GameObject _clown;
     [SerializeField] private GameObject _jackInTheBox;
+    [SerializeField] private GameObject _window;
 
 
 
@@ -101,6 +102,8 @@ public class DayManager : MonoBehaviour
     public GameObject JackInTheBox { get { return _jackInTheBox; } }
 
     public GameObject Ghoul { get { return _ghoul; } }
+
+    public GameObject Window { get { return _window; } }
 
 
 
@@ -337,6 +340,7 @@ public class DayManager : MonoBehaviour
         _ghoul = GameObject.FindGameObjectWithTag("Ghoul");
         _clown = GameObject.FindGameObjectWithTag("Clown");
         _jackInTheBox = GameObject.FindGameObjectWithTag("JackIntheBox");
+        _window = GameObject.FindGameObjectWithTag("Window");
 
         //gets the component
         flashlightBehavior = GameObject.FindGameObjectWithTag("Flashlight").GetComponent<FlashlightBehavior>();

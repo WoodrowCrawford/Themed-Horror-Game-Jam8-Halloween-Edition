@@ -12,6 +12,9 @@ public class WindowWaitingState : WindowBaseState
         //gets the component
        windowStateManger = GameObject.FindGameObjectWithTag("Window").GetComponent<WindowStateManager>();
 
+        //Sets the interaction prompt
+        window.InteractionPrompt = "Interact";
+
         //calculates the wait time on startup
         window.StartCoroutine(CalculateWaitTime());
     }

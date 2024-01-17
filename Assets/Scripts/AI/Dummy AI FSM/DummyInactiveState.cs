@@ -11,6 +11,9 @@ public class DummyInactiveState : DummyDefaultState
         //Testing message
         Debug.Log( dummy.gameObject.name + "Dummy is in the inactive state");
 
+        dummy.InteractionPrompt = "Examine";
+        dummy.highlightBehavior.isActive = true;
+
         //Change the layer to be the interactable mask so that the player can interact with it
         dummy.gameObject.layer = 8;
 

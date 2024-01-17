@@ -6,6 +6,9 @@ public class WindowDisabledState : WindowBaseState
     {
         //testing
         Debug.Log("Window is in the disabled state");
+
+        //sets the interaction prompt
+        window.InteractionPrompt = "Examine";
     }
 
  
