@@ -37,6 +37,10 @@ TagManager:
   - DemoNightDialogues
   - DialogueDataManager
   - Window
+  - DummyTimeline
+  - DummyJumpscare
+  - GhoulJumpscare
+  - ClownJumpscare
   layers:
   - Default
   - TransparentFX

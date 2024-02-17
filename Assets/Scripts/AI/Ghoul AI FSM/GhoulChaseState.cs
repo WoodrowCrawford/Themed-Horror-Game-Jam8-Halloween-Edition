@@ -26,7 +26,9 @@ public class GhoulChaseState : GhoulBaseState
 
         //used to make the ai look at the player position
         ghoul.transform.LookAt(playerPosition);
-        
+
+        ghoul.CheckIfTargetIsInRange();
+
         //if the ghoul can not see the player
         if(!ghoul.ghoulSightBehavior.canSeePlayer)
         {

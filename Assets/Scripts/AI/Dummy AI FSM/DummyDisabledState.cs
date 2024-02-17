@@ -16,6 +16,6 @@ public override void EnterState(DummyStateManager dummy)
 
     public override void UpdateState(DummyStateManager dummy)
     {
-        throw new System.NotImplementedException();
+        return;
     }
 }

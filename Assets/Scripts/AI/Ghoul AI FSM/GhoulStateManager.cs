@@ -174,10 +174,27 @@ public class GhoulStateManager : MonoBehaviour
         }
     }
 
-   
+
+    public void CheckIfTargetIsInRange()
+    {
+        //sets the min distance to be equal to the agents stopping distance
+        float minDistance = Agent.stoppingDistance;
+
+        //sets the distance
+        float distance = Vector3.Distance(_playerRef.transform.position, transform.position);
+
+        
+        //else if the player is in range and the dummy is currently in the chase player state...
+        if (distance <= (minDistance + 2) && currentState == chaseState)
+        {
+            //if the ai is close to the player and is active...
+
+            //switch to attack state
+            SwitchState(attackState);
+        }
+    }
 
 
-   
 
     public void NewPatrol()
     {

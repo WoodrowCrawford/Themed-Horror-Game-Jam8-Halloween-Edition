@@ -20,6 +20,7 @@ public class DemoNight : BaseDay
         Debug.Log("The demo is in the enter state");
         day.days = Days.DEMO;
         day.StartCoroutine(StartDemoNight());
+    
         
     }
 

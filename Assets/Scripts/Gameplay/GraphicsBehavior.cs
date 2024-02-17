@@ -20,6 +20,8 @@ public class GraphicsBehavior : MonoBehaviour
     public GameObject Sun;  //The sun used for lighting
 
 
+
+
     public bool IsDayTime = false;
     public bool IsNightTime = false;
 
@@ -66,7 +68,8 @@ public class GraphicsBehavior : MonoBehaviour
         //Enables the light component in the sun object
         Sun.GetComponent<Light>().enabled = true;
 
-    
+  
+       
 
         IsDayTime = true;
         IsNightTime = false;

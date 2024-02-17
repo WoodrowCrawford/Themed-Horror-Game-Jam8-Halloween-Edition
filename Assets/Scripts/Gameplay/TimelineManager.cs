@@ -1,96 +1,169 @@
-using System;
-using UnityEditor.TerrainTools;
 using UnityEngine;
 using UnityEngine.Playables;
-using UnityEngine.InputSystem;
-using Cinemachine;
-using UnityEngine.Timeline;
-
+using UnityEngine.SceneManagement;
 public class TimelineManager : MonoBehaviour
 {
-   
-    public PlayableDirector director;
-    public PlayableAsset _currentCutscene;
- 
+    public static TimelineManager instance;
 
+
+    [Header("Current Director")]
+    public PlayableDirector currentPlayableDirector;
+    [SerializeField] private bool _cutsceneIsPlaying = false;
+
+    [Header("Stored Directors")]
+    public PlayableDirector  dummyPlayableDirector;
+    public PlayableDirector ghoulPlayableDirector;
+    public PlayableDirector clownPlayableDirector;
+   
+
+    //delegate
+    public delegate void Cutscene();
+    
+  
+    //Events
+    public static Cutscene onPlayDummyJumpscare;
+    public static Cutscene onPlayGhoulJumpscare;
+    public static Cutscene onPlayClownJumpscare;
+
+    public static event Cutscene onCutscenePlayed;
+    public static event Cutscene onCutsceneStopped;
+
+
+    public bool CutsceneIsPlaying { get { return _cutsceneIsPlaying; } }
    
 
     
 
-
     private void OnEnable()
     {
+        
+        SceneManager.sceneLoaded += OnSceneLoaded;
+        SceneManager.sceneUnloaded += OnSceneUnloaded;
 
-        director.played += ctx => CutscenePlayed();
-        director.stopped += ctx => CutsceneEnded();
+
+        onCutscenePlayed += () => _cutsceneIsPlaying = true;
+        onCutsceneStopped += () => _cutsceneIsPlaying = false;
+       
+
+        onPlayDummyJumpscare += () => PlayCutscene(dummyPlayableDirector);
+        onPlayGhoulJumpscare += () => PlayCutscene(ghoulPlayableDirector);
+        onPlayClownJumpscare += () => PlayCutscene(clownPlayableDirector);
     }
 
-    private void CutsceneEnded()
+    
+
+           
+
+    private void OnDisable()
     {
-        Debug.Log("ITs over");
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+        SceneManager.sceneUnloaded -= OnSceneUnloaded;
+
+
+        onCutscenePlayed -= () => _cutsceneIsPlaying = true;
+        onCutsceneStopped -= () => _cutsceneIsPlaying = false;
+
+
+        onPlayDummyJumpscare -= () => PlayCutscene(dummyPlayableDirector);
+        onPlayGhoulJumpscare -= () => PlayCutscene(ghoulPlayableDirector);
+        onPlayClownJumpscare -= () => PlayCutscene(clownPlayableDirector);
     }
 
-    private void CutscenePlayed()
-    {
-        Debug.Log("Okay it is playing");
-    }
 
     private void Awake()
     {
-        director= GetComponent<PlayableDirector>();
-
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-       
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if(Keyboard.current.jKey.wasPressedThisFrame)
+        if (instance == null)
         {
-            Debug.Log("Okay play something");
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+
+
+
+    private void Update()
+    {
+        if(currentPlayableDirector == null)
+        {
+            return;
+        }
+
+        else if(currentPlayableDirector.state == PlayState.Playing)
+        {
+            //invoke current directable event here that it is playing
+            onCutscenePlayed?.Invoke();
+            
+        }
+        else if(currentPlayableDirector.state != PlayState.Playing)
+        {
+            onCutsceneStopped?.Invoke();
+        }
+    }
+
+    public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        Debug.Log("On scene loaded:" + scene.name);
+        Debug.Log("mode");
+
+        //if the scene is the main menu scene
+        if (scene == SceneManager.GetSceneByBuildIndex(0))
+        {
+            dummyPlayableDirector = null;
+            ghoulPlayableDirector = null;
+            clownPlayableDirector = null;
+        }
+
+        //if the scene is the bedroom scene
+        else if (scene == SceneManager.GetSceneByBuildIndex(1))
+        {
+            //find the directables
+            dummyPlayableDirector = GameObject.FindGameObjectWithTag("DummyJumpscare").GetComponent<PlayableDirector>();
+            ghoulPlayableDirector = GameObject.FindGameObjectWithTag("GhoulJumpscare").GetComponent<PlayableDirector>();
+            clownPlayableDirector = GameObject.FindGameObjectWithTag("ClownJumpscare").GetComponent<PlayableDirector>();
+        }
+    }
+
+    public void OnSceneUnloaded(Scene scene)
+    {
+        Debug.Log("On Scene Unloaded:" + scene.name);
+        Debug.Log("mode");
+
+        //the the currnt scene was the main menu and it changes...
+        if (scene == SceneManager.GetSceneByBuildIndex(0))
+        {
+            //unload all main menu stuff
+            Debug.Log("Do unloading stuff for main menu scene");
+        }
+
+        //if the current scene was the bedroom scene and it changes...
+        else if (scene == SceneManager.GetSceneByBuildIndex(1))
+        {
             
         }
     }
 
 
-    
-
-
-    //Emitters/////////////////////////////////////////////////////////////////////////////////////////
-    public void SwitchCamera()
+    public void PlayCutscene(PlayableDirector playableDirector)
     {
-        Debug.Log("Hey something needs to happen here!!!");
-    }
+        //if a cutscene is not currently playing...
+        if (!_cutsceneIsPlaying)
+        {
+            //set the current director to be the director that is playing
+            currentPlayableDirector = playableDirector;
 
-    public void SecondSignalTest()
-    {
-        Debug.Log("So.....how are you I guess?");
-    }
+            currentPlayableDirector.Play(playableDirector.playableAsset);
+            
+        }
+        else
+        {
+            return;
+        }
 
-    public void ThirdSignalTest()
-    {
-        Debug.Log("Ok thats enough what gives????");
-    }
-
-
-    public void Test()
-    {
-        Debug.Log("Okay it is starting");
-    }
-    
-    public void EndTest()
-    {
-        Debug.Log("Okay it is over");
-    }
-
-    public void Play(TimelineAsset timeline)
-    {
-        Debug.Log("Okay i should find out how to play" +  timeline);
+     
     }
 }

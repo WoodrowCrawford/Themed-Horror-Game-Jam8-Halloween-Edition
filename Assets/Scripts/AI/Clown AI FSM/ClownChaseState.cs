@@ -24,5 +24,7 @@ public class ClownChaseState : ClownBaseState
 
         //chases the target
         clown.ChaseTarget();
+
+        clown.CheckIfTargetIsInRange();
     }
 }

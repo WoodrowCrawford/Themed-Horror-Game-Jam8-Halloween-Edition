@@ -105,7 +105,7 @@ MonoBehaviour:
     m_PreExtrapolationMode: 0
     m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
-    m_DisplayName: CM vcam2
+    m_DisplayName: Jumpscare Cam
   m_Markers:
     m_Objects: []
 --- !u!114 &-5331008370152827384

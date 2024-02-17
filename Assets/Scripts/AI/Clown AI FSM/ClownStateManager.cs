@@ -11,6 +11,7 @@ public class ClownStateManager : MonoBehaviour, IInteractable
     [Header("States")]
     ClownBaseState currentState;                                                 //The current state the clown is in
     public ClownInactiveState inactiveState = new ClownInactiveState();          //The inactive state of the clown
+    public ClownDisabledState disabledState = new ClownDisabledState();          //The disabled state of the clown
     public ClownLayingDownState layingDownState = new ClownLayingDownState();    //The laying down state of the clown
     public ClownGettingUpState gettingUpState = new ClownGettingUpState();       //The getting up state of the clown
     public ClownChaseState chasePlayerState = new ClownChaseState();             //The chase state of the clown
@@ -73,6 +74,21 @@ public class ClownStateManager : MonoBehaviour, IInteractable
 
     public Transform OriginalPos => _originalPos;
 
+    private void OnEnable()
+    {
+        //disables the ai when the game is over
+        GameOverBehavior.onGameOver += DisableAI;
+
+    }
+
+
+    private void OnDisable()
+    {
+        GameOverBehavior.onGameOver -= DisableAI;
+    }
+
+
+
     private void Awake()
     {
         //Finds the jack in the box component on awake
@@ -104,6 +120,12 @@ public class ClownStateManager : MonoBehaviour, IInteractable
     }
 
 
+    public void DisableAI()
+    {
+        Debug.Log("clown is disabled");
+        SwitchState(disabledState);
+    }
+
 
     //Initializes the clown (used by the game manager)
     public static void InitializeClown(GameObject clownThisBelongsTo, bool active)
@@ -130,21 +152,25 @@ public class ClownStateManager : MonoBehaviour, IInteractable
     //A function used to check if the player is in range
     public void CheckIfTargetIsInRange()
     {
+        //sets the min distance to be equal to the agents stopping distance
         float minDistance = Agent.stoppingDistance;
-        float distance = Vector3.Distance(Target.transform.position, transform.position);
 
-        //If the target is in bed target, and the enemy reaches its destination...
-        if (distance <= minDistance && Target == InBedTarget)
+        //sets the distance
+        float distance = Vector3.Distance(_target.transform.position, transform.position);
+
+        // If the target is in the bed and the enemy reaches the destination...
+        if (distance <= minDistance && _target == InBedTarget)
         {
-            Agent.transform.LookAt(PlayerPos);
+            Debug.Log("clown Reached in bed target!");
         }
 
-        //else if the player is in range
-        else if (distance <= (minDistance + 2) && Target == PlayerRef && _clownIsUp)
+        //else if the player is in range and the dummy is currently in the chase player state...
+        else if (distance <= (minDistance + 2) && _target == PlayerRef && currentState == chasePlayerState)
         {
             //if the ai is close to the player and is active...
 
-          
+            //switch to attack state
+            SwitchState(attackState);
         }
     }
 
@@ -167,7 +193,7 @@ public class ClownStateManager : MonoBehaviour, IInteractable
         }
 
         //If the player is not in the bed...   
-        else
+        else if(!PlayerRef.GetComponent<PlayerInputBehavior>().playerControls.InBed.enabled)
         {
             //The clown will go torwards the player
             Target = PlayerRef;

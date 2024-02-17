@@ -5,6 +5,7 @@ public class GhoulAttackState : GhoulBaseState
     public override void EnterState(GhoulStateManager ghoul)
     {
         Debug.Log("Ghoul is in the attack state");
+        TimelineManager.onPlayGhoulJumpscare?.Invoke();
     }
 
     

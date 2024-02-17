@@ -7,7 +7,7 @@ public class GameOverBehavior : MonoBehaviour
     public delegate void GameOver();
 
     //Events
-    public static event GameOver onGameOver;     //uses to call game over stuff
+    public static GameOver onGameOver;    
 
 
     //A boolean used to determind if the game is over or not
@@ -22,11 +22,16 @@ public class GameOverBehavior : MonoBehaviour
     {
         //Resets all the variables when the game is started
         GameManager.onGameStarted += ResetVariables;
+        onGameOver += SetGameOver;
+       
+        
     }
 
     private void OnDisable()
     {
         GameManager.onGameStarted -= ResetVariables;
+        onGameOver -= SetGameOver;
+       
     }
 
 
@@ -39,12 +44,15 @@ public class GameOverBehavior : MonoBehaviour
         gameOverScreen.SetActive(false);
     }
 
+   
 
-    
+
     public void SetGameOverScreen(bool active)
     {
         gameOverScreen.SetActive(active);
     }
+
+   
 
 
     public void SetGameOver()
@@ -52,14 +60,7 @@ public class GameOverBehavior : MonoBehaviour
         //sets to be true
         gameOver = true;
 
-
-        //show the game over screen
-        gameOverScreen.gameObject.SetActive(true);
-
-
-        //calls the event onGameOver
-        onGameOver?.Invoke();
-
+        //shows the cursor
         Cursor.visible = true;
     }
 

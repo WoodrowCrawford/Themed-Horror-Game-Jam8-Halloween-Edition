@@ -20,9 +20,8 @@ public class DummyStateManager : MonoBehaviour, IInteractable
     public DummyAttackState attackState = new DummyAttackState();                           //the attack state for the dummy
 
 
-    [Header("Test Cutscene")]
-    [SerializeField] private TimelineAsset _dummyJumpscare;
-    [SerializeField] private PlayableDirector _director;
+    
+
 
 
 
@@ -148,6 +147,7 @@ public class DummyStateManager : MonoBehaviour, IInteractable
     {
         //disables the ai when the game is over
         GameOverBehavior.onGameOver += DisableAI;
+     
     }
 
 
@@ -157,7 +157,7 @@ public class DummyStateManager : MonoBehaviour, IInteractable
     }
 
 
-
+    
 
     //Gets the components for the ai on startup
     private void Awake()
@@ -186,10 +186,6 @@ public class DummyStateManager : MonoBehaviour, IInteractable
        
     }
 
-    public void GameoverTest()
-    {
-        _director.Play(_dummyJumpscare);
-    }
 
    public void SwitchState(DummyDefaultState state)
     {
