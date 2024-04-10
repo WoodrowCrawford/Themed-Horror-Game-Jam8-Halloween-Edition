@@ -2,16 +2,23 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using static GameManager;
 
 public class PauseSystem : MonoBehaviour
 {
     public static PauseSystem instance;
     public static bool isPaused = false;
 
-    public GameObject PauseMenu;
 
     [Header("Pause menu parameters")]
+    [SerializeField] private GameObject _pauseMenu;
     [SerializeField] private Image _pauseBG;
+    [SerializeField] private Image _settingsBG;
+
+    [Header("Buttons")]
+    [SerializeField] private Button _retryButton;
+    [SerializeField] private Button _settingsButton;
+    [SerializeField] private Button _mainMenuButton;
 
 
     [Header("Pause BG Materials")]
@@ -37,10 +44,51 @@ public class PauseSystem : MonoBehaviour
         }
     }
 
-    private void Start()
+
+    private void OnEnable()
     {
-        PauseMenu.SetActive(false);
+        SettingsManager.onSettingsClosedMainGame += () => _pauseBG.gameObject.SetActive(true);
+
+        SceneManager.sceneLoaded += OnSceneLoaded;
+
+        //Retry
+        _retryButton.onClick.AddListener(() => LevelManager.instance.ReloadScene());
+
+        //settings 
+        _settingsButton.onClick.AddListener(() => _pauseBG.gameObject.SetActive(false));
+        _settingsButton.onClick.AddListener(() => _settingsBG.gameObject.SetActive(true));
+
+        //main menu
+        _mainMenuButton.onClick.AddListener(() => LevelManager.instance.LoadScene("MainMenuScene"));
     }
+
+    private void OnDisable()
+    {
+        SettingsManager.onSettingsClosedMainGame -= () => _pauseBG.gameObject.SetActive(true);
+
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+
+        //Retry
+        _retryButton.onClick.RemoveListener(() => LevelManager.instance.ReloadScene());
+
+        //settings 
+        _settingsButton.onClick.RemoveListener(() => _pauseBG.gameObject.SetActive(false));
+        _settingsButton.onClick.RemoveListener(() => _settingsBG.gameObject.SetActive(true));
+
+
+        //main menu
+        _mainMenuButton.onClick.RemoveListener(() => LevelManager.instance.LoadScene("MainMenuScene"));
+    }
+
+
+
+    public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        _pauseMenu.SetActive(false);
+    }
+
+
+
 
 
     private void Update()
@@ -48,7 +96,7 @@ public class PauseSystem : MonoBehaviour
         //Hides the pause menu when in the main menu screen
         if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("MainMenuScene"))
         {
-            PauseMenu.SetActive(false);
+            _pauseMenu.SetActive(false);
         }
 
         UpdatePauseScreenLook();
@@ -58,7 +106,7 @@ public class PauseSystem : MonoBehaviour
     //Disables the pause screen
     public void DisablePauseScreen()
     {
-        PauseMenu.SetActive(false);
+        _pauseMenu.SetActive(false);
     }
 
 
@@ -68,7 +116,7 @@ public class PauseSystem : MonoBehaviour
         //Checks to make sure that the game is not in the main menu and that the player is allowed to pause
         if (!isPaused && GameManager.instance.currentGameMode != GameManager.GameModes.MAIN_MENU && PlayerInputBehavior.playerCanPause)
         {
-            PauseMenu.SetActive(true);
+            _pauseMenu.SetActive(true);
             
             //Makes it so that the player can not interact with things while paused
             PlayerInputBehavior.playerCanInteract = false;
@@ -81,10 +129,10 @@ public class PauseSystem : MonoBehaviour
             isPaused = true;
         }
 
-        //Checks to make sure that the game is not in the main menu
-        else if (isPaused && GameManager.instance.currentGameMode != GameManager.GameModes.MAIN_MENU)
+        //Checks to make sure that the game is not in the main menu and if the settings menu is not open
+        else if (isPaused && GameManager.instance.currentGameMode != GameManager.GameModes.MAIN_MENU && !_settingsBG.IsActive())
         {
-            PauseMenu.SetActive(false);
+            _pauseMenu.SetActive(false);
 
             //if the dialogue is open while the game is unpaused
             if(DialogueUIBehavior.IsOpen)
@@ -105,7 +153,6 @@ public class PauseSystem : MonoBehaviour
             Time.timeScale = 1f;
             Cursor.visible = false;
 
-            Debug.Log("game is no longer paused");
             isPaused = false;
             
         }
@@ -142,5 +189,15 @@ public class PauseSystem : MonoBehaviour
             _pauseText.colorGradientPreset = _nighttimeTextColorGradient;
 
         }
+    }
+
+    public void ShowMouse()
+    {
+        Cursor.visible = true;
+    }
+
+    public void HideMouse()
+    {
+        Cursor.visible = false;
     }
 }

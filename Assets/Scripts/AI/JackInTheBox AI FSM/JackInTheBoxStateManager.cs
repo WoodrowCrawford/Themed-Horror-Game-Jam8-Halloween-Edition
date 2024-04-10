@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class JackInTheBoxStateManager : MonoBehaviour, IInteractable
 {
@@ -22,13 +23,18 @@ public class JackInTheBoxStateManager : MonoBehaviour, IInteractable
 
     [Header("Music Box Values")]
     public float musicDuration = 100.0f;
+    public float currentMusicDuration = 100.0f;
     [SerializeField] private float _decreaseSpeed;
     [SerializeField] private float _increaseSpeed;
     public bool playerRewindingBox;
     public bool jackInTheBoxOpen;
 
+    [Header("UI")]
+    public Image musicDurationImage;
+
     [Header("Positions")]
     [SerializeField] private Transform _originalPos;
+    [SerializeField] private Transform _playerTarget;
 
     [Header("Interaction Values")]
     [SerializeField] private string _interactionPrompt;
@@ -85,6 +91,10 @@ public class JackInTheBoxStateManager : MonoBehaviour, IInteractable
             _interactionPrompt = "Interact";
             highlightBehavior.isActive = true;
         }
+
+       musicDurationImage?.transform.LookAt(_playerTarget.transform.position);
+
+      
     }
 
 
@@ -109,15 +119,14 @@ public class JackInTheBoxStateManager : MonoBehaviour, IInteractable
     //Plays the music box
     public void PlayMusicBox()
     {
-        Debug.Log("Playing the music");
-
+       
         //decrease the music duration as time passes
-        musicDuration -= (Time.deltaTime * _decreaseSpeed);
+        currentMusicDuration -= (Time.deltaTime * _decreaseSpeed);
 
         //sets the music duration to be 0 if equals 0 or less
-        if (musicDuration <= 0f)
+        if (currentMusicDuration <= 0f)
         {
-            musicDuration = 0f;
+            currentMusicDuration = 0f;
 
             //Stops the handle from rotating when the music duration is 0
             _handle.gameObject.transform.Rotate(0, 0, 0);
@@ -135,12 +144,12 @@ public class JackInTheBoxStateManager : MonoBehaviour, IInteractable
     {
 
         //Increase the music duration as the box is rewinding
-        musicDuration += (Time.deltaTime * _increaseSpeed);
+        currentMusicDuration += (Time.deltaTime * _increaseSpeed);
 
         //Sets the music box to be 100 if it equals 100 or more
-        if (musicDuration >= 100f)
+        if (currentMusicDuration >= 100f)
         {
-            musicDuration = 100f;
+            currentMusicDuration = 100f;
 
             //Stops the handle from rotating when the music duration is 100
             _handle.gameObject.transform.Rotate(0, 0, 0);

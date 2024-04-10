@@ -115,10 +115,7 @@ public class PlayerInputBehavior : MonoBehaviour
 
     public void OnEnable()
     {
-        //Invokes the events when script is enabled
-        //onFlashlightToggled?.Invoke();
-        
-       
+      
         //Creates the Action Maps
         playerControls = new PlayerInputActions();
         playerControls.InBed.Enable();

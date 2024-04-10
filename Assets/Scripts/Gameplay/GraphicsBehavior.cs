@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class GraphicsBehavior : MonoBehaviour
 {
@@ -16,7 +18,7 @@ public class GraphicsBehavior : MonoBehaviour
 
    
     public GameObject Graphics; //the game object used for graphics
-    public GameObject PostProcessing; //the pp used for the lighting
+    public GameObject CurrentPostProcessingObject; //the pp used for the lighting
     public GameObject Sun;  //The sun used for lighting
 
 
@@ -32,12 +34,16 @@ public class GraphicsBehavior : MonoBehaviour
     {
         GameManager.onGameStarted += FindSun;
         GameManager.onGameEnded += EndTest;
+
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void OnDisable()
     {
         GameManager.onGameStarted -= FindSun;
         GameManager.onGameEnded -= FindSun;
+
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void Awake()
@@ -46,7 +52,7 @@ public class GraphicsBehavior : MonoBehaviour
         Graphics = GameObject.FindGameObjectWithTag("Graphics");
 
         //Finds the Sun game object
-        Sun = GameObject.FindGameObjectWithTag("Sun");
+        //Sun = GameObject.FindGameObjectWithTag("Sun");
 
         if (instance == null)
         {
@@ -59,14 +65,32 @@ public class GraphicsBehavior : MonoBehaviour
         }
     }
 
-   
+
+
+    public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        Debug.Log("On scene loaded:" + scene.name);
+        Debug.Log("mode");
+
+        //if the scene is the main menu scene
+        if (scene == SceneManager.GetSceneByBuildIndex(0))
+        { 
+            CurrentPostProcessingObject = GameObject.Find("Post Processing");
+        }
+
+        //if the scene is the bedroom scene
+        else if (scene == SceneManager.GetSceneByBuildIndex(1))
+        {
+            CurrentPostProcessingObject = GameObject.Find("PostProcessing");
+        }
+    }
 
 
     //Sets the scene to be daytime
     public void SetDayTime()
     {
         //Enables the light component in the sun object
-        Sun.GetComponent<Light>().enabled = true;
+        //Sun.GetComponent<Light>().enabled = true;
 
   
        
@@ -75,7 +99,7 @@ public class GraphicsBehavior : MonoBehaviour
         IsNightTime = false;
 
         //sets the graphic game object to be false
-        PostProcessing.SetActive(false);
+       // CurrentPostProcessingObject.SetActive(false);
 
         Debug.Log("Set to day time!!!!!");
     }
@@ -84,7 +108,7 @@ public class GraphicsBehavior : MonoBehaviour
     public void SetNightTime()
     {
         //Disables the light component in the sun object
-        Sun.GetComponent<Light>().enabled = false;
+       //Sun.GetComponent<Light>().enabled = false;
 
        
 
@@ -92,7 +116,7 @@ public class GraphicsBehavior : MonoBehaviour
         IsDayTime = false;
 
         //sets the graphic game object to be true
-        PostProcessing.SetActive(true);
+       // CurrentPostProcessingObject.SetActive(true);
     }
 
 
@@ -104,7 +128,7 @@ public class GraphicsBehavior : MonoBehaviour
 
     public void FindSun()
     {
-        Sun = GameObject.FindGameObjectWithTag("Sun");
+        //Sun = GameObject.FindGameObjectWithTag("Sun");
         Debug.Log("hey i should find the sun now");
     }
 }

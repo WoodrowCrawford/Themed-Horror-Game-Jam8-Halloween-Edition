@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class WindowWaitingState : WindowBaseState
@@ -14,6 +12,7 @@ public class WindowWaitingState : WindowBaseState
 
         //Sets the interaction prompt
         window.InteractionPrompt = "Interact";
+
 
         //calculates the wait time on startup
         window.StartCoroutine(CalculateWaitTime());

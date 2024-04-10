@@ -144,5 +144,7 @@ public class GameManager : MonoBehaviour
         PauseSystem.isPaused = false;
         Time.timeScale = 1.0f;
         LevelManager.instance.LoadScene(sceneName);    
-    }   
+    }
+
+   
 }

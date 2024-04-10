@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3667a4296b0115b40ad167e804a58408, type: 3}
+  m_Name: WindowTutorialDialogue
+  m_EditorClassIdentifier: 
+  _dialogue:
+  - (This is the window!)
+  _responses:
+  - _responseText: yeah i know
+    _dialogueObject: {fileID: 11400000, guid: 9c4ae8d9731b6eb4f87f1bd5c2bf832f, type: 2}
+  - _responseText: oh really?
+    _dialogueObject: {fileID: 11400000, guid: f091c47c2e541594e8a2d053c642a932, type: 2}

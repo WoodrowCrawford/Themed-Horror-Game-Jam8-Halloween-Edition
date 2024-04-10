@@ -4,11 +4,13 @@ public class WindowStateManager : MonoBehaviour, IInteractable
 {
     public HighlightBehavior highlightBehavior;
 
+    //States
     WindowBaseState currentState;
     public WindowDisabledState disabledState = new WindowDisabledState();
     public WindowWaitingState waitingState = new WindowWaitingState();
     public WindowOpeningState openingState = new WindowOpeningState();
 
+    
     //delegates
     public delegate void WindowEvents();
 
@@ -20,8 +22,12 @@ public class WindowStateManager : MonoBehaviour, IInteractable
     [Header("WindowParameters")]
     [SerializeField] private GameObject _windowThatMoves;
     [SerializeField] private string _interactionPrompt;
-    [SerializeField] private DialogueObjectBehavior _dialogueObject;
     public bool isActive;
+
+    //dialogue objects for the object
+    [Header("Dialogue Objects")]
+    public DialogueObjectBehavior windowTutorial;
+    public DialogueObjectBehavior test;
 
     [Header("Waiting State Parameters")]
     [SerializeField] private float _minSecondsToWait;
@@ -37,7 +43,7 @@ public class WindowStateManager : MonoBehaviour, IInteractable
 
     public GameObject WindowThatMoves { get { return _windowThatMoves; } set { _windowThatMoves = value; } }
     public string InteractionPrompt { get { return _interactionPrompt;  } set { _interactionPrompt = value; } }
-    public DialogueObjectBehavior DialogueObject => _dialogueObject;
+    public DialogueObjectBehavior DialogueObject { get; set; }
     public float MinSecondsToWait { get { return _minSecondsToWait; } set { _minSecondsToWait = value; } }
     public float MaxSecondsToWait { get { return _maxSecondsToWait; } set { _maxSecondsToWait = value; } }
     public float WindowOpeningSpeed => _windowOpeningSpeed;
@@ -72,16 +78,25 @@ public class WindowStateManager : MonoBehaviour, IInteractable
 
     private void Update()
     {
-        currentState.UpdateState(this);
+        currentState.UpdateState(this); 
     }
 
     public void Interact(Interactor Interactor)
     {
-        //if the day is the demo night and the player wants to look around
-        if(DayManager.instance.days == DayManager.Days.DEMO && DayManager.instance.currentDemoNightTask == DemoNight.DemoNightTasks.EXAMINE_ROOM)
+        if (TryGetComponent(out DialogueResponseEvents responseEvents) && responseEvents.DialogueObject == DialogueObject)
         {
+            Interactor.DialogueUI.AddResponseEvents(responseEvents.Events);
+        }
+
+        //if the day is the demo night and the player wants to look around
+        if (DayManager.instance.days == DayManager.Days.DEMO && DayManager.instance.currentDemoNightTask == DemoNight.DemoNightTasks.EXAMINE_ROOM)
+        {
+            //sets the dialogue object to be equal to the window tutorial dialogue obeject
+            DialogueObject = windowTutorial;
+
             //play the tutorial window dialogue 
-            Debug.Log("Play window dialogue here");
+            DialogueUIBehavior.instance.ShowDialogue(windowTutorial);
+
         }
 
         //else if the day is the demo and the player has to fall asleep

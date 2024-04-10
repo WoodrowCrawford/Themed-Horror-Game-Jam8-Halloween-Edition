@@ -6,10 +6,15 @@ public class JackInTheBoxActiveState : JackInTheBoxBaseState
     {
         Debug.Log("Jack in the box is now in the active state");
         jackInTheBox.InteractionPrompt = "Active!";
+
+        jackInTheBox.musicDurationImage.enabled = true;
     }
 
     public override void UpdateState(JackInTheBoxStateManager jackIntheBox)
     {
+        jackIntheBox.musicDurationImage.fillAmount = jackIntheBox.currentMusicDuration / jackIntheBox.musicDuration;
+
+
         //check if the player is interacting with the box and is in range
         if (PlayerInputBehavior.isPlayerInteracting && jackIntheBox.jackInTheBoxRangeBehavior.playerInRangeOfBox)
         {
@@ -24,7 +29,7 @@ public class JackInTheBoxActiveState : JackInTheBoxBaseState
             jackIntheBox.PlayMusicBox();
 
             //if the jack in the box is finished playing the music
-            if (jackIntheBox.musicDuration <= 0)
+            if (jackIntheBox.currentMusicDuration <= 0)
             {
                 jackIntheBox.SwitchState(jackIntheBox.openState);
             }
