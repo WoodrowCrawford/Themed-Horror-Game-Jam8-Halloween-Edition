@@ -10,7 +10,7 @@ public class LevelManager : MonoBehaviour
 
 
     [Header("Loading Screen Values")]
-    [SerializeField] private Image _loadingImage;
+    [SerializeField] private Canvas _loadingScreenCanvas;
     [SerializeField] private Image _loadingBarFill;
 
 
@@ -45,8 +45,8 @@ public class LevelManager : MonoBehaviour
 
       
 
-        _loadingImage.gameObject.SetActive(true);
-        _loadingBarFill.gameObject.SetActive(true);
+        _loadingScreenCanvas.gameObject.SetActive(true);
+
 
         while (!operation.isDone)
         {
@@ -59,8 +59,7 @@ public class LevelManager : MonoBehaviour
             yield return null;
         }
 
-        _loadingImage.gameObject.gameObject.SetActive(false);
-        _loadingBarFill.gameObject.SetActive(false);
+       _loadingScreenCanvas.gameObject.SetActive(false);
 
     }
    

@@ -42,6 +42,8 @@ TagManager:
   - GhoulJumpscare
   - ClownJumpscare
   - LoadingScreen
+  - LoadingScreenCanvas
+  - Settings
   layers:
   - Default
   - TransparentFX
