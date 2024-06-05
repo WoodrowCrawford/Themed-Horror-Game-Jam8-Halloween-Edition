@@ -1173,8 +1173,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 82015132}
-  m_LocalRotation: {x: 0, y: 0.9989457, z: -0, w: -0.045907475}
-  m_LocalPosition: {x: 30.163094, y: -4.076863, z: 15.13485}
+  m_LocalRotation: {x: 0.12123586, y: 0.406338, z: -0.053495917, w: 0.90406275}
+  m_LocalPosition: {x: 13.154216, y: -3.019073, z: 12.739842}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -12769,7 +12769,7 @@ GameObject:
   - component: {fileID: 1028407984}
   m_Layer: 5
   m_Name: SettingsUI
-  m_TagString: Untagged
+  m_TagString: SettingsUI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16540,7 +16540,7 @@ GameObject:
   - component: {fileID: 1370539959}
   m_Layer: 5
   m_Name: Settings
-  m_TagString: Untagged
+  m_TagString: Settings
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17064,7 +17064,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 877fbb2dbfb858047b15e60fd771e78a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _settingsBackground: {fileID: 1370539955}
+  _settingsUI: {fileID: 0}
+  _settingsBackground: {fileID: 0}
   _playButton: {fileID: 1562887666}
   _settingsButton: {fileID: 552506787}
 --- !u!1 &1408164749 stripped

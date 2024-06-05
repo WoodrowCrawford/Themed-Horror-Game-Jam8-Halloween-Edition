@@ -1,9 +1,11 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class MainMenuUIBehavior : MonoBehaviour
 {
     [Header("Game Objects")]
+    [SerializeField] private GameObject _settingsUI;
     [SerializeField] private GameObject _settingsBackground;
 
 
@@ -21,6 +23,8 @@ public class MainMenuUIBehavior : MonoBehaviour
         SettingsManager.onSettingsOpenedMainMenu += HideMainMenuButtons;
         SettingsManager.onSettingsClosedMainMenu += ShowMainMenuButtons;
 
+        GameManager.onStopStory += FindSettings;
+
         //Main menu
         _playButton.onClick.AddListener(() => GameManager.ChangeScene("BedroomScene"));
         _settingsButton.onClick.AddListener(() => OpenSettings());
@@ -34,11 +38,22 @@ public class MainMenuUIBehavior : MonoBehaviour
         SettingsManager.onSettingsOpenedMainMenu -= HideMainMenuButtons;
         SettingsManager.onSettingsClosedMainMenu -= ShowMainMenuButtons;
 
+        GameManager.onStopStory -= FindSettings;
 
         //Main menu on disable
         _playButton.onClick.RemoveListener(() => GameManager.ChangeScene("BedroomScene"));
         _settingsButton.onClick.RemoveListener(() => OpenSettings());
     }
+
+
+    private void Awake()
+    {
+        //Finds the settings on awake
+        FindSettings();
+    }
+
+
+
 
     public void ShowMainMenuButtons()
     {
@@ -65,5 +80,15 @@ public class MainMenuUIBehavior : MonoBehaviour
         //Hides the play and settings butotns
         _playButton.gameObject.SetActive(false);
         _settingsButton.gameObject.SetActive(false);
+    }
+
+    public void FindSettings()
+    {
+        //find the settings UI canvas
+        _settingsUI = GameObject.FindGameObjectWithTag("SettingsUI");
+
+
+        //Find the settings game object in the canvas
+        _settingsBackground = _settingsUI.transform.Find("Settings").gameObject;
     }
 }

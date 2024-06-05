@@ -13,7 +13,8 @@ public class PauseSystem : MonoBehaviour
     [Header("Pause menu parameters")]
     [SerializeField] private GameObject _pauseMenu;
     [SerializeField] private Image _pauseBG;
-    [SerializeField] private Image _settingsBG;
+    [SerializeField] private GameObject _settingsBG;
+    [SerializeField] private GameObject _settingsUI;
 
     [Header("Buttons")]
     [SerializeField] private Button _retryButton;
@@ -47,9 +48,10 @@ public class PauseSystem : MonoBehaviour
 
     private void OnEnable()
     {
+        //Events
         SettingsManager.onSettingsClosedMainGame += () => _pauseBG.gameObject.SetActive(true);
-
         SceneManager.sceneLoaded += OnSceneLoaded;
+        GameManager.onGameStarted += FindSettings;
 
         //Retry
         _retryButton.onClick.AddListener(() => LevelManager.instance.ReloadScene());
@@ -64,9 +66,10 @@ public class PauseSystem : MonoBehaviour
 
     private void OnDisable()
     {
+        //Events disable
         SettingsManager.onSettingsClosedMainGame -= () => _pauseBG.gameObject.SetActive(true);
-
         SceneManager.sceneLoaded -= OnSceneLoaded;
+        GameManager.onGameStarted -= FindSettings;
 
         //Retry
         _retryButton.onClick.RemoveListener(() => LevelManager.instance.ReloadScene());
@@ -84,6 +87,7 @@ public class PauseSystem : MonoBehaviour
 
     public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        //set the pause menu to be inactive when the scene changes
         _pauseMenu.SetActive(false);
     }
 
@@ -117,7 +121,7 @@ public class PauseSystem : MonoBehaviour
         if (!isPaused && GameManager.instance.currentGameMode != GameManager.GameModes.MAIN_MENU && PlayerInputBehavior.playerCanPause)
         {
             _pauseMenu.SetActive(true);
-            
+
             //Makes it so that the player can not interact with things while paused
             PlayerInputBehavior.playerCanInteract = false;
 
@@ -130,12 +134,12 @@ public class PauseSystem : MonoBehaviour
         }
 
         //Checks to make sure that the game is not in the main menu and if the settings menu is not open
-        else if (isPaused && GameManager.instance.currentGameMode != GameManager.GameModes.MAIN_MENU && !_settingsBG.IsActive())
+        else if (isPaused && GameManager.instance.currentGameMode != GameManager.GameModes.MAIN_MENU && !_settingsBG.activeInHierarchy)
         {
             _pauseMenu.SetActive(false);
 
             //if the dialogue is open while the game is unpaused
-            if(DialogueUIBehavior.IsOpen)
+            if (DialogueUIBehavior.IsOpen)
             {
                 //Makes it so that the player can not interact with things while unpaused and the dialogue box is open
                 PlayerInputBehavior.playerCanInteract = false;
@@ -154,7 +158,7 @@ public class PauseSystem : MonoBehaviour
             Cursor.visible = false;
 
             isPaused = false;
-            
+
         }
 
     }
@@ -163,7 +167,7 @@ public class PauseSystem : MonoBehaviour
 
     public void UpdatePauseScreenLook()
     {
-        if(GraphicsBehavior.instance.IsDayTime)
+        if (GraphicsBehavior.instance.IsDayTime)
         {
             //set the background material to be normal
             _pauseBG.material = null;
@@ -176,7 +180,7 @@ public class PauseSystem : MonoBehaviour
 
         }
 
-        else if(GraphicsBehavior.instance.IsNightTime)
+        else if (GraphicsBehavior.instance.IsNightTime)
         {
 
             //set the background material to be dark
@@ -190,6 +194,18 @@ public class PauseSystem : MonoBehaviour
 
         }
     }
+
+
+    public void FindSettings()
+    {
+        //find the settings UI canvas
+        _settingsUI = GameObject.FindGameObjectWithTag("SettingsUI");
+
+
+        //Find the settings game object in the canvas
+        _settingsBG = _settingsUI.transform.Find("Settings").gameObject;
+    }
+
 
     public void ShowMouse()
     {

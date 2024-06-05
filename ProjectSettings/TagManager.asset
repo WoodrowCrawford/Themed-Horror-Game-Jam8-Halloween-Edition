@@ -44,6 +44,7 @@ TagManager:
   - LoadingScreen
   - LoadingScreenCanvas
   - Settings
+  - SettingsUI
   layers:
   - Default
   - TransparentFX

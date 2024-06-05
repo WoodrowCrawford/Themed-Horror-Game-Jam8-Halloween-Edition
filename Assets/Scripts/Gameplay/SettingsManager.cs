@@ -51,10 +51,10 @@ public class SettingsManager : MonoBehaviour
         //add listeners for the back button
         _backButton.onClick.AddListener(() => CloseSettings());
 
-        GameManager.onGameStarted += FindSettingsObject;
+        //GameManager.onGameStarted += FindSettingsObject;
     }
 
-
+   
     private void OnDisable()
     {
         //remove listeners for the quality buttons
@@ -65,7 +65,7 @@ public class SettingsManager : MonoBehaviour
         //remove listeners for the back buttons
         _backButton.onClick.RemoveListener(() => CloseSettings());
 
-        GameManager.onGameStarted -= FindSettingsObject;
+        //GameManager.onGameStarted -= FindSettingsObject;
 
     }
 
