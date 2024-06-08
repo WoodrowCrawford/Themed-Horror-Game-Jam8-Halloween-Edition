@@ -1,4 +1,3 @@
-
 using UnityEngine;
 public class DummyDisabledState : DummyDefaultState
 {
@@ -10,6 +9,7 @@ public class DummyDisabledState : DummyDefaultState
 public override void EnterState(DummyStateManager dummy)
     {
         Debug.Log("Dummy is now in the disabled state!");
+
     }
 
    

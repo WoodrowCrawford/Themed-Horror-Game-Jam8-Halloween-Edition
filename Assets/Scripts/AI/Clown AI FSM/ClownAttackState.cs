@@ -9,6 +9,9 @@ public class ClownAttackState : ClownBaseState
         //calls the clown jumpscare event
         TimelineManager.onPlayClownJumpscare?.Invoke();
 
+        //let the game know that the clown killed the player
+        ClownStateManager.clownKilledPlayer = true;
+
        
     }
 

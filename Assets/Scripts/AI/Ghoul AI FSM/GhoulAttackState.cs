@@ -6,6 +6,9 @@ public class GhoulAttackState : GhoulBaseState
     {
         Debug.Log("Ghoul is in the attack state");
         TimelineManager.onPlayGhoulJumpscare?.Invoke();
+
+        //let the game know that the ghoul killed the player
+        GhoulStateManager.ghoulKilledPlayer = true;
     }
 
     

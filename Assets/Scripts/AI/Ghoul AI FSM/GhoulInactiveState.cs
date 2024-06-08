@@ -7,6 +7,7 @@ public class GhoulInactiveState : GhoulBaseState
     public override void EnterState(GhoulStateManager ghoul)
     {
         Debug.Log("Ghoul is in the inactive state");
+      
     }
 
    

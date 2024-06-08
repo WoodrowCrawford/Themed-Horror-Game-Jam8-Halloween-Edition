@@ -45,6 +45,9 @@ public class GhoulStateManager : MonoBehaviour
 
 
 
+    [Header("Attack state values")]
+    public static bool ghoulKilledPlayer = false;
+
     [Header("Target")]
     [SerializeField] private GameObject _playerRef;
 
@@ -108,6 +111,9 @@ public class GhoulStateManager : MonoBehaviour
     {
         //Starts the ai in the inactive state by default
         currentState = inactiveState;
+
+        //sets to false on startup
+        ghoulKilledPlayer = false;
 
         //gets the reference to the state that is currently being used
         currentState.EnterState(this);

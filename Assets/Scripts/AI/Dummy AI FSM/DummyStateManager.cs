@@ -61,6 +61,9 @@ public class DummyStateManager : MonoBehaviour, IInteractable
     [Header("Run away state values")]
     public bool dummyIsAtOrigin;     //checks to see if the dummy is at origin
 
+    [Header("Attack state values")]
+    public static bool dummyKilledPlayer = false;
+
 
 
     [Header("Awake Frequency")]
@@ -99,6 +102,9 @@ public class DummyStateManager : MonoBehaviour, IInteractable
     [SerializeField] private float _xSize;
     [SerializeField] private Vector3 _ySize;
     [SerializeField] private Vector3 _zSize;
+
+
+   
 
 
 
@@ -173,6 +179,9 @@ public class DummyStateManager : MonoBehaviour, IInteractable
     {
         //Starts the ai in the inactive state by default
         currentState = inactiveState;
+
+        //sets to false on startup
+        dummyKilledPlayer = false;
 
         //gets the reference to the state that is currently being used
         currentState.EnterState(this);

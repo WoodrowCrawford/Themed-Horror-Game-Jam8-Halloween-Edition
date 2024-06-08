@@ -10,6 +10,9 @@ public class DummyAttackState : DummyDefaultState
 
         //call the dummy jumpscare event
         TimelineManager.onPlayDummyJumpscare?.Invoke();
+
+        //signal an event that lets the game know that the dummy attack
+        DummyStateManager.dummyKilledPlayer = true;
       
         
   

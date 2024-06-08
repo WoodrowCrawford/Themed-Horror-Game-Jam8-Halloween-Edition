@@ -46,6 +46,9 @@ public class ClownStateManager : MonoBehaviour, IInteractable
     [Header("Chase player values")]
     private bool _clownIsChasing = false;
 
+    [Header("Attack state values")]
+    public static bool clownKilledPlayer = false;
+
 
 
     [Header("Interaction")]
@@ -101,6 +104,9 @@ public class ClownStateManager : MonoBehaviour, IInteractable
     {
         //Starts the ai in the inactive state by default
         currentState = inactiveState;
+
+        //sets to false on startup
+        clownKilledPlayer = false;
 
         //gets the reference to the state that is currently being used
         currentState.EnterState(this);
