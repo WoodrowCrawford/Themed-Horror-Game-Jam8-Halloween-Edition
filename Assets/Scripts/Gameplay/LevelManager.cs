@@ -66,9 +66,16 @@ public class LevelManager : MonoBehaviour
     //Reloads the current scene
     public void ReloadScene()
     {
+
+        //if the game was paused while the scene was reloaded
+        if(PauseSystem.isPaused)
+        {
+            //toggle the pause menu
+            PauseSystem.instance.TogglePauseMenu();
+        }
+
+        //reloads the scene
         var scene = SceneManager.GetActiveScene();
-     
-        PauseSystem.instance.TogglePauseMenu();
         SceneManager.LoadScene(scene.name);
     }
 

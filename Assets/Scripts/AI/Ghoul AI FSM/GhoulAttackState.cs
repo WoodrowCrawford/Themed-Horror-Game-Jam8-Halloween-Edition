@@ -4,11 +4,17 @@ public class GhoulAttackState : GhoulBaseState
 {
     public override void EnterState(GhoulStateManager ghoul)
     {
-        Debug.Log("Ghoul is in the attack state");
-        TimelineManager.onPlayGhoulJumpscare?.Invoke();
+        //first check if the player can be attacked
+        if(PlayerInputBehavior.playerCanGetCaught)
+        {
+            Debug.Log("Ghoul is in the attack state");
+            TimelineManager.onPlayGhoulJumpscare?.Invoke();
 
-        //let the game know that the ghoul killed the player
-        GhoulStateManager.ghoulKilledPlayer = true;
+            //let the game know that the ghoul killed the player
+            GhoulStateManager.ghoulKilledPlayer = true;
+        }
+
+       
     }
 
     

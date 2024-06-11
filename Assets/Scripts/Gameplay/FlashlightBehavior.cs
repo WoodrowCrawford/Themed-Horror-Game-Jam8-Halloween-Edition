@@ -52,6 +52,8 @@ public class FlashlightBehavior : MonoBehaviour
 
     private void Start()
     {
+        
+
         //if it is daytime...
         if (GraphicsBehavior.instance.IsDayTime)
         {
@@ -62,6 +64,8 @@ public class FlashlightBehavior : MonoBehaviour
         {
             //set to be true
             _flashlightOn = true;
+
+            
         }
     }
 

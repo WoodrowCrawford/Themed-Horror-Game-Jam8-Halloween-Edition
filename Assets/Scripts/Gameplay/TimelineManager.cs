@@ -9,6 +9,7 @@ public class TimelineManager : MonoBehaviour
     [Header("Current Director")]
     public PlayableDirector currentPlayableDirector;
     [SerializeField] private bool _cutsceneIsPlaying = false;
+    
 
     [Header("Stored Directors")]
     public PlayableDirector  dummyPlayableDirector;
@@ -30,6 +31,7 @@ public class TimelineManager : MonoBehaviour
 
 
     public bool CutsceneIsPlaying { get { return _cutsceneIsPlaying; } }
+   
    
 
     
@@ -151,7 +153,7 @@ public class TimelineManager : MonoBehaviour
     public void PlayCutscene(PlayableDirector playableDirector)
     {
         //if a cutscene is not currently playing...
-        if (!_cutsceneIsPlaying)
+        if (!CutsceneIsPlaying)
         {
             //set the current director to be the director that is playing
             currentPlayableDirector = playableDirector;
@@ -161,9 +163,12 @@ public class TimelineManager : MonoBehaviour
         }
         else
         {
+            Debug.Log("Cant play another one");
             return;
         }
 
-     
+
+
+        
     }
 }

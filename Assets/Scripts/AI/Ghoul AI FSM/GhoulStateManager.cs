@@ -136,6 +136,7 @@ public class GhoulStateManager : MonoBehaviour
         currentState = state;
         state.EnterState(this);
         GhoulBaseState.onSwitchState?.Invoke();
+     
     }
 
 
@@ -190,8 +191,8 @@ public class GhoulStateManager : MonoBehaviour
         float distance = Vector3.Distance(_playerRef.transform.position, transform.position);
 
         
-        //else if the player is in range and the dummy is currently in the chase player state...
-        if (distance <= (minDistance + 2) && currentState == chaseState)
+        //else if the player is in range and can be caught and the dummy is currently in the chase player state...
+        if (distance <= (minDistance + 2) && PlayerInputBehavior.playerCanGetCaught && currentState == chaseState)
         {
             //if the ai is close to the player and is active...
 
@@ -283,7 +284,7 @@ public class GhoulStateManager : MonoBehaviour
         }
     }
 
-
+    
 
 
 

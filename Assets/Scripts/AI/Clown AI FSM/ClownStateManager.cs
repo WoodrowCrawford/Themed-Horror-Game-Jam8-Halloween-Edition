@@ -164,14 +164,14 @@ public class ClownStateManager : MonoBehaviour, IInteractable
         //sets the distance
         float distance = Vector3.Distance(_target.transform.position, transform.position);
 
-        // If the target is in the bed and the enemy reaches the destination...
-        if (distance <= minDistance && _target == InBedTarget)
+        // If the target is in the bed and can be caught and the enemy reaches the destination...
+        if (distance <= minDistance && PlayerInputBehavior.playerCanGetCaught && _target == InBedTarget)
         {
             Debug.Log("clown Reached in bed target!");
         }
 
-        //else if the player is in range and the dummy is currently in the chase player state...
-        else if (distance <= (minDistance + 2) && _target == PlayerRef && currentState == chasePlayerState)
+        //else if the player is in range and the player can be caught and the dummy is currently in the chase player state...
+        else if (distance <= (minDistance + 2) && _target == PlayerRef && PlayerInputBehavior.playerCanGetCaught && currentState == chasePlayerState)
         {
             //if the ai is close to the player and is active...
 

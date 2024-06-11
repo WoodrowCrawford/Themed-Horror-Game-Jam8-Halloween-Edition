@@ -245,8 +245,8 @@ public class DummyStateManager : MonoBehaviour, IInteractable
             Debug.Log("Reached in bed target!");
         }
 
-        //else if the player is in range and the dummy is currently in the chase player state...
-        else if (distance <= (minDistance + 2) && _target == PlayerRef && currentState == chasePlayerState)
+        //else if the player is in range and the player can be caught and the dummy is currently in the chase player state...
+        else if (distance <= (minDistance + 2) && PlayerInputBehavior.playerCanGetCaught && _target == PlayerRef && currentState == chasePlayerState)
         {
             //if the ai is close to the player and is active...
 

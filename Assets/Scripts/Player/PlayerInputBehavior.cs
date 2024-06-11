@@ -16,6 +16,7 @@ public class PlayerInputBehavior : MonoBehaviour
     public CinemachineVirtualCamera Camera { get { return _camera; } }
 
     [SerializeField] private InputActionMap _currentActionMap { get; set; }
+    
 
     //Static bools used to determine if the player can do something or not
     [Header("Input bools")]
@@ -29,6 +30,7 @@ public class PlayerInputBehavior : MonoBehaviour
     public static bool playerCanGetOutOfBed = true;
     public static bool playerCanGetInBed = true;
     public static bool playerCanSleep = false;
+    public static bool playerCanGetCaught = true;
     
 
     [Header("Core Player Values")]
@@ -96,7 +98,7 @@ public class PlayerInputBehavior : MonoBehaviour
     [SerializeField] private Transform _OutOfWardrobePos;
     public bool playerIsInWardrobe;
   
-
+    
    
    
    
@@ -204,6 +206,11 @@ public class PlayerInputBehavior : MonoBehaviour
         _currentActionMap.Enable();
     }
 
+    public void SetPlayerCanGetCaught(bool canGetCaught)
+    {
+        playerCanGetCaught = canGetCaught;
+    }
+
 
     private void Start()
     {
@@ -219,8 +226,19 @@ public class PlayerInputBehavior : MonoBehaviour
         //Sets the players position to be on top of the bed (can move this to be called in the day mananger for story reasons)
         _playerBody.transform.position = _TopOfBedPos.position;
 
+        //sets the current action map to be in bed on startup
+        _currentActionMap = playerControls.InBed;
+
         //sets the in bed variable to be true on startup
         inBed = true;
+
+        //set to be true on startup
+        playerCanGetCaught = true;
+
+        //enable controls on startup
+        EnableControls();
+
+        
     }
 
     private void Update()
