@@ -24,6 +24,9 @@ public class DoorBehavior : MonoBehaviour
         {
             Debug.Log("Player is by door");
             _animator.Play(DOOR_OPEN, 0, 0.0f);
+
+            SoundFXManager.instance.PlaySoundFXClip(SoundFXManager.instance.doorOpenClip, this.transform, false, 1f);
+
             //gameObject.SetActive(false);
         }  
     }
@@ -35,6 +38,8 @@ public class DoorBehavior : MonoBehaviour
         {
             Debug.Log("player is away from door");
             _animator.Play(DOOR_CLOSE, 0, 0.0f);
+
+            SoundFXManager.instance.PlaySoundFXClip(SoundFXManager.instance.doorCloseClip, this.transform, false, 1f);
             //gameObject.SetActive(true);
         }
        
