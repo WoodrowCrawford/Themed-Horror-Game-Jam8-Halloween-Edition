@@ -87,6 +87,9 @@ public class SettingsManager : MonoBehaviour
 
     private void Start()
     {
+        //get the quality level on startup
+        GetQualityLevel();
+
         _postProcessProfile.TryGetSettings(out exposure);
         AdjustBrightness(_brightnessSlider.value);
     }
@@ -109,6 +112,37 @@ public class SettingsManager : MonoBehaviour
             
         }
     }
+
+    public void GetQualityLevel()
+    {
+        int qualityLevel = QualitySettings.GetQualityLevel();
+
+        if( qualityLevel == 0)
+        {
+            //show the quality selector
+            _qualitySelector.gameObject.SetActive(true);
+
+            //Set the quality selector to be equal to the quality selected
+            _qualitySelector.transform.position = _lowQuality.gameObject.transform.position;
+        }
+        else if( qualityLevel == 1)
+        {
+            //show the quality selector
+            _qualitySelector.gameObject.SetActive(true);
+
+            //Set the quality selector to be equal to the quality selected
+            _qualitySelector.transform.position = _mediumQuality.gameObject.transform.position;
+        }
+        else if( qualityLevel == 2)
+        {
+            //show the quality selector
+            _qualitySelector.gameObject.SetActive(true);
+
+            //Set the quality selector to be equal to the quality selected
+            _qualitySelector.transform.position = _highQuality.gameObject.transform.position;
+        }
+    }
+
 
     public void SetQualityLevel(int level)
     {

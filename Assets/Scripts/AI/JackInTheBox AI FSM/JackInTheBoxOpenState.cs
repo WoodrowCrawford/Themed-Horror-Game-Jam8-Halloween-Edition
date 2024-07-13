@@ -2,24 +2,34 @@ using UnityEngine;
 
 public class JackInTheBoxOpenState : JackInTheBoxBaseState
 {
+    //delgates
+    public delegate void JackInTheBoxOpenedCallBack();
+
+    //events
+    public static event JackInTheBoxOpenedCallBack onJackInTheBoxOpened;
+
     public override void EnterState(JackInTheBoxStateManager jackInTheBox)
     {
         Debug.Log("Jack in the box is opening up!");
 
         //////do all the opening up stuff here
 
+        //play the opening sound
+        SoundFXManager.instance.PlaySoundFXClip(SoundFXManager.instance.musicBoxSongEndClip, jackInTheBox.transform, false, 1f);
+
         //Enable the animator
         jackInTheBox.animator.enabled = true;
-
-        //send a signal to the clown to let them know that the box is open
         jackInTheBox.jackInTheBoxOpen = true;
+
+        //send an event signal to let the clown know that the box is open
+        onJackInTheBoxOpened?.Invoke();
 
         
     }
 
     public override void UpdateState(JackInTheBoxStateManager jackIntheBox)
     {
-        
+        return;
     }
 
     

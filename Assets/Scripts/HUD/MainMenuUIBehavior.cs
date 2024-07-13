@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -28,6 +27,7 @@ public class MainMenuUIBehavior : MonoBehaviour
         //Main menu
         _playButton.onClick.AddListener(() => GameManager.ChangeScene("BedroomScene"));
         _settingsButton.onClick.AddListener(() => OpenSettings());
+      
 
         
     }
@@ -43,8 +43,11 @@ public class MainMenuUIBehavior : MonoBehaviour
         //Main menu on disable
         _playButton.onClick.RemoveListener(() => GameManager.ChangeScene("BedroomScene"));
         _settingsButton.onClick.RemoveListener(() => OpenSettings());
+        
     }
 
+
+  
 
     private void Awake()
     {
@@ -91,4 +94,6 @@ public class MainMenuUIBehavior : MonoBehaviour
         //Find the settings game object in the canvas
         _settingsBackground = _settingsUI.transform.Find("Settings").gameObject;
     }
+
+   
 }

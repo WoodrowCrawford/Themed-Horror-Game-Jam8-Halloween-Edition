@@ -3,13 +3,17 @@ using UnityEngine.UI;
 
 public class JackInTheBoxStateManager : MonoBehaviour, IInteractable
 {
-    public PlayerInputBehavior playerInput;
+    //public PlayerInputBehavior playerInput;
     public JackInTheBoxRangeBehavior jackInTheBoxRangeBehavior;
     public HighlightBehavior highlightBehavior;
+
+    
 
     [Header("States")]
     JackInTheBoxBaseState currentState;
     public JackInTheBoxInactiveState inactiveState = new JackInTheBoxInactiveState();    //The inactive state for the jack in the box
+    public JackInTheBoxPlayingState playingState = new JackInTheBoxPlayingState();       //The playing state for the jack in the box
+    public JackInTheBoxRewindState  rewindState =  new JackInTheBoxRewindState();        //The rewind state afor the jack in the box
     public JackInTheBoxActiveState activeState = new JackInTheBoxActiveState();          //The active state for the jack in the box
     public JackInTheBoxOpenState openState = new JackInTheBoxOpenState();                //The open state for the jack in the box
 
@@ -17,8 +21,8 @@ public class JackInTheBoxStateManager : MonoBehaviour, IInteractable
 
     [Header("Jack In the Box Components")]
     public Animator animator;
-    [SerializeField] private GameObject _handle;
     public bool isActive = false;
+    [SerializeField] private GameObject _handle;
 
 
     [Header("Music Box Values")]
@@ -55,13 +59,14 @@ public class JackInTheBoxStateManager : MonoBehaviour, IInteractable
     private void Awake()
     {
         animator = GetComponent<Animator>();
-        playerInput = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInputBehavior>();
+        //playerInput = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInputBehavior>();
         jackInTheBoxRangeBehavior = GetComponentInChildren<JackInTheBoxRangeBehavior>();
         highlightBehavior = GetComponentInChildren<HighlightBehavior>();
 
         playerCanInteract = false;
     }
 
+   
 
     private void Start()
     {
@@ -92,7 +97,7 @@ public class JackInTheBoxStateManager : MonoBehaviour, IInteractable
             highlightBehavior.isActive = true;
         }
 
-       musicDurationImage?.transform.LookAt(_playerTarget.transform.position);
+        musicDurationImage?.transform.LookAt(_playerTarget.transform.position);
 
       
     }
@@ -136,6 +141,8 @@ public class JackInTheBoxStateManager : MonoBehaviour, IInteractable
             //Rotates the handle while the music is playing
             _handle.gameObject.transform.Rotate(1, 0, 0);
         }
+
+     
     }
 
 

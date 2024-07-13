@@ -15,14 +15,12 @@ public class ClownInactiveState : ClownBaseState
     {
         if(clown.IsActive)
         {
-           // Debug.Log("Clown is active");
-
             //switches the state to be the laying down state
             clown.SwitchState(clown.layingDownState);
         }
         else
         {
-           // Debug.Log("Clown is inactive!");
+            return;
         }
     }
 }

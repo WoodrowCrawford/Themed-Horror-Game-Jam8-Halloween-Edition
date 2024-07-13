@@ -81,6 +81,7 @@ public class ClownStateManager : MonoBehaviour, IInteractable
     {
         //disables the ai when the game is over
         GameOverBehavior.onGameOver += DisableAI;
+        JackInTheBoxOpenState.onJackInTheBoxOpened += () => SwitchState(gettingUpState);
 
     }
 
@@ -88,6 +89,7 @@ public class ClownStateManager : MonoBehaviour, IInteractable
     private void OnDisable()
     {
         GameOverBehavior.onGameOver -= DisableAI;
+        JackInTheBoxOpenState.onJackInTheBoxOpened -= () => SwitchState(gettingUpState);
     }
 
 

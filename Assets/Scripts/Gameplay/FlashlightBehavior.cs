@@ -196,6 +196,9 @@ public class FlashlightBehavior : MonoBehaviour
         {
             if(DialogueUIBehavior.IsOpen) { return; }
 
+            //play turn off sound
+            SoundFXManager.instance.PlaySoundFXClip(SoundFXManager.instance.flashlightClickOffClip, this.transform, false, 1f);
+
             _playerLight.gameObject.SetActive(false);
 
             //Set the flashlight collider to be off
@@ -213,6 +216,9 @@ public class FlashlightBehavior : MonoBehaviour
         else if (!PauseSystem.isPaused && !_flashlightOn && PlayerInputBehavior.playerCanUseFlashlight)
         {
             if (DialogueUIBehavior.IsOpen) { return; }
+
+            //play turn on sound
+            SoundFXManager.instance.PlaySoundFXClip(SoundFXManager.instance.flashlightClickOnClip, this.transform, false, 1f);
 
             _playerLight.gameObject.SetActive(true);
 
