@@ -197,7 +197,7 @@ public class FlashlightBehavior : MonoBehaviour
             if(DialogueUIBehavior.IsOpen) { return; }
 
             //play turn off sound
-            SoundFXManager.instance.PlaySoundFXClip(SoundFXManager.instance.flashlightClickOffClip, this.transform, false, 1f);
+            SoundFXManager.instance.PlaySoundFXClipAtSetVolume(SoundFXManager.instance.flashlightClickOffClip, this.transform, false, 0f, 0.4f);
 
             _playerLight.gameObject.SetActive(false);
 
@@ -218,7 +218,7 @@ public class FlashlightBehavior : MonoBehaviour
             if (DialogueUIBehavior.IsOpen) { return; }
 
             //play turn on sound
-            SoundFXManager.instance.PlaySoundFXClip(SoundFXManager.instance.flashlightClickOnClip, this.transform, false, 1f);
+            SoundFXManager.instance.PlaySoundFXClipAtSetVolume(SoundFXManager.instance.flashlightClickOnClip, this.transform, false, 0f, 0.4f);
 
             _playerLight.gameObject.SetActive(true);
 

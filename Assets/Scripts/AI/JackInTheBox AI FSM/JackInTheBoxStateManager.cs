@@ -37,8 +37,10 @@ public class JackInTheBoxStateManager : MonoBehaviour, IInteractable
     public Image musicDurationImage;
 
     [Header("Positions")]
+    public Transform audioPosition;
     [SerializeField] private Transform _originalPos;
     [SerializeField] private Transform _playerTarget;
+   
 
     [Header("Interaction Values")]
     [SerializeField] private string _interactionPrompt;

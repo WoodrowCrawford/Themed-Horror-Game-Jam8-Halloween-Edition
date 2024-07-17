@@ -28,11 +28,34 @@ AudioMixerGroupController:
   m_Pitch: f452eaaf87e01b24289271bece35b9cb
   m_Send: 00000000000000000000000000000000
   m_Effects:
+  - {fileID: 3140010338760011776}
   - {fileID: -7652730274392892731}
   m_UserColorIndex: 0
   m_Mute: 0
   m_Solo: 0
   m_BypassEffects: 0
+--- !u!244 &-4143030214750506610
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: 0471e67cdd15b4843ba1c7fc886ffcf8
+  m_EffectName: atmokyRenderer
+  m_MixLevel: 6ec1d5ba551efd14da2a8b8943f22f54
+  m_Parameters:
+  - m_ParameterName: Renderer Index
+    m_GUID: dde3a5ae53f6dfc4a9b6710a409f1a68
+  - m_ParameterName: Ext. Amount
+    m_GUID: 12242267bfb5aa94cb362d32c9a17185
+  - m_ParameterName: Ext. Character
+    m_GUID: 919dcbb34f8b5d345bb17673957d1747
+  - m_ParameterName: Parallax
+    m_GUID: 90a03a0bca24c0941a2caa51403d35f2
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
 --- !u!244 &-2957135269453202753
 AudioMixerEffectController:
   m_ObjectHideFlags: 3
@@ -123,7 +146,37 @@ AudioMixerSnapshotController:
   m_SnapshotID: b59a85bcc136b1b43afbc977d654a122
   m_FloatValues:
     6f9283408e2cba84881ad56c59387b00: 0
+    6c5d74a1b365d964da3036dc1bb7c234: 1
+    d0da6084b8d0b0b4d85fd25cbe252024: 1
+    5730470544a9284489d846035f32c44f: 1
+    245865d9e8ac5dd4eb4c7d9db22cb9f3: 1
+    2e0db27ad6a93b24484a64eb661a14f5: 0
+    567209fbf8f577849bad9d1829081aa9: 0
+    c00b3c2e86afdfb43b7dbefe9cf6fe5a: 3
+    dde3a5ae53f6dfc4a9b6710a409f1a68: 2
   m_TransitionOverrides: {}
+--- !u!244 &3140010338760011776
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: 17a966f5c13199a4db7d04b7fddd2280
+  m_EffectName: atmokyRenderer
+  m_MixLevel: f1b0c71be17de8e4fba871c80b90e0c1
+  m_Parameters:
+  - m_ParameterName: Renderer Index
+    m_GUID: 245865d9e8ac5dd4eb4c7d9db22cb9f3
+  - m_ParameterName: Ext. Amount
+    m_GUID: 290b74a49576d204aba11b0c8a1c9458
+  - m_ParameterName: Ext. Character
+    m_GUID: a3951c7ff3a818343a72c020128805b0
+  - m_ParameterName: Parallax
+    m_GUID: d0da6084b8d0b0b4d85fd25cbe252024
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
 --- !u!243 &3894646987455859867
 AudioMixerGroupController:
   m_ObjectHideFlags: 0
@@ -138,8 +191,25 @@ AudioMixerGroupController:
   m_Pitch: e3adc7debc2d57748a074788731ce5af
   m_Send: 00000000000000000000000000000000
   m_Effects:
+  - {fileID: -4143030214750506610}
   - {fileID: -2957135269453202753}
   m_UserColorIndex: 0
   m_Mute: 0
   m_Solo: 0
   m_BypassEffects: 0
+--- !u!244 &5051000886144685849
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: 06638d25b1a5a1644a45be16bdae32ac
+  m_EffectName: atmokyReceiver
+  m_MixLevel: 8518d2a7b326cfb40a30f7201cff379b
+  m_Parameters:
+  - m_ParameterName: Receiver Index
+    m_GUID: 535ce89d9c68f2e4e93648317ae9f865
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0

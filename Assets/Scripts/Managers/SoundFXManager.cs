@@ -58,17 +58,21 @@ public class SoundFXManager : MonoBehaviour
 
     public void PlaySoundFXClip(AudioClip audioClip, Transform spawnTransform, bool loop, float spatialBlend)
     {
-    
         //spawn in game object
         AudioSource audioSource = Instantiate(soundFXObject, spawnTransform.position, Quaternion.identity);
+
+        //get the atmoky source component from the game object
+        AtmokySource atmokySource = soundFXObject.GetComponent<AtmokySource>();
+
+        //assign atmoky source values
+        atmokySource.nfeDistance = 1f;
+        atmokySource.nfeGain = 4f;
 
         //assign audio clip
         audioSource.clip = audioClip;
 
         //assign the audio loop
         audioSource.loop = loop;
-
-        
 
         //assign the audio spatial blend
         audioSource.spatialBlend = spatialBlend;
@@ -93,11 +97,16 @@ public class SoundFXManager : MonoBehaviour
         
     }
 
-
+    
     public void PlaySoundFXClipAtSetVolume(AudioClip audioClip, Transform spawnTransform, bool loop, float spatialBlend, float volume)
     {
         //spawn in game object
         AudioSource audioSource = Instantiate(soundFXObject, spawnTransform.position, Quaternion.identity);
+    
+        AtmokySource audioSourceAtmoky = GetComponent<AtmokySource>();
+        
+
+   
 
         //assign audio clip
         audioSource.clip = audioClip;

@@ -1,5 +1,11 @@
 {
   "dependencies": {
+    "com.atmoky.truespatial": {
+      "version": "file:C:/Users/sonic/Downloads/atmokyTrueSpatial_Unity_v1.3.0/atmokyTrueSpatial_Unity_v1.3.0/com.atmoky.truespatial-1.3.0.tgz",
+      "depth": 0,
+      "source": "local-tarball",
+      "dependencies": {}
+    },
     "com.unity.cinemachine": {
       "version": "2.8.9",
       "depth": 0,

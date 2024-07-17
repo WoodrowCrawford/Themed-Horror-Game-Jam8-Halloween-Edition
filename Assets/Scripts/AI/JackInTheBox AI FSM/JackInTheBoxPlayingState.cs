@@ -13,7 +13,7 @@ public class JackInTheBoxPlayingState : JackInTheBoxBaseState
         jackInTheBox.playerRewindingBox = false;
 
         //play the jack in the box sound on loop
-        SoundFXManager.instance.PlaySoundFXClip(SoundFXManager.instance.musicBoxLoopClip, jackInTheBox.transform, true, 1f);
+        SoundFXManager.instance.PlaySoundFXClip(SoundFXManager.instance.musicBoxLoopClip, jackInTheBox.audioPosition.transform, true, 1f);
     }
 
     public override void UpdateState(JackInTheBoxStateManager jackIntheBox)
