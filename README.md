@@ -14,4 +14,4 @@
  More to come as the game develops! Until then, feel free to download the alpha version to see how it's coming along!
  
  ## Download the latest release here!
- [Insomnia v0.7.0-Alpha](https://github.com/WoodrowCrawford/Themed-Horror-Game-Jam8-Halloween-Edition/releases/download/v0.7.0-Alpha/Insomnia-v0.7.0-Alpha.zip)
+ [Insomnia v0.10.0-Alpha](https://github.com/WoodrowCrawford/Themed-Horror-Game-Jam8-Halloween-Edition/releases/download/v0.10.0-Alpha/Insomnia-v0.10.0-Alpha.zip)
