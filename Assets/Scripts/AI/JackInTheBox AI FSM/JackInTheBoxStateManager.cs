@@ -15,6 +15,7 @@ public class JackInTheBoxStateManager : MonoBehaviour, IInteractable
     public JackInTheBoxPlayingState playingState = new JackInTheBoxPlayingState();       //The playing state for the jack in the box
     public JackInTheBoxRewindState  rewindState =  new JackInTheBoxRewindState();        //The rewind state afor the jack in the box
     public JackInTheBoxActiveState activeState = new JackInTheBoxActiveState();          //The active state for the jack in the box
+    public JackInTheBoxDisabledState disabledState = new JackInTheBoxDisabledState();    //The disabled state for the jack in the box
     public JackInTheBoxOpenState openState = new JackInTheBoxOpenState();                //The open state for the jack in the box
 
   
@@ -56,6 +57,17 @@ public class JackInTheBoxStateManager : MonoBehaviour, IInteractable
     public DialogueObjectBehavior DialogueObject => _dialogueObject;
 
     public Transform OriginalPos => _originalPos;
+
+
+    private void OnEnable()
+    {
+        GameOverBehavior.onGameOver += () => SwitchState(disabledState);
+    }
+
+    private void OnDisable()
+    {
+        GameOverBehavior.onGameOver += () => SwitchState(disabledState);
+    }
 
 
     private void Awake()

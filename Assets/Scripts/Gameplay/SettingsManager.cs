@@ -95,7 +95,11 @@ public class SettingsManager : MonoBehaviour
     }
 
 
-    
+
+    public void AdjustSensitivity(float value)
+    {
+       PlayerInputBehavior.sensitivity = value;
+    }
 
     public void AdjustBrightness(float value)
     {

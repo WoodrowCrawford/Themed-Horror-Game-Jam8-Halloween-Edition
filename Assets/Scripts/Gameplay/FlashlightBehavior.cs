@@ -29,6 +29,7 @@ public class FlashlightBehavior : MonoBehaviour
 
     private void OnEnable()
     {
+       
         PlayerInputBehavior.onFlashlightToggled += ToggleFlashLight;
         WindowStateManager.onWindowOpened += () => SetFlashlightDecreaseSpeed(25f);
         WindowStateManager.onWindowClosed += () => SetFlashlightDecreaseSpeed(9f);
@@ -38,8 +39,8 @@ public class FlashlightBehavior : MonoBehaviour
 
     private void OnDisable()
     {
+     
         PlayerInputBehavior.onFlashlightToggled -= ToggleFlashLight;
-
         WindowStateManager.onWindowOpened -= () => SetFlashlightDecreaseSpeed(25f);
         WindowStateManager.onWindowClosed -= () => SetFlashlightDecreaseSpeed(9f);
 

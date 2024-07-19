@@ -64,7 +64,7 @@ public class PlayerInputBehavior : MonoBehaviour
     [SerializeField] private AxisState _axisState;
     [SerializeField] private Transform _playerBody;
     [SerializeField] private Transform _startLookAt;
-    [SerializeField] private float _sensitivity;
+    public static float sensitivity = 20f;
    
     [SerializeField] private float _xRotation = 0f;
     [SerializeField] private float _yRotation = 0f;
@@ -211,6 +211,8 @@ public class PlayerInputBehavior : MonoBehaviour
         playerCanGetCaught = canGetCaught;
     }
 
+   
+
 
     private void Start()
     {
@@ -295,8 +297,8 @@ public class PlayerInputBehavior : MonoBehaviour
 
 
         ////Look values
-        float mouseXLook = playerControls.Default.Look.ReadValue<Vector2>().x * _sensitivity  * Time.deltaTime;
-        float mouseYLook = playerControls.Default.Look.ReadValue<Vector2>().y * _sensitivity * Time.deltaTime;
+        float mouseXLook = playerControls.Default.Look.ReadValue<Vector2>().x * sensitivity  * Time.deltaTime;
+        float mouseYLook = playerControls.Default.Look.ReadValue<Vector2>().y * sensitivity * Time.deltaTime;
 
 
         _xRotation -= mouseYLook;

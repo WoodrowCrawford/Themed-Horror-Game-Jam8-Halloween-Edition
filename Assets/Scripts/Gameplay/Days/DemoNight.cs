@@ -69,7 +69,9 @@ public class DemoNight : BaseDay
     {
         //This is the demo night
         //The player will be hit with the all the enemies and will have to sleep in order to win
-       
+
+        //Sets to be false
+        FlashlightBehavior.flashlightCanDeplete = false;
 
 
 
