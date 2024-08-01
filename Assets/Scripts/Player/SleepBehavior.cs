@@ -15,14 +15,14 @@ public class SleepBehavior : MonoBehaviour
 
     private void OnEnable()
     {
-        PlayerInputBehavior.onEyesOpened += OpenEyes;
-        PlayerInputBehavior.onEyesClosed += CloseEyes;
+        PlayerInputBehavior.onSleepButtonReleased += OpenEyes;
+        PlayerInputBehavior.onSleepButtonPressed += CloseEyes;
     }
 
     private void OnDisable()
     {
-        PlayerInputBehavior.onEyesOpened -= OpenEyes;
-        PlayerInputBehavior.onEyesClosed -= CloseEyes;
+        PlayerInputBehavior.onSleepButtonReleased -= OpenEyes;
+        PlayerInputBehavior.onSleepButtonPressed -= CloseEyes;
 
     }
 
@@ -59,7 +59,6 @@ public class SleepBehavior : MonoBehaviour
         {
             _eyesClosed.gameObject.SetActive(true);
             playerIsSleeping = true;
-
             Debug.Log("The player is closing eyes!");
            
         }

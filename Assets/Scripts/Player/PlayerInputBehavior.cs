@@ -10,7 +10,7 @@ public class PlayerInputBehavior : MonoBehaviour
     //Important scripts
     public PlayerInputActions playerControls;                  //gets a script reference for the player input actions class
     public WardrobeBehavior wardrobeBehavior;                  //gets a script reference for the wardrobe behavior class
-    public PauseSystem pauseSystem;                            //gets a script reference for the pause system class
+  
 
 
     public CinemachineVirtualCamera Camera { get { return _camera; } }
@@ -40,7 +40,7 @@ public class PlayerInputBehavior : MonoBehaviour
 
     //Delegates
     public delegate void PlayerInputEventHandler();
-    public delegate void FlashlightToggle();
+   
     public delegate void SleepToggle();
 
 
@@ -50,12 +50,16 @@ public class PlayerInputBehavior : MonoBehaviour
 
     //Pause events
     public static event PlayerInputEventHandler onPausedButtonPressed;
-  
+    public static event PlayerInputEventHandler onGetOutOfBedButtonPressed;
 
+    //Flashlight events
+    public static event PlayerInputEventHandler onFlashlightButtonPressed;
 
-    public static event FlashlightToggle onFlashlightToggled;
-    public static event SleepToggle onEyesClosed;
-    public static event SleepToggle onEyesOpened;
+    //Sleep events
+    public static event PlayerInputEventHandler onSleepButtonPressed;
+    public static event PlayerInputEventHandler onSleepButtonReleased;
+
+   
 
 
 
@@ -120,6 +124,7 @@ public class PlayerInputBehavior : MonoBehaviour
         //Subscribes to the events
         onPlayerIsInteracting += () => isPlayerInteracting = true;
         onInteractionWasPerformed += () => interactionWasPerfomed = true;
+        onGetOutOfBedButtonPressed += GetOutOfBed;
 
       
         //Creates the Action Maps
@@ -139,16 +144,16 @@ public class PlayerInputBehavior : MonoBehaviour
 
 
         //Action Map #1 (In Bed)
-        playerControls.InBed.GetOutOfBed.performed += GetOutOfBed;
-        playerControls.InBed.ToggleFlashlight.performed += ctx => onFlashlightToggled?.Invoke();                         
+        playerControls.InBed.GetOutOfBed.performed +=  ctx => onGetOutOfBedButtonPressed?.Invoke();
+        playerControls.InBed.ToggleFlashlight.performed += ctx => onFlashlightButtonPressed?.Invoke();                  
         playerControls.InBed.ToggleGoUnderBed.performed += ToggleUnderBed;
 
-        playerControls.InBed.Sleep.performed += ctx => onEyesClosed?.Invoke();
-        playerControls.InBed.Sleep.canceled += ctx => onEyesOpened?.Invoke();      
+        playerControls.InBed.Sleep.performed += ctx => onSleepButtonPressed?.Invoke();
+        playerControls.InBed.Sleep.canceled += ctx => onSleepButtonReleased?.Invoke();
 
 
         //Action Map #2 (Out of Bed)
-        playerControls.OutOfBed.ToggleFlashlight.performed += ctx => onFlashlightToggled?.Invoke();
+        playerControls.OutOfBed.ToggleFlashlight.performed += ctx => onFlashlightButtonPressed?.Invoke();
         playerControls.OutOfBed.GetInBed.performed += GetInBed;
 
 
@@ -156,7 +161,7 @@ public class PlayerInputBehavior : MonoBehaviour
         //Action Map #3 (In Wardrobe)
         playerControls.InWardrobe.ToggleWardrobeDoor.performed += ctx => StartCoroutine(ToggleWardrobeDoor());
         playerControls.InWardrobe.ToggleInOutWardrobe.performed += ctx => StartCoroutine(ToggleInOutWardrobe());
-        playerControls.InWardrobe.ToggleFlashlight.performed += ctx => onFlashlightToggled?.Invoke();
+        playerControls.InWardrobe.ToggleFlashlight.performed += ctx => onFlashlightButtonPressed?.Invoke();
     }
 
     public void OnDisable()
@@ -164,6 +169,7 @@ public class PlayerInputBehavior : MonoBehaviour
         //Unsubscribes to the events
         onPlayerIsInteracting -= () => isPlayerInteracting = true;
         onInteractionWasPerformed -= () => interactionWasPerfomed = true;
+        onGetOutOfBedButtonPressed -= GetOutOfBed;
 
         //Creates the Action Maps
         playerControls.Disable();
@@ -177,20 +183,20 @@ public class PlayerInputBehavior : MonoBehaviour
 
         //Action Map #0(Default Map- On by default)
         playerControls.Default.Look.Disable();
-        playerControls.Default.TogglePause.performed -= ctx => pauseSystem.TogglePauseMenu();
+        playerControls.Default.TogglePause.performed -= ctx => onPausedButtonPressed?.Invoke();
 
 
 
         //Action Map #1 (In Bed)
-        playerControls.InBed.GetOutOfBed.performed -= GetOutOfBed;
-        playerControls.InBed.ToggleFlashlight.performed -= ctx => onFlashlightToggled?.Invoke();
+        playerControls.InBed.GetOutOfBed.performed -= ctx => onGetOutOfBedButtonPressed?.Invoke();
+        playerControls.InBed.ToggleFlashlight.performed -= ctx => onFlashlightButtonPressed?.Invoke();
         playerControls.InBed.ToggleGoUnderBed.performed -= ToggleUnderBed;
-        playerControls.InBed.Sleep.performed -= ctx => onEyesClosed?.Invoke();
-        playerControls.InBed.Sleep.canceled -= ctx => onEyesOpened?.Invoke();
+        playerControls.InBed.Sleep.performed -= ctx => onSleepButtonPressed?.Invoke();
+        playerControls.InBed.Sleep.canceled -= ctx => onSleepButtonReleased?.Invoke();
 
 
         //Action Map #2 (Out of Bed)
-        playerControls.OutOfBed.ToggleFlashlight.performed -= ctx => onFlashlightToggled?.Invoke();
+        playerControls.OutOfBed.ToggleFlashlight.performed -= ctx => onFlashlightButtonPressed?.Invoke();
         playerControls.OutOfBed.GetInBed.performed -= GetInBed;
 
 
@@ -198,7 +204,7 @@ public class PlayerInputBehavior : MonoBehaviour
         //Action Map #3 (In Wardrobe)
         playerControls.InWardrobe.ToggleWardrobeDoor.performed -= ctx => StartCoroutine(ToggleWardrobeDoor());
         playerControls.InWardrobe.ToggleInOutWardrobe.performed -= ctx => StartCoroutine(ToggleInOutWardrobe());
-        playerControls.InWardrobe.ToggleFlashlight.performed -= ctx => onFlashlightToggled?.Invoke();
+        playerControls.InWardrobe.ToggleFlashlight.performed -= ctx => onFlashlightButtonPressed?.Invoke();
     }
 
 
@@ -208,7 +214,7 @@ public class PlayerInputBehavior : MonoBehaviour
         //Gets the components
         _rb = GetComponent<Rigidbody>();
         wardrobeBehavior = GameObject.FindGameObjectWithTag("Wardrobe").GetComponent<WardrobeBehavior>();
-        pauseSystem = GameObject.FindGameObjectWithTag("PauseSystem").GetComponent<PauseSystem>();
+       
     }
 
 
@@ -408,7 +414,7 @@ public class PlayerInputBehavior : MonoBehaviour
     }
 
     //Get out of the bed
-    public void GetOutOfBed(InputAction.CallbackContext context)
+    public void GetOutOfBed()
     {
         //if the player is allowed to get out of the bed and the dialogue ui is not open...
         if (playerCanGetOutOfBed && !DialogueUIBehavior.IsOpen)
