@@ -1,4 +1,5 @@
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -32,6 +33,8 @@ public class PauseSystem : MonoBehaviour
     [SerializeField] private TMP_ColorGradient _nighttimeTextColorGradient;
 
 
+   
+
     private void Awake()
     {
         if (instance == null)
@@ -48,7 +51,8 @@ public class PauseSystem : MonoBehaviour
 
     private void OnEnable()
     {
-        //Events
+        //Subscribes to the events
+        PlayerInputBehavior.onPausedButtonPressed += TogglePauseMenu;
         SettingsManager.onSettingsClosedMainGame += () => _pauseBG.gameObject.SetActive(true);
         SceneManager.sceneLoaded += OnSceneLoaded;
         GameManager.onGameStarted += FindSettings;
@@ -66,7 +70,8 @@ public class PauseSystem : MonoBehaviour
 
     private void OnDisable()
     {
-        //Events disable
+        //Unsubscribes to the events
+        PlayerInputBehavior.onPausedButtonPressed -= TogglePauseMenu;
         SettingsManager.onSettingsClosedMainGame -= () => _pauseBG.gameObject.SetActive(true);
         SceneManager.sceneLoaded -= OnSceneLoaded;
         GameManager.onGameStarted -= FindSettings;

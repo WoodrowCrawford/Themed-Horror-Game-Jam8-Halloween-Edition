@@ -39,11 +39,20 @@ public class PlayerInputBehavior : MonoBehaviour
 
 
     //Delegates
+    public delegate void PlayerInputEventHandler();
     public delegate void FlashlightToggle();
     public delegate void SleepToggle();
 
 
-    //Events
+    //Interaction events
+    public static event PlayerInputEventHandler onPlayerIsInteracting;
+    public static event PlayerInputEventHandler onInteractionWasPerformed;
+
+    //Pause events
+    public static event PlayerInputEventHandler onPausedButtonPressed;
+  
+
+
     public static event FlashlightToggle onFlashlightToggled;
     public static event SleepToggle onEyesClosed;
     public static event SleepToggle onEyesOpened;
@@ -105,32 +114,27 @@ public class PlayerInputBehavior : MonoBehaviour
   
 
 
-    private void Awake()
-    {
-        //Gets the components
-        _rb = GetComponent<Rigidbody>();
-        wardrobeBehavior = GameObject.FindGameObjectWithTag("Wardrobe").GetComponent<WardrobeBehavior>();
-        pauseSystem = GameObject.FindGameObjectWithTag("PauseSystem").GetComponent<PauseSystem>();
-        
-        
-    }
-
+   
     public void OnEnable()
     {
+        //Subscribes to the events
+        onPlayerIsInteracting += () => isPlayerInteracting = true;
+        onInteractionWasPerformed += () => interactionWasPerfomed = true;
+
       
         //Creates the Action Maps
         playerControls = new PlayerInputActions();
         playerControls.InBed.Enable();
         playerControls.Default.Enable();
 
-        playerControls.Default.Interact.started += ctx => isPlayerInteracting = true;
-        playerControls.Default.Interact.performed += ctx => interactionWasPerfomed = true;
+        playerControls.Default.Interact.started += ctx => onPlayerIsInteracting?.Invoke();
+        playerControls.Default.Interact.performed += ctx => onInteractionWasPerformed?.Invoke();
         playerControls.Default.Interact.canceled += ctx => isPlayerInteracting = false;
 
 
         //Action Map #0(Default Map- On by default)
         playerControls.Default.Look.ReadValue<Vector2>();
-        playerControls.Default.TogglePause.performed += ctx => pauseSystem.TogglePauseMenu();
+        playerControls.Default.TogglePause.performed += ctx => onPausedButtonPressed?.Invoke();
 
 
 
@@ -157,13 +161,17 @@ public class PlayerInputBehavior : MonoBehaviour
 
     public void OnDisable()
     {
+        //Unsubscribes to the events
+        onPlayerIsInteracting -= () => isPlayerInteracting = true;
+        onInteractionWasPerformed -= () => interactionWasPerfomed = true;
+
         //Creates the Action Maps
         playerControls.Disable();
         playerControls.InBed.Disable();
         playerControls.Default.Disable();
 
-        playerControls.Default.Interact.started -= ctx => isPlayerInteracting = true;
-        playerControls.Default.Interact.performed -= ctx => isPlayerInteracting = true;
+        playerControls.Default.Interact.started -= ctx => onPlayerIsInteracting?.Invoke();
+        playerControls.Default.Interact.performed -= ctx => onInteractionWasPerformed?.Invoke();
         playerControls.Default.Interact.canceled -= ctx => isPlayerInteracting = false;
 
 
@@ -194,22 +202,17 @@ public class PlayerInputBehavior : MonoBehaviour
     }
 
 
-    public void DisableControls()
+
+    private void Awake()
     {
-        playerControls.Disable();
+        //Gets the components
+        _rb = GetComponent<Rigidbody>();
+        wardrobeBehavior = GameObject.FindGameObjectWithTag("Wardrobe").GetComponent<WardrobeBehavior>();
+        pauseSystem = GameObject.FindGameObjectWithTag("PauseSystem").GetComponent<PauseSystem>();
     }
 
-    //Enables the controls
-    public void EnableControls()
-    {
-        playerControls.Default.Enable();
-        _currentActionMap.Enable();
-    }
 
-    public void SetPlayerCanGetCaught(bool canGetCaught)
-    {
-        playerCanGetCaught = canGetCaught;
-    }
+   
 
    
 
@@ -272,17 +275,34 @@ public class PlayerInputBehavior : MonoBehaviour
         HandleMove();   
     }
 
-   
-
-   
-    
 
 
 
+    public void DisableControls()
+    {
+        playerControls.Disable();
+    }
+
+    //Enables the controls
+    public void EnableControls()
+    {
+        playerControls.Default.Enable();
+        _currentActionMap.Enable();
+    }
 
 
-   ///////////Functions for both In Bed and out of bed/////////////////////////////////////////
-  
+
+    public void SetPlayerCanGetCaught(bool canGetCaught)
+    {
+        playerCanGetCaught = canGetCaught;
+    }
+
+
+
+
+
+    ///////////Functions for both In Bed and out of bed/////////////////////////////////////////
+
     public void HandleLook()
     {
         //if the dialogue box is open then return
