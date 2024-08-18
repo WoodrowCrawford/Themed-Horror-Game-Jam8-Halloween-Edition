@@ -68,7 +68,7 @@ public class GhoulSightBehavior : MonoBehaviour
             {
                 float distanceToTarget = Vector3.Distance(transform.position, target.position);
 
-                if (!Physics.Raycast(transform.position, directionToTarget, distanceToTarget, _obstructionMask) && !playerInputBehavior._isUnderBed)
+                if (!Physics.Raycast(transform.position, directionToTarget, distanceToTarget, _obstructionMask) && !playerInputBehavior.IsUnderBed)
                 {
                     canSeePlayer = true;
                 }

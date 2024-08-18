@@ -9,10 +9,8 @@ public class PlayerInputBehavior : MonoBehaviour
 {
     //Important scripts
     public PlayerInputActions playerControls;                  //gets a script reference for the player input actions class
-    public WardrobeBehavior wardrobeBehavior;                  //gets a script reference for the wardrobe behavior class
-  
-
-
+    
+ 
     public CinemachineVirtualCamera Camera { get { return _camera; } }
 
     [SerializeField] private InputActionMap _currentActionMap { get; set; }
@@ -32,10 +30,6 @@ public class PlayerInputBehavior : MonoBehaviour
     public static bool playerCanSleep = false;
     public static bool playerCanGetCaught = true;
     
-
-    [Header("Core Player Values")]
-    public bool _playerIsHidden;
-
 
 
     //Delegates
@@ -59,16 +53,20 @@ public class PlayerInputBehavior : MonoBehaviour
     public static event PlayerInputEventHandler onSleepButtonPressed;
     public static event PlayerInputEventHandler onSleepButtonReleased;
 
-   
+    //Wardrobe events
+    public static event PlayerInputEventHandler onWardrobeInteractButtonPressed;
 
 
+
+    [Header("Core Player Values")]
+    private bool _playerIsHidden;
 
     //Used for interaction
     [Header("Interaction")]
     public static bool isPlayerInteracting = false;
     public static bool interactionWasPerfomed = false;
+    public bool playerIsInWardrobe;
 
- 
 
     //Camera stuff
     [Header("Camera Values")]
@@ -102,18 +100,19 @@ public class PlayerInputBehavior : MonoBehaviour
     [SerializeField] private Transform _UnderBedPos;
     [SerializeField] private Transform _outOfBedLeftPos;
     [SerializeField] private Transform _outOfBedRightPos;
-    [SerializeField] public bool _isUnderBed = false;
+    [SerializeField] private bool _isUnderBed = false;
     [SerializeField] public static bool inBed = false;
 
 
-    [Header("Wardrobe Values")]
-    [SerializeField] private Transform _WardrobeHidingPos;
-    [SerializeField] private Transform _OutOfWardrobePos;
-    public bool playerIsInWardrobe;
+   
+   
   
     
-   
-   
+   public bool PlayerIsHidden { get { return _playerIsHidden; } set { _playerIsHidden = value; } }
+    public Transform PlayerBody {  get { return _playerBody; } set { _playerBody = value; } }
+    public Transform TopOfBedPos { get { return _TopOfBedPos; } set { _TopOfBedPos = value; } }
+    public Transform OutOfBedLeftPos { get { return _outOfBedLeftPos; } set { _outOfBedLeftPos = value; } }
+    public bool IsUnderBed { get { return _isUnderBed; }  set { _isUnderBed = value; } }
    
   
 
@@ -159,8 +158,8 @@ public class PlayerInputBehavior : MonoBehaviour
 
 
         //Action Map #3 (In Wardrobe)
-        playerControls.InWardrobe.ToggleWardrobeDoor.performed += ctx => StartCoroutine(ToggleWardrobeDoor());
-        playerControls.InWardrobe.ToggleInOutWardrobe.performed += ctx => StartCoroutine(ToggleInOutWardrobe());
+        playerControls.InWardrobe.ToggleWardrobeDoor.performed += ctx => onWardrobeInteractButtonPressed?.Invoke();
+        playerControls.InWardrobe.ToggleInOutWardrobe.performed += ctx => onWardrobeInteractButtonPressed?.Invoke();
         playerControls.InWardrobe.ToggleFlashlight.performed += ctx => onFlashlightButtonPressed?.Invoke();
     }
 
@@ -202,8 +201,8 @@ public class PlayerInputBehavior : MonoBehaviour
 
 
         //Action Map #3 (In Wardrobe)
-        playerControls.InWardrobe.ToggleWardrobeDoor.performed -= ctx => StartCoroutine(ToggleWardrobeDoor());
-        playerControls.InWardrobe.ToggleInOutWardrobe.performed -= ctx => StartCoroutine(ToggleInOutWardrobe());
+        playerControls.InWardrobe.ToggleWardrobeDoor.performed -= ctx => onWardrobeInteractButtonPressed?.Invoke();
+        playerControls.InWardrobe.ToggleInOutWardrobe.performed -= ctx => onWardrobeInteractButtonPressed?.Invoke();
         playerControls.InWardrobe.ToggleFlashlight.performed -= ctx => onFlashlightButtonPressed?.Invoke();
     }
 
@@ -212,9 +211,7 @@ public class PlayerInputBehavior : MonoBehaviour
     private void Awake()
     {
         //Gets the components
-        _rb = GetComponent<Rigidbody>();
-        wardrobeBehavior = GameObject.FindGameObjectWithTag("Wardrobe").GetComponent<WardrobeBehavior>();
-       
+        _rb = GetComponent<Rigidbody>();       
     }
 
 
@@ -262,17 +259,7 @@ public class PlayerInputBehavior : MonoBehaviour
         if (playerCanLook)
             HandleLook();
 
-        //Change the action map if the player is by the wardrobe
-        if(wardrobeBehavior.PlayerCanOpenWardrobe)
-        {
-            playerControls.InWardrobe.Enable();
-            _currentActionMap = playerControls.InWardrobe;
-        }
-
-        else if(!wardrobeBehavior.PlayerCanOpenWardrobe)
-        {
-            playerControls.InWardrobe.Disable();
-        }
+       
     }
 
     private void FixedUpdate()
@@ -476,53 +463,4 @@ public class PlayerInputBehavior : MonoBehaviour
         return;
         
     }
-
-    
-
-
-//////////////Functions for Action Map #3 (In Wardrobe)//////////////////////////////////
-    
-    public IEnumerator ToggleWardrobeDoor()
-    {
-        //If the door is not open then open it
-        if(!wardrobeBehavior.WardrobeDoorIsOpen && !wardrobeBehavior.ActionOnCoolDown && !PauseSystem.isPaused)
-        {
-            StartCoroutine(wardrobeBehavior.OpenWardrobeDoor());
-        }
-
-        else if (wardrobeBehavior.WardrobeDoorIsOpen && !wardrobeBehavior.ActionOnCoolDown && !PauseSystem.isPaused)
-        {
-            //else close the door
-            StartCoroutine(wardrobeBehavior.CloseWardrobeDoor());
-        }
-
-        yield return null;
-    }
-
-    public IEnumerator ToggleInOutWardrobe()
-    {
-        if (wardrobeBehavior.WardrobeDoorIsOpen && !wardrobeBehavior.ActionOnCoolDown && !playerIsInWardrobe && !PauseSystem.isPaused)
-        {
-            _playerBody.transform.position = _WardrobeHidingPos.transform.position;
-            playerIsInWardrobe = true;
-            _playerIsHidden = true;
-
-            yield return new WaitForSeconds(1f);
-
-
-            StartCoroutine(wardrobeBehavior.CloseWardrobeDoor());
-        }
-
-        else if (wardrobeBehavior.WardrobeDoorIsOpen && playerIsInWardrobe && !PauseSystem.isPaused)
-        {   
-
-            _playerBody.transform.position = _OutOfWardrobePos.transform.position;
-            playerIsInWardrobe = false;
-            _playerIsHidden = false;
-
-            yield return new WaitForSeconds(0.5f);
-            StartCoroutine(wardrobeBehavior.CloseWardrobeDoor());
-        }
-    }
-   
 }

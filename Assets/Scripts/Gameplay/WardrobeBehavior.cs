@@ -1,12 +1,9 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using Debug = UnityEngine.Debug;
 
 public class WardrobeBehavior : MonoBehaviour, IInteractable
 {
     public HighlightBehavior highlightBehavior;
-  
     public PlayerInputBehavior playerInputBehavior;
     public Animator animator;
 
@@ -28,6 +25,8 @@ public class WardrobeBehavior : MonoBehaviour, IInteractable
     [SerializeField] private Transform _originalPos;
 
 
+
+    
 
     [SerializeField] private bool _actionOnCoolDown = false;
     [SerializeField] private bool _playerCanOpenWardrobe;
@@ -52,6 +51,7 @@ public class WardrobeBehavior : MonoBehaviour, IInteractable
     {
         GameManager.onGameStarted += GetInitializers;
         GameManager.onGameEnded += ResetInitializers;
+        PlayerInputBehavior.onWardrobeInteractButtonPressed += () => StartCoroutine(ToggleInOutWardrobe());
     }
 
     private void OnDisable()
@@ -110,6 +110,49 @@ public class WardrobeBehavior : MonoBehaviour, IInteractable
         _actionOnCoolDown = false;
     }
 
+
+    public IEnumerator ToggleInOutWardrobe()
+    {
+        if (WardrobeDoorIsOpen && !ActionOnCoolDown && !playerInputBehavior.playerIsInWardrobe && !PauseSystem.isPaused)
+        {
+            playerInputBehavior.PlayerBody.transform.position = _insideWardrobePos.transform.position;
+            playerInputBehavior.playerIsInWardrobe = true;
+           playerInputBehavior.PlayerIsHidden = true;
+
+            yield return new WaitForSeconds(1f);
+
+
+            StartCoroutine(CloseWardrobeDoor());
+        }
+
+        else if (WardrobeDoorIsOpen && playerInputBehavior.playerIsInWardrobe && !PauseSystem.isPaused)
+        {
+
+            playerInputBehavior.PlayerBody.transform.position = _outsideWardrobePos.transform.position;
+           playerInputBehavior.playerIsInWardrobe = false;
+            playerInputBehavior.PlayerIsHidden = false;
+
+            yield return new WaitForSeconds(0.5f);
+            StartCoroutine(CloseWardrobeDoor());
+        }
+    }
+
+    public IEnumerator ToggleWardrobeDoor()
+    {
+        //If the door is not open then open it
+        if (!WardrobeDoorIsOpen && !ActionOnCoolDown && !PauseSystem.isPaused)
+        {
+            StartCoroutine(OpenWardrobeDoor());
+        }
+
+        else if (WardrobeDoorIsOpen && !ActionOnCoolDown && !PauseSystem.isPaused)
+        {
+            //else close the door
+            StartCoroutine(CloseWardrobeDoor());
+        }
+
+        yield return null;
+    }
 
     public void Interact(Interactor Interactor)
     {
