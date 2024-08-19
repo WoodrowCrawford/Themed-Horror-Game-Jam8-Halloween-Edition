@@ -1,6 +1,4 @@
-using System.Collections;
 using UnityEngine;
-using UnityEngine.Events;
 using Debug = UnityEngine.Debug;
 
 public class DayManager : MonoBehaviour
@@ -9,7 +7,14 @@ public class DayManager : MonoBehaviour
     public static DayManager instance;
     public FlashlightBehavior flashlightBehavior;
     public GraphicsBehavior graphicsBehavior;
+    public HUDBehavior hudBehavior;
 
+    //delegates
+    public delegate void TaskEventHandler();
+
+
+    //events
+    public static event TaskEventHandler onTaskChanged;
 
     //States
     BaseDay currentDay;
@@ -54,10 +59,6 @@ public class DayManager : MonoBehaviour
 
     //A enum Days variable called days
     public Days days;
-
-
-
-    
 
 
     //A enum Tasks variable called task
@@ -132,6 +133,7 @@ public class DayManager : MonoBehaviour
 
 
 
+
         //What happens when the story is stopped by quitting the game
 
         //sunday on stop story
@@ -170,7 +172,7 @@ public class DayManager : MonoBehaviour
         GameManager.onGameStarted -= GetInitializers;
         GameManager.onStartStory -= CheckWhichDayToStart;
 
-
+      
 
         //What happens when the story is stopped by quitting the game
 
@@ -227,13 +229,19 @@ public class DayManager : MonoBehaviour
         if(taskName == "Examine Room")
         {
             currentDemoNightTask = DemoNight.DemoNightTasks.EXAMINE_ROOM;
+            hudBehavior.currentTaskUI.text = "Look around the room";
         }
 
         else if(taskName == "Sleep")
         {
             currentDemoNightTask = DemoNight.DemoNightTasks.SLEEP;
+            hudBehavior.currentTaskUI.text = "Go to Sleep";
         }
+
+      
     }
+
+  
 
    
     //A function that checks what day to start when the event is called
@@ -344,8 +352,8 @@ public class DayManager : MonoBehaviour
 
         //gets the component
         flashlightBehavior = GameObject.FindGameObjectWithTag("Flashlight").GetComponent<FlashlightBehavior>();
-
         graphicsBehavior = GameObject.FindGameObjectWithTag("Graphics").GetComponent<GraphicsBehavior>();
+        hudBehavior = GameObject.FindGameObjectWithTag("HUD").GetComponent<HUDBehavior>();
     }
     
 }

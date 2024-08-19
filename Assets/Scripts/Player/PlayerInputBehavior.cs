@@ -35,7 +35,7 @@ public class PlayerInputBehavior : MonoBehaviour
     //Delegates
     public delegate void PlayerInputEventHandler();
    
-    public delegate void SleepToggle();
+
 
 
     //Interaction events

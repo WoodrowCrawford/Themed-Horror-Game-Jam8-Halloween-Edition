@@ -12,8 +12,7 @@ public class DemoNight : BaseDay
         SLEEP
     }
 
-   
-
+  
 
     public override void EnterState(DayManager day)
     {
@@ -107,6 +106,7 @@ public class DemoNight : BaseDay
         {
             //let the player look around until they want to get back into the bed to start the night
             ExamnineRoomTask();
+        
 
             //wait until the task is to fall asleep
             yield return new WaitUntil(() => instance.currentDemoNightTask == DemoNightTasks.SLEEP);

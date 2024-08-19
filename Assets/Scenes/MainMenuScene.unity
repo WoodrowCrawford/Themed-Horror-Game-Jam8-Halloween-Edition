@@ -9656,6 +9656,22 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 4924815207894086971, guid: 9b0403e3487078a43845ce6f8328fd32, type: 3}
+      propertyPath: _events.Array.data[0].name
+      value: Start the demo!
+      objectReference: {fileID: 0}
+    - target: {fileID: 4924815207894086971, guid: 9b0403e3487078a43845ce6f8328fd32, type: 3}
+      propertyPath: _events.Array.data[1].name
+      value: Look around the room
+      objectReference: {fileID: 0}
+    - target: {fileID: 4924815207894086971, guid: 9b0403e3487078a43845ce6f8328fd32, type: 3}
+      propertyPath: _events.Array.data[0]._onPickedResponse.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4924815207894086971, guid: 9b0403e3487078a43845ce6f8328fd32, type: 3}
+      propertyPath: _events.Array.data[1]._onPickedResponse.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4924815207894086971, guid: 9b0403e3487078a43845ce6f8328fd32, type: 3}
       propertyPath: _events.Array.data[0]._onPickedResponse.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 5
       objectReference: {fileID: 0}
@@ -9689,11 +9705,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4924815207894086971, guid: 9b0403e3487078a43845ce6f8328fd32, type: 3}
       propertyPath: _events.Array.data[0]._onPickedResponse.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: Examine Room
+      value: Sleep
       objectReference: {fileID: 0}
     - target: {fileID: 4924815207894086971, guid: 9b0403e3487078a43845ce6f8328fd32, type: 3}
       propertyPath: _events.Array.data[1]._onPickedResponse.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: Sleep
+      value: Examine Room
+      objectReference: {fileID: 0}
+    - target: {fileID: 4924815207894086971, guid: 9b0403e3487078a43845ce6f8328fd32, type: 3}
+      propertyPath: _events.Array.data[0]._onPickedResponse.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 4924815207894086971, guid: 9b0403e3487078a43845ce6f8328fd32, type: 3}
+      propertyPath: _events.Array.data[1]._onPickedResponse.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 4924815208456041706, guid: 9b0403e3487078a43845ce6f8328fd32, type: 3}
       propertyPath: m_RootOrder
