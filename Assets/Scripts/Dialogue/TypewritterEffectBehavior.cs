@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using TMPro;
+using UnityEngine.InputSystem;
 
 public class TypewritterEffectBehavior : MonoBehaviour
 {
@@ -24,6 +25,19 @@ public class TypewritterEffectBehavior : MonoBehaviour
 
         while (charIndex < textToType.Length)
         {
+            //If the space key is pressed
+            if (Keyboard.current.spaceKey.isPressed)
+            {
+                //make the typewriter speed faster
+                _typewritterSpeed = 200f;
+            }
+
+            //else if it is not pressed
+            else if (!Keyboard.current.spaceKey.isPressed)
+            {
+                //set the typewritter speed to the default speed
+                _typewritterSpeed = 50f;
+            }
 
             elaspedTime += Time.unscaledDeltaTime * _typewritterSpeed;
             charIndex = Mathf.FloorToInt(elaspedTime);
