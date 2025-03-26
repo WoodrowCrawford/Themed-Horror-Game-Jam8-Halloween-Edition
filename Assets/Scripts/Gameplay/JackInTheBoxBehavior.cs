@@ -65,7 +65,7 @@ public class JackInTheBoxBehavior : MonoBehaviour, IInteractable
 
     private void Update()
     {
-        switch (DayManager.instance.days)
+        switch (DayManager.instance.currentDay)
         {
             case DayManager.Days.SUNDAY_MORNING:
                 {
@@ -221,7 +221,7 @@ public class JackInTheBoxBehavior : MonoBehaviour, IInteractable
 
 
         //If it is sunday morning...
-        if (DayManager.instance.days == DayManager.Days.SUNDAY_MORNING)
+        if (DayManager.instance.currentDay == DayManager.Days.SUNDAY_MORNING)
         {
             //sets to be equal to true
             IsInteracted = true;

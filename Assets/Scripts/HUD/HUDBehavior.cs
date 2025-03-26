@@ -17,21 +17,34 @@ public class HUDBehavior : MonoBehaviour
 
 
 
-    private void Update()
-    {
-        if(GraphicsBehavior.instance.IsDayTime)
-        {
-            _flashlightMeter.SetActive(false);
-            _sleepMeter.SetActive(false);
-        }
-        else if(GraphicsBehavior.instance.IsNightTime)
-        {
-            _flashlightMeter.SetActive(true);
-            _sleepMeter.SetActive(true);
-            
-            
 
-        }
+    private void OnEnable()
+    {
+        GraphicsBehavior.OnDayTime += UpdateHUDForDayTime;
+        GraphicsBehavior.OnNightTime += UpdateHUDForNightTime;
     }
+
+    private void OnDisable()
+    {
+        GraphicsBehavior.OnDayTime -= UpdateHUDForDayTime;
+        GraphicsBehavior.OnNightTime -= UpdateHUDForNightTime;
+    }
+
+
+
+
+    public void UpdateHUDForDayTime()
+    {
+        _flashlightMeter.SetActive(false);
+        _sleepMeter.SetActive(false);
+    }
+
+    public void UpdateHUDForNightTime()
+    {
+        _flashlightMeter.SetActive(true);
+        _sleepMeter.SetActive(true);
+    }
+
+   
 
 }

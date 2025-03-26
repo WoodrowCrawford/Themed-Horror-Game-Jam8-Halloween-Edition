@@ -17,7 +17,7 @@ public class DemoNight : BaseDay
     public override void EnterState(DayManager day)
     {
         Debug.Log("The demo is in the enter state");
-        day.days = Days.DEMO;
+        day.currentDay = Days.DEMO;
         day.StartCoroutine(StartDemoNight());
     
         
@@ -46,6 +46,9 @@ public class DemoNight : BaseDay
 
     public void SleepTask()
     {
+        //the player is able to sleep
+        PlayerInputBehavior.playerCanSleep = true;
+
         //Make enemies active here
         GhoulStateManager.InitializeGhoulValues(instance.Ghoul, 15, 35, true);
         WindowStateManager.InitializeWindowValues(instance.Window, 9, 20, 6, 10, true);
@@ -74,11 +77,10 @@ public class DemoNight : BaseDay
 
 
 
-        instance.days = Days.DEMO;
+        instance.currentDay = Days.DEMO;
         GraphicsBehavior.instance.SetNightTime();
 
-        //the player is able to sleep
-        PlayerInputBehavior.playerCanSleep = true;
+       
 
         instance.CallShowTodaysDate();
 

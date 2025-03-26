@@ -21956,9 +21956,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentPlayableDirector: {fileID: 0}
   _cutsceneIsPlaying: 0
-  dummyPlayableDirector: {fileID: 0}
+  dummy1PlayableDirector: {fileID: 0}
+  dummy2PlayableDirector: {fileID: 0}
   ghoulPlayableDirector: {fileID: 0}
   clownPlayableDirector: {fileID: 0}
+  dummy1JumpscareAsset: {fileID: 11400000, guid: 1e81d8edf1fd1844ba448cfc5e69b034, type: 2}
+  dummy2JumpscareAsset: {fileID: 11400000, guid: b2e1a07f1ed0e604f89867a4fbac2379, type: 2}
+  ghoulJumpscareAsset: {fileID: 11400000, guid: 023faf88ebbe9744abf23f478f4cdc38, type: 2}
+  clownJumpscareAsset: {fileID: 11400000, guid: e8ccd155c2cdf3d46abf82fcb7100d10, type: 2}
 --- !u!4 &1714028922
 Transform:
   m_ObjectHideFlags: 0
@@ -27344,6 +27349,10 @@ PrefabInstance:
     - target: {fileID: 7350691994038421358, guid: 0362051d61af98e448e36f2aa8d62e34, type: 3}
       propertyPath: m_Name
       value: GameManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 7350691994038421363, guid: 0362051d61af98e448e36f2aa8d62e34, type: 3}
+      propertyPath: currentDay
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 7350691994038421363, guid: 0362051d61af98e448e36f2aa8d62e34, type: 3}
       propertyPath: _todaysDateGO

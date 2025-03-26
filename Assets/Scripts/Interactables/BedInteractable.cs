@@ -37,7 +37,7 @@ public class BedInteractable : MonoBehaviour, IInteractable
     private void Update()
     {
         //if it is the demo night and the task is to examine the room and the player is NOT in the bed...
-        if (DayManager.instance.days == DayManager.Days.DEMO && DayManager.instance.currentDemoNightTask == DemoNight.DemoNightTasks.EXAMINE_ROOM && !PlayerInputBehavior.inBed)
+        if (DayManager.instance.currentDay == DayManager.Days.DEMO && DayManager.instance.currentDemoNightTask == DemoNight.DemoNightTasks.EXAMINE_ROOM && !PlayerInputBehavior.inBed)
         {
             //change the interaction prompt
             _interactionPrompt = "Examine";
@@ -45,7 +45,7 @@ public class BedInteractable : MonoBehaviour, IInteractable
         }
 
         //else if it is the demo night and the task is to examine the room and the player is in the bed...
-        else if (DayManager.instance.days == DayManager.Days.DEMO && DayManager.instance.currentDemoNightTask == DemoNight.DemoNightTasks.EXAMINE_ROOM && PlayerInputBehavior.inBed)
+        else if (DayManager.instance.currentDay == DayManager.Days.DEMO && DayManager.instance.currentDemoNightTask == DemoNight.DemoNightTasks.EXAMINE_ROOM && PlayerInputBehavior.inBed)
         {
             //change the interaction prompt
             _interactionPrompt = "Start the night";
@@ -53,13 +53,13 @@ public class BedInteractable : MonoBehaviour, IInteractable
         }
 
         //else if it is the demo night and the task is to sleep and the player is NOT in bed...
-        else if(DayManager.instance.days == DayManager.Days.DEMO && DayManager.instance.currentDemoNightTask == DemoNight.DemoNightTasks.SLEEP && !PlayerInputBehavior.inBed)
+        else if(DayManager.instance.currentDay == DayManager.Days.DEMO && DayManager.instance.currentDemoNightTask == DemoNight.DemoNightTasks.SLEEP && !PlayerInputBehavior.inBed)
         {
             _interactionPrompt = "Get in bed";
             highlightBehavior.isActive = true;
         }
 
-        else if(DayManager.instance.days == DayManager.Days.DEMO && DayManager.instance.currentDemoNightTask == DemoNight.DemoNightTasks.SLEEP && PlayerInputBehavior.inBed)
+        else if(DayManager.instance.currentDay == DayManager.Days.DEMO && DayManager.instance.currentDemoNightTask == DemoNight.DemoNightTasks.SLEEP && PlayerInputBehavior.inBed)
         {
             _interactionPrompt = "";
             highlightBehavior.isActive = false;
@@ -81,7 +81,7 @@ public class BedInteractable : MonoBehaviour, IInteractable
 
 
         //if it is sunday morning and the task is to look around and the player is in the bed already
-        if (DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.currentSundayMorningTask == SundayMorning.SundayMorningTasks.LOOK_AROUND && PlayerInputBehavior.inBed)
+        if (DayManager.instance.currentDay == DayManager.Days.SUNDAY_MORNING && DayManager.instance.currentSundayMorningTask == SundayMorning.SundayMorningTasks.LOOK_AROUND && PlayerInputBehavior.inBed)
         {
             //show dialogue
             DialogueUIBehavior.instance.ShowDialogue(_getOutOfBedDialogue);
@@ -89,33 +89,33 @@ public class BedInteractable : MonoBehaviour, IInteractable
 
 
         //if it is sunday morning and the task is to look around and the player is not in the bed
-        if (DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.currentSundayMorningTask == SundayMorning.SundayMorningTasks.LOOK_AROUND && !PlayerInputBehavior.inBed)
+        if (DayManager.instance.currentDay == DayManager.Days.SUNDAY_MORNING && DayManager.instance.currentSundayMorningTask == SundayMorning.SundayMorningTasks.LOOK_AROUND && !PlayerInputBehavior.inBed)
         {
             //show dialogue
             DialogueUIBehavior.instance.ShowDialogue(_lookingAtTheBedDialogue);
         }
 
         //else if it is sunday morning and the task is to clean up...
-        else if (DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.currentSundayMorningTask == SundayMorning.SundayMorningTasks.CLEAN_UP)
+        else if (DayManager.instance.currentDay == DayManager.Days.SUNDAY_MORNING && DayManager.instance.currentSundayMorningTask == SundayMorning.SundayMorningTasks.CLEAN_UP)
         {
             //show dialogue
             DialogueUIBehavior.instance.ShowDialogue(_cleanUpBeforeSleepingDialogue);
         }
 
         //else if it is sunday morning and the task is to go bed
-        else if (DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.currentSundayMorningTask == SundayMorning.SundayMorningTasks.GO_TO_BED)
+        else if (DayManager.instance.currentDay == DayManager.Days.SUNDAY_MORNING && DayManager.instance.currentSundayMorningTask == SundayMorning.SundayMorningTasks.GO_TO_BED)
         {
             DialogueUIBehavior.instance.ShowDialogue(_tellPlayerHowToGetInBedDialogue);
         }
 
         //else if it is the demo night and the player wants to look around the room and is NOT in bed
-        else if(DayManager.instance.days == DayManager.Days.DEMO && DayManager.instance.currentDemoNightTask == DemoNight.DemoNightTasks.EXAMINE_ROOM && !PlayerInputBehavior.inBed)
+        else if(DayManager.instance.currentDay == DayManager.Days.DEMO && DayManager.instance.currentDemoNightTask == DemoNight.DemoNightTasks.EXAMINE_ROOM && !PlayerInputBehavior.inBed)
         {
             DialogueUIBehavior.instance.ShowDialogue(_bedTutorialDialogue);
         }
 
         //else if it is the demo night and the task is to examine the room and the player is in the bed
-        else if(DayManager.instance.days == DayManager.Days.DEMO && DayManager.instance.currentDemoNightTask == DemoNight.DemoNightTasks.EXAMINE_ROOM && PlayerInputBehavior.inBed)
+        else if(DayManager.instance.currentDay == DayManager.Days.DEMO && DayManager.instance.currentDemoNightTask == DemoNight.DemoNightTasks.EXAMINE_ROOM && PlayerInputBehavior.inBed)
         {
             //Ask the player if they want to start the demo or not
             //DialogueUIBehavior.instance.ShowDialogue(_startTheDemoDialogue);

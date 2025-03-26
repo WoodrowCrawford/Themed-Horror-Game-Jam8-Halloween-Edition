@@ -6,7 +6,7 @@ public class TuesdayMorning : BaseDay
     public override void EnterState(DayManager day)
     {
         Debug.Log("Tuesday morning is now in the enter state");
-        day.days = DayManager.Days.TUESDAY_MORNING;
+        day.currentDay = DayManager.Days.TUESDAY_MORNING;
     }
 
     public override void UpdateState(DayManager day)

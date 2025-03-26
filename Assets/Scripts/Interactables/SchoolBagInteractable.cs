@@ -31,7 +31,7 @@ public class SchoolBagInteractable : MonoBehaviour, IInteractable
 
     private void Update()
     {
-        if (DayManager.instance.days == DayManager.Days.DEMO)
+        if (DayManager.instance.currentDay == DayManager.Days.DEMO)
         {
             _interactionPrompt = "";
             highlightBehavior.isActive = false;
@@ -50,7 +50,7 @@ public class SchoolBagInteractable : MonoBehaviour, IInteractable
 
 
         //if the day is sunday morning...
-        if (DayManager.instance.days == DayManager.Days.SUNDAY_MORNING)
+        if (DayManager.instance.currentDay == DayManager.Days.SUNDAY_MORNING)
         {
             //show the dialogue
             Interactor.DialogueUI.ShowDialogue(_lookAtSchoolBagDialogue);

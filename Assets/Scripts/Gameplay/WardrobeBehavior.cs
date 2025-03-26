@@ -77,7 +77,7 @@ public class WardrobeBehavior : MonoBehaviour, IInteractable
         }
 
         //if the current night is the demo night...
-        if(DayManager.instance.days == DayManager.Days.DEMO)
+        if(DayManager.instance.currentDay == DayManager.Days.DEMO)
         {
             _interactionPrompt = "";
             if(highlightBehavior != null)
@@ -157,14 +157,14 @@ public class WardrobeBehavior : MonoBehaviour, IInteractable
     public void Interact(Interactor Interactor)
     {
         //if it is sunday morning and the current task is to look around...
-        if(DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.currentSundayMorningTask == SundayMorning.SundayMorningTasks.LOOK_AROUND)
+        if(DayManager.instance.currentDay == DayManager.Days.SUNDAY_MORNING && DayManager.instance.currentSundayMorningTask == SundayMorning.SundayMorningTasks.LOOK_AROUND)
         {
             //play the wardrobe dialogue
             DialogueUIBehavior.instance.ShowDialogue(_wardrobeDialogue);
         }
 
         //else if it is monday night
-        else if(DayManager.instance.days == DayManager.Days.MONDAY_NIGHT)
+        else if(DayManager.instance.currentDay == DayManager.Days.MONDAY_NIGHT)
         {
             if (!_wardrobeDoorIsOpen && !_actionOnCoolDown)
             {

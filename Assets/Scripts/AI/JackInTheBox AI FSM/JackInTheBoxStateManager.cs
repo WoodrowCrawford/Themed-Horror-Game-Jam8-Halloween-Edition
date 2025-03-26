@@ -98,14 +98,14 @@ public class JackInTheBoxStateManager : MonoBehaviour, IInteractable
         currentState.UpdateState(this);
 
         //if it is the demo night and the current task is to examine the room...
-        if (DayManager.instance.days == DayManager.Days.DEMO && DayManager.instance.currentDemoNightTask == DemoNight.DemoNightTasks.EXAMINE_ROOM)
+        if (DayManager.instance.currentDay == DayManager.Days.DEMO && DayManager.instance.currentDemoNightTask == DemoNight.DemoNightTasks.EXAMINE_ROOM)
         {
             _interactionPrompt = "Examine";
             highlightBehavior.isActive = true;
         }
 
         //else if it is the demo night and the current task is to sleep...
-        else if(DayManager.instance.days == DayManager.Days.DEMO && DayManager.instance.currentDemoNightTask == DemoNight.DemoNightTasks.SLEEP)
+        else if(DayManager.instance.currentDay == DayManager.Days.DEMO && DayManager.instance.currentDemoNightTask == DemoNight.DemoNightTasks.SLEEP)
         {
             _interactionPrompt = "Interact";
             highlightBehavior.isActive = true;

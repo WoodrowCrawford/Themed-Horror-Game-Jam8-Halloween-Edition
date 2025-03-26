@@ -37,7 +37,7 @@ public class TeadybearInteractable : MonoBehaviour, IInteractable
 
     private void Update()
     {
-        if(DayManager.instance.days == DayManager.Days.DEMO)
+        if(DayManager.instance.currentDay == DayManager.Days.DEMO)
         {
             _interactionPrompt = "";
             highlightBehavior.isActive = false;
@@ -54,7 +54,7 @@ public class TeadybearInteractable : MonoBehaviour, IInteractable
 
 
         //if the day is sunday morning and the task is to look around...
-        if (DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.currentSundayMorningTask == SundayMorning.SundayMorningTasks.LOOK_AROUND)
+        if (DayManager.instance.currentDay == DayManager.Days.SUNDAY_MORNING && DayManager.instance.currentSundayMorningTask == SundayMorning.SundayMorningTasks.LOOK_AROUND)
         {
             //show the dialogue
             Interactor.DialogueUI.ShowDialogue(_lookAtDialogue);
@@ -63,7 +63,7 @@ public class TeadybearInteractable : MonoBehaviour, IInteractable
 
 
         //if the day is sunday morning and the task is to clean up...
-        else if (DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.currentSundayMorningTask == SundayMorning.SundayMorningTasks.CLEAN_UP)
+        else if (DayManager.instance.currentDay == DayManager.Days.SUNDAY_MORNING && DayManager.instance.currentSundayMorningTask == SundayMorning.SundayMorningTasks.CLEAN_UP)
         {
             //show the dialogue
             Interactor.DialogueUI.ShowDialogue(_dontWantToMoveDialogue);
@@ -72,7 +72,7 @@ public class TeadybearInteractable : MonoBehaviour, IInteractable
 
 
         //if the day is sunday morning and the task is to go to bed...
-        else if (DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.currentSundayMorningTask == SundayMorning.SundayMorningTasks.SAY_GOODNIGHT_TO_TOYS)
+        else if (DayManager.instance.currentDay == DayManager.Days.SUNDAY_MORNING && DayManager.instance.currentSundayMorningTask == SundayMorning.SundayMorningTasks.SAY_GOODNIGHT_TO_TOYS)
         {
             //show the dialogue
             Interactor.DialogueUI.ShowDialogue(_goodNightTeddyDialogue);

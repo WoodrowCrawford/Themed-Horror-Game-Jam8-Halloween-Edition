@@ -33,7 +33,7 @@ public class DoorInteractable : MonoBehaviour, IInteractable
     private void Update()
     {
         //if it is the demo night and the current task is to examine the room
-        if(DayManager.instance.days == DayManager.Days.DEMO && DayManager.instance.currentDemoNightTask == DemoNight.DemoNightTasks.EXAMINE_ROOM) 
+        if(DayManager.instance.currentDay == DayManager.Days.DEMO && DayManager.instance.currentDemoNightTask == DemoNight.DemoNightTasks.EXAMINE_ROOM) 
         {
             //change the interaction prompt
             _interactionPrompt = "Examine";
@@ -41,7 +41,7 @@ public class DoorInteractable : MonoBehaviour, IInteractable
         }
         
         //else if it is the demo night and the current task is to sleep
-        else if (DayManager.instance.days == DayManager.Days.DEMO && DayManager.instance.currentDemoNightTask == DemoNight.DemoNightTasks.SLEEP)
+        else if (DayManager.instance.currentDay == DayManager.Days.DEMO && DayManager.instance.currentDemoNightTask == DemoNight.DemoNightTasks.SLEEP)
         {
             //disable the interaction prompt
             _interactionPrompt = "";
@@ -58,7 +58,7 @@ public class DoorInteractable : MonoBehaviour, IInteractable
 
 
         //if it is sunday morning and the task is to look around...
-        if (DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.currentSundayMorningTask == SundayMorning.SundayMorningTasks.LOOK_AROUND)
+        if (DayManager.instance.currentDay == DayManager.Days.SUNDAY_MORNING && DayManager.instance.currentSundayMorningTask == SundayMorning.SundayMorningTasks.LOOK_AROUND)
         {
             //play dialogue
             Interactor.DialogueUI.ShowDialogue(_lookAtDoorDialogue);
@@ -66,7 +66,7 @@ public class DoorInteractable : MonoBehaviour, IInteractable
         }
         
         //else if it is sunday morning and the task is to clean up...
-        else if (DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.currentSundayMorningTask == SundayMorning.SundayMorningTasks.CLEAN_UP)
+        else if (DayManager.instance.currentDay == DayManager.Days.SUNDAY_MORNING && DayManager.instance.currentSundayMorningTask == SundayMorning.SundayMorningTasks.CLEAN_UP)
         {
             //play dialogue
             Interactor.DialogueUI.ShowDialogue(_cleanUpRoomDialogue);
@@ -74,7 +74,7 @@ public class DoorInteractable : MonoBehaviour, IInteractable
 
 
         //else if it is sunday morning and the task is to go to bed...
-        else if (DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.currentSundayMorningTask == SundayMorning.SundayMorningTasks.GO_TO_BED)
+        else if (DayManager.instance.currentDay == DayManager.Days.SUNDAY_MORNING && DayManager.instance.currentSundayMorningTask == SundayMorning.SundayMorningTasks.GO_TO_BED)
         {
             //play dialogue
             Interactor.DialogueUI.ShowDialogue(_goToSleepDialogue);
@@ -82,13 +82,13 @@ public class DoorInteractable : MonoBehaviour, IInteractable
 
 
         //else if it is sunday night...
-        else if (DayManager.instance.days == DayManager.Days.SUNDAY_NIGHT)
+        else if (DayManager.instance.currentDay == DayManager.Days.SUNDAY_NIGHT)
         {
             //play dialogue
             Interactor.DialogueUI.ShowDialogue(_cantLeaveDialogue);
         }
 
-        else if (DayManager.instance.days == DayManager.Days.DEMO && DayManager.instance.currentDemoNightTask == DemoNight.DemoNightTasks.EXAMINE_ROOM)
+        else if (DayManager.instance.currentDay == DayManager.Days.DEMO && DayManager.instance.currentDemoNightTask == DemoNight.DemoNightTasks.EXAMINE_ROOM)
         {
             Interactor.DialogueUI.ShowDialogue(_doorTutorialDialogue);
         }

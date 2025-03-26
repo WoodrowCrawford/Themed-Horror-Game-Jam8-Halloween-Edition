@@ -16,7 +16,7 @@ public class DummyOriginBehavior : MonoBehaviour
         if(other.gameObject == _dummyThisBelongsTo.gameObject)
         {
             _dummyThisBelongsTo.GetComponent<DummyStateManager>().dummyIsAtOrigin = true;
-            //Debug.Log("Dummy is at origin");
+           
         }
         
     }
@@ -28,7 +28,7 @@ public class DummyOriginBehavior : MonoBehaviour
         if (other.gameObject == _dummyThisBelongsTo.gameObject)
         {
             _dummyThisBelongsTo.GetComponent<DummyStateManager>().dummyIsAtOrigin = false;
-            //Debug.Log("Dummy is no longer at origin");
+            
         }
 
     }

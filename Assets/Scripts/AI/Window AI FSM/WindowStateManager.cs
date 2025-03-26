@@ -89,7 +89,7 @@ public class WindowStateManager : MonoBehaviour, IInteractable
         }
 
         //if the day is the demo night and the player wants to look around
-        if (DayManager.instance.days == DayManager.Days.DEMO && DayManager.instance.currentDemoNightTask == DemoNight.DemoNightTasks.EXAMINE_ROOM)
+        if (DayManager.instance.currentDay == DayManager.Days.DEMO && DayManager.instance.currentDemoNightTask == DemoNight.DemoNightTasks.EXAMINE_ROOM)
         {
             //sets the dialogue object to be equal to the window tutorial dialogue obeject
             DialogueObject = windowTutorial;
@@ -100,7 +100,7 @@ public class WindowStateManager : MonoBehaviour, IInteractable
         }
 
         //else if the day is the demo and the player has to fall asleep
-        else if (DayManager.instance.days == DayManager.Days.DEMO && currentState ==  openingState)
+        else if (DayManager.instance.currentDay == DayManager.Days.DEMO && currentState ==  openingState)
         {
             //closes the window
             CloseWindow();

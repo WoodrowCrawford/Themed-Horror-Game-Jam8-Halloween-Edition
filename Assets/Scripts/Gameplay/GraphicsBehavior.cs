@@ -128,7 +128,7 @@ public class GraphicsBehavior : MonoBehaviour
 
     public void FindSun()
     {
-        //Sun = GameObject.FindGameObjectWithTag("Sun");
+        Sun = GameObject.FindGameObjectWithTag("Sun");
         Debug.Log("hey i should find the sun now");
     }
 }

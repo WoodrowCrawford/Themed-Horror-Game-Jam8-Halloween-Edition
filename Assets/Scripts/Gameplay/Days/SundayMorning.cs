@@ -68,7 +68,7 @@ public class SundayMorning : BaseDay
         instance.currentSundayMorningTask = SundayMorningTasks.NONE;
 
         //Set up variables
-        instance.days = Days.SUNDAY_MORNING;
+        instance.currentDay = Days.SUNDAY_MORNING;
         GraphicsBehavior.instance.SetDayTime();
 
 
@@ -176,7 +176,7 @@ public class SundayMorning : BaseDay
 
         //the player goes to sleep, then the next phase happens
 
-        instance.days = Days.SUNDAY_NIGHT;
+        instance.currentDay = Days.SUNDAY_NIGHT;
 
 
         // StartCoroutine(StartSundayNight());

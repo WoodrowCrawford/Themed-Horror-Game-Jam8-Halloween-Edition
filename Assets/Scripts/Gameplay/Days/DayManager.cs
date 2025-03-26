@@ -17,7 +17,7 @@ public class DayManager : MonoBehaviour
     public static event TaskEventHandler onTaskChanged;
 
     //States
-    BaseDay currentDay;
+    BaseDay currentDayState;
     public SundayMorning sundayMorning = new SundayMorning();
     public SundayNight sundayNight = new SundayNight();
     public MondayMorning mondayMorning = new MondayMorning();
@@ -58,7 +58,7 @@ public class DayManager : MonoBehaviour
 
 
     //A enum Days variable called days
-    public Days days;
+    public Days currentDay;
 
 
     //A enum Tasks variable called task
@@ -207,8 +207,8 @@ public class DayManager : MonoBehaviour
 
     public void SwitchState(BaseDay state)
     {
-        currentDay = state;
-        currentDay.EnterState(this);
+        currentDayState = state;
+        currentDayState.EnterState(this);
 
         //Calls the onSwitch state event
         BaseDay.onSwitchState?.Invoke();
@@ -218,7 +218,7 @@ public class DayManager : MonoBehaviour
     private void Update()
     {
         //if the current day is not null, call the update function
-        currentDay?.UpdateState(this);
+        currentDayState?.UpdateState(this);
     }
 
 
@@ -241,90 +241,151 @@ public class DayManager : MonoBehaviour
       
     }
 
+   
+    public void ChangeTaskNew(DemoNight.DemoNightTasks demoNightTasks)
+    {
+        switch (demoNightTasks)
+        {
+            case DemoNight.DemoNightTasks.NONE:
+                {
+
+                    break;
+                }
+            case DemoNight.DemoNightTasks.EXAMINE_ROOM:
+                {
+                    currentDemoNightTask = DemoNight.DemoNightTasks.EXAMINE_ROOM;
+                    hudBehavior.currentTaskUI.text = "Look around the room";
+                    break;
+                }
+
+            default:
+                {
+                    currentDemoNightTask = DemoNight.DemoNightTasks.SLEEP;
+                    hudBehavior.currentTaskUI.text = "Go to Sleep";
+                    break;
+                }
+        }
+
+       
+    }
+
   
 
    
     //A function that checks what day to start when the event is called
     public void CheckWhichDayToStart()
     {
-        if (days == Days.SUNDAY_MORNING)
-        {
-            //Sunday morning
-            TodaysDateGO.GetComponent<TodaysDateBehavior>().TodaysDateText.text = ("Sunday Morning");
-            SwitchState(sundayMorning);
-            Debug.Log("The day is sunday morning");
-        }
-        else if (days == Days.SUNDAY_NIGHT)
-        {
-            //Sunday night
-            TodaysDateGO.GetComponent<TodaysDateBehavior>().TodaysDateText.text = ("Sunday Night");
-            SwitchState(sundayNight);
 
-        }
-        else if (days == Days.MONDAY_MORNING)
+
+        switch (currentDay)
         {
-            //Monday morning
-            Debug.Log("Start monday morning");
-        }
-        else if (days == Days.MONDAY_NIGHT)
-        {
-            //Monday night
-            Debug.Log("Start monday night");
-        }
-        else if (days == Days.TUESDAY_MORNING)
-        {
-            //Tuesday morning
-            Debug.Log("Start Tuesday morning");
-        }
-        else if (days == Days.TUESDAY_NIGHT)
-        {
-            //Tuesday night
-            Debug.Log("Start tuesday night");
-        }
-        else if (days == Days.WEDNESDAY_MORNING)
-        {
-            //Wednesday morning
-            Debug.Log("start wednesday morning");
-        }
-        else if (days == Days.WEDNESDAY_NIGHT)
-        {
-            //Wednesday night
-            Debug.Log("Start wednesday night");
-        }
-        else if (days == Days.THURSDAY_MORNING)
-        {
-            //Thursday morning
-            Debug.Log("Start thursday morning");
-        }
-        else if (days == Days.THURSDAY_NIGHT)
-        {
-            //Thursday night
-            Debug.Log("start thursday night");
-        }
-        else if (days == Days.FRIDAY_MORNING)
-        {
-            //Friday morning
-            Debug.Log("start friday morning");
-        }
-        else if (days == Days.FRIDAY_NIGHT)
-        {
-            //Friday night
-            Debug.Log("start friday night");
-        }
-        else if (days == Days.SATURDAY_MORNING)
-        {
-            //Saturday morning
-            Debug.Log("Start saturday morning");
-        }
-        else if (days == Days.SATURDAY_NIGHT)
-        {
-            //Saturday night
-            Debug.Log("start saturday night");
-        }
-        else if (days == Days.DEMO)
-        {
-            TodaysDateGO.GetComponent<TodaysDateBehavior>().TodaysDateText.text = ("Demo Night");
-            SwitchState(demoNight);
+            case Days.SUNDAY_MORNING:
+                {
+                    //Sunday morning
+                    TodaysDateGO.GetComponent<TodaysDateBehavior>().TodaysDateText.text = ("Sunday Morning");
+                    SwitchState(sundayMorning);
+                    Debug.Log("The day is sunday morning");
+                    break;
+                }
+
+            case Days.SUNDAY_NIGHT:
+                {
+                    //Sunday night
+                    TodaysDateGO.GetComponent<TodaysDateBehavior>().TodaysDateText.text = ("Sunday Night");
+                    SwitchState(sundayNight);
+                    break;
+                }
+
+            case Days.MONDAY_MORNING:
+                {
+                    //Monday morning
+                    Debug.Log("Start monday morning");
+                    break;
+                }
+
+            case Days.MONDAY_NIGHT:
+                {
+                    //Monday night
+                    Debug.Log("Start monday night");
+                    break;
+                }
+
+            case Days.TUESDAY_MORNING:
+                {
+                    //Tuesday morning
+                    Debug.Log("Start Tuesday morning");
+                    break;
+                }
+
+            case Days.TUESDAY_NIGHT:
+                {
+                    //Tuesday night
+                    Debug.Log("Start tuesday night");
+                    break;
+                }
+
+            case Days.WEDNESDAY_MORNING:
+                {
+                    //Wednesday morning
+                    Debug.Log("start wednesday morning");
+                    break;
+                }
+
+            case Days.WEDNESDAY_NIGHT:
+                {
+                    //Wednesday night
+                    Debug.Log("Start wednesday night");
+                    break;
+                }
+
+            case Days.THURSDAY_MORNING:
+                {
+                    //Thursday morning
+                    Debug.Log("Start thursday morning");
+                    break;
+                }
+
+            case Days.THURSDAY_NIGHT:
+                {
+                    //Thursday night
+                    Debug.Log("start thursday night");
+                    break;
+                }
+
+            case Days.FRIDAY_MORNING:
+                {
+                    //Friday morning
+                    Debug.Log("start friday morning");
+                    break;
+                }
+
+            case Days.FRIDAY_NIGHT:
+                {
+                    //Friday night
+                    Debug.Log("start friday night");
+                    break;
+                }
+
+            case Days.SATURDAY_MORNING:
+                {
+                    //Saturday morning
+                    Debug.Log("Start saturday morning");
+                    break;
+                }
+
+            case Days.SATURDAY_NIGHT:
+                {
+                    //Saturday night
+                    Debug.Log("start saturday night");
+                    break;
+                }
+
+            case Days.DEMO:
+                {
+                    TodaysDateGO.GetComponent<TodaysDateBehavior>().TodaysDateText.text = ("Demo Night");
+                    SwitchState(demoNight);
+                    break;
+                }
         }
         
     }

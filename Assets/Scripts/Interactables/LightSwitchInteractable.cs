@@ -29,7 +29,7 @@ public class LightSwitchInteractable : MonoBehaviour, IInteractable
 
 
         //if the day is sunday morning...
-        if (DayManager.instance.days == DayManager.Days.SUNDAY_MORNING)
+        if (DayManager.instance.currentDay == DayManager.Days.SUNDAY_MORNING)
         {
             //show the dialogue
             Interactor.DialogueUI.ShowDialogue(_lookAtSwitchDialogue);
@@ -37,7 +37,7 @@ public class LightSwitchInteractable : MonoBehaviour, IInteractable
         }
 
         //else if the day is sunday night...
-        else if (DayManager.instance.days == DayManager.Days.SUNDAY_NIGHT)
+        else if (DayManager.instance.currentDay == DayManager.Days.SUNDAY_NIGHT)
         {
             //show the dialogue
             Interactor.DialogueUI.ShowDialogue(_cantTurnLightOnDialogue);

@@ -7,7 +7,7 @@ public class SundayNight : BaseDay
     public override void EnterState(DayManager day)
     {
         Debug.Log("Sunday night enter state");
-        day.days = Days.SUNDAY_NIGHT;
+        day.currentDay = Days.SUNDAY_NIGHT;
         day.StartCoroutine(StartSundayNight());
     }
 
@@ -43,7 +43,7 @@ public class SundayNight : BaseDay
         //task = SundayMorningTasks.SLEEP;
 
         //Set up variables
-        instance.days = Days.SUNDAY_NIGHT;
+        instance.currentDay = Days.SUNDAY_NIGHT;
         GraphicsBehavior.instance.SetNightTime();
 
 

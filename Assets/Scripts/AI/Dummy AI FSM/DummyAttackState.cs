@@ -11,11 +11,25 @@ public class DummyAttackState : DummyDefaultState
         {
             Debug.Log("dummy attacked!");
 
-            //call the dummy jumpscare event
-            TimelineManager.onPlayDummyJumpscare?.Invoke();
+           
 
-            //signal an event that lets the game know that the dummy attacked
-            DummyStateManager.dummyKilledPlayer = true;
+            //find which dummy object this is
+            if(dummy.dummyThisBelongsTo.CompareTag("Dummy1"))
+            {
+                
+                //call the dummy jumpscare 1 event
+                TimelineManager.onPlayDummy1Jumpscare?.Invoke();
+            }
+
+            else if(dummy.dummyThisBelongsTo.CompareTag("Dummy2"))
+            {
+                //call the dummy jumpscare event
+                TimelineManager.onPlayDummy2Jumpscare?.Invoke();
+            }
+
+
+                //signal an event that lets the game know that the dummy attacked
+                DummyStateManager.dummyKilledPlayer = true;
         }
   
     }

@@ -43,7 +43,7 @@ public class BasketBallInteractable : MonoBehaviour, IInteractable
     private void Update()
     {
         //if the current day is the demo night...
-        if(DayManager.instance.days == DayManager.Days.DEMO)
+        if(DayManager.instance.currentDay == DayManager.Days.DEMO)
         {
             //disable the interaction prompt
             _interactionPrompt = "";
@@ -67,7 +67,7 @@ public class BasketBallInteractable : MonoBehaviour, IInteractable
 
 
         //if the day is sunday morning and the task is to look around...
-        if (DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.currentSundayMorningTask == SundayMorning.SundayMorningTasks.LOOK_AROUND)
+        if (DayManager.instance.currentDay == DayManager.Days.SUNDAY_MORNING && DayManager.instance.currentSundayMorningTask == SundayMorning.SundayMorningTasks.LOOK_AROUND)
         {
             //show the dialogue
             Interactor.DialogueUI.ShowDialogue(_ballInteractionDialogue);
@@ -77,7 +77,7 @@ public class BasketBallInteractable : MonoBehaviour, IInteractable
         
 
         //else if the day is sunday morning and the task is to clean up...
-        else if (DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.currentSundayMorningTask == SundayMorning.SundayMorningTasks.CLEAN_UP)
+        else if (DayManager.instance.currentDay == DayManager.Days.SUNDAY_MORNING && DayManager.instance.currentSundayMorningTask == SundayMorning.SundayMorningTasks.CLEAN_UP)
         {
             //Picks up the object
             StartCoroutine(Interactor.TogglePickUp(this.gameObject));

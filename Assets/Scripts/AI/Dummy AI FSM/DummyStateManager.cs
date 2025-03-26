@@ -428,7 +428,7 @@ public class DummyStateManager : MonoBehaviour, IInteractable
     public void Interact(Interactor Interactor)
     {
         //if it is sunday morning and the task for the day is to look around...
-        if (DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.currentSundayMorningTask == SundayMorning.SundayMorningTasks.LOOK_AROUND && canBeInteracted)
+        if (DayManager.instance.currentDay == DayManager.Days.SUNDAY_MORNING && DayManager.instance.currentSundayMorningTask == SundayMorning.SundayMorningTasks.LOOK_AROUND && canBeInteracted)
         {
             //sets to be true
             IsInteracted = true;
@@ -436,7 +436,7 @@ public class DummyStateManager : MonoBehaviour, IInteractable
             DialogueUIBehavior.instance.ShowDialogue(_dialogueObject);
         }
 
-        else if(DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.currentSundayMorningTask == SundayMorning.SundayMorningTasks.CLEAN_UP && !SundayMorning.playerPutAllTheToysInTheToyBox && canBeInteracted)
+        else if(DayManager.instance.currentDay == DayManager.Days.SUNDAY_MORNING && DayManager.instance.currentSundayMorningTask == SundayMorning.SundayMorningTasks.CLEAN_UP && !SundayMorning.playerPutAllTheToysInTheToyBox && canBeInteracted)
         {
             //show dialogue here that the player should put the other toys away first
             DialogueUIBehavior.instance.ShowDialogue(_putOtherToysAwayFirst);
@@ -444,13 +444,13 @@ public class DummyStateManager : MonoBehaviour, IInteractable
 
 
         //if it is sunday morning and the task for the day is to clean up...
-        else if(DayManager.instance.days == DayManager.Days.SUNDAY_MORNING && DayManager.instance.currentSundayMorningTask == SundayMorning.SundayMorningTasks.CLEAN_UP && canBeInteracted)
+        else if(DayManager.instance.currentDay == DayManager.Days.SUNDAY_MORNING && DayManager.instance.currentSundayMorningTask == SundayMorning.SundayMorningTasks.CLEAN_UP && canBeInteracted)
         {
             //put pick up code here!
             StartCoroutine(Interactor.TogglePickUp(this.gameObject));
         }
 
-        else if(DayManager.instance.days == DayManager.Days.DEMO && DayManager.instance.currentDemoNightTask == DemoNight.DemoNightTasks.EXAMINE_ROOM)
+        else if(DayManager.instance.currentDay == DayManager.Days.DEMO && DayManager.instance.currentDemoNightTask == DemoNight.DemoNightTasks.EXAMINE_ROOM)
         {
             DialogueUIBehavior.instance.ShowDialogue(_dummyTutorialDialogue);
         }
