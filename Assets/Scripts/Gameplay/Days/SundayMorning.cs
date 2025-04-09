@@ -50,13 +50,12 @@ public class SundayMorning : BaseDay
 
     public IEnumerator StartSundayMorning()
     {
-
+       
 
         //the player is not able to sleep
         PlayerInputBehavior.playerCanSleep = false;
 
-        //find the sun
-        instance.graphicsBehavior.Sun = GameObject.FindGameObjectWithTag("Sun");
+       
 
         instance.CallShowTodaysDate();
 
@@ -69,16 +68,17 @@ public class SundayMorning : BaseDay
 
         //Set up variables
         instance.currentDay = Days.SUNDAY_MORNING;
-        GraphicsBehavior.instance.SetDayTime();
+      
 
 
 
         //wait until the screen is finished loading
         yield return new WaitUntil(() => TodaysDateBehavior.instance.loadingScreenFinished);
 
-
+       
         instance.GetInitializers();
 
+        OnDayTime.Invoke();
 
 
 

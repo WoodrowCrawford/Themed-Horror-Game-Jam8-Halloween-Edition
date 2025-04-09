@@ -1,4 +1,5 @@
 using UnityEngine;
+using static GraphicsBehavior;
 using Debug = UnityEngine.Debug;
 
 public class DayManager : MonoBehaviour
@@ -14,6 +15,9 @@ public class DayManager : MonoBehaviour
 
 
     //events
+    public static TimeChange OnDayTime;
+    public static TimeChange OnNightTime;
+
     public static event TaskEventHandler onTaskChanged;
 
     //States
@@ -130,7 +134,6 @@ public class DayManager : MonoBehaviour
 
         GameManager.onGameStarted += GetInitializers;
         GameManager.onStartStory += CheckWhichDayToStart;
-
 
 
 

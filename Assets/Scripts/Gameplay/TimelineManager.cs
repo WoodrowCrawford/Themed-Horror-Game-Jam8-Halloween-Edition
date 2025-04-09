@@ -144,7 +144,7 @@ public class TimelineManager : MonoBehaviour
             dummy1PlayableDirector = GameObject.FindGameObjectWithTag("Dummy1").GetComponent<PlayableDirector>();
             dummy2PlayableDirector = GameObject.FindGameObjectWithTag("Dummy2").GetComponent<PlayableDirector>();
 
-            ghoulPlayableDirector = GameObject.FindGameObjectWithTag("GhoulJumpscare").GetComponent<PlayableDirector>();
+            ghoulPlayableDirector = GameObject.FindGameObjectWithTag("Ghoul").GetComponent<PlayableDirector>();
             clownPlayableDirector = GameObject.FindGameObjectWithTag("ClownJumpscare").GetComponent<PlayableDirector>();
         }
     }

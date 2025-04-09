@@ -20,14 +20,14 @@ public class HUDBehavior : MonoBehaviour
 
     private void OnEnable()
     {
-        GraphicsBehavior.OnDayTime += UpdateHUDForDayTime;
-        GraphicsBehavior.OnNightTime += UpdateHUDForNightTime;
+        DayManager.OnDayTime += UpdateHUDForDayTime;
+        DayManager.OnNightTime += UpdateHUDForNightTime;
     }
 
     private void OnDisable()
     {
-        GraphicsBehavior.OnDayTime -= UpdateHUDForDayTime;
-        GraphicsBehavior.OnNightTime -= UpdateHUDForNightTime;
+        DayManager.OnDayTime -= UpdateHUDForDayTime;
+        DayManager.OnNightTime -= UpdateHUDForNightTime;
     }
 
 

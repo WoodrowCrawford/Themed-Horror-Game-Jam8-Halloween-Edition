@@ -45,6 +45,7 @@ TagManager:
   - LoadingScreenCanvas
   - Settings
   - SettingsUI
+  - Moon
   layers:
   - Default
   - TransparentFX

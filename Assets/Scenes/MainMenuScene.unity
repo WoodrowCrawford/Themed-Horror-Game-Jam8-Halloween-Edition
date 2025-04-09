@@ -20642,6 +20642,9 @@ MonoBehaviour:
   Graphics: {fileID: 1623073382}
   CurrentPostProcessingObject: {fileID: 0}
   Sun: {fileID: 0}
+  Moon: {fileID: 0}
+  DayTimeProfile: {fileID: 11400000, guid: 9d4e23fbdb91c5f40ab4e36f282d3ec6, type: 2}
+  NightTimeProfile: {fileID: 11400000, guid: 3de2794f3e360f242a55a256f9131c35, type: 2}
   IsDayTime: 0
   IsNightTime: 0
 --- !u!1001 &1624038211
@@ -27352,7 +27355,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7350691994038421363, guid: 0362051d61af98e448e36f2aa8d62e34, type: 3}
       propertyPath: currentDay
-      value: 14
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7350691994038421363, guid: 0362051d61af98e448e36f2aa8d62e34, type: 3}
       propertyPath: _todaysDateGO
