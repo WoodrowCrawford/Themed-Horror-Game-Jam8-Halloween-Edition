@@ -115,7 +115,7 @@ public class GraphicsBehavior : MonoBehaviour
 
 
         //Disable the light component in the moon object
-        Moon.GetComponent<Light>().enabled = true;
+         Moon.GetComponent<Light>().enabled = true;
 
   
        
