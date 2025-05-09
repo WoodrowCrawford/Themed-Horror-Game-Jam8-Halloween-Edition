@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using Atmoky;
 
 
 
@@ -61,8 +62,13 @@ public class SoundFXManager : MonoBehaviour
         //spawn in game object
         AudioSource audioSource = Instantiate(soundFXObject, spawnTransform.position, Quaternion.identity);
 
+
+
         //get the atmoky source component from the game object
-        AtmokySource atmokySource = soundFXObject.GetComponent<AtmokySource>();
+        Atmoky.Source atmokySource = soundFXObject.GetComponent<Atmoky.Source>();
+
+       
+        //FIXXXXX
 
         //assign atmoky source values
         atmokySource.nfeDistance = 1f;
@@ -103,10 +109,11 @@ public class SoundFXManager : MonoBehaviour
         //spawn in game object
         AudioSource audioSource = Instantiate(soundFXObject, spawnTransform.position, Quaternion.identity);
     
-        AtmokySource audioSourceAtmoky = GetComponent<AtmokySource>();
-        
-
    
+
+        Atmoky.Source audioSourceAtmoky = GetComponent<Atmoky.Source>();
+        
+        
 
         //assign audio clip
         audioSource.clip = audioClip;
@@ -145,7 +152,7 @@ public class SoundFXManager : MonoBehaviour
     public void StopSoundFXClip(AudioClip audioClip)
     {
         //find the audio source with the given audio clip
-        AudioSource audioSourceToFindWithClip = FindObjectOfType<AudioSource>();
+        AudioSource audioSourceToFindWithClip = FindFirstObjectByType<AudioSource>();
 
         if(audioSourceToFindWithClip.GetComponentInChildren<AudioSource>().clip = audioClip)
         {

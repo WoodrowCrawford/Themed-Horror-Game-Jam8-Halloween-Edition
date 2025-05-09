@@ -95,7 +95,7 @@ public class FlashlightBehavior : MonoBehaviour
         if (SleepBehavior.playerIsSleeping)
         {
             //Sets the flashlight to be off
-            _playerLight.gameObject.SetActive(false);
+            _playerLight.GetComponent<Light>().enabled = false;
 
             //Set the flashlight collider to be off
             _flashlightTrigger.GetComponent<BoxCollider>().enabled = false;
@@ -200,7 +200,10 @@ public class FlashlightBehavior : MonoBehaviour
             //play turn off sound
             SoundFXManager.instance.PlaySoundFXClipAtSetVolume(SoundFXManager.instance.flashlightClickOffClip, this.transform, false, 0f, 0.4f);
 
-            _playerLight.gameObject.SetActive(false);
+            //turn off the flashlight component
+            _playerLight.GetComponent<Light>().enabled = false;
+
+            
 
             //Set the flashlight collider to be off
             _flashlightTrigger.GetComponent<BoxCollider>().enabled = false;
@@ -221,7 +224,10 @@ public class FlashlightBehavior : MonoBehaviour
             //play turn on sound
             SoundFXManager.instance.PlaySoundFXClipAtSetVolume(SoundFXManager.instance.flashlightClickOnClip, this.transform, false, 0f, 0.4f);
 
-            _playerLight.gameObject.SetActive(true);
+            //turn on the flashlight component
+            _playerLight.GetComponent<Light>().enabled = true;
+
+           
 
             //Set the flashlight collider to be off
             _flashlightTrigger.GetComponent<BoxCollider>().enabled = true;

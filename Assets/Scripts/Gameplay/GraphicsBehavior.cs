@@ -1,6 +1,9 @@
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.SceneManagement;
+
 
 
 public class GraphicsBehavior : MonoBehaviour
@@ -22,10 +25,10 @@ public class GraphicsBehavior : MonoBehaviour
     public GameObject Moon; //The moon used for lighting 
 
     [Header("Profiles")]
-    public PostProcessProfile DayTimeProfile;
-    public PostProcessProfile NightTimeProfile;
+    public VolumeProfile DayTimeVolume;
+    public VolumeProfile NightTimeVolume;
 
-
+  
 
 
     public bool IsDayTime = false;
@@ -85,13 +88,13 @@ public class GraphicsBehavior : MonoBehaviour
         //if the scene is the main menu scene
         if (scene == SceneManager.GetSceneByBuildIndex(0))
         { 
-            CurrentPostProcessingObject = GameObject.Find("Post Processing");
+            CurrentPostProcessingObject = GameObject.FindGameObjectWithTag("Post Processing");
         }
 
         //if the scene is the bedroom scene
         else if (scene == SceneManager.GetSceneByBuildIndex(1))
         {
-            CurrentPostProcessingObject = GameObject.Find("PostProcessing");
+            CurrentPostProcessingObject = GameObject.FindGameObjectWithTag("Post Processing");
 
             //find the sun and moon 
              FindSunAndMoon();
@@ -111,7 +114,7 @@ public class GraphicsBehavior : MonoBehaviour
         Sun.GetComponent<Light>().enabled = true;
 
         //set the pp profile
-        CurrentPostProcessingObject.GetComponent<PostProcessVolume>().profile = DayTimeProfile;
+        CurrentPostProcessingObject.GetComponent<Volume>().profile = DayTimeVolume;
 
 
         //Disable the light component in the moon object
@@ -131,6 +134,8 @@ public class GraphicsBehavior : MonoBehaviour
     //Sets the scene to be nighttime
     public void SetNightTime()
     {
+       
+
         //set is day time to true
         IsDayTime = false;
         IsNightTime = true;
@@ -138,7 +143,7 @@ public class GraphicsBehavior : MonoBehaviour
         //get the light component in the moon and turn it on
         Moon.GetComponent<Light>().enabled = true;
 
-        CurrentPostProcessingObject.GetComponent<PostProcessVolume>().profile = NightTimeProfile;
+        CurrentPostProcessingObject.GetComponent<Volume>().profile = NightTimeVolume;
 
         //Disable the light component in the sun object
         Sun.GetComponent<Light>().enabled = false;

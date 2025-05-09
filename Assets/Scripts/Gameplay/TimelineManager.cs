@@ -1,22 +1,36 @@
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
+using Cinemachine;
 public class TimelineManager : MonoBehaviour
 {
     public static TimelineManager instance;
+
+    [Header("Player VCams")]
+    public CinemachineVirtualCamera playerVCam;
+    public CinemachineVirtualCamera playerWakingUpVCam;
+    public CinemachineVirtualCamera playerSleepingVCam;
+
+
 
 
     [Header("Current Director")]
     public PlayableDirector currentPlayableDirector;
     [SerializeField] private bool _cutsceneIsPlaying = false;
-    
+
 
     [Header("Stored Directors")]
+    public PlayableDirector playerPlayableDirector;
+
     public PlayableDirector dummy1PlayableDirector;
     public PlayableDirector dummy2PlayableDirector;
 
     public PlayableDirector ghoulPlayableDirector;
     public PlayableDirector clownPlayableDirector;
+
+    [Header("Player Cutscenes")]
+    public PlayableAsset playerSleepingAsset;
+    public PlayableAsset playerWakingUpAsset;
 
     [Header("Stored Jumpscares")]
     public PlayableAsset dummy1JumpscareAsset;
@@ -28,11 +42,15 @@ public class TimelineManager : MonoBehaviour
 
     //delegate
     public delegate void CutsceneEventHandler();
-    
-  
+
+
     //Events
+   
     public static CutsceneEventHandler onPlayDummy1Jumpscare;
+
+   
     public static CutsceneEventHandler onPlayDummy2Jumpscare;
+
 
     public static CutsceneEventHandler onPlayGhoulJumpscare;
     public static CutsceneEventHandler onPlayClownJumpscare;
@@ -56,13 +74,17 @@ public class TimelineManager : MonoBehaviour
 
         onCutscenePlayed += () => _cutsceneIsPlaying = true;
         onCutsceneStopped += () => _cutsceneIsPlaying = false;
+
+
+        SleepBehavior.onPlayerCloseEyes += () => PlayInteractiveCutscene(playerPlayableDirector, playerSleepingAsset, DirectorWrapMode.None);
+        SleepBehavior.onPlayerOpenEyes += () => PlayInteractiveCutscene(playerPlayableDirector, playerWakingUpAsset, DirectorWrapMode.None);
        
 
-        onPlayDummy1Jumpscare += () => PlayCutscene(dummy1PlayableDirector, dummy1JumpscareAsset);
-        onPlayDummy2Jumpscare += () => PlayCutscene(dummy2PlayableDirector, dummy2JumpscareAsset);
+        onPlayDummy1Jumpscare += () => PlayCutscene(dummy1PlayableDirector, dummy1JumpscareAsset, DirectorWrapMode.None);
+        onPlayDummy2Jumpscare += () => PlayCutscene(dummy2PlayableDirector, dummy2JumpscareAsset, DirectorWrapMode.None);
 
-        onPlayGhoulJumpscare += () => PlayCutscene(ghoulPlayableDirector, ghoulJumpscareAsset);
-        onPlayClownJumpscare += () => PlayCutscene(clownPlayableDirector, clownJumpscareAsset);
+        onPlayGhoulJumpscare += () => PlayCutscene(ghoulPlayableDirector, ghoulJumpscareAsset, DirectorWrapMode.None);
+        onPlayClownJumpscare += () => PlayCutscene(clownPlayableDirector, clownJumpscareAsset, DirectorWrapMode.None);
     }
 
     
@@ -79,11 +101,15 @@ public class TimelineManager : MonoBehaviour
         onCutsceneStopped -= () => _cutsceneIsPlaying = false;
 
 
-        onPlayDummy1Jumpscare -= () => PlayCutscene(dummy1PlayableDirector, dummy1JumpscareAsset);
-        onPlayDummy2Jumpscare -= () => PlayCutscene(dummy2PlayableDirector, dummy2JumpscareAsset);
 
-        onPlayGhoulJumpscare -= () => PlayCutscene(ghoulPlayableDirector, ghoulJumpscareAsset);
-        onPlayClownJumpscare -= () => PlayCutscene(clownPlayableDirector, clownJumpscareAsset);
+        SleepBehavior.onPlayerCloseEyes -= () => PlayInteractiveCutscene(playerPlayableDirector, playerSleepingAsset, DirectorWrapMode.None);
+        SleepBehavior.onPlayerOpenEyes += () => PlayInteractiveCutscene(playerPlayableDirector, playerWakingUpAsset, DirectorWrapMode.None);
+
+        onPlayDummy1Jumpscare -= () => PlayCutscene(dummy1PlayableDirector, dummy1JumpscareAsset, DirectorWrapMode.None);
+        onPlayDummy2Jumpscare -= () => PlayCutscene(dummy2PlayableDirector, dummy2JumpscareAsset, DirectorWrapMode.None);
+
+        onPlayGhoulJumpscare -= () => PlayCutscene(ghoulPlayableDirector, ghoulJumpscareAsset, DirectorWrapMode.None);
+        onPlayClownJumpscare -= () => PlayCutscene(clownPlayableDirector, clownJumpscareAsset, DirectorWrapMode.None);
     }
 
 
@@ -105,6 +131,17 @@ public class TimelineManager : MonoBehaviour
 
     private void Update()
     {
+
+        if(SceneManager.GetActiveScene() == SceneManager.GetSceneByName("BedroomScene"))
+        {
+            //find the player vcams
+            playerVCam = GameObject.Find("Player VCam").GetComponent<CinemachineVirtualCamera>();
+            playerSleepingVCam = GameObject.Find("PlayerSleepingVCam").GetComponent<CinemachineVirtualCamera>();
+            playerWakingUpVCam = GameObject.Find("PlayerWakingUpVCam").GetComponent<CinemachineVirtualCamera>();
+        }
+        
+
+        
         if(currentPlayableDirector == null)
         {
             return;
@@ -130,6 +167,8 @@ public class TimelineManager : MonoBehaviour
         //if the scene is the main menu scene
         if (scene == SceneManager.GetSceneByBuildIndex(0))
         {
+            playerPlayableDirector = null;
+
             dummy1PlayableDirector = null;
             dummy2PlayableDirector = null;
 
@@ -141,6 +180,8 @@ public class TimelineManager : MonoBehaviour
         else if (scene == SceneManager.GetSceneByBuildIndex(1))
         {
             //find the directables
+            playerPlayableDirector = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayableDirector>();
+
             dummy1PlayableDirector = GameObject.FindGameObjectWithTag("Dummy1").GetComponent<PlayableDirector>();
             dummy2PlayableDirector = GameObject.FindGameObjectWithTag("Dummy2").GetComponent<PlayableDirector>();
 
@@ -169,7 +210,8 @@ public class TimelineManager : MonoBehaviour
     }
 
 
-    public void PlayCutscene(PlayableDirector playableDirector, PlayableAsset cutsceneToPlay)
+    //Plays a normal cutscene
+    public void PlayCutscene(PlayableDirector playableDirector, PlayableAsset cutsceneToPlay, DirectorWrapMode wrapMode)
     {
         //if a cutscene is not currently playing...
         if (!CutsceneIsPlaying)
@@ -181,6 +223,8 @@ public class TimelineManager : MonoBehaviour
             currentPlayableDirector.playableAsset = cutsceneToPlay;
 
             currentPlayableDirector.Play(playableDirector.playableAsset);
+
+            
             
         }
         else
@@ -188,9 +232,18 @@ public class TimelineManager : MonoBehaviour
             Debug.Log("Cant play another one");
             return;
         }
+    }
 
 
+    //Plays a cutscene that can be interuppted by other cutscenes/timelines (used for player interactions)
+    public void PlayInteractiveCutscene(PlayableDirector playableDirector, PlayableAsset cutsceneToPlay, DirectorWrapMode wrapMode)
+    {
+        //set the current director to be the director that is playing
+        currentPlayableDirector = playableDirector;
 
-        
+        //set the current cutscene to play to be the playable directors playable asset
+        currentPlayableDirector.playableAsset = cutsceneToPlay;
+
+        currentPlayableDirector.Play(playableDirector.playableAsset);
     }
 }

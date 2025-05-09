@@ -59,7 +59,8 @@ public class PlayerInputBehavior : MonoBehaviour
 
 
     [Header("Core Player Values")]
-    private bool _playerIsHidden;
+    [SerializeField] private GameObject _playerObject;
+    [SerializeField] private bool _playerIsHidden;
 
     //Used for interaction
     [Header("Interaction")]
@@ -73,7 +74,7 @@ public class PlayerInputBehavior : MonoBehaviour
     //[SerializeField] private Camera _camera;
     [SerializeField] private CinemachineVirtualCamera _camera;
     [SerializeField] private AxisState _axisState;
-    [SerializeField] private Transform _playerBody;
+    [SerializeField] private Transform _playerBodyTransform;
     [SerializeField] private Transform _startLookAt;
     public static float sensitivity = 20f;
    
@@ -109,7 +110,7 @@ public class PlayerInputBehavior : MonoBehaviour
   
     
    public bool PlayerIsHidden { get { return _playerIsHidden; } set { _playerIsHidden = value; } }
-    public Transform PlayerBody {  get { return _playerBody; } set { _playerBody = value; } }
+    public Transform PlayerBody {  get { return _playerBodyTransform; } set { _playerBodyTransform = value; } }
     public Transform TopOfBedPos { get { return _TopOfBedPos; } set { _TopOfBedPos = value; } }
     public Transform OutOfBedLeftPos { get { return _outOfBedLeftPos; } set { _outOfBedLeftPos = value; } }
     public bool IsUnderBed { get { return _isUnderBed; }  set { _isUnderBed = value; } }
@@ -211,6 +212,7 @@ public class PlayerInputBehavior : MonoBehaviour
     private void Awake()
     {
         //Gets the components
+        _playerObject = GameObject.FindGameObjectWithTag("Player");
         _rb = GetComponent<Rigidbody>();       
     }
 
@@ -232,7 +234,7 @@ public class PlayerInputBehavior : MonoBehaviour
         _camera.transform.LookAt(_startLookAt.position);
 
         //Sets the players position to be on top of the bed (can move this to be called in the day mananger for story reasons)
-        _playerBody.transform.position = _TopOfBedPos.position;
+        _playerBodyTransform.transform.position = _TopOfBedPos.position;
 
         //sets the current action map to be in bed on startup
         _currentActionMap = playerControls.InBed;
@@ -254,7 +256,7 @@ public class PlayerInputBehavior : MonoBehaviour
         Debug.Log(_currentActionMap);
 
         
-        _yRotation = Mathf.CeilToInt(_playerBody.transform.eulerAngles.y);
+        _yRotation = Mathf.CeilToInt(_playerBodyTransform.transform.eulerAngles.y);
 
         if (playerCanLook)
             HandleLook();
@@ -281,6 +283,11 @@ public class PlayerInputBehavior : MonoBehaviour
     {
         playerControls.Default.Enable();
         _currentActionMap.Enable();
+    }
+
+    public void HidePlayer()
+    {
+        _playerObject.GetComponent<MeshRenderer>().enabled = false;
     }
 
 
@@ -319,7 +326,7 @@ public class PlayerInputBehavior : MonoBehaviour
 
 
         _camera.transform.localRotation = Quaternion.Euler(_xRotation, 0f, 0f);
-        _playerBody.Rotate(Vector3.up * mouseXLook);
+        _playerBodyTransform.Rotate(Vector3.up * mouseXLook);
     }
 
 
@@ -359,7 +366,7 @@ public class PlayerInputBehavior : MonoBehaviour
             if (!_isUnderBed && !SleepBehavior.playerIsSleeping && !PauseSystem.isPaused)
             {
                 //set the player to be under the bed
-                _playerBody.transform.position = _UnderBedPos.transform.position;
+                _playerBodyTransform.transform.position = _UnderBedPos.transform.position;
 
                 //set isUnderBed to be true
                 _isUnderBed = true;
@@ -378,7 +385,7 @@ public class PlayerInputBehavior : MonoBehaviour
             else if (_isUnderBed && !PauseSystem.isPaused)
             {
                 //set the player to be on top of the bed
-                _playerBody.transform.position = _TopOfBedPos.transform.position;
+                _playerBodyTransform.transform.position = _TopOfBedPos.transform.position;
 
                 //set isUnderBed to be false
                 _isUnderBed = false;
@@ -424,11 +431,11 @@ public class PlayerInputBehavior : MonoBehaviour
 
                 if (_yRotation >= 180)
                 {
-                    _playerBody.transform.position = _outOfBedLeftPos.transform.position;
+                    _playerBodyTransform.transform.position = _outOfBedLeftPos.transform.position;
                 }
                 else if (_yRotation <= 180)
                 {
-                    _playerBody.transform.position = _outOfBedRightPos.transform.position;
+                    _playerBodyTransform.transform.position = _outOfBedRightPos.transform.position;
                 }
             }
         }
@@ -448,7 +455,7 @@ public class PlayerInputBehavior : MonoBehaviour
             //check if the player is near the bed and make sure that the game is not paused
             if (GetInBedTriggerBehavior.playerCanGetInBed && !PauseSystem.isPaused)
             {
-                _playerBody.transform.position = _TopOfBedPos.position;
+                _playerBodyTransform.transform.position = _TopOfBedPos.position;
                 playerControls.OutOfBed.Disable();
 
                 playerControls.InBed.Enable();
