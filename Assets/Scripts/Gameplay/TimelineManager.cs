@@ -1,17 +1,13 @@
+using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
-using Cinemachine;
+
 public class TimelineManager : MonoBehaviour
 {
     public static TimelineManager instance;
 
-    [Header("Player VCams")]
-    public CinemachineVirtualCamera playerVCam;
-    public CinemachineVirtualCamera playerWakingUpVCam;
-    public CinemachineVirtualCamera playerSleepingVCam;
-
-
+ 
 
 
     [Header("Current Director")]
@@ -76,8 +72,8 @@ public class TimelineManager : MonoBehaviour
         onCutsceneStopped += () => _cutsceneIsPlaying = false;
 
 
-        SleepBehavior.onPlayerCloseEyes += () => PlayInteractiveCutscene(playerPlayableDirector, playerSleepingAsset, DirectorWrapMode.None);
-        SleepBehavior.onPlayerOpenEyes += () => PlayInteractiveCutscene(playerPlayableDirector, playerWakingUpAsset, DirectorWrapMode.None);
+        SleepBehavior.onPlayerCloseEyes += () => PlayCutscene(playerPlayableDirector, playerSleepingAsset, DirectorWrapMode.None);
+        SleepBehavior.onPlayerOpenEyes += () => PlayCutscene(playerPlayableDirector, playerWakingUpAsset, DirectorWrapMode.None);
        
 
         onPlayDummy1Jumpscare += () => PlayCutscene(dummy1PlayableDirector, dummy1JumpscareAsset, DirectorWrapMode.None);
@@ -102,8 +98,8 @@ public class TimelineManager : MonoBehaviour
 
 
 
-        SleepBehavior.onPlayerCloseEyes -= () => PlayInteractiveCutscene(playerPlayableDirector, playerSleepingAsset, DirectorWrapMode.None);
-        SleepBehavior.onPlayerOpenEyes += () => PlayInteractiveCutscene(playerPlayableDirector, playerWakingUpAsset, DirectorWrapMode.None);
+        SleepBehavior.onPlayerCloseEyes -= () => PlayCutscene(playerPlayableDirector, playerSleepingAsset, DirectorWrapMode.None);
+        SleepBehavior.onPlayerOpenEyes += () => PlayCutscene(playerPlayableDirector, playerWakingUpAsset, DirectorWrapMode.None);
 
         onPlayDummy1Jumpscare -= () => PlayCutscene(dummy1PlayableDirector, dummy1JumpscareAsset, DirectorWrapMode.None);
         onPlayDummy2Jumpscare -= () => PlayCutscene(dummy2PlayableDirector, dummy2JumpscareAsset, DirectorWrapMode.None);
@@ -132,16 +128,6 @@ public class TimelineManager : MonoBehaviour
     private void Update()
     {
 
-        if(SceneManager.GetActiveScene() == SceneManager.GetSceneByName("BedroomScene"))
-        {
-            //find the player vcams
-            playerVCam = GameObject.Find("Player VCam").GetComponent<CinemachineVirtualCamera>();
-            playerSleepingVCam = GameObject.Find("PlayerSleepingVCam").GetComponent<CinemachineVirtualCamera>();
-            playerWakingUpVCam = GameObject.Find("PlayerWakingUpVCam").GetComponent<CinemachineVirtualCamera>();
-        }
-        
-
-        
         if(currentPlayableDirector == null)
         {
             return;
@@ -232,18 +218,5 @@ public class TimelineManager : MonoBehaviour
             Debug.Log("Cant play another one");
             return;
         }
-    }
-
-
-    //Plays a cutscene that can be interuppted by other cutscenes/timelines (used for player interactions)
-    public void PlayInteractiveCutscene(PlayableDirector playableDirector, PlayableAsset cutsceneToPlay, DirectorWrapMode wrapMode)
-    {
-        //set the current director to be the director that is playing
-        currentPlayableDirector = playableDirector;
-
-        //set the current cutscene to play to be the playable directors playable asset
-        currentPlayableDirector.playableAsset = cutsceneToPlay;
-
-        currentPlayableDirector.Play(playableDirector.playableAsset);
     }
 }

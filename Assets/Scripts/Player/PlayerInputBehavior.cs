@@ -1,7 +1,7 @@
-using Cinemachine;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Unity.Cinemachine;
 
 
 
@@ -11,7 +11,7 @@ public class PlayerInputBehavior : MonoBehaviour
     public PlayerInputActions playerControls;                  //gets a script reference for the player input actions class
     
  
-    public CinemachineVirtualCamera Camera { get { return _camera; } }
+    public CinemachineCamera Camera { get { return _camera; } }
 
     [SerializeField] private InputActionMap _currentActionMap { get; set; }
     
@@ -72,8 +72,8 @@ public class PlayerInputBehavior : MonoBehaviour
     //Camera stuff
     [Header("Camera Values")]
     //[SerializeField] private Camera _camera;
-    [SerializeField] private CinemachineVirtualCamera _camera;
-    [SerializeField] private AxisState _axisState;
+    [SerializeField] private CinemachineCamera _camera;
+    [SerializeField] private InputAxis _inputAxisState;
     [SerializeField] private Transform _playerBodyTransform;
     [SerializeField] private Transform _startLookAt;
     public static float sensitivity = 20f;
@@ -225,7 +225,7 @@ public class PlayerInputBehavior : MonoBehaviour
     private void Start()
     {
         //Gets the player camera
-        _camera = GameObject.FindGameObjectWithTag("MainVCam").GetComponent<CinemachineVirtualCamera>();
+        _camera = GameObject.FindGameObjectWithTag("MainVCam").GetComponent<CinemachineCamera>();
 
         //Hides the mouse
         Cursor.visible = false;

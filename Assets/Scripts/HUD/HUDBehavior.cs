@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class HUDBehavior : MonoBehaviour
 {
+    [Header("Main GameObject")]
+    [SerializeField] private GameObject HUDGameObject;
+
     [Header("Flashlight UI")]
     [SerializeField] private GameObject _flashlightMeter;
 
@@ -15,23 +18,23 @@ public class HUDBehavior : MonoBehaviour
     [Header("Objecive UI")]
     public TMP_Text currentTaskUI;
 
-
-
-
     private void OnEnable()
     {
         DayManager.OnDayTime += UpdateHUDForDayTime;
         DayManager.OnNightTime += UpdateHUDForNightTime;
+
+        CinemachineManager.onPlayerSleepingVCamActivated += DisableHUD;
+        CinemachineManager.onPlayerSleepingVCamDeactivated += EnableHUD;
     }
 
     private void OnDisable()
     {
         DayManager.OnDayTime -= UpdateHUDForDayTime;
         DayManager.OnNightTime -= UpdateHUDForNightTime;
+
+        CinemachineManager.onPlayerSleepingVCamActivated -= DisableHUD;
+        CinemachineManager.onPlayerSleepingVCamDeactivated -= EnableHUD;
     }
-
-
-
 
     public void UpdateHUDForDayTime()
     {
@@ -45,6 +48,24 @@ public class HUDBehavior : MonoBehaviour
         _sleepMeter.SetActive(true);
     }
 
-   
 
+    public void EnableHUD()
+    {
+        //Enable each game object that is a child of the hud
+        foreach (Transform child in HUDGameObject.transform)
+        {
+            child.gameObject.SetActive(true);
+        }
+    }
+
+
+    public void DisableHUD()
+    {
+
+        //Disable each game object that is a child of the hud
+        foreach (Transform child in HUDGameObject.transform)
+        {
+            child.gameObject.SetActive(false);
+        }
+    }
 }
