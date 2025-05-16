@@ -124,7 +124,7 @@ public class DayManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        demoDialogueManager = GameObject.FindGameObjectWithTag("DemoNightDialogues").GetComponent<DemoDialogueManager>();
+        demoDialogueManager = FindAnyObjectByType<DemoDialogueManager>();
     }
 
 
@@ -407,17 +407,17 @@ public class DayManager : MonoBehaviour
     public void GetInitializers()
     {
         //Finds the Ai enemies if they are present in the scene
-        _dummy1 = GameObject.FindGameObjectWithTag("Dummy1");
-        _dummy2 = GameObject.FindGameObjectWithTag("Dummy2");
-        _ghoul = GameObject.FindGameObjectWithTag("Ghoul");
-        _clown = GameObject.FindGameObjectWithTag("Clown");
-        _jackInTheBox = GameObject.FindGameObjectWithTag("JackIntheBox");
-        _window = GameObject.FindGameObjectWithTag("Window");
+        _dummy1 = GameObject.Find("Dummy1").gameObject;
+        _dummy2 = GameObject.Find("Dummy2").gameObject;
+        _ghoul = FindFirstObjectByType<GhoulStateManager>().gameObject;
+        _clown = FindFirstObjectByType<ClownStateManager>().gameObject;
+        _jackInTheBox = FindFirstObjectByType<JackInTheBoxStateManager>().gameObject;
+        _window = FindFirstObjectByType<WindowStateManager>().gameObject;
 
         //gets the component
-        flashlightBehavior = GameObject.FindGameObjectWithTag("Flashlight").GetComponent<FlashlightBehavior>();
-        graphicsBehavior = GameObject.FindGameObjectWithTag("Graphics").GetComponent<GraphicsBehavior>();
-        hudBehavior = GameObject.FindGameObjectWithTag("HUD").GetComponent<HUDBehavior>();
+        flashlightBehavior = FindFirstObjectByType<FlashlightBehavior>();
+        graphicsBehavior = FindFirstObjectByType<GraphicsBehavior>();
+        hudBehavior = FindFirstObjectByType<HUDBehavior>();
     }
     
 }

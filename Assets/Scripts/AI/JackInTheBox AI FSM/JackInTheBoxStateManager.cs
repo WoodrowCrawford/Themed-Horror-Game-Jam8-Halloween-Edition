@@ -73,7 +73,6 @@ public class JackInTheBoxStateManager : MonoBehaviour, IInteractable
     private void Awake()
     {
         animator = GetComponent<Animator>();
-        //playerInput = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInputBehavior>();
         jackInTheBoxRangeBehavior = GetComponentInChildren<JackInTheBoxRangeBehavior>();
         highlightBehavior = GetComponentInChildren<HighlightBehavior>();
 

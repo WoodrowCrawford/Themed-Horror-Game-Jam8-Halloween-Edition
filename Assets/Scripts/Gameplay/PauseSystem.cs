@@ -204,11 +204,11 @@ public class PauseSystem : MonoBehaviour
     public void FindSettings()
     {
         //find the settings UI canvas
-        _settingsUI = GameObject.FindGameObjectWithTag("SettingsUI");
+        _settingsUI = FindFirstObjectByType<SettingsUIBehavior>().gameObject;
 
 
         //Find the settings game object in the canvas
-        _settingsBG = _settingsUI.transform.Find("Settings").gameObject;
+        _settingsBG = FindFirstObjectByType<SettingsManager>(FindObjectsInactive.Include).gameObject;
     }
 
 

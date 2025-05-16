@@ -10,7 +10,8 @@ public class GhoulPatrolState : GhoulBaseState
    
         ghoul.SetSecondsToWait();
 
-        ghoulStateManager = GameObject.FindGameObjectWithTag("Ghoul").GetComponent<GhoulStateManager>();
+        ghoulStateManager  = Object.FindFirstObjectByType<GhoulStateManager>();
+   
     }
 
     

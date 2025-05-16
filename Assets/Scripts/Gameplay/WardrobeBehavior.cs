@@ -222,7 +222,7 @@ public class WardrobeBehavior : MonoBehaviour, IInteractable
 
     public void GetInitializers()
     {
-        playerInputBehavior = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInputBehavior>();
+        playerInputBehavior = FindFirstObjectByType<PlayerInputBehavior>();
     }
 
     public void ResetInitializers()

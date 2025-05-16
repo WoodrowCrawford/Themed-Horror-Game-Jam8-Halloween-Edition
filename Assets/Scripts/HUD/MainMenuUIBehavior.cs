@@ -1,10 +1,10 @@
+using Palmmedia.ReportGenerator.Core;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class MainMenuUIBehavior : MonoBehaviour
 {
     [Header("Game Objects")]
-    [SerializeField] private GameObject _settingsUI;
     [SerializeField] private GameObject _settingsBackground;
 
 
@@ -87,12 +87,8 @@ public class MainMenuUIBehavior : MonoBehaviour
 
     public void FindSettings()
     {
-        //find the settings UI canvas
-        _settingsUI = GameObject.FindGameObjectWithTag("SettingsUI");
-
-
-        //Find the settings game object in the canvas
-        _settingsBackground = _settingsUI.transform.Find("Settings").gameObject;
+        //find the settings background game object
+        _settingsBackground = FindFirstObjectByType<SettingsManager>(FindObjectsInactive.Include).gameObject;
     }
 
    

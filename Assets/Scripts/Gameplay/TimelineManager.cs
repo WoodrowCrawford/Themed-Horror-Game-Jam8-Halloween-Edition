@@ -166,13 +166,13 @@ public class TimelineManager : MonoBehaviour
         else if (scene == SceneManager.GetSceneByBuildIndex(1))
         {
             //find the directables
-            playerPlayableDirector = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayableDirector>();
+            playerPlayableDirector = GameObject.FindFirstObjectByType<PlayerInputBehavior>().GetComponent<PlayableDirector>();
+            
+            dummy1PlayableDirector = GameObject.Find("Dummy1").GetComponent<PlayableDirector>();
+            dummy2PlayableDirector = GameObject.Find("Dummy2").GetComponent<PlayableDirector>();
 
-            dummy1PlayableDirector = GameObject.FindGameObjectWithTag("Dummy1").GetComponent<PlayableDirector>();
-            dummy2PlayableDirector = GameObject.FindGameObjectWithTag("Dummy2").GetComponent<PlayableDirector>();
-
-            ghoulPlayableDirector = GameObject.FindGameObjectWithTag("Ghoul").GetComponent<PlayableDirector>();
-            clownPlayableDirector = GameObject.FindGameObjectWithTag("ClownJumpscare").GetComponent<PlayableDirector>();
+            ghoulPlayableDirector = GameObject.FindFirstObjectByType<GhoulStateManager>().GetComponent<PlayableDirector>();
+            clownPlayableDirector = GameObject.FindFirstObjectByType<ClownStateManager>().GetComponent<PlayableDirector>();
         }
     }
 

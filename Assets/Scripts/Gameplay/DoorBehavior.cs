@@ -20,7 +20,7 @@ public class DoorBehavior : MonoBehaviour
     
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Ghoul"))
+        if(other.gameObject.GetComponent<GhoulStateManager>())
         {
             Debug.Log("Player is by door");
             _animator.Play(DOOR_OPEN, 0, 0.0f);
@@ -34,7 +34,7 @@ public class DoorBehavior : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if(other.CompareTag("Ghoul"))
+        if(other.gameObject.GetComponent <GhoulStateManager>())
         {
             Debug.Log("player is away from door");
             _animator.Play(DOOR_CLOSE, 0, 0.0f);

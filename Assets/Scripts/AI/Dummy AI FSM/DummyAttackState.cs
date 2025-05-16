@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -14,14 +15,14 @@ public class DummyAttackState : DummyDefaultState
            
 
             //find which dummy object this is
-            if(dummy.dummyThisBelongsTo.CompareTag("Dummy1"))
+            if(dummy.dummyThisBelongsTo.gameObject.name == "Dummy1")
             {
                 
                 //call the dummy jumpscare 1 event
                 TimelineManager.onPlayDummy1Jumpscare?.Invoke();
             }
 
-            else if(dummy.dummyThisBelongsTo.CompareTag("Dummy2"))
+            else if(dummy.dummyThisBelongsTo.gameObject.name == "Dummy2")
             {
                 //call the dummy jumpscare event
                 TimelineManager.onPlayDummy2Jumpscare?.Invoke();

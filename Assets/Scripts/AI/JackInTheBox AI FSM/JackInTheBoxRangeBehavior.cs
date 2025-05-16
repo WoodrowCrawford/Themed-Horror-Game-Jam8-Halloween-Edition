@@ -8,7 +8,7 @@ public class JackInTheBoxRangeBehavior : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.GetComponent<PlayerInputBehavior>())
         {
             playerInRangeOfBox = true;
         }
@@ -17,7 +17,7 @@ public class JackInTheBoxRangeBehavior : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if(other.CompareTag("Player"))
+        if(other.GetComponent<PlayerInputBehavior>())
         {
             playerInRangeOfBox = false;
         }

@@ -35,8 +35,8 @@ public class GhoulSightBehavior : MonoBehaviour
     private void Awake()
     {
         //Gets the components on awake
-        playerInputBehavior = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInputBehavior>();
-        _playerRef = GameObject.FindGameObjectWithTag("Player");
+        playerInputBehavior = FindFirstObjectByType<PlayerInputBehavior>();
+        _playerRef = FindFirstObjectByType<PlayerInputBehavior>().gameObject;
 
         StartCoroutine(CheckFieldOfViewRoutine());
     }

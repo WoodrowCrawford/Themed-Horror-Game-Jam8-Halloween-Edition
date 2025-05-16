@@ -13,7 +13,7 @@ public class FlashlightTriggerBehavior : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Dummy1"))
+        if (other.gameObject.name == "Dummy1")
         {
             Debug.Log("Flashlight is hitting something");
 
@@ -22,7 +22,7 @@ public class FlashlightTriggerBehavior : MonoBehaviour
             dummyLightIsHitting.GetComponent<DummyStateManager>().SetDummyIsHitWithLight(true);
         }
 
-        else if (other.CompareTag("Dummy2"))
+        else if (other.gameObject.name == "Dummy2")
         {
             dummyLightIsHitting = other.gameObject;
 
@@ -32,13 +32,13 @@ public class FlashlightTriggerBehavior : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if(other.CompareTag("Dummy1"))
+        if(other.gameObject.name == "Dummy1")
         {
             dummyLightIsHitting.GetComponent<DummyStateManager>().SetDummyIsHitWithLight(false);
             dummyLightIsHitting = null;
         }
 
-        else if(other.CompareTag("Dummy2"))
+        else if(other.gameObject.name == "Dummy2")
         {
 
             dummyLightIsHitting.GetComponent<DummyStateManager>().SetDummyIsHitWithLight(false);

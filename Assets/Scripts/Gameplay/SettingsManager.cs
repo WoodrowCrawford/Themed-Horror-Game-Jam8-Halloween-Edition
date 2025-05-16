@@ -50,8 +50,6 @@ public class SettingsManager : MonoBehaviour
 
         //add listeners for the back button
         _backButton.onClick.AddListener(() => CloseSettings());
-
-        //GameManager.onGameStarted += FindSettingsObject;
     }
 
    
@@ -64,8 +62,6 @@ public class SettingsManager : MonoBehaviour
 
         //remove listeners for the back buttons
         _backButton.onClick.RemoveListener(() => CloseSettings());
-
-        //GameManager.onGameStarted -= FindSettingsObject;
 
     }
 
@@ -205,10 +201,5 @@ public class SettingsManager : MonoBehaviour
         }
     }
 
-    public void FindSettingsObject()
-    {
-        _settingsBackground = GameObject.FindGameObjectWithTag("Settings");
-
-        Debug.Log("Find the settings and set it here~");
-    }
+   
 }

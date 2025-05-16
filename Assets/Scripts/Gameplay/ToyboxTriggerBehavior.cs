@@ -21,7 +21,7 @@ public class ToyboxTriggerBehavior : MonoBehaviour
         }   
         
         //if the dummy is inside the toybox
-        else if (other.gameObject.CompareTag("Dummy1"))
+        else if (other.gameObject.name == "Dummy1")
         {
            
 
@@ -44,7 +44,7 @@ public class ToyboxTriggerBehavior : MonoBehaviour
         }
 
         //if the dummy is no longer inside the toybox
-        else if (other.gameObject.CompareTag("Dummy1"))
+        else if (other.gameObject.name == "Dummy1")
         {
             Debug.Log("Dummy 1 is no longer inside the toybox!");
 

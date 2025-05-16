@@ -62,10 +62,9 @@ public class GraphicsBehavior : MonoBehaviour
     private void Awake()
     {
         //Finds the graphics game object
-        Graphics = GameObject.FindGameObjectWithTag("Graphics");
+        Graphics = GetComponent<GraphicsBehavior>().gameObject;
 
-        //Finds the Sun game object
-        //Sun = GameObject.FindGameObjectWithTag("Sun");
+        
 
         if (instance == null)
         {
@@ -88,13 +87,13 @@ public class GraphicsBehavior : MonoBehaviour
         //if the scene is the main menu scene
         if (scene == SceneManager.GetSceneByBuildIndex(0))
         { 
-            CurrentPostProcessingObject = GameObject.FindGameObjectWithTag("Post Processing");
+            CurrentPostProcessingObject = GameObject.Find("Post Processing");
         }
 
         //if the scene is the bedroom scene
         else if (scene == SceneManager.GetSceneByBuildIndex(1))
         {
-            CurrentPostProcessingObject = GameObject.FindGameObjectWithTag("Post Processing");
+            CurrentPostProcessingObject = GameObject.Find("Post Processing");
 
             //find the sun and moon 
              FindSunAndMoon();
@@ -169,9 +168,8 @@ public class GraphicsBehavior : MonoBehaviour
 
     public void FindSunAndMoon()
     {
-        Sun = GameObject.FindGameObjectWithTag("Sun");
-        Moon = GameObject.FindGameObjectWithTag("Moon");
-        Debug.Log("hey i should find the sun and moon now");
+        Sun = GameObject.Find("Sun");
+        Moon = GameObject.Find("Moon");
     }
 
     

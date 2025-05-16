@@ -47,7 +47,7 @@ public class JackInTheBoxBehavior : MonoBehaviour, IInteractable
     private void Awake()
     {
         _animator = GetComponent<Animator>();
-        playerInput = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInputBehavior>();
+        playerInput = GameObject.FindFirstObjectByType<PlayerInputBehavior>();
         playerCanInteract = false;
     }
 

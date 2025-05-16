@@ -4,7 +4,7 @@ using UnityEngine.AI;
 
 public class ClownStateManager : MonoBehaviour, IInteractable
 {
-    public JackInTheBoxStateManager JackInTheBoxStateManager;
+    
     public HighlightBehavior highlightBehavior;
 
 
@@ -96,8 +96,6 @@ public class ClownStateManager : MonoBehaviour, IInteractable
 
     private void Awake()
     {
-        //Finds the jack in the box component on awake
-        JackInTheBoxStateManager = GameObject.FindGameObjectWithTag("JackIntheBox").GetComponent<JackInTheBoxStateManager>();
         highlightBehavior = GetComponentInChildren<HighlightBehavior>();
     }
 

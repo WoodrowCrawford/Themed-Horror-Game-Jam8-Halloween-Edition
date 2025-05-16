@@ -8,7 +8,7 @@ public class GetInBedTriggerBehavior : MonoBehaviour
   
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Player"))
+        if(other.gameObject.GetComponent<PlayerInputBehavior>())
         {
             Debug.Log("Player is in the area!"); 
             playerCanGetInBed = true;
@@ -18,7 +18,7 @@ public class GetInBedTriggerBehavior : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if(other.CompareTag("Player"))
+        if(other.gameObject.GetComponent<PlayerInputBehavior>())
         {
             Debug.Log("Player can not get in the bed");
             playerCanGetInBed = false;

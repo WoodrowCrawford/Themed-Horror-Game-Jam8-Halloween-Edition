@@ -4,49 +4,7 @@
 TagManager:
   serializedVersion: 3
   tags:
-  - Flashlight
-  - GetInBedTrigger
-  - Ghoul
-  - Dummy
-  - FlashlightTriggerBox
-  - Dummy1 Origin
-  - Dummy1
-  - Dummy2
-  - Dummy2 Origin
-  - WardrobeDoorTrigger
-  - Wardrobe
-  - InsideWardrobeTrigger
-  - GameManager
-  - HUD
-  - EventSystem
-  - PauseSystem
-  - JackBoxInteractRange
-  - JackIntheBox
-  - Clown
-  - Point1
-  - TodaysDateGO
-  - DayNightManager
-  - Graphics
-  - Sun
-  - PauseBackground
-  - Dialogue
   - Basketball
-  - GameOverScreen
-  - test
-  - MainVCam
-  - DemoNightDialogues
-  - DialogueDataManager
-  - Window
-  - DummyTimeline
-  - DummyJumpscare
-  - GhoulJumpscare
-  - ClownJumpscare
-  - LoadingScreen
-  - LoadingScreenCanvas
-  - Settings
-  - SettingsUI
-  - Moon
-  - Post Processing
   layers:
   - Default
   - TransparentFX

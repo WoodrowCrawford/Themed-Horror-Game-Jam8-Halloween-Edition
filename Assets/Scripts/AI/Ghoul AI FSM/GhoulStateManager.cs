@@ -82,9 +82,9 @@ public class GhoulStateManager : MonoBehaviour
     {
         //Gets the components needed on awake
         _agent = GetComponent<NavMeshAgent>();
-        _playerRef = GameObject.FindGameObjectWithTag("Player");
-        ghoulSightBehavior = GameObject.FindGameObjectWithTag("Ghoul").GetComponent<GhoulSightBehavior>();
-        playerInputBehavior = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInputBehavior>();
+        _playerRef = FindFirstObjectByType<PlayerInputBehavior>().gameObject;
+        ghoulSightBehavior = GetComponent<GhoulSightBehavior>();
+        playerInputBehavior = FindFirstObjectByType<PlayerInputBehavior>();
 
     }
 

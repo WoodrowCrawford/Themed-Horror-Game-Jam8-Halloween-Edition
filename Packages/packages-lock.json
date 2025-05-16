@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "com.atmoky.truespatial": {
-      "version": "file:C:/Users/sonic/Downloads/atmokyTrueSpatial_Unity_v1.5.2/atmokyTrueSpatial_Unity_v1.5.2/com.atmoky.truespatial-1.5.2.tgz",
+      "version": "file:/Users/woody/Downloads/atmokyTrueSpatial_Unity_v1.5.2/com.atmoky.truespatial-1.5.2.tgz",
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {}

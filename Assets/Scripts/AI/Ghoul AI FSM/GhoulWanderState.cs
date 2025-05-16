@@ -10,7 +10,7 @@ public class GhoulWanderState : GhoulBaseState
         Debug.Log("Ghoul is wandering");
         ghoul.StartCoroutine(ghoul.WanderTimer());
       
-        ghoulStateManager = GameObject.FindGameObjectWithTag("Ghoul").GetComponent<GhoulStateManager>();
+        ghoulStateManager = Object.FindFirstObjectByType<GhoulStateManager>();
     }
 
     public override void UpdateState(GhoulStateManager ghoul)

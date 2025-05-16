@@ -212,8 +212,11 @@ public class PlayerInputBehavior : MonoBehaviour
     private void Awake()
     {
         //Gets the components
-        _playerObject = GameObject.FindGameObjectWithTag("Player");
-        _rb = GetComponent<Rigidbody>();       
+        _playerObject = GetComponent<PlayerInputBehavior>().gameObject;
+        _rb = GetComponent<Rigidbody>();     
+
+        //Gets the player camera
+        _camera = GetComponentInChildren<CinemachineCamera>();
     }
 
 
@@ -224,9 +227,7 @@ public class PlayerInputBehavior : MonoBehaviour
 
     private void Start()
     {
-        //Gets the player camera
-        _camera = GameObject.FindGameObjectWithTag("MainVCam").GetComponent<CinemachineCamera>();
-
+        
         //Hides the mouse
         Cursor.visible = false;
 

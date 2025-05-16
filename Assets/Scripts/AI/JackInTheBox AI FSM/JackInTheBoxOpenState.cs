@@ -3,10 +3,10 @@ using UnityEngine;
 public class JackInTheBoxOpenState : JackInTheBoxBaseState
 {
     //delgates
-    public delegate void JackInTheBoxOpenedCallBack();
+    public delegate void JackInTheBoxEventHandler();
 
     //events
-    public static event JackInTheBoxOpenedCallBack onJackInTheBoxOpened;
+    public static event JackInTheBoxEventHandler onJackInTheBoxOpened;
 
     public override void EnterState(JackInTheBoxStateManager jackInTheBox)
     {

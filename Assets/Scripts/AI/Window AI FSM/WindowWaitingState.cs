@@ -8,7 +8,7 @@ public class WindowWaitingState : WindowBaseState
     public override void EnterState(WindowStateManager window)
     {
         //gets the component
-       windowStateManger = GameObject.FindGameObjectWithTag("Window").GetComponent<WindowStateManager>();
+       windowStateManger = Object.FindFirstObjectByType<WindowStateManager>();
 
         //Sets the interaction prompt
         window.InteractionPrompt = "Interact";
