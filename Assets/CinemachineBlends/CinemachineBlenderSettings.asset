@@ -16,8 +16,8 @@ MonoBehaviour:
   - From: CM vcam3
     To: CM vcam2
     Blend:
-      Style: 1
-      Time: 2
+      Style: 0
+      Time: 0
       CustomCurve:
         serializedVersion: 2
         m_Curve: []
@@ -34,15 +34,15 @@ MonoBehaviour:
         m_Curve: []
         m_PreInfinity: 0
         m_PostInfinity: 0
-        m_RotationOrder: 0
+        m_RotationOrder: 4
   - From: Player Sleeping VCam
     To: Player VCam
     Blend:
       Style: 1
-      Time: 2
+      Time: 1
       CustomCurve:
         serializedVersion: 2
         m_Curve: []
         m_PreInfinity: 0
         m_PostInfinity: 0
-        m_RotationOrder: 0
+        m_RotationOrder: 4

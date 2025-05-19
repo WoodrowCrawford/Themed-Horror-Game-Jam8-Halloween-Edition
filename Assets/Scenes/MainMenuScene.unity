@@ -1350,7 +1350,7 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  CustomBlends: {fileID: 11400000, guid: 82343fe680c627e4aa3ebf5f49bab52e, type: 2}
+  CustomBlends: {fileID: 11400000, guid: 485b9cdb05e6b42b0b176461698204b0, type: 2}
 --- !u!114 &82015139
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25094,7 +25094,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1682669139697994, guid: df363d899261c0747a6ae31628978ee2, type: 3}
       propertyPath: m_TagString
-      value: Wardrobe
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 1682669139697994, guid: df363d899261c0747a6ae31628978ee2, type: 3}
       propertyPath: m_StaticEditorFlags

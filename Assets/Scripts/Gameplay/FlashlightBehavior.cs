@@ -5,7 +5,6 @@ using UnityEngine;
 public class FlashlightBehavior : MonoBehaviour
 { 
 
-    
     [Header("Flashlight Values")]
     [SerializeField] private bool _flashlightOn = false;
     public static bool flashlightCanDeplete = false;
@@ -33,6 +32,10 @@ public class FlashlightBehavior : MonoBehaviour
         PlayerInputBehavior.onFlashlightButtonPressed += ToggleFlashLight;
         WindowStateManager.onWindowOpened += () => SetFlashlightDecreaseSpeed(25f);
         WindowStateManager.onWindowClosed += () => SetFlashlightDecreaseSpeed(9f);
+
+        DayManager.OnDayTime += () =>  SetFlashlight(false);
+        DayManager.OnNightTime += () => SetFlashlight(true);
+
        
       
     }
@@ -43,6 +46,9 @@ public class FlashlightBehavior : MonoBehaviour
         PlayerInputBehavior.onFlashlightButtonPressed -= ToggleFlashLight;
         WindowStateManager.onWindowOpened -= () => SetFlashlightDecreaseSpeed(25f);
         WindowStateManager.onWindowClosed -= () => SetFlashlightDecreaseSpeed(9f);
+
+        DayManager.OnDayTime -= () =>  SetFlashlight(false);
+        DayManager.OnNightTime -= () => SetFlashlight(true);
 
     }
 
@@ -74,9 +80,7 @@ public class FlashlightBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //checks if the player can use the flashlight or not
-        SetFlashlight();
-
+    
         //checks to see if the player is sleeping
         CheckIfPlayerIsSleeping();
 
@@ -143,23 +147,24 @@ public class FlashlightBehavior : MonoBehaviour
         }
     }
 
-    public void SetFlashlight()
+    public void SetFlashlight(bool activated)
     {
-        //if it is daytime...
-        if(GraphicsBehavior.instance.IsDayTime)
+        //if activated...
+        if(activated)
         {
-            //the player can not use the flashlight
+
+            //the player can use the flashlight
+            PlayerInputBehavior.playerCanUseFlashlight = true;
+
+        }
+        //else if not activated
+        else if (!activated)
+        {
+            //the player can not the flashligt
             PlayerInputBehavior.playerCanUseFlashlight = false;
 
             //turn off the flashlight
             TurnOffFlashlight();
-
-        }
-        //else if it is night time...
-        else if (GraphicsBehavior.instance.IsNightTime)
-        {
-            //the player can use the flashligt
-            PlayerInputBehavior.playerCanUseFlashlight = true;
         }
     }
 
@@ -192,6 +197,8 @@ public class FlashlightBehavior : MonoBehaviour
     //Toggles the flashlight on and off (used for player input)
     public void ToggleFlashLight()
     {
+
+
         //If the game is not paused and the flash light is on..
         if(!PauseSystem.isPaused && _flashlightOn && PlayerInputBehavior.playerCanUseFlashlight)
         {
@@ -235,6 +242,13 @@ public class FlashlightBehavior : MonoBehaviour
 
             _flashlightOn = true;
         }
+        
+        else if (!PlayerInputBehavior.playerCanUseFlashlight)
+        {
+            Debug.Log("The player is not allowed to use flashlight");
+        }
+        
+       
     }
 
 

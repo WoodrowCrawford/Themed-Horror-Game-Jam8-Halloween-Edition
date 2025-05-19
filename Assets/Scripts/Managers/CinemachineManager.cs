@@ -108,19 +108,12 @@ public class CinemachineManager : MonoBehaviour
 
     public void OnCamActivated(ICinemachineCamera.ActivationEventParams evt)
     {
-      
         //if the active camera is the playera sleeping vCam
         if (_cmBrain.ActiveVirtualCamera.Name == "Player Sleeping VCam")
         {
             //play the onPlayerSleeping vcam activated event
             onPlayerSleepingVCamActivated?.Invoke();
         }
-
-        
-
-
-
-       
     }
 
     public void OnCamDeactivated(ICinemachineMixer cmMixer, ICinemachineCamera cmCam)

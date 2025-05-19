@@ -126,6 +126,10 @@ public class PlayerInputBehavior : MonoBehaviour
         onInteractionWasPerformed += () => interactionWasPerfomed = true;
         onGetOutOfBedButtonPressed += GetOutOfBed;
 
+    
+        SleepBehavior.onPlayerCloseEyes += () => DisableControlsWhileSleeping();
+        SleepBehavior.onPlayerOpenEyes += () => EnableControlsWhileWakingUp();
+
       
         //Creates the Action Maps
         playerControls = new PlayerInputActions();
@@ -170,6 +174,10 @@ public class PlayerInputBehavior : MonoBehaviour
         onPlayerIsInteracting -= () => isPlayerInteracting = true;
         onInteractionWasPerformed -= () => interactionWasPerfomed = true;
         onGetOutOfBedButtonPressed -= GetOutOfBed;
+    
+        SleepBehavior.onPlayerCloseEyes -= () => DisableControlsWhileSleeping();
+        SleepBehavior.onPlayerOpenEyes -= () => EnableControlsWhileWakingUp();
+
 
         //Creates the Action Maps
         playerControls.Disable();
@@ -216,7 +224,7 @@ public class PlayerInputBehavior : MonoBehaviour
         _rb = GetComponent<Rigidbody>();     
 
         //Gets the player camera
-        _camera = GetComponentInChildren<CinemachineCamera>();
+        _camera = GameObject.Find("Player VCam").GetComponent<CinemachineCamera>();
     }
 
 
@@ -279,11 +287,31 @@ public class PlayerInputBehavior : MonoBehaviour
         playerControls.Disable();
     }
 
+    public void DisableControlsWhileSleeping()
+    {
+        playerCanUseFlashlight = false;
+        playerCanLook = false;
+        playerCanGetOutOfBed = false;
+        playerCanPause = false;
+        playerCanMove = false;
+        playerCanToggleUnderBed = false;
+    }
+
     //Enables the controls
     public void EnableControls()
     {
         playerControls.Default.Enable();
         _currentActionMap.Enable();
+    }
+
+    public void EnableControlsWhileWakingUp()
+    {
+        playerCanUseFlashlight = true;
+        playerCanLook = true;
+         playerCanGetOutOfBed = true;
+        playerCanPause = true;
+        playerCanMove = true;
+        playerCanToggleUnderBed = true;
     }
 
     public void HidePlayer()

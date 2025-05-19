@@ -16,6 +16,8 @@ public class GraphicsBehavior : MonoBehaviour
     //delegates
     public delegate void TimeChange();
 
+   
+
     
 
    
@@ -53,10 +55,10 @@ public class GraphicsBehavior : MonoBehaviour
         GameManager.onGameStarted -= FindSunAndMoon;
         GameManager.onGameEnded -= EndTest;
 
-        DayManager.OnDayTime += SetDayTime;
-        DayManager.OnNightTime += SetNightTime;
+        DayManager.OnDayTime -= SetDayTime;
+        DayManager.OnNightTime -= SetNightTime;
 
-        SceneManager.sceneLoaded += OnSceneLoaded;
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
     private void Awake()

@@ -1,4 +1,6 @@
+using NUnit.Framework;
 using UnityEngine;
+using UnityEngine.InputSystem.XR;
 using UnityEngine.UI;
 
 public class SleepBehavior : MonoBehaviour
@@ -11,22 +13,22 @@ public class SleepBehavior : MonoBehaviour
     public static event SleepBehaviorDelegate onSleepMeterFilled; //what happens when the sleep meter is filled 
    
 
-    [Header("Sleep HUD Image")]
-    [SerializeField] private Image _eyesClosed;
-
+   
     [Header("Sleep Values")]
     [SerializeField] private float _sleepSpeed;
     public float sleepMeter;
     public static bool playerIsSleeping;
 
+    [Header("Sleep UI Game Object")]
+    [SerializeField] private GameObject _eyes;
+    [SerializeField] private Animator _eyesAnimator;
+
 
 
     private void OnEnable()
     {
-        PlayerInputBehavior.onSleepButtonReleased += OpenEyes;
+       PlayerInputBehavior.onSleepButtonReleased += OpenEyes;
        PlayerInputBehavior.onSleepButtonPressed += CloseEyes;
-
-        
     }
 
     private void OnDisable()
@@ -35,6 +37,7 @@ public class SleepBehavior : MonoBehaviour
        PlayerInputBehavior.onSleepButtonPressed -= CloseEyes;
 
     }
+
 
 
     private void Update()
@@ -81,17 +84,16 @@ public class SleepBehavior : MonoBehaviour
         //else if the game is not paused or the dialogue box is not open or the player can sleep...
         else if(!PauseSystem.isPaused || !DialogueUIBehavior.IsOpen || PlayerInputBehavior.playerCanSleep)
         {
+            //play the eyes closed animation
+            PlayEyesClosedAnimation();
 
             //call the player is sleeping event
-            onPlayerCloseEyes?.Invoke();
+            onPlayerCloseEyes?.Invoke();  
 
-
-
-            //OLD
-            //_eyesClosed.gameObject.SetActive(true);
-            //playerIsSleeping = true;
-            //Debug.Log("The player is closing eyes!");
            
+
+            //set the player is sleeping to true
+            playerIsSleeping = true;         
         }
     }
 
@@ -100,27 +102,37 @@ public class SleepBehavior : MonoBehaviour
         //if the game is paused or the dialogue box is open or the player can not sleep...
         if(PauseSystem.isPaused || DialogueUIBehavior.IsOpen || !PlayerInputBehavior.playerCanSleep)
         {
-           ///FIX TO MAKE WORK!!!!!!!
-
-
-            //OLD
-            //_eyesClosed.gameObject.SetActive(false);
-            //playerIsSleeping = false;
+           Debug.Log("The player can not sleep at the moment");
+           return;
 
         }
         
         //else if the game is not paused or the dialogue box is not open or the player can sleep
         else if(!PauseSystem.isPaused || !DialogueUIBehavior.IsOpen || PlayerInputBehavior.playerCanSleep)
         {
+            //play the eyes opened animation
+            PlayEyesOpenedAnimation();
+
+            //call the player opened eyes event
             onPlayerOpenEyes?.Invoke();
 
-            ////open the eyes 
-            //_eyesClosed.gameObject.SetActive(false);
-            //playerIsSleeping = false;
-
-            //debug
-            Debug.Log("the player opened their eyes");
+            //set player is sleeping to false
+            playerIsSleeping = false;
         }    
+    }
+
+
+    public void PlayEyesClosedAnimation()
+    {
+
+        //call the trigger event
+        _eyesAnimator.SetTrigger("ClosedEyes");
+    }
+
+    public void PlayEyesOpenedAnimation()
+    {
+        //call the trigger event
+        _eyesAnimator.SetTrigger("OpenedEyes");
     }
 
 }
