@@ -29,9 +29,7 @@ public class DummyChasePlayerState : DummyDefaultState
 
         //checks if the dummy is in range
         dummy.CheckIfTargetIsInRange();
-        
-
-        //switch to the attack state
+    
     }
 
     

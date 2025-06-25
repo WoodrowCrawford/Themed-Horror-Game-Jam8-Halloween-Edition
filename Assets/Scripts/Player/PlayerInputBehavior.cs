@@ -122,6 +122,9 @@ public class PlayerInputBehavior : MonoBehaviour
     public void OnEnable()
     {
         //Subscribes to the events
+        PauseSystem.onGamePaused += DisableInteraction;
+        PauseSystem.onGameUnpaused += EnableInteraction;
+
         onPlayerIsInteracting += () => isPlayerInteracting = true;
         onInteractionWasPerformed += () => interactionWasPerfomed = true;
         onGetOutOfBedButtonPressed += GetOutOfBed;
@@ -171,6 +174,9 @@ public class PlayerInputBehavior : MonoBehaviour
     public void OnDisable()
     {
         //Unsubscribes to the events
+         PauseSystem.onGamePaused -= DisableInteraction;
+        PauseSystem.onGameUnpaused -= EnableInteraction;
+
         onPlayerIsInteracting -= () => isPlayerInteracting = true;
         onInteractionWasPerformed -= () => interactionWasPerfomed = true;
         onGetOutOfBedButtonPressed -= GetOutOfBed;
@@ -287,6 +293,16 @@ public class PlayerInputBehavior : MonoBehaviour
         playerControls.Disable();
     }
 
+    public void DisableInteraction()
+    {
+        playerControls.Default.Interact.Disable();
+    }
+
+    public void EnableInteraction()
+    {
+        playerControls.Default.Interact.Enable();
+    }
+
     public void DisableControlsWhileSleeping()
     {
         playerCanUseFlashlight = false;
@@ -392,7 +408,7 @@ public class PlayerInputBehavior : MonoBehaviour
         if(playerCanToggleUnderBed && !DialogueUIBehavior.IsOpen)
         {
             ///if the player is not under the bed and the player is not sleeping and the game is not paused
-            if (!_isUnderBed && !SleepBehavior.playerIsSleeping && !PauseSystem.isPaused)
+            if (!_isUnderBed && !SleepBehavior.playerIsSleeping && !PauseSystem.instance.isPaused)
             {
                 //set the player to be under the bed
                 _playerBodyTransform.transform.position = _UnderBedPos.transform.position;
@@ -411,7 +427,7 @@ public class PlayerInputBehavior : MonoBehaviour
 
 
             }
-            else if (_isUnderBed && !PauseSystem.isPaused)
+            else if (_isUnderBed && !PauseSystem.instance.isPaused)
             {
                 //set the player to be on top of the bed
                 _playerBodyTransform.transform.position = _TopOfBedPos.transform.position;
@@ -443,7 +459,7 @@ public class PlayerInputBehavior : MonoBehaviour
         if (playerCanGetOutOfBed && !DialogueUIBehavior.IsOpen)
         {
             //check if the game is not paused...
-            if (!PauseSystem.isPaused)
+            if (!PauseSystem.instance.isPaused)
             {
 
                 playerControls.InBed.Disable();
@@ -482,7 +498,7 @@ public class PlayerInputBehavior : MonoBehaviour
         if(playerCanGetInBed && !DialogueUIBehavior.IsOpen)
         {
             //check if the player is near the bed and make sure that the game is not paused
-            if (GetInBedTriggerBehavior.playerCanGetInBed && !PauseSystem.isPaused)
+            if (GetInBedTriggerBehavior.playerCanGetInBed && !PauseSystem.instance.isPaused)
             {
                 _playerBodyTransform.transform.position = _TopOfBedPos.position;
                 playerControls.OutOfBed.Disable();

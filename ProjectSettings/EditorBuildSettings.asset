@@ -14,4 +14,11 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/LoadingScreenScene.unity
     guid: d86b06ef9d8fccc4c8ba83fabc1ff2d2
+  - enabled: 0
+    path: Assets/Scenes/Test UI scene.unity
+    guid: 0b082edfa5ea74740abfd2df4ba2d847
+  - enabled: 0
+    path: Assets/Scenes/TestingScene.unity
+    guid: 63d0653eb4a26ba429894107349d4b0c
   m_configObjects: {}
+  m_UseUCBPForAssetBundles: 0

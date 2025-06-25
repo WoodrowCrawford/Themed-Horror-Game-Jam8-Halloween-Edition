@@ -58,9 +58,7 @@ QualitySettings:
     terrainFadeLength: 5
     terrainMaxTrees: 50
     excludedTargetPlatforms:
-    - Standalone
     - Server
-    - WebGL
     - Windows Store Apps
   - serializedVersion: 4
     name: Medium
@@ -114,9 +112,7 @@ QualitySettings:
     terrainFadeLength: 5
     terrainMaxTrees: 50
     excludedTargetPlatforms:
-    - Standalone
     - Server
-    - WebGL
     - Windows Store Apps
   - serializedVersion: 4
     name: High
@@ -159,7 +155,7 @@ QualitySettings:
     asyncUploadBufferSize: 16
     asyncUploadPersistentBuffer: 1
     resolutionScalingFixedDPIFactor: 1
-    customRenderPipeline: {fileID: 11400000, guid: 986d7b2bf28144b42ac9e7081bd6da9e, type: 2}
+    customRenderPipeline: {fileID: 11400000, guid: bf7667711a4fe8f49b5ded896eda571a, type: 2}
     terrainQualityOverrides: 0
     terrainPixelError: 1
     terrainDetailDensityScale: 1

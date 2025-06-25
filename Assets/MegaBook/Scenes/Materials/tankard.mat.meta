@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 0bc5894b2c6a26f4b9ae48ce895bd8aa
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 244559
+  packageName: MegaBook 2
+  packageVersion: 1.17
+  assetPath: Assets/MegaBook/Scenes/Materials/tankard.mat
+  uploadId: 665256

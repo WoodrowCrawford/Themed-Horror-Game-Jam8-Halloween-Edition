@@ -13,17 +13,17 @@ MonoBehaviour:
   m_Name: CinemachineBlenderSettings
   m_EditorClassIdentifier: 
   CustomBlends:
-  - From: CM vcam3
-    To: CM vcam2
+  - From: Main vcam
+    To: BookMenu vcam
     Blend:
-      Style: 0
-      Time: 0
+      Style: 1
+      Time: 2
       CustomCurve:
         serializedVersion: 2
         m_Curve: []
         m_PreInfinity: 0
         m_PostInfinity: 0
-        m_RotationOrder: 0
+        m_RotationOrder: 4
   - From: Player VCam
     To: Player Sleeping VCam
     Blend:

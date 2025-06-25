@@ -17,20 +17,16 @@ public class GameManager : MonoBehaviour
 
 
     //the delegates 
-    public delegate void GameStart();
-    public delegate void GameEnded();
-  
-    public delegate void StartStory();
-    public delegate void StopStory();
+    public delegate void GameManagerEventHandler();
+    
 
     
     //events created with the delegate types
-    public static event GameStart onGameStarted;    //used to initialize variables
-    public static event GameEnded onGameEnded;      //used to de initialize the variables
+    public static event GameManagerEventHandler onGameStarted;    //used to initialize variables
+    public static event GameManagerEventHandler onGameEnded;      //used to de initialize the variables
     
-
-    public static event StartStory onStartStory;   //what happens when the story is started
-    public static event StopStory onStopStory;     //what happens when the story is eneded
+    public static event GameManagerEventHandler onStartStory;   //what happens when the story is started
+    public static event GameManagerEventHandler onStopStory;     //what happens when the story is eneded
 
 
     [Header("Current Game Mode")]
@@ -81,12 +77,11 @@ public class GameManager : MonoBehaviour
             //set the game mode to be main menu
             currentGameMode = GameModes.MAIN_MENU;
 
-
-           
+            
             //stop the corurtiens running for the story
             onStopStory?.Invoke();
 
-            Debug.Log("Do the main menu stuff");
+            
         }
 
         //if the scene is the bedroom scene
@@ -96,11 +91,11 @@ public class GameManager : MonoBehaviour
             currentGameMode = GameModes.BEDROOM_CHAPTER;
 
             //Get the game over game object
-           // gameOverScreen = GameObject.Find("GameOverContainer");
+            // gameOverScreen = GameObject.Find("GameOverContainer");
 
             GameOverBehavior.gameOver = false;
 
-          
+
 
             //do all the stuff needed to start the game
             onGameStarted?.Invoke();
@@ -141,7 +136,7 @@ public class GameManager : MonoBehaviour
     //A function that can change the scene
     public static void ChangeScene(string sceneName)
     {
-        PauseSystem.isPaused = false;
+        PauseSystem.instance.isPaused = false;
         Time.timeScale = 1.0f;
         LevelManager.instance.LoadScene(sceneName);    
     }

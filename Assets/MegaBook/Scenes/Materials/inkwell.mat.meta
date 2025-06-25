@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 8350c2c60c65add45b99a713d29798a7
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 244559
+  packageName: MegaBook 2
+  packageVersion: 1.17
+  assetPath: Assets/MegaBook/Scenes/Materials/inkwell.mat
+  uploadId: 665256

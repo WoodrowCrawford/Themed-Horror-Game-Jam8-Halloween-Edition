@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 2c81df0a5043cae4585855e47394fa8f
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 244559
+  packageName: MegaBook 2
+  packageVersion: 1.17
+  assetPath: Assets/MegaBook/Scripts/MegaBookPageAttach.cs
+  uploadId: 665256

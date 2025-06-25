@@ -200,7 +200,7 @@ public class FlashlightBehavior : MonoBehaviour
 
 
         //If the game is not paused and the flash light is on..
-        if(!PauseSystem.isPaused && _flashlightOn && PlayerInputBehavior.playerCanUseFlashlight)
+        if(!PauseSystem.instance.isPaused && _flashlightOn && PlayerInputBehavior.playerCanUseFlashlight)
         {
             if(DialogueUIBehavior.IsOpen) { return; }
 
@@ -224,7 +224,7 @@ public class FlashlightBehavior : MonoBehaviour
         }
 
         //if the game is not paused and the flashlight is off
-        else if (!PauseSystem.isPaused && !_flashlightOn && PlayerInputBehavior.playerCanUseFlashlight)
+        else if (!PauseSystem.instance.isPaused && !_flashlightOn && PlayerInputBehavior.playerCanUseFlashlight)
         {
             if (DialogueUIBehavior.IsOpen) { return; }
 

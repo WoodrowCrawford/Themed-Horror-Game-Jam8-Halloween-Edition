@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: f139187b2f373314e9678518fb7f7943
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 244559
+  packageName: MegaBook 2
+  packageVersion: 1.17
+  assetPath: Assets/MegaBook/Scenes/Scripts/BookShelf.cs
+  uploadId: 665256

@@ -16,36 +16,36 @@ public class CinemachineManager : MonoBehaviour
     //Events for the cinemachine event handler
     public static event CinemachineEventHandler onPlayerSleepingVCamActivated;
     public static event CinemachineEventHandler onPlayerSleepingVCamDeactivated;
-
-
+    
 
     [Header("Cinemachine Brain")]
     [SerializeField] private CinemachineBrain _cmBrain;
 
+
+
     [Header("Cinemachine Cams in Current Scene")]
     [SerializeField] private CinemachineCamera[] _cmCams;
-
-   
 
 
 
 
     private void OnEnable()
     {
+
         SceneManager.sceneLoaded += OnSceneLoaded;
         CinemachineCore.CameraActivatedEvent.AddListener(OnCamActivated);
         CinemachineCore.CameraDeactivatedEvent.AddListener(OnCamDeactivated);
 
         SleepBehavior.onPlayerOpenEyes += () => TransitionToAnotherCamera("Player VCam");
         SleepBehavior.onPlayerCloseEyes += () => TransitionToAnotherCamera("Player Sleeping VCam");
-       
 
     }
 
-    
+
 
     private void OnDisable()
     {
+
         SceneManager.sceneLoaded -= OnSceneLoaded;
         CinemachineCore.CameraActivatedEvent.RemoveListener(OnCamActivated);
         CinemachineCore.CameraDeactivatedEvent.RemoveListener(OnCamDeactivated);
@@ -71,18 +71,10 @@ public class CinemachineManager : MonoBehaviour
     }
 
 
-    private void Start()
-    {
-        TransitionToAnotherCamera("CM vcam2");
-    }
-
-
-   
-
 
     public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-      
+
         //if the scene is the main menu scene
         if (scene == SceneManager.GetSceneByBuildIndex(0))
         {
@@ -91,6 +83,9 @@ public class CinemachineManager : MonoBehaviour
 
             //find the cinemachine brain
             _cmBrain = GameObject.FindFirstObjectByType<CinemachineBrain>();
+
+           
+
         }
 
         //if the scene is the bedroom scene
@@ -128,6 +123,22 @@ public class CinemachineManager : MonoBehaviour
 
 
 
+    //hard sets the current vcam
+    public void SetVCam(string name)
+    {
+        //first iterate through the list of cameras
+        for (int i = 0; i < _cmCams.Length; i++)
+        {
+            if (_cmCams[i].name == name)
+            {
+                _cmCams[i].GetComponent<CinemachineCamera>().enabled = true;
+            }
+        }
+    }
+
+
+
+
     public void TransitionToAnotherCamera(string name)
     {
         // Get the currently active virtual camera and deactivate it
@@ -148,6 +159,12 @@ public class CinemachineManager : MonoBehaviour
     }
 
 
-    
-
+     //resets the vcams (use when exiting scenes)
+    public void ResetVCams()
+    {
+        for (int i = 0; i < _cmCams.Length; i++)
+        {
+            _cmCams[i].enabled = true;
+        }
+    }
 }

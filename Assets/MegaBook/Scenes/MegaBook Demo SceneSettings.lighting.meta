@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 110bb1cb88135d94ea343d6cfcefc8f6
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4890085278179872738
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 244559
+  packageName: MegaBook 2
+  packageVersion: 1.17
+  assetPath: Assets/MegaBook/Scenes/MegaBook Demo SceneSettings.lighting
+  uploadId: 665256

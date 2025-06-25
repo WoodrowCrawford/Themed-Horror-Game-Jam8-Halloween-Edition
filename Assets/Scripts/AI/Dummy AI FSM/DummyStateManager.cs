@@ -243,6 +243,7 @@ public class DummyStateManager : MonoBehaviour, IInteractable
         if (distance <= minDistance && _target == InBedTarget)
         {
             Debug.Log("Reached in bed target!");
+            SwitchState(attackState);
         }
 
         //else if the player is in range and the player can be caught and the dummy is currently in the chase player state...

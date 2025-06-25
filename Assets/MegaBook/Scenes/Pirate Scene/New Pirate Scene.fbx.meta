@@ -1,0 +1,324 @@
+fileFormatVersion: 2
+guid: 13518221defde9547b37548107426314
+ModelImporter:
+  serializedVersion: 19301
+  internalIDToNameTable: []
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 08 - Default
+    second: {fileID: 2100000, guid: 84869859b440af14884828b95afae1f9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 13 - Default
+    second: {fileID: 2100000, guid: 2b7dfc7d51e20fd41b628ebb3b72ac88, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: book simple
+    second: {fileID: 2100000, guid: ac9b4878c645c5941803dd9d137128e1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: book simple 2
+    second: {fileID: 2100000, guid: 0a51cf0bcfeca5f4eb303debd1d06a6e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: book simple wide
+    second: {fileID: 2100000, guid: fa35594d701ba454aa5486e545217099, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: candle
+    second: {fileID: 2100000, guid: dfb287d67ac5cc14896af259b0761066, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: candlestick
+    second: {fileID: 2100000, guid: e7e086cbf33264b428fd6069aa9bccbf, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: doubloon
+    second: {fileID: 2100000, guid: 25beff99d5b07aa4f99b81d3d59958ce, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: feather
+    second: {fileID: 2100000, guid: 5e88a32bc056aac41933545b0de20abe, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ground
+    second: {fileID: 2100000, guid: ed0bbd3db14501144b6b1bb27e585817, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: inkwell
+    second: {fileID: 2100000, guid: 8350c2c60c65add45b99a713d29798a7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pages left
+    second: {fileID: 2100000, guid: 0d88c285df6f8404b9150d6f94093cfd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pages right
+    second: {fileID: 2100000, guid: 7d547a2dff3822e4f8ae3393ea322d6f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pages simple 2
+    second: {fileID: 2100000, guid: 2d5d0a3d50a102d40bbe4d9fe9b22f69, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: quill
+    second: {fileID: 2100000, guid: d2fc7d6535b5a4e438884fc3003b29b2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: rum bottle
+    second: {fileID: 2100000, guid: 10bbe4ea635a8fd42b31be5963cef268, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ship page
+    second: {fileID: 2100000, guid: 8410b0c334285e442b1daa92747f415c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: table plain
+    second: {fileID: 2100000, guid: 8bef555fdeebbd045a9cc8c85afda6d6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: tankard
+    second: {fileID: 2100000, guid: 0bc5894b2c6a26f4b9ae48ce895bd8aa, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: text page
+    second: {fileID: 2100000, guid: 3591b983e60527243ac27426e201e291, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: book simple
+    second: {fileID: 2800000, guid: 0cb622aa2a21cef40811697057f7a1aa, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: book simple 2
+    second: {fileID: 2800000, guid: 4327c4c8c9b7bf54aa05131470ef5357, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: book simple bump
+    second: {fileID: 2800000, guid: 183d7a64a4961da458b30a82ddcc1341, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: book simple spec
+    second: {fileID: 2800000, guid: df2253404738ca742bd32c0b3e2acf52, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: book simple wide
+    second: {fileID: 2800000, guid: eb98b2f794d393f46b8b46fd99770ba1, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: book simple wide opac
+    second: {fileID: 2800000, guid: 936ce02165660ea4eac3da1fc2b87643, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: bottle
+    second: {fileID: 2800000, guid: 88167c2528bc1884098192f70809d6f4, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: candlestick
+    second: {fileID: 2800000, guid: 9ab523c1ff629c540a8c1e5f36836c92, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: candlestick bump
+    second: {fileID: 2800000, guid: 318d3660824b8914c8629d57c5a98cb9, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: desk
+    second: {fileID: 2800000, guid: d0b538a2a48aaff4eafda04b5b7ea6a8, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: desk spec
+    second: {fileID: 2800000, guid: 9f02bd55c0930784ca5b865f9064da69, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: doubloon
+    second: {fileID: 2800000, guid: 48acb1eaa288c0342b678a32ee7db02b, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: doubloon spec
+    second: {fileID: 2800000, guid: 7f7b9f126e3e9694b98976d4dd2ca3c9, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: inkwell
+    second: {fileID: 2800000, guid: c50156961482c33418f0995937b2581a, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: inkwell bump
+    second: {fileID: 2800000, guid: 3fa54b5d910fb734fade78a460609adc, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: pages
+    second: {fileID: 2800000, guid: 91887e84e665d4b418b10cb5bbbfa93d, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: pages 2
+    second: {fileID: 2800000, guid: f6d90b639d6982741aeddf1f57b386d3, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: pages sile 2
+    second: {fileID: 2800000, guid: eb87307984ba45b43a9fe5085759a8f1, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: quill
+    second: {fileID: 2800000, guid: 6b1f24fcbb9baa0498478259dea745fb, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ship page
+    second: {fileID: 2800000, guid: eff1e1862a90af34a9ed32fd96e05a6d, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: tankard
+    second: {fileID: 2800000, guid: a763a90f498e6b14ab838e67500e7e79, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: tankard brighter
+    second: {fileID: 2800000, guid: ad16f0b7a1d3a0841b83c603dafddcb0, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: tankard bump
+    second: {fileID: 2800000, guid: ab5d720b543dc304cab0ac3316983f64, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: text page
+    second: {fileID: 2800000, guid: f8c97e1f226c7b9409b888f8197db4d4, type: 3}
+  materials:
+    materialImportMode: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 244559
+  packageName: MegaBook 2
+  packageVersion: 1.17
+  assetPath: Assets/MegaBook/Scenes/Pirate Scene/New Pirate Scene.fbx
+  uploadId: 665256

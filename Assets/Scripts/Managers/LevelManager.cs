@@ -28,19 +28,23 @@ public class LevelManager : MonoBehaviour
     }
 
 
-    
 
 
-    public async void LoadScene(string sceneName)
+
+    public void LoadScene(string sceneName)
     {
+        
+
         //starts the loading scene corutine
         StartCoroutine(LoadSceneAsync(sceneName));
+
+        
     }
 
 
     IEnumerator LoadSceneAsync(string sceneName)
     {
-        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
+        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
 
 
       
@@ -66,14 +70,6 @@ public class LevelManager : MonoBehaviour
     //Reloads the current scene
     public void ReloadScene()
     {
-
-        //if the game was paused while the scene was reloaded
-        if(PauseSystem.isPaused)
-        {
-            //toggle the pause menu
-            PauseSystem.instance.TogglePauseMenu();
-        }
-
         //reloads the scene
         var scene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(scene.name);

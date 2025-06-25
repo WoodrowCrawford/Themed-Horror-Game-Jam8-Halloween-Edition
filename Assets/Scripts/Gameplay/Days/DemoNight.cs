@@ -26,7 +26,7 @@ public class DemoNight : BaseDay
 
     public override void UpdateState(DayManager day)
     {
-        Debug.Log("Demo update state");
+        return;
     }
 
     public override void ExitState()

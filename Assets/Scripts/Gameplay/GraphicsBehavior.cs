@@ -165,7 +165,7 @@ public class GraphicsBehavior : MonoBehaviour
     {
         Sun = null;
         Moon = null;
-        Debug.Log("Graphics behavior is playing what happens when the game ends");
+       
     }
 
     public void FindSunAndMoon()

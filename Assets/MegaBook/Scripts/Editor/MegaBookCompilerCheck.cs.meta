@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 41882e6074c382046b779c84a28b6234
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 244559
+  packageName: MegaBook 2
+  packageVersion: 1.17
+  assetPath: Assets/MegaBook/Scripts/Editor/MegaBookCompilerCheck.cs
+  uploadId: 665256

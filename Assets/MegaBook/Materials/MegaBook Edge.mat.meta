@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: f43387e3a76a9df4aab02bc01da134c5
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 244559
+  packageName: MegaBook 2
+  packageVersion: 1.17
+  assetPath: Assets/MegaBook/Materials/MegaBook Edge.mat
+  uploadId: 665256

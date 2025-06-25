@@ -63,8 +63,9 @@ public class Interactor : MonoBehaviour
         //debug testing
         Debug.DrawRay(_playerInput.Camera.transform.position, _playerInput.Camera.transform.forward, Color.green);
      
+     
 
-        if(hit.collider != null)
+        if (hit.collider != null)
         {
 
             hit.collider.GetComponentInParent<HighlightBehavior>()?.ToggleHighlight(false);
@@ -72,11 +73,11 @@ public class Interactor : MonoBehaviour
 
         }
 
-        //if the raycast hits something in the interactable layer mask or the pickUp layermask...
+        //if the raycast hits something in the interactable layer mask or the pickUp layermask and the game is not paused...
         if(Physics.Raycast(_playerInput.Camera.transform.position, _playerInput.Camera.transform.forward, out hit, _hitRange, _interactableMask) || 
            Physics.Raycast(_playerInput.Camera.transform.position, _playerInput.Camera.transform.forward, out hit, _hitRange, _pickUpMask))
         {
-            //Debug.Log(hit.collider.name);
+            
             hit.collider.GetComponentInParent<IInteractable>();
             hit.collider.GetComponentInParent<HighlightBehavior>().ToggleHighlight(true);
 

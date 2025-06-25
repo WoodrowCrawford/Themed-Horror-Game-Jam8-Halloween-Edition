@@ -15,10 +15,8 @@ public class DialogueUIBehavior : MonoBehaviour
     [SerializeField] private GameObject _dialogueBox;
     [SerializeField] private Image _dialogueBackground;
 
-    [Header("Dialogue BG Materials")]
-    [SerializeField] private Color _dialogueBGColor;
-    [SerializeField] private Material _dialogueBackgroundMaterial;
-
+    
+   
 
     [Header("Dialogue Text Settings")]
     [SerializeField] private TMP_Text _textLabel;
@@ -135,7 +133,7 @@ public class DialogueUIBehavior : MonoBehaviour
          
 
             //Waits until the given input has been pressed before continuing 
-            yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Mouse0) && !PauseSystem.isPaused);
+            yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Mouse0) && !PauseSystem.instance.isPaused);
         }
 
         //if the dialogue has responses
@@ -184,21 +182,10 @@ public class DialogueUIBehavior : MonoBehaviour
         //if it is day time...
         if(GraphicsBehavior.instance.IsDayTime)
         {
-            //set the background material to be normal
-            _dialogueBackground.material = null;
-
-            //change the color of the background
-            _dialogueBackground.color = new Color(_dialogueBGColor.r, _dialogueBGColor.g, _dialogueBGColor.b);
 
             //set the text to be the normal version
             _textLabel.colorGradientPreset = _daytimeTextColorGradient;
 
-
-            //set the response box background material to be normal
-            _responseBoxBG.material = null;
-
-            //change the color of the response box background
-            _responseBoxBG.color = new Color(_dialogueBGColor.r, _dialogueBGColor.g, _dialogueBGColor.g);
 
             //set the response text to be the normal version
             _responseText.colorGradientPreset = _daytimeTextColorGradient;
@@ -207,21 +194,12 @@ public class DialogueUIBehavior : MonoBehaviour
         //if it is nighttime...
         else if (GraphicsBehavior.instance.IsNightTime)
         {
-            //set the background to be dark
-            _dialogueBackground.material = _dialogueBackgroundMaterial;
-
-            //change the color of the background
-            _dialogueBackground.color = Color.black;
 
             //set the text to be the dark version
             _textLabel.colorGradientPreset = _nighttimeTextColorGradient;
 
 
-            //set the response box background material to be dark
-            _responseBoxBG.material = _dialogueBackgroundMaterial;
-
-            //change the color of the response box background
-            _responseBoxBG.color = Color.black;
+            
 
             //set the response text to be the dark version
             _responseText.colorGradientPreset = _nighttimeTextColorGradient;

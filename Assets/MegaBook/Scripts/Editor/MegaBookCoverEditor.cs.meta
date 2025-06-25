@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 94c3b09ee106678478e3121d2eae95be
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 244559
+  packageName: MegaBook 2
+  packageVersion: 1.17
+  assetPath: Assets/MegaBook/Scripts/Editor/MegaBookCoverEditor.cs
+  uploadId: 665256
