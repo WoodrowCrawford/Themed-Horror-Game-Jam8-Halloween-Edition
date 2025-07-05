@@ -15,7 +15,7 @@ public class JackInTheBoxOpenState : JackInTheBoxBaseState
         //////do all the opening up stuff here
 
         //play the opening sound
-        SoundFXManager.instance.PlaySoundFXClip(SoundFXManager.instance.musicBoxSongEndClip, jackInTheBox.transform, false, 1f);
+        SoundManager.instance.PlaySoundFXClip(SoundManager.instance.soundFXObject, SoundManager.instance.musicBoxSongEndClip, jackInTheBox.transform, false, 1f);
 
         //Enable the animator
         jackInTheBox.animator.enabled = true;

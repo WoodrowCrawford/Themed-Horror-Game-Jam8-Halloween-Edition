@@ -8,7 +8,15 @@ public class DummyDisabledState : DummyDefaultState
         
 public override void EnterState(DummyStateManager dummy)
     {
-        Debug.Log("Dummy is now in the disabled state!");
+        //set the dummy target to null
+        dummy.Target = null;
+
+        //Set the dummy velocity to 0
+        dummy.Agent.velocity = Vector3.zero;
+
+        dummy.Agent.isStopped = true;
+        //set the animator speed value to 0
+        dummy.Animator.SetFloat("Speed", 0);
 
     }
 

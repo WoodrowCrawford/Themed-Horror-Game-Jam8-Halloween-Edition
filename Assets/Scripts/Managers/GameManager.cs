@@ -136,7 +136,7 @@ public class GameManager : MonoBehaviour
     //A function that can change the scene
     public static void ChangeScene(string sceneName)
     {
-        PauseSystem.instance.isPaused = false;
+        PauseSystem.isPaused = false;
         Time.timeScale = 1.0f;
         LevelManager.instance.LoadScene(sceneName);    
     }

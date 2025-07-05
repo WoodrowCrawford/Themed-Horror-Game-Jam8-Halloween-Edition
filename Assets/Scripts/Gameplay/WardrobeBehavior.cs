@@ -113,7 +113,7 @@ public class WardrobeBehavior : MonoBehaviour, IInteractable
 
     public IEnumerator ToggleInOutWardrobe()
     {
-        if (WardrobeDoorIsOpen && !ActionOnCoolDown && !playerInputBehavior.playerIsInWardrobe && !PauseSystem.instance.isPaused)
+        if (WardrobeDoorIsOpen && !ActionOnCoolDown && !playerInputBehavior.playerIsInWardrobe && !PauseSystem.isPaused)
         {
             playerInputBehavior.PlayerBody.transform.position = _insideWardrobePos.transform.position;
             playerInputBehavior.playerIsInWardrobe = true;
@@ -125,7 +125,7 @@ public class WardrobeBehavior : MonoBehaviour, IInteractable
             StartCoroutine(CloseWardrobeDoor());
         }
 
-        else if (WardrobeDoorIsOpen && playerInputBehavior.playerIsInWardrobe && !PauseSystem.instance.isPaused)
+        else if (WardrobeDoorIsOpen && playerInputBehavior.playerIsInWardrobe && !PauseSystem.isPaused)
         {
 
             playerInputBehavior.PlayerBody.transform.position = _outsideWardrobePos.transform.position;
@@ -140,12 +140,12 @@ public class WardrobeBehavior : MonoBehaviour, IInteractable
     public IEnumerator ToggleWardrobeDoor()
     {
         //If the door is not open then open it
-        if (!WardrobeDoorIsOpen && !ActionOnCoolDown && !PauseSystem.instance.isPaused)
+        if (!WardrobeDoorIsOpen && !ActionOnCoolDown && !PauseSystem.isPaused)
         {
             StartCoroutine(OpenWardrobeDoor());
         }
 
-        else if (WardrobeDoorIsOpen && !ActionOnCoolDown && !PauseSystem.instance.isPaused)
+        else if (WardrobeDoorIsOpen && !ActionOnCoolDown && !PauseSystem.isPaused)
         {
             //else close the door
             StartCoroutine(CloseWardrobeDoor());

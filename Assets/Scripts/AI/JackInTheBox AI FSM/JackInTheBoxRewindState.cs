@@ -10,7 +10,7 @@ public class JackInTheBoxRewindState : JackInTheBoxBaseState
         jackInTheBox.InteractionPrompt = " ";
 
         //play the wind up crank sound
-        SoundFXManager.instance.PlaySoundFXClipAtSetVolume(SoundFXManager.instance.windUpCrankClip, jackInTheBox.transform, true, 1f, 0.5f);
+        SoundManager.instance.PlaySoundFXClipAtSetVolume(SoundManager.instance.soundFXObject, SoundManager.instance.windUpCrankClip, jackInTheBox.transform, true, 1f, 0.5f);
     }
 
     public override void UpdateState(JackInTheBoxStateManager jackIntheBox)
@@ -18,13 +18,16 @@ public class JackInTheBoxRewindState : JackInTheBoxBaseState
         //while the player is rewinding...
         if (PlayerInputBehavior.isPlayerInteracting && jackIntheBox.jackInTheBoxRangeBehavior.playerInRangeOfBox)
         {
+            //make the player unable to look around
+            PlayerInputBehavior.playerCanLook = false;
+
             jackIntheBox.playerRewindingBox = true;
             jackIntheBox.RewindMusicBox();
         }
         else
         {
             //stop the wind up sound
-            SoundFXManager.instance.StopSoundFXClip(SoundFXManager.instance.windUpCrankClip);
+            SoundManager.instance.StopSoundFXClip(SoundManager.instance.windUpCrankClip);
 
             //switch to the playing state
             jackIntheBox.SwitchState(jackIntheBox.playingState);

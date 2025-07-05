@@ -51,13 +51,8 @@ public class GhoulStateManager : MonoBehaviour
     [Header("Target")]
     [SerializeField] private GameObject _playerRef;
 
-
-
     
     public NavMeshHit navHit;
-
-    
-
 
 
     public NavMeshAgent Agent { get { return _agent; } }
@@ -90,6 +85,8 @@ public class GhoulStateManager : MonoBehaviour
 
     private void OnEnable()
     {
+        
+
         GhoulBaseState.onSwitchState += inactiveState.ExitState;
         GhoulBaseState.onSwitchState += patrolState.ExitState;
         GhoulBaseState.onSwitchState += wanderState.ExitState;

@@ -1,17 +1,17 @@
-
-
 using UnityEngine;
 
 public class WindowOpeningState : WindowBaseState
 {
+  
     public override void EnterState(WindowStateManager window)
     {
-        //testing 
-        Debug.Log("Window opening state");
-
         //sets the rotation to be 1 when entering this state
         window.WindowThatMoves.transform.Rotate(new Vector3(0, 1, 0));
-     
+
+        
+
+        //play the window starting opening sound
+        SoundManager.instance.PlaySoundFXClip(SoundManager.instance.soundFXObject, SoundManager.instance.windowOpeningStartUpClip, window.transform, false, 1f);
     }
 
   
@@ -27,20 +27,22 @@ public class WindowOpeningState : WindowBaseState
             //switch to the waiting state
             window.SwitchState(window.waitingState);
 
-            //testing
-            Debug.Log("window rotaion is 0, set to waiting state");
+            
         }
 
         //else if the window rotation is greater than 1 but less than 90
         else if(Mathf.Round(window.WindowThatMoves.transform.localEulerAngles.y) >= 1 && (Mathf.Round(window.WindowThatMoves.transform.localEulerAngles.y) < 90))
         {
            //rotate the window by 1 times the window opening speed
-            window.WindowThatMoves.gameObject.transform.Rotate(new Vector3(0, 1, 0) * (window.WindowOpeningSpeed * Time.deltaTime));
+            window.WindowThatMoves.gameObject.transform.Rotate(new Vector3(0, 1, 0) * (window.WindowOpeningSpeed * Time.deltaTime)); 
+           
+            //if the window continuous sound is not already playing
+            if(!SoundManager.instance.IsSoundFXClipPlaying(SoundManager.instance.windowOpeningContinuousClip) && !PauseSystem.isPaused)
+            {
+                //play the sound
+                SoundManager.instance.PlaySoundFXClip(SoundManager.instance.soundFXObject, SoundManager.instance.windowOpeningContinuousClip, window.transform, true, 1f);
+            }
 
-            //testing
-            Debug.Log("window rotation is currently " + Mathf.Round(window.WindowThatMoves.transform.localEulerAngles.y));
-
-            
         }
 
         //else if the window rotation is greater than or equal to 90
@@ -48,12 +50,18 @@ public class WindowOpeningState : WindowBaseState
         {
             //call window is open event here
             WindowStateManager.onWindowOpened?.Invoke();
+
+            //stop playing the window sound
+            SoundManager.instance.StopSoundFXClip(SoundManager.instance.windowOpeningContinuousClip);
+            
         }
         
     }
+
     
     public override void ExitState()
     {
         Debug.Log("Window opening state exit");
     }
+    
 }

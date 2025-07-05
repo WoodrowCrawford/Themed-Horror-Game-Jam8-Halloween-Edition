@@ -7,6 +7,12 @@ public class TodaysDateBehavior : MonoBehaviour
 {
     public static TodaysDateBehavior instance;
 
+    public delegate void TodaysDateEventHandler();
+
+    public static event TodaysDateEventHandler onDateStartedShowning;
+    public static event TodaysDateEventHandler onDateFinishedShowing;
+
+
     [SerializeField] private GameObject _todaysDateUI;  //UI background for the date
     [SerializeField] private TMP_Text _todaysDateText;  //text for the todays date
 
@@ -42,14 +48,9 @@ public class TodaysDateBehavior : MonoBehaviour
         loadingScreenFinished = false;
 
 
-        //disable pausing while screen is showing
-        PlayerInputBehavior.playerCanPause = false;
+       
 
-        //disable player movement
-        PlayerInputBehavior.playerCanMove = false;
-        PlayerInputBehavior.playerCanInteract = false;
-        PlayerInputBehavior.playerCanGetOutOfBed = false;
-        PlayerInputBehavior.playerCanToggleUnderBed = false;
+        onDateStartedShowning?.Invoke();
 
         _todaysDateUI.SetActive(true);
 
@@ -58,16 +59,12 @@ public class TodaysDateBehavior : MonoBehaviour
 
         //sets the loading screen to be false
         _todaysDateUI.SetActive(false);
-        
 
-        //enable player movement stuff
-        PlayerInputBehavior.playerCanMove = true;
-        PlayerInputBehavior.playerCanInteract = true;
-        PlayerInputBehavior.playerCanGetOutOfBed = true;
-        PlayerInputBehavior.playerCanToggleUnderBed = true;
 
         //enables the player to pause
         PlayerInputBehavior.playerCanPause = true;
+
+        onDateFinishedShowing?.Invoke();
 
         //sets to be true
         loadingScreenFinished = true;

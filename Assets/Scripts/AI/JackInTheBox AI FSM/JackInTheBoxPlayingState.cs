@@ -13,7 +13,7 @@ public class JackInTheBoxPlayingState : JackInTheBoxBaseState
         jackInTheBox.playerRewindingBox = false;
 
         //play the jack in the box sound on loop
-        SoundFXManager.instance.PlaySoundFXClip(SoundFXManager.instance.musicBoxLoopClip, jackInTheBox.audioPosition.transform, true, 1f);
+        SoundManager.instance.PlaySoundFXClip(SoundManager.instance.soundFXObject, SoundManager.instance.musicBoxLoopClip, jackInTheBox.audioPosition.transform, true, 1f);
     }
 
     public override void UpdateState(JackInTheBoxStateManager jackIntheBox)
@@ -27,16 +27,17 @@ public class JackInTheBoxPlayingState : JackInTheBoxBaseState
         if(PlayerInputBehavior.isPlayerInteracting && jackIntheBox.jackInTheBoxRangeBehavior.playerInRangeOfBox)
         {
             //stop the music playing
-           SoundFXManager.instance.StopSoundFXClip(SoundFXManager.instance.musicBoxLoopClip);
+           SoundManager.instance.StopSoundFXClip(SoundManager.instance.musicBoxLoopClip);
 
-            jackIntheBox.SwitchState(jackIntheBox.rewindState);
+           //switch to the rewind state
+           jackIntheBox.SwitchState(jackIntheBox.rewindState);
         }
 
         //if the jack in the box is finished playing the music
         else if(jackIntheBox.currentMusicDuration <= 0)
         {
             //stop playing the music
-            SoundFXManager.instance.StopSoundFXClip(SoundFXManager.instance.musicBoxLoopClip);
+            SoundManager.instance.StopSoundFXClip(SoundManager.instance.musicBoxLoopClip);
 
             //switch to the open state
             jackIntheBox.SwitchState(jackIntheBox.openState);

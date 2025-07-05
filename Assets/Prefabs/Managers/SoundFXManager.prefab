@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2416349494062247212
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8299098238402968144}
+  - component: {fileID: 9021141870445802811}
+  m_Layer: 0
+  m_Name: SoundFXManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8299098238402968144
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2416349494062247212}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 32.09934, y: -13.648834, z: -4.108246}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9021141870445802811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2416349494062247212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62cecaf81952c7e49a19ab20c152eb93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundFXObject: {fileID: 4010352577533872221, guid: cf438cd51d79e8d438cd882a570bea94, type: 3}
+  buttonHoverClip: {fileID: 8300000, guid: 4fa06bf62ea2d9146b788a1f4453fc07, type: 3}
+  buttonClickClip: {fileID: 8300000, guid: a3d454560b0acf54aa79b12f8740cd11, type: 3}
+  backButtonClickClip: {fileID: 8300000, guid: 8b1615553fbe5964aa83246a6ad5c4e9, type: 3}
+  doorOpenClip: {fileID: 8300000, guid: 6507477fd6867b347aa534b2fbf20776, type: 3}
+  doorCloseClip: {fileID: 8300000, guid: 93c6a59f144d43541821deea49f20ed9, type: 3}
+  tickingClockClip: {fileID: 8300000, guid: e6cf3e1801355074583de83659eaa58e, type: 3}
+  flashlightClickOnClip: {fileID: 8300000, guid: 86244cac0f8508a4287a64520e35699f, type: 3}
+  flashlightClickOffClip: {fileID: 8300000, guid: 8caed2d7269b47a449a50c89076f3fc9, type: 3}
+  musicBoxLoopClip: {fileID: 8300000, guid: ffc46653eeb509c4a9e6b7ab0cfe50bc, type: 3}
+  windUpCrankClip: {fileID: 8300000, guid: ae7f3c3c6dd6a8040b3c0466d6261e6c, type: 3}
+  musicBoxSongEndClip: {fileID: 8300000, guid: 0e77d2407cde2a045b586c16a3d27db0, type: 3}
+  playerSleepingClip: {fileID: 8300000, guid: 48a033967a3f645ed94407e848ba1c8a, type: 3}
+  playerWakingUpClip: {fileID: 0}

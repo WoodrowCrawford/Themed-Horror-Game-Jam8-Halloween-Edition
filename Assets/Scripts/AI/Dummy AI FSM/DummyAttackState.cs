@@ -20,17 +20,24 @@ public class DummyAttackState : DummyDefaultState
                 
                 //call the dummy jumpscare 1 event
                 TimelineManager.onPlayDummy1Jumpscare?.Invoke();
+
+                //Tell this dummy to stop moving
+                dummy.dummyThisBelongsTo.GetComponent<DummyStateManager>().Agent.isStopped = true;
             }
 
             else if(dummy.dummyThisBelongsTo.gameObject.name == "Dummy2")
             {
                 //call the dummy jumpscare event
                 TimelineManager.onPlayDummy2Jumpscare?.Invoke();
+
+                //Tell this dummy to stop moving
+                dummy.dummyThisBelongsTo.GetComponent<DummyStateManager>().Agent.isStopped = true;
             }
 
+            //signal an event that lets the game know that the dummy attacked
+            DummyStateManager.dummyKilledPlayer = true;
 
-                //signal an event that lets the game know that the dummy attacked
-                DummyStateManager.dummyKilledPlayer = true;
+            
         }
   
     }

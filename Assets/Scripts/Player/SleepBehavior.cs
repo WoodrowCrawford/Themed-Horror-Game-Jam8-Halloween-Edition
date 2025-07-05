@@ -73,7 +73,7 @@ public class SleepBehavior : MonoBehaviour
     public void CloseEyes()
     {
         //if the game is paused or the dialogue box is open or the player is not able to sleep...
-        if(PauseSystem.instance.isPaused || DialogueUIBehavior.IsOpen || !PlayerInputBehavior.playerCanSleep)
+        if(PauseSystem.isPaused || DialogueUIBehavior.IsOpen || !PlayerInputBehavior.playerCanSleep)
         {
             //return 
             Debug.Log("the player can not close their eyes because the game is paused!");
@@ -82,13 +82,13 @@ public class SleepBehavior : MonoBehaviour
         }
 
         //else if the game is not paused or the dialogue box is not open or the player can sleep...
-        else if(!PauseSystem.instance.isPaused || !DialogueUIBehavior.IsOpen || PlayerInputBehavior.playerCanSleep)
+        else if(!PauseSystem.isPaused || !DialogueUIBehavior.IsOpen || PlayerInputBehavior.playerCanSleep)
         {
             //play the eyes closed animation
             PlayEyesClosedAnimation();
 
             //play the sleeping sound effect
-            SoundFXManager.instance.PlaySoundFXClip(SoundFXManager.instance.playerSleepingClip, this.transform, true, 1f);
+            SoundManager.instance.PlaySoundFXClip(SoundManager.instance.soundFXObject, SoundManager.instance.playerSleepingClip, this.transform, true, 0f);
 
             //call the player is sleeping event
             onPlayerCloseEyes?.Invoke();  
@@ -103,7 +103,7 @@ public class SleepBehavior : MonoBehaviour
     public void OpenEyes()
     {
         //if the game is paused or the dialogue box is open or the player can not sleep...
-        if(PauseSystem.instance.isPaused || DialogueUIBehavior.IsOpen || !PlayerInputBehavior.playerCanSleep)
+        if(PauseSystem.isPaused || DialogueUIBehavior.IsOpen || !PlayerInputBehavior.playerCanSleep)
         {
            Debug.Log("The player can not sleep at the moment");
            return;
@@ -111,10 +111,16 @@ public class SleepBehavior : MonoBehaviour
         }
         
         //else if the game is not paused or the dialogue box is not open or the player can sleep
-        else if(!PauseSystem.instance.isPaused || !DialogueUIBehavior.IsOpen || PlayerInputBehavior.playerCanSleep)
+        else if(!PauseSystem.isPaused || !DialogueUIBehavior.IsOpen || PlayerInputBehavior.playerCanSleep)
         {
+            //stop playing the sleeping sound effect
+            SoundManager.instance.StopSoundFXClip(SoundManager.instance.playerSleepingClip);
+
             //play the eyes opened animation
             PlayEyesOpenedAnimation();
+
+            //play the sleeping sound effect
+            SoundManager.instance.PlaySoundFXClip(SoundManager.instance.soundFXObject, SoundManager.instance.playerWakingUpClip, this.transform, false, 0f);
 
             //call the player opened eyes event
             onPlayerOpenEyes?.Invoke();

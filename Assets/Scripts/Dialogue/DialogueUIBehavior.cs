@@ -133,7 +133,7 @@ public class DialogueUIBehavior : MonoBehaviour
          
 
             //Waits until the given input has been pressed before continuing 
-            yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Mouse0) && !PauseSystem.instance.isPaused);
+            yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Mouse0) && !PauseSystem.isPaused);
         }
 
         //if the dialogue has responses

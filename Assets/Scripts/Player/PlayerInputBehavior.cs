@@ -125,7 +125,14 @@ public class PlayerInputBehavior : MonoBehaviour
         PauseSystem.onGamePaused += DisableInteraction;
         PauseSystem.onGameUnpaused += EnableInteraction;
 
+        //WinBehavior.onWin += DisableControls;
+
+        TodaysDateBehavior.onDateStartedShowning += DisableControls;
+        TodaysDateBehavior.onDateFinishedShowing += EnableControls;
+
         onPlayerIsInteracting += () => isPlayerInteracting = true;
+       
+
         onInteractionWasPerformed += () => interactionWasPerfomed = true;
         onGetOutOfBedButtonPressed += GetOutOfBed;
 
@@ -142,6 +149,7 @@ public class PlayerInputBehavior : MonoBehaviour
         playerControls.Default.Interact.started += ctx => onPlayerIsInteracting?.Invoke();
         playerControls.Default.Interact.performed += ctx => onInteractionWasPerformed?.Invoke();
         playerControls.Default.Interact.canceled += ctx => isPlayerInteracting = false;
+        playerControls.Default.Interact.canceled += ctx => playerCanLook = true;
 
 
         //Action Map #0(Default Map- On by default)
@@ -177,6 +185,12 @@ public class PlayerInputBehavior : MonoBehaviour
          PauseSystem.onGamePaused -= DisableInteraction;
         PauseSystem.onGameUnpaused -= EnableInteraction;
 
+
+       // WinBehavior.onWin -= DisableControls;
+
+        TodaysDateBehavior.onDateStartedShowning -= DisableControls;
+        TodaysDateBehavior.onDateFinishedShowing -= EnableControls;
+
         onPlayerIsInteracting -= () => isPlayerInteracting = true;
         onInteractionWasPerformed -= () => interactionWasPerfomed = true;
         onGetOutOfBedButtonPressed -= GetOutOfBed;
@@ -185,7 +199,7 @@ public class PlayerInputBehavior : MonoBehaviour
         SleepBehavior.onPlayerOpenEyes -= () => EnableControlsWhileWakingUp();
 
 
-        //Creates the Action Maps
+        //Removes the action maps
         playerControls.Disable();
         playerControls.InBed.Disable();
         playerControls.Default.Disable();
@@ -193,6 +207,8 @@ public class PlayerInputBehavior : MonoBehaviour
         playerControls.Default.Interact.started -= ctx => onPlayerIsInteracting?.Invoke();
         playerControls.Default.Interact.performed -= ctx => onInteractionWasPerformed?.Invoke();
         playerControls.Default.Interact.canceled -= ctx => isPlayerInteracting = false;
+        playerControls.Default.Interact.canceled -= ctx => playerCanLook = true;
+
 
 
         //Action Map #0(Default Map- On by default)
@@ -232,10 +248,6 @@ public class PlayerInputBehavior : MonoBehaviour
         //Gets the player camera
         _camera = GameObject.Find("Player VCam").GetComponent<CinemachineCamera>();
     }
-
-
-   
-
    
 
 
@@ -258,12 +270,7 @@ public class PlayerInputBehavior : MonoBehaviour
         inBed = true;
 
         //set to be true on startup
-        playerCanGetCaught = true;
-
-        //enable controls on startup
-        EnableControls();
-
-        
+        playerCanGetCaught = true; 
     }
 
     private void Update()
@@ -291,6 +298,13 @@ public class PlayerInputBehavior : MonoBehaviour
     public void DisableControls()
     {
         playerControls.Disable();
+
+        //playerCanPause = false;
+        //playerCanMove = false;
+        //playerCanInteract = false;
+        //playerCanGetOutOfBed = false;
+        //playerCanToggleUnderBed = false;
+        //playerCanLook = false;
     }
 
     public void DisableInteraction()
@@ -318,6 +332,8 @@ public class PlayerInputBehavior : MonoBehaviour
     {
         playerControls.Default.Enable();
         _currentActionMap.Enable();
+
+       
     }
 
     public void EnableControlsWhileWakingUp()
@@ -357,10 +373,7 @@ public class PlayerInputBehavior : MonoBehaviour
         }
 
        
-       
-        
-
-
+   
         ////Look values
         float mouseXLook = playerControls.Default.Look.ReadValue<Vector2>().x * sensitivity  * Time.deltaTime;
         float mouseYLook = playerControls.Default.Look.ReadValue<Vector2>().y * sensitivity * Time.deltaTime;
@@ -408,7 +421,7 @@ public class PlayerInputBehavior : MonoBehaviour
         if(playerCanToggleUnderBed && !DialogueUIBehavior.IsOpen)
         {
             ///if the player is not under the bed and the player is not sleeping and the game is not paused
-            if (!_isUnderBed && !SleepBehavior.playerIsSleeping && !PauseSystem.instance.isPaused)
+            if (!_isUnderBed && !SleepBehavior.playerIsSleeping && !PauseSystem.isPaused)
             {
                 //set the player to be under the bed
                 _playerBodyTransform.transform.position = _UnderBedPos.transform.position;
@@ -427,7 +440,7 @@ public class PlayerInputBehavior : MonoBehaviour
 
 
             }
-            else if (_isUnderBed && !PauseSystem.instance.isPaused)
+            else if (_isUnderBed && !PauseSystem.isPaused)
             {
                 //set the player to be on top of the bed
                 _playerBodyTransform.transform.position = _TopOfBedPos.transform.position;
@@ -438,12 +451,7 @@ public class PlayerInputBehavior : MonoBehaviour
                 //set player is hidden to be false
                 _playerIsHidden = false;
 
-                //check if it is nighttime
-                if(GraphicsBehavior.instance.IsNightTime)
-                {
-                    //the player is allowed to sleep
-                    playerCanSleep = true;
-                }
+
 
                 playerCanGetOutOfBed = true;
             }
@@ -459,7 +467,7 @@ public class PlayerInputBehavior : MonoBehaviour
         if (playerCanGetOutOfBed && !DialogueUIBehavior.IsOpen)
         {
             //check if the game is not paused...
-            if (!PauseSystem.instance.isPaused)
+            if (!PauseSystem.isPaused)
             {
 
                 playerControls.InBed.Disable();
@@ -498,7 +506,7 @@ public class PlayerInputBehavior : MonoBehaviour
         if(playerCanGetInBed && !DialogueUIBehavior.IsOpen)
         {
             //check if the player is near the bed and make sure that the game is not paused
-            if (GetInBedTriggerBehavior.playerCanGetInBed && !PauseSystem.instance.isPaused)
+            if (GetInBedTriggerBehavior.playerCanGetInBed && !PauseSystem.isPaused)
             {
                 _playerBodyTransform.transform.position = _TopOfBedPos.position;
                 playerControls.OutOfBed.Disable();

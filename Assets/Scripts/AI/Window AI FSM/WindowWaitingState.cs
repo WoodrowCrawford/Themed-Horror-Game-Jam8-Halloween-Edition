@@ -33,6 +33,7 @@ public class WindowWaitingState : WindowBaseState
 
         //stops the coroutine when the exit state is called
         windowStateManger.StopCoroutine(CalculateWaitTime());
+      
     }
 
 

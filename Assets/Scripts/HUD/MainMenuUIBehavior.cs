@@ -13,11 +13,11 @@ public class MainMenuUIBehavior : MonoBehaviour
     [SerializeField] private Button _playButton;
     [SerializeField] private Button _settingsButton;
 
-    [Header("Settings page buttons")]
-    [SerializeField] private Button _lowQualityButton;
-    [SerializeField] private Button _mediumQualityButton;
-    [SerializeField] private Button _highQualityButton;
 
+    void Awake()
+    {
+        _mainMenuBook.GetComponent<MegaBookControl>().NextPage();
+    }
 
 
     private void OnEnable()
@@ -32,10 +32,7 @@ public class MainMenuUIBehavior : MonoBehaviour
     }
 
 
-    void Awake()
-    {
-        _mainMenuBook.GetComponent<MegaBookControl>().NextPage();
-    }
+   
 
    
 

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class WindowDisabledState : WindowBaseState
@@ -9,6 +10,8 @@ public class WindowDisabledState : WindowBaseState
 
         //sets the interaction prompt
         window.InteractionPrompt = "Examine";
+
+     
     }
 
  
@@ -23,8 +26,11 @@ public class WindowDisabledState : WindowBaseState
     } 
     
 
+ 
     public override void ExitState()
     {
         Debug.Log("Window disabled state exit");
+
+       
     }
 }

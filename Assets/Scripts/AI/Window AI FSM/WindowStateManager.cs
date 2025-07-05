@@ -9,6 +9,7 @@ public class WindowStateManager : MonoBehaviour, IInteractable
     public WindowDisabledState disabledState = new WindowDisabledState();
     public WindowWaitingState waitingState = new WindowWaitingState();
     public WindowOpeningState openingState = new WindowOpeningState();
+   
 
     
     //delegates
@@ -23,6 +24,7 @@ public class WindowStateManager : MonoBehaviour, IInteractable
     [SerializeField] private GameObject _windowThatMoves;
     [SerializeField] private string _interactionPrompt;
     public bool isActive;
+    public bool windowOpeningSoundIsPlaying;
 
     //dialogue objects for the object
     [Header("Dialogue Objects")]
@@ -104,6 +106,9 @@ public class WindowStateManager : MonoBehaviour, IInteractable
         {
             //closes the window
             CloseWindow();
+
+            //make it so that the player can not look while interacting
+            PlayerInputBehavior.playerCanLook = false;
         }
 
     }
@@ -129,18 +134,15 @@ public class WindowStateManager : MonoBehaviour, IInteractable
 
     public void CloseWindow()
     {
-        //check if the window angle is equal to 0
-        if (Mathf.Round(_windowThatMoves.transform.localEulerAngles.y) == 0)
-        {
-            //testing
-            Debug.Log("window is already at 0 degrees");
-        }
-       
         //check if the window rotation is greater than 1 but less than 90
         if(Mathf.Round(_windowThatMoves.transform.localEulerAngles.y) >= 1 && Mathf.Round(_windowThatMoves.transform.localEulerAngles.y) <= 90)
         {
             //rotates the window by -1 times the window closing speed
             _windowThatMoves.gameObject.transform.Rotate(new Vector3(0, -1, 0) * (_windowClosingSpeed * Time.deltaTime));
+
+            //stop playing the window sound
+            SoundManager.instance.StopSoundFXClip(SoundManager.instance.windowOpeningContinuousClip);
+            windowOpeningSoundIsPlaying = false;
 
             //testing
             Debug.Log("closing window...");

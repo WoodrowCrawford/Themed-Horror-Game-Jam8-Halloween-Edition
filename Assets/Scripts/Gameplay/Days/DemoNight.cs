@@ -42,6 +42,9 @@ public class DemoNight : BaseDay
 
         //tell the flashlight that it can not deplete the battery
         FlashlightBehavior.flashlightCanDeplete = false;
+
+        //the player is not able to sleep
+        PlayerInputBehavior.playerCanSleep = false;
     }
 
     public void SleepTask()
@@ -53,7 +56,7 @@ public class DemoNight : BaseDay
         GhoulStateManager.InitializeGhoulValues(instance.Ghoul, 15, 35, true);
         WindowStateManager.InitializeWindowValues(instance.Window, 9, 20, 6, 10, true);
         JackInTheBoxStateManager.InitializeJackInTheBox(instance.JackInTheBox, 2f, 0.8f, true);
-        ClownStateManager.InitializeClown(instance.Clown, true);
+        ClownStateManager.InitializeClown(instance.Clown, true);  
 
         DummyStateManager.InitializeDummyValues(instance.Dummy1, 3f, 6f, 10f, 20f, true, new Vector3(0.5f, 0.5f, 0.5f));
         DummyStateManager.InitializeDummyValues(instance.Dummy2, 3f, 6f, 10f, 20f, true, new Vector3(0.5f, 0.5f, 0.5f));

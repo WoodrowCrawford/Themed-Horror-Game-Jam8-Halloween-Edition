@@ -77,10 +77,21 @@ public class ClownStateManager : MonoBehaviour, IInteractable
 
     public Transform OriginalPos => _originalPos;
 
+
+    private void Awake()
+    {
+        highlightBehavior = GetComponentInChildren<HighlightBehavior>();
+    }
+
+
     private void OnEnable()
     {
         //disables the ai when the game is over
         GameOverBehavior.onGameOver += DisableAI;
+
+        //disables the ai when the game is won
+        WinBehavior.onWin += DisableAI;
+
         JackInTheBoxOpenState.onJackInTheBoxOpened += () => SwitchState(gettingUpState);
 
     }
@@ -89,15 +100,15 @@ public class ClownStateManager : MonoBehaviour, IInteractable
     private void OnDisable()
     {
         GameOverBehavior.onGameOver -= DisableAI;
+
+        WinBehavior.onWin -= DisableAI;
+
         JackInTheBoxOpenState.onJackInTheBoxOpened -= () => SwitchState(gettingUpState);
     }
 
 
 
-    private void Awake()
-    {
-        highlightBehavior = GetComponentInChildren<HighlightBehavior>();
-    }
+   
 
 
     void Start()

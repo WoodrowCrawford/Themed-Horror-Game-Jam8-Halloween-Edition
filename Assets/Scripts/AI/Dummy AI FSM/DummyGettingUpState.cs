@@ -5,9 +5,9 @@ public class DummyGettingUpState : DummyDefaultState
     
     public override void EnterState(DummyStateManager dummy)
     {
-        //Test
-      
-        Debug.Log(dummy.dummyThisBelongsTo.name + " is getting up! yeah");
+
+        //Play the getting up sound
+        SoundManager.instance.PlaySoundFXClipAtSetVolume(SoundManager.instance.soundFXObject, SoundManager.instance.dummyGetUpClip, dummy.dummyThisBelongsTo.transform, false, 1f, 1f);
 
         //Set the movement speed for the dummy
         dummy.dummyThisBelongsTo.GetComponentInParent<DummyStateManager>().SetMovementSpeed();

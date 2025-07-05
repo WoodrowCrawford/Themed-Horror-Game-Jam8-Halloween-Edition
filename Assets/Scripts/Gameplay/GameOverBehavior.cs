@@ -6,10 +6,10 @@ using UnityEngine.UI;
 public class GameOverBehavior : MonoBehaviour
 {
     //delegates
-    public delegate void GameOver();
+    public delegate void GameOverEventHandler();
 
     //Events
-    public static GameOver onGameOver;    
+    public static event GameOverEventHandler onGameOver;    
 
 
     //A boolean used to determind if the game is over or not

@@ -4,6 +4,6 @@ public class WallClockBehavior : MonoBehaviour
 {
     private void Start()
     {
-        SoundFXManager.instance.PlaySoundFXClipAtSetVolume(SoundFXManager.instance.tickingClockClip, this.transform, true, 1f, 0.8f);
+        SoundManager.instance.PlaySoundFXClipAtSetVolume(SoundManager.instance.soundFXObject, SoundManager.instance.tickingClockClip, this.transform, true, 1f, 1f);
     }
 }

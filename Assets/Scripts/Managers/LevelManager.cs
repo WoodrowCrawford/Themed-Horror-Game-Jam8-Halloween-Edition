@@ -7,7 +7,7 @@ public class LevelManager : MonoBehaviour
 {
     public static LevelManager instance;
 
-
+   
 
     [Header("Loading Screen Values")]
     [SerializeField] private Canvas _loadingScreenCanvas;
@@ -51,19 +51,19 @@ public class LevelManager : MonoBehaviour
 
         _loadingScreenCanvas.gameObject.SetActive(true);
 
-
+        //while the loading screen is not finished
         while (!operation.isDone)
         {
             float progressValue = Mathf.Clamp01(operation.progress / 0.9f);
-            
-
 
            _loadingBarFill.fillAmount = progressValue;
 
             yield return null;
         }
 
-       _loadingScreenCanvas.gameObject.SetActive(false);
+       
+
+        _loadingScreenCanvas.gameObject.SetActive(false);
 
     }
    

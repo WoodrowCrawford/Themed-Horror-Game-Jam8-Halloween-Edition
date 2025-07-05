@@ -4,7 +4,7 @@ public class JackInTheBoxDisabledState : JackInTheBoxBaseState
 {
     public override void EnterState(JackInTheBoxStateManager jackInTheBox)
     {
-        SoundFXManager.instance.StopSoundFXClip(SoundFXManager.instance.musicBoxLoopClip);
+        SoundManager.instance.StopSoundFXClip(SoundManager.instance.musicBoxLoopClip);
     }
 
     public override void UpdateState(JackInTheBoxStateManager jackIntheBox)

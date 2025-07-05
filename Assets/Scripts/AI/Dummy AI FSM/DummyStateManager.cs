@@ -20,10 +20,6 @@ public class DummyStateManager : MonoBehaviour, IInteractable
     public DummyAttackState attackState = new DummyAttackState();                           //the attack state for the dummy
 
 
-    
-
-
-
 
     [Header("Core")]
     public GameObject dummyThisBelongsTo;                                 //dummy this belongs to 
@@ -148,24 +144,6 @@ public class DummyStateManager : MonoBehaviour, IInteractable
 
     ////////////////////////////////////////////////////////////////
 
-
-    private void OnEnable()
-    {
-        //disables the ai when the game is over
-        GameOverBehavior.onGameOver += DisableAI;
-     
-    }
-
-
-    private void OnDisable()
-    {
-       GameOverBehavior.onGameOver -= DisableAI;
-    }
-
-
-    
-
-    //Gets the components for the ai on startup
     private void Awake()
     {
         _agent = GetComponent<NavMeshAgent>();
@@ -174,7 +152,31 @@ public class DummyStateManager : MonoBehaviour, IInteractable
     }
 
 
-    // Start is called before the first frame update
+    private void OnEnable()
+    {
+        TimelineManager.onPlayDummy1Jumpscare += DisableAI;
+        TimelineManager.onPlayDummy2Jumpscare += DisableAI;
+     
+        //disables the ai when the game is won
+        WinBehavior.onWin += DisableAI;
+       
+
+    }
+
+
+    private void OnDisable()
+    {
+        TimelineManager.onPlayDummy1Jumpscare -= DisableAI;
+        TimelineManager.onPlayDummy2Jumpscare -= DisableAI;     
+     
+        WinBehavior.onWin -= DisableAI;
+     
+    }
+
+   
+
+
+
     void Start()
     {
         //Starts the ai in the inactive state by default
@@ -187,7 +189,8 @@ public class DummyStateManager : MonoBehaviour, IInteractable
         currentState.EnterState(this);
     }
 
-    // Update is called once per frame
+
+ 
     void Update()
     {
         //Gets the reference to the state that is currently being used
@@ -454,6 +457,22 @@ public class DummyStateManager : MonoBehaviour, IInteractable
         else if(DayManager.instance.currentDay == DayManager.Days.DEMO && DayManager.instance.currentDemoNightTask == DemoNight.DemoNightTasks.EXAMINE_ROOM)
         {
             DialogueUIBehavior.instance.ShowDialogue(_dummyTutorialDialogue);
+        }
+    }
+
+
+    public void PlayFootstepSound()
+    {
+        //first get the list of dummy footsteps
+        for (int i = 0; i < SoundManager.instance.dummyFootsteps.Length; i++)
+        {
+            //find a random number 1 through the lentgh of the array
+            int soundToPlay = Random.Range(0, SoundManager.instance.dummyFootsteps.Length);
+
+            //Play the sound with the given index
+            SoundManager.instance.PlaySoundFXClip(SoundManager.instance.soundFXObject, SoundManager.instance.dummyFootsteps[soundToPlay], dummyThisBelongsTo.transform, false, 1f);
+
+          
         }
     }
 

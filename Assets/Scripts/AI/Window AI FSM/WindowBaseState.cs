@@ -1,4 +1,6 @@
 
+using System.Collections;
+
 public abstract class WindowBaseState
 {
     public delegate void Exit();

@@ -200,12 +200,12 @@ public class FlashlightBehavior : MonoBehaviour
 
 
         //If the game is not paused and the flash light is on..
-        if(!PauseSystem.instance.isPaused && _flashlightOn && PlayerInputBehavior.playerCanUseFlashlight)
+        if(!PauseSystem.isPaused && _flashlightOn && PlayerInputBehavior.playerCanUseFlashlight)
         {
             if(DialogueUIBehavior.IsOpen) { return; }
 
             //play turn off sound
-            SoundFXManager.instance.PlaySoundFXClipAtSetVolume(SoundFXManager.instance.flashlightClickOffClip, this.transform, false, 0f, 0.4f);
+            SoundManager.instance.PlaySoundFXClipAtSetVolume(SoundManager.instance.soundFXObject, SoundManager.instance.flashlightClickOffClip, this.transform, false, 0f, 0.01f);
 
             //turn off the flashlight component
             _playerLight.GetComponent<Light>().enabled = false;
@@ -224,12 +224,12 @@ public class FlashlightBehavior : MonoBehaviour
         }
 
         //if the game is not paused and the flashlight is off
-        else if (!PauseSystem.instance.isPaused && !_flashlightOn && PlayerInputBehavior.playerCanUseFlashlight)
+        else if (!PauseSystem.isPaused && !_flashlightOn && PlayerInputBehavior.playerCanUseFlashlight)
         {
             if (DialogueUIBehavior.IsOpen) { return; }
 
             //play turn on sound
-            SoundFXManager.instance.PlaySoundFXClipAtSetVolume(SoundFXManager.instance.flashlightClickOnClip, this.transform, false, 0f, 0.4f);
+            SoundManager.instance.PlaySoundFXClipAtSetVolume(SoundManager.instance.soundFXObject, SoundManager.instance.flashlightClickOnClip, this.transform, false, 0f, 0.01f);
 
             //turn on the flashlight component
             _playerLight.GetComponent<Light>().enabled = true;

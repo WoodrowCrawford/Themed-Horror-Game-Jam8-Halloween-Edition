@@ -5,7 +5,7 @@ public class UIButtonPointerEventHandler : MonoBehaviour, IPointerEnterHandler, 
 {
     public void OnPointerEnter(PointerEventData eventData)
     {
-        SoundFXManager.instance.PlaySoundFXClip(SoundFXManager.instance.buttonHoverClip, this.transform, false, 0f);
+        SoundManager.instance.PlaySoundFXClip(SoundManager.instance.uiSoundObject, SoundManager.instance.buttonHoverClip, this.transform, false, 0f);
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -13,12 +13,12 @@ public class UIButtonPointerEventHandler : MonoBehaviour, IPointerEnterHandler, 
        if(gameObject.name == "BackButton")
         {
             //play back sound
-            SoundFXManager.instance.PlaySoundFXClip(SoundFXManager.instance.backButtonClickClip, this.transform, false, 0f);
+            SoundManager.instance.PlaySoundFXClip(SoundManager.instance.uiSoundObject, SoundManager.instance.backButtonClickClip, this.transform, false, 0f);
         }
         else
         {
             //play normal sound
-            SoundFXManager.instance.PlaySoundFXClip(SoundFXManager.instance.buttonClickClip, this.transform, false, 0f);
+            SoundManager.instance.PlaySoundFXClip(SoundManager.instance.uiSoundObject, SoundManager.instance.buttonClickClip, this.transform, false, 0f);
 
         }
     }  
