@@ -8,12 +8,13 @@ public class ClownStateManager : MonoBehaviour, IInteractable
     public HighlightBehavior highlightBehavior;
 
 
-    [Header("States")]
+    //States
     ClownBaseState currentState;                                                 //The current state the clown is in
     public ClownInactiveState inactiveState = new ClownInactiveState();          //The inactive state of the clown
     public ClownDisabledState disabledState = new ClownDisabledState();          //The disabled state of the clown
     public ClownLayingDownState layingDownState = new ClownLayingDownState();    //The laying down state of the clown
     public ClownGettingUpState gettingUpState = new ClownGettingUpState();       //The getting up state of the clown
+    public ClownWanderState wanderState = new ClownWanderState();                //The wander state of the clown
     public ClownChaseState chasePlayerState = new ClownChaseState();             //The chase state of the clown
     public ClownAttackState attackState = new ClownAttackState();                //The attack state of the clown
 
@@ -21,13 +22,18 @@ public class ClownStateManager : MonoBehaviour, IInteractable
     [Header("Clown Values")]
     [SerializeField] private NavMeshAgent _agent;
     [SerializeField] private Animator _animator;
+    public GameObject clownModel;
 
 
     [Header("Targets")]
     [SerializeField] private GameObject _playerRef;
-    [SerializeField] private GameObject _target;
+    public GameObject currentTarget;
     [SerializeField] private GameObject _inBedTarget;
     private Vector3 _playerPos;
+
+    [Header("Wander Waypoints")]
+    public Transform[] waypoints;
+
 
     [Header("Postion")]
     [SerializeField] private Transform _originalPos;
@@ -39,12 +45,13 @@ public class ClownStateManager : MonoBehaviour, IInteractable
 
 
     [Header("Laying down state values")]
-    private bool _clownIsUp = false;
+    [SerializeField] private bool _clownIsUp = false;
 
-
+    [Header("Wander state values")]
+    public bool clownCanWander = false;
 
     [Header("Chase player values")]
-    private bool _clownIsChasing = false;
+    [SerializeField] private bool _clownIsChasing = false;
 
     [Header("Attack state values")]
     public static bool clownKilledPlayer = false;
@@ -66,7 +73,7 @@ public class ClownStateManager : MonoBehaviour, IInteractable
     public bool ClownIsUp { get {  return _clownIsUp; } }
 
     public GameObject PlayerRef { get { return _playerRef; } }
-    public GameObject Target { get { return _target; } set { _target = value; } }
+    public GameObject Target { get { return currentTarget; } set { currentTarget = value; } }
     public GameObject InBedTarget { get { return _inBedTarget; } }
 
     public Vector3 PlayerPos { get { return _playerPos; } set { _playerPos = value; } }
@@ -92,7 +99,7 @@ public class ClownStateManager : MonoBehaviour, IInteractable
         //disables the ai when the game is won
         WinBehavior.onWin += DisableAI;
 
-        JackInTheBoxOpenState.onJackInTheBoxOpened += () => SwitchState(gettingUpState);
+        JackInTheBoxOpenState.onJackInTheBoxOpened += CallSwitchToGettingUpState;
 
     }
 
@@ -103,12 +110,8 @@ public class ClownStateManager : MonoBehaviour, IInteractable
 
         WinBehavior.onWin -= DisableAI;
 
-        JackInTheBoxOpenState.onJackInTheBoxOpened -= () => SwitchState(gettingUpState);
+        JackInTheBoxOpenState.onJackInTheBoxOpened -= CallSwitchToGettingUpState;
     }
-
-
-
-   
 
 
     void Start()
@@ -123,6 +126,8 @@ public class ClownStateManager : MonoBehaviour, IInteractable
         currentState.EnterState(this);
     }
 
+
+
     // Update is called once per frame
     void Update()
     {
@@ -134,6 +139,13 @@ public class ClownStateManager : MonoBehaviour, IInteractable
     {
         currentState = state;
         state.EnterState(this);
+    }
+
+
+    public void CallSwitchToGettingUpState()
+    {
+        //Switches to the getting up state
+        SwitchState(gettingUpState);
     }
 
 
@@ -173,16 +185,16 @@ public class ClownStateManager : MonoBehaviour, IInteractable
         float minDistance = Agent.stoppingDistance;
 
         //sets the distance
-        float distance = Vector3.Distance(_target.transform.position, transform.position);
+        float distance = Vector3.Distance(currentTarget.transform.position, transform.position);
 
         // If the target is in the bed and can be caught and the enemy reaches the destination...
-        if (distance <= minDistance && PlayerInputBehavior.playerCanGetCaught && _target == InBedTarget)
+        if (distance <= minDistance && PlayerInputBehavior.playerCanGetCaught && currentTarget == InBedTarget)
         {
             Debug.Log("clown Reached in bed target!");
         }
 
         //else if the player is in range and the player can be caught and the dummy is currently in the chase player state...
-        else if (distance <= (minDistance + 2) && _target == PlayerRef && PlayerInputBehavior.playerCanGetCaught && currentState == chasePlayerState)
+        else if (distance <= (minDistance + 2) && currentTarget == PlayerRef && PlayerInputBehavior.playerCanGetCaught && currentState == chasePlayerState)
         {
             //if the ai is close to the player and is active...
 
@@ -219,7 +231,7 @@ public class ClownStateManager : MonoBehaviour, IInteractable
 
 
         //Sets the agents destination to be the target
-        Agent.SetDestination(_target.transform.position);
+        Agent.SetDestination(currentTarget.transform.position);
     }
 
     public void Interact(Interactor Interactor)

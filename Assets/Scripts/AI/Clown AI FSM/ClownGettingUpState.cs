@@ -17,7 +17,7 @@ public class ClownGettingUpState : ClownBaseState
         if(clown.ClownIsUp)
         {
             //switch to the chase state
-            clown.SwitchState(clown.chasePlayerState);
+            clown.SwitchState(clown.wanderState);
         }
     }
 }

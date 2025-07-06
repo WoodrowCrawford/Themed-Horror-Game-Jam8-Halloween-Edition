@@ -6,6 +6,7 @@ using Unity.Cinemachine;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.Rendering;
 
 
 //A script that controls the creation on sounds in the game with different sound types
@@ -45,6 +46,9 @@ public class SoundManager : MonoBehaviour
 
     [Header("Dummy Footstep Clips")]
     public AudioClip[] dummyFootsteps;
+
+    [Header("Clown Sound Clips")]
+    public AudioClip clownApperanceClip;
 
     [Header("Jack In The Box Clips")]
     public AudioClip musicBoxLoopClip;
@@ -137,6 +141,8 @@ public class SoundManager : MonoBehaviour
     }
 
 
+   
+
     public void PlaySoundFXClipAtSetVolume(AudioSource audioSourceType, AudioClip audioClip, Transform spawnTransform, bool loop, float spatialBlend, float volume)
     {
         //spawn in game object
@@ -182,6 +188,66 @@ public class SoundManager : MonoBehaviour
             return;
         }
     }
+
+
+    public void PlaySoundFXClipAndAttachToGameObject(AudioSource audioSourceType, AudioClip audioClip, Transform spawnTransform, bool loop, float spatialBlend, float volume, GameObject gameObjectToAttachTo)
+    {
+        //spawn in game object
+        AudioSource audioSource = Instantiate(audioSourceType, spawnTransform.position, Quaternion.identity);
+
+        //Attach the audio source to the game object
+        audioSource.transform.SetParent(gameObjectToAttachTo.transform);
+
+
+        //get the atmoky source component from the game object
+        Atmoky.Source atmokySource = soundFXObject.GetComponent<Atmoky.Source>();
+
+        //if the sound type is ui sound
+        if (audioSourceType == uiSoundObject)
+        {
+            //make it so that the audio source doesnt stop when the game pauses
+            audioSource.ignoreListenerPause = true;
+        }
+
+
+        //assign atmoky source values
+        atmokySource.nfeDistance = 1f;
+        atmokySource.nfeGain = 4f;
+
+        //assign audio clip
+        audioSource.clip = audioClip;
+
+        //assign the audio loop
+        audioSource.loop = loop;
+
+        //assign the audio spatial blend
+        audioSource.spatialBlend = spatialBlend;
+
+        //assign the volume
+        audioSource.volume = volume;
+
+
+        //play sound
+        audioSource.Play();
+        
+
+        //if loop is not enabled
+        if (!loop)
+        {
+            //get length of sound FX clip
+            float clipLength = audioSource.clip.length;
+
+            //destroy the clip after it is done playing
+            Destroy(audioSource.gameObject, clipLength);
+
+           
+        }
+        else
+        {
+            return;
+        }
+    }
+
 
 
 
@@ -239,6 +305,9 @@ public class SoundManager : MonoBehaviour
         //the sound is not playing
         return false;
     }
+
+
+    
 }
 
 

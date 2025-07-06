@@ -5,8 +5,25 @@ public class ClownDisabledState : ClownBaseState
 {
     public override void EnterState(ClownStateManager clown)
     {
-        Debug.Log("Clown is in the disabled state");
-        
+        //stop the clown appearance sound effect if it is playing
+        SoundManager.instance.StopSoundFXClip(SoundManager.instance.clownApperanceClip);
+
+        //if the clown is not active
+        if (!clown.Agent.isActiveAndEnabled)
+        {
+            //return
+            return;
+        }
+        else
+        {
+            //Set the dummy velocity to 0
+            clown.Agent.velocity = Vector3.zero;
+
+            clown.Agent.isStopped = true;
+            //set the animator speed value to 0
+            clown.Animator.SetFloat("Speed", 0);
+        }
+
     }
 
     public override void UpdateState(ClownStateManager clown)

@@ -9,11 +9,15 @@ public class ClownLayingDownState : ClownBaseState
         clown.highlightBehavior.isActive = false;
 
 
-        
-
         //change the layer of the clown to be enemy so that the player can not interact with it
         clown.gameObject.layer = 11;
 
+
+        //disable the clown's collider
+        clown.GetComponent<Collider>().enabled = false;
+
+        //hide the clown's mesh renderer
+        clown.clownModel.GetComponent<SkinnedMeshRenderer>().enabled = false;
 
         //changes the layer in each childed object in the clown
         var children = clown.GetComponentsInChildren<Transform>(includeInactive: true);

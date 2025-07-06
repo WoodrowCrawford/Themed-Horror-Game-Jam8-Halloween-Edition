@@ -53,13 +53,13 @@ public class DemoNight : BaseDay
         PlayerInputBehavior.playerCanSleep = true;
 
         //Make enemies active here
-        GhoulStateManager.InitializeGhoulValues(instance.Ghoul, 15, 35, true);
-        WindowStateManager.InitializeWindowValues(instance.Window, 9, 20, 6, 10, true);
-        JackInTheBoxStateManager.InitializeJackInTheBox(instance.JackInTheBox, 2f, 0.8f, true);
+        GhoulStateManager.InitializeGhoulValues(instance.Ghoul, 15, 35, false);
+        WindowStateManager.InitializeWindowValues(instance.Window, 9, 20, 6, 10, false);
+        JackInTheBoxStateManager.InitializeJackInTheBox(instance.JackInTheBox, 2f, 20f, true);
         ClownStateManager.InitializeClown(instance.Clown, true);  
 
-        DummyStateManager.InitializeDummyValues(instance.Dummy1, 3f, 6f, 10f, 20f, true, new Vector3(0.5f, 0.5f, 0.5f));
-        DummyStateManager.InitializeDummyValues(instance.Dummy2, 3f, 6f, 10f, 20f, true, new Vector3(0.5f, 0.5f, 0.5f));
+        DummyStateManager.InitializeDummyValues(instance.Dummy1, 3f, 6f, 10f, 20f, false, new Vector3(0.5f, 0.5f, 0.5f));
+        DummyStateManager.InitializeDummyValues(instance.Dummy2, 3f, 6f, 10f, 20f, false, new Vector3(0.5f, 0.5f, 0.5f));
 
 
 

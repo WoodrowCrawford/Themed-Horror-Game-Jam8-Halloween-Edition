@@ -12,6 +12,7 @@ public class GhoulStateManager : MonoBehaviour
 
     GhoulBaseState currentState;                                         //The current state that the ghoul is in
     public GhoulInactiveState inactiveState = new GhoulInactiveState();  //Inactive state for the ghoul
+    public GhoulDisabledState disabledState = new GhoulDisabledState();  //Disabled state for the ghoul (for when game is won or lost)
     public GhoulPatrolState patrolState = new GhoulPatrolState();        //Patrol state for the ghoul
     public GhoulWanderState wanderState = new GhoulWanderState();        //Wander state for the ghoul
     public GhoulChaseState chaseState = new GhoulChaseState();           //Chase state for the ghoul
@@ -85,7 +86,8 @@ public class GhoulStateManager : MonoBehaviour
 
     private void OnEnable()
     {
-        
+        GameOverBehavior.onGameOver += SwitchToDisabledState;
+        WinBehavior.onWin += SwitchToDisabledState;
 
         GhoulBaseState.onSwitchState += inactiveState.ExitState;
         GhoulBaseState.onSwitchState += patrolState.ExitState;
@@ -96,6 +98,9 @@ public class GhoulStateManager : MonoBehaviour
 
     private void OnDisable()
     {
+        GameOverBehavior.onGameOver -= SwitchToDisabledState;
+        WinBehavior.onWin -= SwitchToDisabledState;
+
         GhoulBaseState.onSwitchState -= inactiveState.ExitState;
         GhoulBaseState.onSwitchState -= patrolState.ExitState;
         GhoulBaseState.onSwitchState -= wanderState.ExitState;
@@ -136,6 +141,10 @@ public class GhoulStateManager : MonoBehaviour
      
     }
 
+    public void SwitchToDisabledState()
+    {
+        SwitchState(disabledState);
+    }
 
     public static void InitializeGhoulValues(GameObject ghoul, float minSecondsToWait, float maxSecondsToWait, bool isActive)
     {

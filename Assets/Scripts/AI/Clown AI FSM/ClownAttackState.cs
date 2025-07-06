@@ -8,6 +8,12 @@ public class ClownAttackState : ClownBaseState
         {
             Debug.Log("Clown is in the attack state");
 
+            //enable the clown's collider
+            clown.GetComponent<Collider>().enabled = true;
+
+            //show the clown's mesh renderer
+            clown.clownModel.GetComponent<SkinnedMeshRenderer>().enabled = true;
+
             //calls the clown jumpscare event
             TimelineManager.onPlayClownJumpscare?.Invoke();
 

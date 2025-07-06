@@ -61,12 +61,14 @@ public class JackInTheBoxStateManager : MonoBehaviour, IInteractable
 
     private void OnEnable()
     {
-        GameOverBehavior.onGameOver += () => SwitchState(disabledState);
+        GameOverBehavior.onGameOver += SwitchToDisabledState;
+        WinBehavior.onWin += SwitchToDisabledState;
     }
 
     private void OnDisable()
     {
-        GameOverBehavior.onGameOver += () => SwitchState(disabledState);
+        GameOverBehavior.onGameOver -= SwitchToDisabledState;
+        WinBehavior.onWin -= SwitchToDisabledState;
     }
 
 
@@ -131,6 +133,10 @@ public class JackInTheBoxStateManager : MonoBehaviour, IInteractable
         state.EnterState(this);
     }
 
+    public void SwitchToDisabledState()
+    {
+        SwitchState(disabledState);
+    }
 
     
 
