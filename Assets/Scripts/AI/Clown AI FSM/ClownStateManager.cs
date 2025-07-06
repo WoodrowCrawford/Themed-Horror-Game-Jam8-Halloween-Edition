@@ -177,6 +177,11 @@ public class ClownStateManager : MonoBehaviour, IInteractable
 
     }
 
+    public void CallAttackTrigger()
+    {
+        Animator.SetTrigger("Attack");
+    }
+
 
     //A function used to check if the player is in range
     public void CheckIfTargetIsInRange()

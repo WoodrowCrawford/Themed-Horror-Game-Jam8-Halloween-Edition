@@ -6,6 +6,12 @@ public class ClownAttackState : ClownBaseState
     {
         if(PlayerInputBehavior.playerCanGetCaught)
         {
+            //stop the clown appearance sound if it is playing
+            SoundManager.instance.StopSoundFXClip(SoundManager.instance.clownApperanceClip);
+
+            //calls the clown jumpscare event
+            TimelineManager.onPlayClownJumpscare?.Invoke();
+
             Debug.Log("Clown is in the attack state");
 
             //enable the clown's collider
@@ -14,8 +20,7 @@ public class ClownAttackState : ClownBaseState
             //show the clown's mesh renderer
             clown.clownModel.GetComponent<SkinnedMeshRenderer>().enabled = true;
 
-            //calls the clown jumpscare event
-            TimelineManager.onPlayClownJumpscare?.Invoke();
+
 
             //let the game know that the clown killed the player
             ClownStateManager.clownKilledPlayer = true;

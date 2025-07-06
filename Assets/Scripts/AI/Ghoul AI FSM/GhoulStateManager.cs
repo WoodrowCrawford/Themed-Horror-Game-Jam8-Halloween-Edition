@@ -171,6 +171,8 @@ public class GhoulStateManager : MonoBehaviour
         Animator.SetFloat("Speed", Agent.velocity.magnitude);
     }
 
+    
+
 
     public void UpdateDestination()
     {
