@@ -4,7 +4,6 @@ using static DayManager;
 
 public class SundayMorning : BaseDay
 {
-    
 
     public enum SundayMorningTasks
     {
@@ -36,7 +35,7 @@ public class SundayMorning : BaseDay
 
     public override void UpdateState(DayManager day)
     {
-        Debug.Log("sunday morning update state");
+        return;
     }
 
     
@@ -50,12 +49,10 @@ public class SundayMorning : BaseDay
 
     public IEnumerator StartSundayMorning()
     {
-       
-
+      
         //the player is not able to sleep
         PlayerInputBehavior.playerCanSleep = false;
 
-       
 
         instance.CallShowTodaysDate();
 
@@ -70,8 +67,6 @@ public class SundayMorning : BaseDay
         instance.currentDay = Days.SUNDAY_MORNING;
       
 
-
-
         //wait until the screen is finished loading
         yield return new WaitUntil(() => TodaysDateBehavior.instance.loadingScreenFinished);
 
@@ -81,11 +76,9 @@ public class SundayMorning : BaseDay
         OnDayTime.Invoke();
 
 
-
         //Initializes the dummies
         DummyStateManager.InitializeDummyValues(instance.Dummy1, 0, 0, 0, 0, false, new Vector3(0.5f, 0.5f, 0.5f));
         DummyStateManager.InitializeDummyValues(instance.Dummy2, 0, 0, 0, 0, false, new Vector3(0.5f, 0.5f, 0.5f));
-
 
 
         //Initializes the clown
@@ -94,10 +87,6 @@ public class SundayMorning : BaseDay
 
         //Initialize the ghoul
         GhoulStateManager.InitializeGhoulValues(instance.Ghoul, 0, 0, false);
-
-
-
-
 
 
 
@@ -184,10 +173,7 @@ public class SundayMorning : BaseDay
         //switch to the next state, day
 
 
-
-
-
-        yield return null;
+        yield break;
     }
 
   

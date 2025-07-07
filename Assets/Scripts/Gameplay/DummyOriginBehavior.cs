@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -16,7 +14,7 @@ public class DummyOriginBehavior : MonoBehaviour
         if(other.gameObject == _dummyThisBelongsTo.gameObject)
         {
             _dummyThisBelongsTo.GetComponent<DummyStateManager>().dummyIsAtOrigin = true;
-           
+    
         }
         
     }

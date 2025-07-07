@@ -11,33 +11,28 @@ public class GhoulPatrolState : GhoulBaseState
         ghoul.SetSecondsToWait();
 
         ghoulStateManager  = Object.FindFirstObjectByType<GhoulStateManager>();
-   
+
+        //sets the agent speed
+        ghoul.Agent.speed = 2f;
     }
 
     
     public override void UpdateState(GhoulStateManager ghoul)
     {
-        Debug.Log("Ghoul is patrolling");
-
-        //sets the agent speed
-        ghoul.Agent.speed = 2f;
-
-       
-
         ghoul.CheckIfAgentReachedDestination();
-       ghoul.AnimateGhoul();
-    
+        ghoul.AnimateGhoul();
 
-        if(ghoul.ghoulSightBehavior.canSeePlayer)
+
+        if (ghoul.ghoulSightBehavior.canSeePlayer)
         {
-            Debug.Log("Ghoul can see you");
             ghoul.SwitchState(ghoul.chaseState);
         }
+
     }
 
     public override void ExitState()
     {
-        
+        return;
     }
 
 }

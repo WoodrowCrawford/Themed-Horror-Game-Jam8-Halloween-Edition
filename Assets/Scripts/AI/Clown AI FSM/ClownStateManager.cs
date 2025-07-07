@@ -131,8 +131,17 @@ public class ClownStateManager : MonoBehaviour, IInteractable
     // Update is called once per frame
     void Update()
     {
-        //Gets the reference to the state that is currently being used
-        currentState.UpdateState(this);
+        if(!PauseSystem.isPaused)
+        {
+            //Gets the reference to the state that is currently being used
+            currentState.UpdateState(this);
+        }
+        else
+        {
+            return;
+        }
+
+       
     }
 
     public void SwitchState(ClownBaseState state)

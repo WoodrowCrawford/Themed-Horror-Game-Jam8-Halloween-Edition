@@ -58,7 +58,6 @@ public class GameOverBehavior : MonoBehaviour
         //Removes the reset game over state event
         GameManager.onGameStarted -= ResetGameOverState;
         
-       
     }
 
 

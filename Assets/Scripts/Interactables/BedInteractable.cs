@@ -36,34 +36,42 @@ public class BedInteractable : MonoBehaviour, IInteractable
 
     private void Update()
     {
-        //if it is the demo night and the task is to examine the room and the player is NOT in the bed...
-        if (DayManager.instance.currentDay == DayManager.Days.DEMO && DayManager.instance.currentDemoNightTask == DemoNight.DemoNightTasks.EXAMINE_ROOM && !PlayerInputBehavior.inBed)
+        if(!PauseSystem.isPaused)
         {
-            //change the interaction prompt
-            _interactionPrompt = "Examine";
-            highlightBehavior.isActive = true;
-        }
+            //if it is the demo night and the task is to examine the room and the player is NOT in the bed...
+            if (DayManager.instance.currentDay == DayManager.Days.DEMO && DayManager.instance.currentDemoNightTask == DemoNight.DemoNightTasks.EXAMINE_ROOM && !PlayerInputBehavior.inBed)
+            {
+                //change the interaction prompt
+                _interactionPrompt = "Examine";
+                highlightBehavior.isActive = true;
+            }
 
-        //else if it is the demo night and the task is to examine the room and the player is in the bed...
-        else if (DayManager.instance.currentDay == DayManager.Days.DEMO && DayManager.instance.currentDemoNightTask == DemoNight.DemoNightTasks.EXAMINE_ROOM && PlayerInputBehavior.inBed)
-        {
-            //change the interaction prompt
-            _interactionPrompt = "Start the night";
-            highlightBehavior.isActive = true;
-        }
+            //else if it is the demo night and the task is to examine the room and the player is in the bed...
+            else if (DayManager.instance.currentDay == DayManager.Days.DEMO && DayManager.instance.currentDemoNightTask == DemoNight.DemoNightTasks.EXAMINE_ROOM && PlayerInputBehavior.inBed)
+            {
+                //change the interaction prompt
+                _interactionPrompt = "Start the night";
+                highlightBehavior.isActive = true;
+            }
 
-        //else if it is the demo night and the task is to sleep and the player is NOT in bed...
-        else if(DayManager.instance.currentDay == DayManager.Days.DEMO && DayManager.instance.currentDemoNightTask == DemoNight.DemoNightTasks.SLEEP && !PlayerInputBehavior.inBed)
-        {
-            _interactionPrompt = "Get in bed";
-            highlightBehavior.isActive = true;
-        }
+            //else if it is the demo night and the task is to sleep and the player is NOT in bed...
+            else if (DayManager.instance.currentDay == DayManager.Days.DEMO && DayManager.instance.currentDemoNightTask == DemoNight.DemoNightTasks.SLEEP && !PlayerInputBehavior.inBed)
+            {
+                _interactionPrompt = "Get in bed";
+                highlightBehavior.isActive = true;
+            }
 
-        else if(DayManager.instance.currentDay == DayManager.Days.DEMO && DayManager.instance.currentDemoNightTask == DemoNight.DemoNightTasks.SLEEP && PlayerInputBehavior.inBed)
-        {
-            _interactionPrompt = "";
-            highlightBehavior.isActive = false;
+            else if (DayManager.instance.currentDay == DayManager.Days.DEMO && DayManager.instance.currentDemoNightTask == DemoNight.DemoNightTasks.SLEEP && PlayerInputBehavior.inBed)
+            {
+                _interactionPrompt = "";
+                highlightBehavior.isActive = false;
+            }
         }
+        else
+        {
+            return;
+        }
+       
     }
 
 

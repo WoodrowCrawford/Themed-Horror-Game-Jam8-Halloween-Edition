@@ -33,11 +33,9 @@ public class LevelManager : MonoBehaviour
 
     public void LoadScene(string sceneName)
     {
-        
-
+       
         //starts the loading scene corutine
         StartCoroutine(LoadSceneAsync(sceneName));
-
         
     }
 

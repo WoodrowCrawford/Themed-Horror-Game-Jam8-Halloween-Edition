@@ -9,7 +9,7 @@ public class MondayNight : BaseDay
 
     public override void ExitState()
     {
-        Debug.Log("monday night exit state");
+        return;
     }
 
  

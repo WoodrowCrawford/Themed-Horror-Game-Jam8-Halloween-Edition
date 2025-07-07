@@ -21,7 +21,7 @@ public class GhoulAttackState : GhoulBaseState
     
     public override void UpdateState(GhoulStateManager ghoul)
     {
-       
+        return;
     }
     
     public override void ExitState()

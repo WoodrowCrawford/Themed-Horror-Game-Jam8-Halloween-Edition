@@ -58,12 +58,9 @@ public class DemoNight : BaseDay
         JackInTheBoxStateManager.InitializeJackInTheBox(instance.JackInTheBox, 2f, 20f, false);
         ClownStateManager.InitializeClown(instance.Clown, false);  
 
-        DummyStateManager.InitializeDummyValues(instance.Dummy1, 3f, 6f, 10f, 20f, true, new Vector3(0.5f, 0.5f, 0.5f));
-        DummyStateManager.InitializeDummyValues(instance.Dummy2, 3f, 6f, 10f, 20f, true, new Vector3(0.5f, 0.5f, 0.5f));
+        DummyStateManager.InitializeDummyValues(instance.Dummy1, 3f, 5f, 9f, 25f, true, new Vector3(0.5f, 0.5f, 0.5f));
+        DummyStateManager.InitializeDummyValues(instance.Dummy2, 3f, 5f, 10f, 25f, true, new Vector3(0.5f, 0.5f, 0.5f));
 
-
-
-        Debug.Log("sleep task event is running");
 
         //Tell the flashlight that it can start delpleting the battery
         FlashlightBehavior.flashlightCanDeplete = true;
@@ -81,11 +78,8 @@ public class DemoNight : BaseDay
         FlashlightBehavior.flashlightCanDeplete = false;
 
 
-
         instance.currentDay = Days.DEMO;
-       
-
-       
+      
 
         instance.CallShowTodaysDate();
 
@@ -127,8 +121,8 @@ public class DemoNight : BaseDay
             SleepTask();
         }
 
-        
-        
-        yield return null;
+
+        yield break;
     }
+
 }

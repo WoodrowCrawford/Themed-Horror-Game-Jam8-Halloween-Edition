@@ -59,8 +59,7 @@ public class FlashlightBehavior : MonoBehaviour
 
     private void Start()
     {
-        
-
+       
         //if it is daytime...
         if (GraphicsBehavior.instance.IsDayTime)
         {
@@ -72,7 +71,6 @@ public class FlashlightBehavior : MonoBehaviour
             //set to be true
             _flashlightOn = true;
 
-            
         }
     }
 
@@ -80,15 +78,19 @@ public class FlashlightBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-    
-        //checks to see if the player is sleeping
-        CheckIfPlayerIsSleeping();
+        if (!PauseSystem.isPaused)
+        {
+            //checks to see if the player is sleeping
+            CheckIfPlayerIsSleeping();
 
-        //handles the battery power for the flashlight
-        HandleFlashlightBatteryPower();
-
-
-       
+            //handles the battery power for the flashlight
+            HandleFlashlightBatteryPower();
+        }
+        else
+        {
+            return;
+        }
+        
     }
 
   

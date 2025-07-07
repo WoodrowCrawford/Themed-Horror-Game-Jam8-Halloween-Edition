@@ -70,23 +70,31 @@ public class WardrobeBehavior : MonoBehaviour, IInteractable
 
     private void Update()
     {
-        //if the player can get in the wardrobe and the get in bed action was performed this frame
-        if (_playerCanGetInWardrobe && playerInputBehavior.playerControls.OutOfBed.GetInBed.WasPerformedThisFrame())
+        if (!PauseSystem.isPaused)
         {
-            ToggleGetInOutOfWardrobe();
-        }
-
-        //if the current night is the demo night...
-        if(DayManager.instance.currentDay == DayManager.Days.DEMO)
-        {
-            _interactionPrompt = "";
-            if(highlightBehavior != null)
+            //if the player can get in the wardrobe and the get in bed action was performed this frame
+            if (_playerCanGetInWardrobe && playerInputBehavior.playerControls.OutOfBed.GetInBed.WasPerformedThisFrame())
             {
-                highlightBehavior.isActive = false;
+                ToggleGetInOutOfWardrobe();
             }
 
-            
+            //if the current night is the demo night...
+            if (DayManager.instance.currentDay == DayManager.Days.DEMO)
+            {
+                _interactionPrompt = "";
+                if (highlightBehavior != null)
+                {
+                    highlightBehavior.isActive = false;
+                }
+
+            }
         }
+        else
+        {
+            return;
+        }
+
+       
        
     }
 

@@ -18,7 +18,8 @@ public class GhoulInactiveState : GhoulBaseState
         }
         else
         {
-            Debug.Log("Ghoul is inactive!");
+            //if the ghoul is not active, it will not do anything
+            return;
         }
     } 
     

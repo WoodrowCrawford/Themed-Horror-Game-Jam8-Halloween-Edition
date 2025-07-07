@@ -5,7 +5,6 @@ using UnityEngine.UI;
 public class MainMenuUIBehavior : MonoBehaviour
 {
 
-
     //book referecne
     [SerializeField] private GameObject _mainMenuBook;
 

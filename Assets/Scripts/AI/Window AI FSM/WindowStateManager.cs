@@ -80,7 +80,14 @@ public class WindowStateManager : MonoBehaviour, IInteractable
 
     private void Update()
     {
-        currentState.UpdateState(this); 
+        if (!PauseSystem.isPaused)
+        {
+            currentState.UpdateState(this);
+        }
+        else
+        {
+            return;
+        }
     }
 
     public void Interact(Interactor Interactor)

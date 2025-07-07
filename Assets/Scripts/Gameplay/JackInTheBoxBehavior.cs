@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
+
 
 public class JackInTheBoxBehavior : MonoBehaviour, IInteractable
 {
@@ -78,8 +78,6 @@ public class JackInTheBoxBehavior : MonoBehaviour, IInteractable
             case DayManager.Days.SUNDAY_NIGHT:
                 {
                     
-
-
                     break;
 
                 }

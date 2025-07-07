@@ -9,7 +9,7 @@ public class MondayMorning : BaseDay
 
     public override void UpdateState(DayManager day)
     {
-        Debug.Log("monday morning update state");
+        return;
     }
 
     public override void ExitState()

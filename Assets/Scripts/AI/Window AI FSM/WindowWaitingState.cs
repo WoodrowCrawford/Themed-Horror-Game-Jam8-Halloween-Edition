@@ -21,8 +21,7 @@ public class WindowWaitingState : WindowBaseState
 
     public override void UpdateState(WindowStateManager window)
     {
-        //testing
-        Debug.Log("window waiting state update");  
+        return;
     } 
     
 

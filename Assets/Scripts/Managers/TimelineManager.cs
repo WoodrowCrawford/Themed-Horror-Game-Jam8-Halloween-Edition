@@ -1,4 +1,3 @@
-using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.SceneManagement;

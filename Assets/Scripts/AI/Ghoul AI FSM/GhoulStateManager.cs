@@ -124,13 +124,23 @@ public class GhoulStateManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Gets the reference to the state that is currently being used
-        currentState.UpdateState(this);
+        if(!PauseSystem.isPaused)
+        {
+            //Gets the reference to the state that is currently being used
+            currentState.UpdateState(this);
+
+            _decimalPatrolTimer += Time.deltaTime;
+
+            _patrolTimer = Mathf.RoundToInt(_decimalPatrolTimer);
+        }
+
+        else
+        {
+            //If the game is paused, the ghoul will not update
+            return;
+        }
 
        
-        _decimalPatrolTimer += Time.deltaTime;
-
-        _patrolTimer = Mathf.RoundToInt(_decimalPatrolTimer);
     }
 
     public void SwitchState(GhoulBaseState state)

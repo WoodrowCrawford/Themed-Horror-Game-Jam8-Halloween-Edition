@@ -159,8 +159,6 @@ public class DummyStateManager : MonoBehaviour, IInteractable
      
         //disables the ai when the game is won
         WinBehavior.onWin += DisableAI;
-       
-
     }
 
 
@@ -193,9 +191,15 @@ public class DummyStateManager : MonoBehaviour, IInteractable
  
     void Update()
     {
-        //Gets the reference to the state that is currently being used
-        currentState.UpdateState(this);
-       
+        if(!PauseSystem.isPaused)
+        {
+            //Gets the reference to the state that is currently being used
+            currentState.UpdateState(this);
+        }
+        else
+        {
+            return;
+        }   
     }
 
 

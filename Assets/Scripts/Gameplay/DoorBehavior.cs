@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Transactions;
 using UnityEngine;
-using UnityEngine.UIElements;
+
 
 public class DoorBehavior : MonoBehaviour
 {
@@ -40,7 +37,7 @@ public class DoorBehavior : MonoBehaviour
             _animator.Play(DOOR_CLOSE, 0, 0.0f);
 
             SoundManager.instance.PlaySoundFXClip(SoundManager.instance.soundFXObject, SoundManager.instance.doorCloseClip, this.transform, false, 1f);
-            //gameObject.SetActive(true);
+           
         }
        
     }

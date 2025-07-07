@@ -11,7 +11,7 @@ public class TuesdayMorning : BaseDay
 
     public override void UpdateState(DayManager day)
     {
-        Debug.Log("Tuesday morning update state");
+        return;
     }
 
     public override void ExitState()

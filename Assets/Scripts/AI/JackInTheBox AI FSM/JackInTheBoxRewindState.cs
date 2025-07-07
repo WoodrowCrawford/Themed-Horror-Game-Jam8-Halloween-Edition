@@ -32,10 +32,5 @@ public class JackInTheBoxRewindState : JackInTheBoxBaseState
             //switch to the playing state
             jackIntheBox.SwitchState(jackIntheBox.playingState);
         }
-
-
-       
     }
-
-
 }

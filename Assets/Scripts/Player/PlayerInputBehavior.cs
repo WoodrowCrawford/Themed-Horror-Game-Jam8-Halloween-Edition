@@ -275,13 +275,21 @@ public class PlayerInputBehavior : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(_currentActionMap);
+        if(!PauseSystem.isPaused)
+        {
+            _yRotation = Mathf.CeilToInt(_playerBodyTransform.transform.eulerAngles.y);
 
-        
-        _yRotation = Mathf.CeilToInt(_playerBodyTransform.transform.eulerAngles.y);
+            if (playerCanLook)
+            {
+                HandleLook();
+            }
+               
+        }
+        else
+        {
+            return;
+        }
 
-        if (playerCanLook)
-            HandleLook();
 
        
     }
@@ -298,13 +306,6 @@ public class PlayerInputBehavior : MonoBehaviour
     public void DisableControls()
     {
         playerControls.Disable();
-
-        //playerCanPause = false;
-        //playerCanMove = false;
-        //playerCanInteract = false;
-        //playerCanGetOutOfBed = false;
-        //playerCanToggleUnderBed = false;
-        //playerCanLook = false;
     }
 
     public void DisableInteraction()

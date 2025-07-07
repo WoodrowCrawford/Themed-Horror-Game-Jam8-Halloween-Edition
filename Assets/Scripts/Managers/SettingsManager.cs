@@ -11,12 +11,6 @@ public class SettingsManager : MonoBehaviour
     public delegate void SettingsEventHandler();
 
 
-    
-
-   
-
-
-
 
     private void Awake()
     {
@@ -33,19 +27,6 @@ public class SettingsManager : MonoBehaviour
 
 
 
-    private void OnEnable()
-    {
-        
-
-        
-    }
-
-   
-    private void OnDisable()
-    {
-        
-
-    }
 
 
     public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -72,12 +53,9 @@ public class SettingsManager : MonoBehaviour
         //get the quality level on startup
         GetQualityLevel();
 
-        
     }
 
 
-
-    
 
     public void AdjustSensitivity(float value)
     {

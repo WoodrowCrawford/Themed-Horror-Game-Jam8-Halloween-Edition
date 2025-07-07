@@ -48,7 +48,6 @@ public class TodaysDateBehavior : MonoBehaviour
         loadingScreenFinished = false;
 
 
-       
 
         onDateStartedShowning?.Invoke();
 

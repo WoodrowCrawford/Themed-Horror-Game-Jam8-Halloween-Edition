@@ -10,14 +10,6 @@ public class WinBehavior : MonoBehaviour
 
     [SerializeField] private GameObject _winScreen; // The win screen
 
-  
-
-
-
-
-
-
-
 
 
     private void OnEnable()

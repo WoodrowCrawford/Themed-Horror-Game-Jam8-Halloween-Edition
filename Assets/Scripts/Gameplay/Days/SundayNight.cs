@@ -14,7 +14,7 @@ public class SundayNight : BaseDay
 
     public override void UpdateState(DayManager day)
     {
-        Debug.Log("Sunday night update state");
+        return;
     }
 
     
@@ -72,8 +72,6 @@ public class SundayNight : BaseDay
         //Initializes the clown
         ClownStateManager.InitializeClown(instance.Clown, false);
 
-        
-
 
         //Initialize the ghoul
         GhoulStateManager.InitializeGhoulValues(instance.Ghoul, 0, 0, false);
@@ -98,7 +96,7 @@ public class SundayNight : BaseDay
         //task = SundayMorningTasks.SLEEP;
 
 
-        yield return null;
+        yield break;
     }
 
     

@@ -28,7 +28,5 @@ public class DummyRunAwayState : DummyDefaultState
         {
             dummy.SwitchState(dummy.chasePlayerState);
         }
-
-       
     }
 }

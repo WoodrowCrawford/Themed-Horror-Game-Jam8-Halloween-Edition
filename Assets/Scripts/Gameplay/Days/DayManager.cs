@@ -136,7 +136,6 @@ public class DayManager : MonoBehaviour
         GameManager.onStartStory += CheckWhichDayToStart;
 
 
-
         //What happens when the story is stopped by quitting the game
 
         //sunday on stop story
@@ -163,10 +162,9 @@ public class DayManager : MonoBehaviour
 
         //demo night on switch state
         BaseDay.onSwitchState += demoNight.ExitState;
-
-       
-
+        
     }
+
 
     private void OnDisable()
     {
@@ -175,8 +173,7 @@ public class DayManager : MonoBehaviour
         GameManager.onGameStarted -= GetInitializers;
         GameManager.onStartStory -= CheckWhichDayToStart;
 
-      
-
+    
         //What happens when the story is stopped by quitting the game
 
         //sunday on stop story
@@ -220,8 +217,11 @@ public class DayManager : MonoBehaviour
 
     private void Update()
     {
-        //if the current day is not null, call the update function
-        currentDayState?.UpdateState(this);
+        if(!PauseSystem.isPaused)
+        {
+            //if the current day is not null, call the update function
+            currentDayState?.UpdateState(this);
+        }
     }
 
 
@@ -241,7 +241,6 @@ public class DayManager : MonoBehaviour
             hudBehavior.currentTaskUI.text = "Go to Sleep";
         }
 
-      
     }
 
    
@@ -269,7 +268,6 @@ public class DayManager : MonoBehaviour
                 }
         }
 
-       
     }
 
   
@@ -278,7 +276,6 @@ public class DayManager : MonoBehaviour
     //A function that checks what day to start when the event is called
     public void CheckWhichDayToStart()
     {
-
 
         switch (currentDay)
         {

@@ -15,8 +15,6 @@ public class GhoulWanderState : GhoulBaseState
 
     public override void UpdateState(GhoulStateManager ghoul)
     {
-        Debug.Log("Ghoul is wandering");
-
         ghoul.Agent.speed = 1.5f;
         ghoul.AnimateGhoul();
         ghoul.CheckIfAgentReachedDestinationForWander();

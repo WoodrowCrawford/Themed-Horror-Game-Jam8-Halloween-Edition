@@ -4,9 +4,6 @@ public class DummyChasePlayerState : DummyDefaultState
 {
     public override void EnterState(DummyStateManager dummy)
     {
-        
-
-
         //Testing 
         Debug.Log(dummy.dummyThisBelongsTo.gameObject.name +  " is in the chase player state");
     }
@@ -38,7 +35,6 @@ public class DummyChasePlayerState : DummyDefaultState
     //A function used to chase the current target
     public void ChaseTarget(DummyStateManager dummy)
     {
-
         //If player is in bed...
         if (PlayerInputBehavior.inBed)
         {
@@ -54,9 +50,6 @@ public class DummyChasePlayerState : DummyDefaultState
 
         //Chases target
         dummy.Agent.SetDestination(dummy.Target.transform.position);
-
-        //If player is in range.... attack (switch to attack state)
-
     }
    
 }

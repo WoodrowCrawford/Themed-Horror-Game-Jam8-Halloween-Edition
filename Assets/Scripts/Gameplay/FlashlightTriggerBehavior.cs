@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class FlashlightTriggerBehavior : MonoBehaviour
@@ -46,6 +45,4 @@ public class FlashlightTriggerBehavior : MonoBehaviour
         }
     }
 
-
-    
 }

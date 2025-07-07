@@ -1,4 +1,3 @@
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.PostProcessing;
@@ -10,15 +9,11 @@ public class GraphicsBehavior : MonoBehaviour
 {
     //Graphics behavior used to control graphics and visuals in the game/////
 
-
     public static GraphicsBehavior instance;
 
     //delegates
     public delegate void TimeChange();
 
-   
-
-    
 
    
     public GameObject Graphics; //the game object used for graphics
@@ -30,7 +25,6 @@ public class GraphicsBehavior : MonoBehaviour
     public VolumeProfile DayTimeVolume;
     public VolumeProfile NightTimeVolume;
 
-  
 
 
     public bool IsDayTime = false;
@@ -121,10 +115,7 @@ public class GraphicsBehavior : MonoBehaviour
         //Disable the light component in the moon object
          Moon.GetComponent<Light>().enabled = true;
 
-  
-       
-
-        
+ 
 
         //sets the graphic game object to be false
        // CurrentPostProcessingObject.SetActive(false);
@@ -136,7 +127,6 @@ public class GraphicsBehavior : MonoBehaviour
     public void SetNightTime()
     {
        
-
         //set is day time to true
         IsDayTime = false;
         IsNightTime = true;
@@ -150,9 +140,6 @@ public class GraphicsBehavior : MonoBehaviour
         Sun.GetComponent<Light>().enabled = false;
 
 
-
-
-    
 
         //sets the graphic game object to be false
         // CurrentPostProcessingObject.SetActive(false);

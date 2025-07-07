@@ -23,12 +23,9 @@ public class ToyboxTriggerBehavior : MonoBehaviour
         //if the dummy is inside the toybox
         else if (other.gameObject.name == "Dummy1")
         {
-           
-
+          
             //set the telport phase to be false when the dummy is in the toybox (this way the dummy can teleport again when called)
             StartCoroutine(other.GetComponent<DummyStateManager>().TelportBackToOriginLocation());
-
-            
 
         }
     }

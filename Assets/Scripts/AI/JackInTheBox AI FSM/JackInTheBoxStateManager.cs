@@ -95,26 +95,31 @@ public class JackInTheBoxStateManager : MonoBehaviour, IInteractable
 
     private void Update()
     {
-        //Gets the reference to the state that is currently being used
-        currentState.UpdateState(this);
-
-        //if it is the demo night and the current task is to examine the room...
-        if (DayManager.instance.currentDay == DayManager.Days.DEMO && DayManager.instance.currentDemoNightTask == DemoNight.DemoNightTasks.EXAMINE_ROOM)
+        if(!PauseSystem.isPaused)
         {
-            _interactionPrompt = "Examine";
-            highlightBehavior.isActive = true;
-        }
+            //Gets the reference to the state that is currently being used
+            currentState.UpdateState(this);
 
-        //else if it is the demo night and the current task is to sleep...
-        else if(DayManager.instance.currentDay == DayManager.Days.DEMO && DayManager.instance.currentDemoNightTask == DemoNight.DemoNightTasks.SLEEP)
+            //if it is the demo night and the current task is to examine the room...
+            if (DayManager.instance.currentDay == DayManager.Days.DEMO && DayManager.instance.currentDemoNightTask == DemoNight.DemoNightTasks.EXAMINE_ROOM)
+            {
+                _interactionPrompt = "Examine";
+                highlightBehavior.isActive = true;
+            }
+
+            //else if it is the demo night and the current task is to sleep...
+            else if (DayManager.instance.currentDay == DayManager.Days.DEMO && DayManager.instance.currentDemoNightTask == DemoNight.DemoNightTasks.SLEEP)
+            {
+                _interactionPrompt = "Interact";
+                highlightBehavior.isActive = true;
+            }
+
+            musicDurationImage?.transform.LookAt(_playerTarget.transform.position);
+        }
+        else
         {
-            _interactionPrompt = "Interact";
-            highlightBehavior.isActive = true;
+            return;
         }
-
-        musicDurationImage?.transform.LookAt(_playerTarget.transform.position);
-
-      
     }
 
 

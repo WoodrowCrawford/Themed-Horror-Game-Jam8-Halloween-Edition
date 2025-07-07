@@ -42,7 +42,16 @@ public class SleepBehavior : MonoBehaviour
 
     private void Update()
     {
-        UpdateSleepMeter();
+        if(!playerIsSleeping)
+        {
+            UpdateSleepMeter();
+        }
+        else
+        {
+            return;
+        }
+
+       
     }
 
 

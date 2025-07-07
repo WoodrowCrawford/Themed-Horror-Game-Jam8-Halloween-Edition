@@ -1,12 +1,5 @@
-using Atmoky;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.Cinemachine;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Audio;
-using UnityEngine.Rendering;
+
 
 
 //A script that controls the creation on sounds in the game with different sound types
