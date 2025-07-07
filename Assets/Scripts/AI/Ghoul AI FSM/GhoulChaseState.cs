@@ -22,7 +22,7 @@ public class GhoulChaseState : GhoulBaseState
         ghoul.Agent.SetDestination(ghoul.PlayerRef.transform.position);
 
         //Set the agent speed
-        ghoul.Agent.speed = 4f;
+        ghoul.Agent.speed = 3f;
 
         //used to make the ai look at the player position
         ghoul.transform.LookAt(playerPosition);

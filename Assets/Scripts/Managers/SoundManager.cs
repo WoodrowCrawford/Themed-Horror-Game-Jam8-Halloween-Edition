@@ -47,6 +47,9 @@ public class SoundManager : MonoBehaviour
     [Header("Dummy Footstep Clips")]
     public AudioClip[] dummyFootsteps;
 
+    [Header("Ghoul Footstep Clips")]
+    public AudioClip[] ghoulFootsteps;
+
     [Header("Clown Sound Clips")]
     public AudioClip clownApperanceClip;
 

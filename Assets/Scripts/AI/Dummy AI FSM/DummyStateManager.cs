@@ -463,17 +463,11 @@ public class DummyStateManager : MonoBehaviour, IInteractable
 
     public void PlayFootstepSound()
     {
-        //first get the list of dummy footsteps
-        for (int i = 0; i < SoundManager.instance.dummyFootsteps.Length; i++)
-        {
-            //find a random number 1 through the lentgh of the array
-            int soundToPlay = Random.Range(0, SoundManager.instance.dummyFootsteps.Length);
+        //pick a radom sound from the ghoul footstep array
+        int randomIndex = Random.Range(0, SoundManager.instance.dummyFootsteps.Length);
 
-            //Play the sound with the given index
-            SoundManager.instance.PlaySoundFXClip(SoundManager.instance.soundFXObject, SoundManager.instance.dummyFootsteps[soundToPlay], dummyThisBelongsTo.transform, false, 1f);
-
-          
-        }
+        //play the sound
+        SoundManager.instance.PlaySoundFXClip(SoundManager.instance.soundFXObject, SoundManager.instance.dummyFootsteps[randomIndex], transform, false, 1f);
     }
 
     public void ResetPosition()

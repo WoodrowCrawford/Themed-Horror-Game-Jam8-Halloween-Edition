@@ -172,8 +172,6 @@ public class GhoulStateManager : MonoBehaviour
     }
 
     
-
-
     public void UpdateDestination()
     {
         _target = _waypoints[_waypointIndex].position;
@@ -213,12 +211,8 @@ public class GhoulStateManager : MonoBehaviour
 
     public void NewPatrol()
     {
-        
-
         //update the destination of the ghoul
-        UpdateDestination();
-
-       
+        UpdateDestination();  
 
         //check to see if the ghoul reached the destination and if the patrol timer is greater than or equal to the seconds to wait
         if (Agent.remainingDistance <= Agent.stoppingDistance && _patrolTimer >= _secondsToWait)
@@ -232,15 +226,10 @@ public class GhoulStateManager : MonoBehaviour
             //iterate to the next waypoint
             IterateWaypointIndex();
 
-           
-
             //update destination of the ghoul for the new waypoint
             UpdateDestination();
-
             
         }
-
-
     }
 
 
@@ -259,15 +248,11 @@ public class GhoulStateManager : MonoBehaviour
                     else if(currentState == wanderState) 
                     {
                        SetNewDestination();
-                    }
-
-                   
+                    } 
                 }
             }
         }
     }
-
-
 
 
 
@@ -294,8 +279,6 @@ public class GhoulStateManager : MonoBehaviour
 
     
 
-
-
   public void CheckIfAgentReachedDestinationForWander()
     {
         if (!Agent.pathPending)
@@ -318,5 +301,16 @@ public class GhoulStateManager : MonoBehaviour
         SwitchState(patrolState);
 
         _waypointIndex = 0;
+    }
+
+
+    //Plays the footstep sound
+    public void PlayFootstepSound()
+    {
+       //pick a radom sound from the ghoul footstep array
+        int randomIndex = Random.Range(0, SoundManager.instance.ghoulFootsteps.Length);
+        
+        //play the sound
+        SoundManager.instance.PlaySoundFXClip(SoundManager.instance.soundFXObject, SoundManager.instance.ghoulFootsteps[randomIndex], transform, false, 1f);
     }
 }

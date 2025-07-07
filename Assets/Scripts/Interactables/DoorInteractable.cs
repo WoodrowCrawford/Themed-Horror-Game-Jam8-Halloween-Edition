@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class DoorInteractable : MonoBehaviour, IInteractable
@@ -35,6 +33,10 @@ public class DoorInteractable : MonoBehaviour, IInteractable
         //if it is the demo night and the current task is to examine the room
         if(DayManager.instance.currentDay == DayManager.Days.DEMO && DayManager.instance.currentDemoNightTask == DemoNight.DemoNightTasks.EXAMINE_ROOM) 
         {
+            //change the layermask to interactable
+            gameObject.layer = 8;
+
+
             //change the interaction prompt
             _interactionPrompt = "Examine";
             highlightBehavior.isActive = true;
@@ -43,6 +45,9 @@ public class DoorInteractable : MonoBehaviour, IInteractable
         //else if it is the demo night and the current task is to sleep
         else if (DayManager.instance.currentDay == DayManager.Days.DEMO && DayManager.instance.currentDemoNightTask == DemoNight.DemoNightTasks.SLEEP)
         {
+            //change the layermask to obstruction
+            gameObject.layer = 6;
+
             //disable the interaction prompt
             _interactionPrompt = "";
             highlightBehavior.isActive = false;
