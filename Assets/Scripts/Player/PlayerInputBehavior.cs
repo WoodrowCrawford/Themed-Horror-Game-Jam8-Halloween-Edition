@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Unity.Cinemachine;
@@ -8,7 +7,7 @@ using Unity.Cinemachine;
 public class PlayerInputBehavior : MonoBehaviour
 {
     //Important scripts
-    public PlayerInputActions playerControls;                  //gets a script reference for the player input actions class
+    public PlayerInputActions playerControls;                 
     
  
     public CinemachineCamera Camera { get { return _camera; } }
@@ -35,8 +34,6 @@ public class PlayerInputBehavior : MonoBehaviour
     //Delegates
     public delegate void PlayerInputEventHandler();
    
-
-
 
     //Interaction events
     public static event PlayerInputEventHandler onPlayerIsInteracting;
@@ -107,9 +104,9 @@ public class PlayerInputBehavior : MonoBehaviour
 
    
    
-  
     
-   public bool PlayerIsHidden { get { return _playerIsHidden; } set { _playerIsHidden = value; } }
+
+    public bool PlayerIsHidden { get { return _playerIsHidden; } set { _playerIsHidden = value; } }
     public Transform PlayerBody {  get { return _playerBodyTransform; } set { _playerBodyTransform = value; } }
     public Transform TopOfBedPos { get { return _TopOfBedPos; } set { _TopOfBedPos = value; } }
     public Transform OutOfBedLeftPos { get { return _outOfBedLeftPos; } set { _outOfBedLeftPos = value; } }
@@ -290,9 +287,8 @@ public class PlayerInputBehavior : MonoBehaviour
             return;
         }
 
-
-       
     }
+
 
     private void FixedUpdate()
     {

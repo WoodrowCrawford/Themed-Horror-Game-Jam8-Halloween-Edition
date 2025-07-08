@@ -42,7 +42,7 @@ public class SleepBehavior : MonoBehaviour
 
     private void Update()
     {
-        if(!playerIsSleeping)
+        if(!PauseSystem.isPaused)
         {
             UpdateSleepMeter();
         }

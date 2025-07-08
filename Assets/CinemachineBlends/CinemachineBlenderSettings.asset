@@ -17,7 +17,7 @@ MonoBehaviour:
     To: BookMenu vcam
     Blend:
       Style: 1
-      Time: 2
+      Time: 6
       CustomCurve:
         serializedVersion: 2
         m_Curve: []

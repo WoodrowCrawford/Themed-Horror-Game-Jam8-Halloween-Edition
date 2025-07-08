@@ -137,6 +137,7 @@ public class CinemachineManager : MonoBehaviour
     }
 
 
+   
 
 
     public void TransitionToAnotherCamera(string name)
