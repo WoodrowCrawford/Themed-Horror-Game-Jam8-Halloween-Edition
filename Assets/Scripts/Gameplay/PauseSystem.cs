@@ -26,7 +26,8 @@ public class PauseSystem : MonoBehaviour
 
 
     [Header("Buttons")]
-    [SerializeField] private Button _retryButton;
+   
+  
     [SerializeField] private Button _mainMenuButton;
 
 
@@ -60,7 +61,7 @@ public class PauseSystem : MonoBehaviour
        
 
         //Retry button event 
-        _retryButton.onClick.AddListener(() => LevelManager.instance.ReloadScene());
+        //_retryButton.onClick.AddListener(() => LevelManager.instance.ReloadScene());
 
        
 
@@ -76,7 +77,7 @@ public class PauseSystem : MonoBehaviour
        
 
         //Retry
-        _retryButton.onClick.RemoveListener(() => LevelManager.instance.ReloadScene());
+       // _retryButton.onClick.RemoveListener(() => LevelManager.instance.ReloadScene());
 
       
 

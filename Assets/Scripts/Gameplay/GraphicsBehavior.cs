@@ -17,7 +17,6 @@ public class GraphicsBehavior : MonoBehaviour
 
    
     public GameObject Graphics; //the game object used for graphics
-    public GameObject CurrentPostProcessingObject; //the pp used for the lighting
     public GameObject Sun;  //The sun used for lighting
     public GameObject Moon; //The moon used for lighting 
 
@@ -83,14 +82,13 @@ public class GraphicsBehavior : MonoBehaviour
         //if the scene is the main menu scene
         if (scene == SceneManager.GetSceneByBuildIndex(0))
         { 
-            CurrentPostProcessingObject = GameObject.Find("Post Processing");
+           
         }
 
         //if the scene is the bedroom scene
         else if (scene == SceneManager.GetSceneByBuildIndex(1))
         {
-            CurrentPostProcessingObject = GameObject.Find("Post Processing");
-
+          
             //find the sun and moon 
              FindSunAndMoon();
         }
@@ -109,11 +107,11 @@ public class GraphicsBehavior : MonoBehaviour
         Sun.GetComponent<Light>().enabled = true;
 
         //set the pp profile
-        CurrentPostProcessingObject.GetComponent<Volume>().profile = DayTimeVolume;
+       SettingsManager.instance.GetComponent<Volume>().profile = DayTimeVolume;
 
 
         //Disable the light component in the moon object
-         Moon.GetComponent<Light>().enabled = true;
+        Moon.GetComponent<Light>().enabled = true;
 
  
 
@@ -134,7 +132,9 @@ public class GraphicsBehavior : MonoBehaviour
         //get the light component in the moon and turn it on
         Moon.GetComponent<Light>().enabled = true;
 
-        CurrentPostProcessingObject.GetComponent<Volume>().profile = NightTimeVolume;
+        //set the pp profile
+        SettingsManager.instance.GetComponent<Volume>().profile = NightTimeVolume;
+    
 
         //Disable the light component in the sun object
         Sun.GetComponent<Light>().enabled = false;
