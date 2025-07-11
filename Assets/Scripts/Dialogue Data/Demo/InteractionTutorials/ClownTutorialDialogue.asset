@@ -13,7 +13,5 @@ MonoBehaviour:
   m_Name: ClownTutorialDialogue
   m_EditorClassIdentifier: 
   _dialogue:
-  - (Yikes this clown gives even me the creeps!)
-  - (It likes music, so keep some playing at ALL times, please?)
-  - (If no music is playing, then may God have mercy on your soul...)
+  - ...
   _responses: []

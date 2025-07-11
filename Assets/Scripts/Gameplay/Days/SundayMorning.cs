@@ -17,7 +17,7 @@ public class SundayMorning : BaseDay
 
 
     //checks to see if the player has interacted with all the objects in the room
-    private bool _playerInteractedWithAllTheObjects { get { return BasketBallInteractable.IsInteracted && BeanbagInteractable.IsInteracted && JackInTheBoxBehavior.IsInteracted && ClownStateManager.IsInteracted && DummyStateManager.IsInteracted; } }
+    private bool _playerInteractedWithAllTheObjects { get { return BasketBallInteractable.IsInteracted && BeanbagInteractable.IsInteracted && JackInTheBoxStateManager.IsInteracted && ClownStateManager.IsInteracted && DummyStateManager.IsInteracted; } }
 
     private bool _saidGoodnightToAllToys { get { return RexDogInteractable.playerSaidGoodnight && TeadybearInteractable.playerSaidGoodnight; } }
     public static bool playerPutAllTheToysInTheToyBox { get { return BasketBallInteractable.IsInTheToyBox; } }

@@ -1,6 +1,5 @@
 using UnityEngine;
 using static GraphicsBehavior;
-using Debug = UnityEngine.Debug;
 
 public class DayManager : MonoBehaviour
 {
@@ -136,33 +135,8 @@ public class DayManager : MonoBehaviour
         GameManager.onStartStory += CheckWhichDayToStart;
 
 
-        //What happens when the story is stopped by quitting the game
+        GameManager.onStopStory += ExitCurrentState;
 
-        //sunday on stop story
-        GameManager.onStopStory += sundayMorning.ExitState;
-        GameManager.onStopStory += sundayNight.ExitState;
-
-        //monday on stop story
-        GameManager.onStopStory += mondayMorning.ExitState;
-        GameManager.onStopStory += mondayNight.ExitState;
-
-        //tuesday on stop story
-        GameManager.onStopStory += tuesdayMorning.ExitState;
-
-        //demo on stop story
-        GameManager.onStopStory += demoNight.ExitState;
-
-        //sunday on switch state
-        BaseDay.onSwitchState += sundayMorning.ExitState;
-        BaseDay.onSwitchState += sundayNight.ExitState;
-
-        //monday on switch state
-        BaseDay.onSwitchState += mondayMorning.ExitState;
-        BaseDay.onSwitchState += mondayNight.ExitState;
-
-        //demo night on switch state
-        BaseDay.onSwitchState += demoNight.ExitState;
-        
     }
 
 
@@ -173,45 +147,28 @@ public class DayManager : MonoBehaviour
         GameManager.onGameStarted -= GetInitializers;
         GameManager.onStartStory -= CheckWhichDayToStart;
 
-    
-        //What happens when the story is stopped by quitting the game
-
-        //sunday on stop story
-        GameManager.onStopStory -= sundayMorning.ExitState;
-        GameManager.onStopStory -= sundayNight.ExitState;
-
-        //monday on stop story
-        GameManager.onStopStory -= mondayMorning.ExitState;
-        GameManager.onStopStory -= mondayNight.ExitState;
-
-        //tuesday on stop story
-        GameManager.onStopStory -= tuesdayMorning.ExitState;
-
-        //demo on stop story
-        GameManager.onStopStory -= demoNight.ExitState;
-
-        //sunday on switch state
-        BaseDay.onSwitchState -= sundayMorning.ExitState;
-        BaseDay.onSwitchState -= sundayNight.ExitState;
-
-        //monday on switch state
-        BaseDay.onSwitchState -= mondayMorning.ExitState;
-        BaseDay.onSwitchState -= mondayNight.ExitState;
-
-        //demo night on switch state
-        BaseDay.onSwitchState -= demoNight.ExitState;
+        GameManager.onStopStory -= ExitCurrentState;
 
     }
 
 
+  
 
     public void SwitchState(BaseDay state)
     {
+        currentDayState?.ExitState();
+
         currentDayState = state;
-        currentDayState.EnterState(this);
+        currentDayState?.EnterState(this);
 
         //Calls the onSwitch state event
         BaseDay.onSwitchState?.Invoke();
+    }
+
+    public void ExitCurrentState()
+    {
+        //Exits the current state
+        currentDayState?.ExitState();
     }
 
 
@@ -229,7 +186,10 @@ public class DayManager : MonoBehaviour
     //A function that changes the task based off of the string given
     public void ChangeTask(string taskName)
     {
-        if(taskName == "Examine Room")
+        //play the task ui sound
+        SoundManager.instance.PlaySoundFXClipAtSetVolume(SoundManager.instance.uiSoundObject, SoundManager.instance.UpdateTaskClip, this.transform, false, 0f, 0f, 0.01f);
+
+        if (taskName == "Examine Room")
         {
             currentDemoNightTask = DemoNight.DemoNightTasks.EXAMINE_ROOM;
             hudBehavior.currentTaskUI.text = "Look around the room";

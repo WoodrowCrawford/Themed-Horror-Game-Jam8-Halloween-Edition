@@ -1,8 +1,7 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
-using Random = UnityEngine.Random;
+
 
 public class GhoulStateManager : MonoBehaviour
 {
@@ -19,7 +18,7 @@ public class GhoulStateManager : MonoBehaviour
     public GhoulAttackState attackState = new GhoulAttackState();        //Attack state for the ghoul
 
     public bool isActive;
-
+    public bool canPlayFootstepSound = true; //If the ghoul can play footstep sounds
 
 
     [SerializeField] private NavMeshAgent _agent;
@@ -89,23 +88,13 @@ public class GhoulStateManager : MonoBehaviour
         GameOverBehavior.onGameOver += SwitchToDisabledState;
         WinBehavior.onWin += SwitchToDisabledState;
 
-        GhoulBaseState.onSwitchState += inactiveState.ExitState;
-        GhoulBaseState.onSwitchState += patrolState.ExitState;
-        GhoulBaseState.onSwitchState += wanderState.ExitState;
-        GhoulBaseState.onSwitchState += chaseState.ExitState;
-        GhoulBaseState.onSwitchState += attackState.ExitState;
+        
     }
 
     private void OnDisable()
     {
         GameOverBehavior.onGameOver -= SwitchToDisabledState;
         WinBehavior.onWin -= SwitchToDisabledState;
-
-        GhoulBaseState.onSwitchState -= inactiveState.ExitState;
-        GhoulBaseState.onSwitchState -= patrolState.ExitState;
-        GhoulBaseState.onSwitchState -= wanderState.ExitState;
-        GhoulBaseState.onSwitchState -= chaseState.ExitState;
-        GhoulBaseState.onSwitchState -= attackState.ExitState;
     }
 
 
@@ -145,6 +134,7 @@ public class GhoulStateManager : MonoBehaviour
 
     public void SwitchState(GhoulBaseState state)
     {
+        currentState?.ExitState();
         currentState = state;
         state.EnterState(this);
         GhoulBaseState.onSwitchState?.Invoke();
@@ -269,6 +259,17 @@ public class GhoulStateManager : MonoBehaviour
 
     //WANDER
 
+
+    //Timer for how long the ghoul will wander before switching back to patrol
+    public IEnumerator WanderTimer()
+    {
+        yield return new WaitForSeconds(Random.Range(Mathf.FloorToInt(9), Mathf.FloorToInt(25)));
+        SwitchState(patrolState);
+
+        _waypointIndex = 0;
+    }
+
+
     public void SetNewDestination()
     {
         while (true)
@@ -304,23 +305,37 @@ public class GhoulStateManager : MonoBehaviour
     }
 
 
-    //Timer for how long the ghoul will wander before switching back to patrol
-    public IEnumerator WanderTimer()
-    {
-        yield return new WaitForSeconds(Random.Range(Mathf.FloorToInt(6), Mathf.FloorToInt(15)));
-        SwitchState(patrolState);
-
-        _waypointIndex = 0;
-    }
+   
 
 
     //Plays the footstep sound
     public void PlayFootstepSound()
     {
-       //pick a radom sound from the ghoul footstep array
-        int randomIndex = Random.Range(0, SoundManager.instance.ghoulFootsteps.Length);
-        
-        //play the sound
-        SoundManager.instance.PlaySoundFXClip(SoundManager.instance.soundFXObject, SoundManager.instance.ghoulFootsteps[randomIndex], transform, false, 1f);
+        if(Agent.velocity.magnitude < 0.1f)
+        {
+            //if the ghoul is not moving, do not play the footstep sound
+            return;
+        }
+
+        if (canPlayFootstepSound)
+        {
+
+            //pick a radom sound from the ghoul footstep array
+            int randomIndex = Random.Range(0, SoundManager.instance.ghoulFootsteps.Length);
+          
+           
+
+     
+
+            //play the sound
+            SoundManager.instance.PlaySoundFXClipAtSetVolumeAndRange(SoundManager.instance.soundFXObject, SoundManager.instance.ghoulFootsteps[randomIndex], transform, false, 1f, 0f, 1f, 5f, 0.5f);
+        }
+
+       
+    }
+
+    public void PlayJumpscareSound()
+    {
+        SoundManager.instance.PlaySoundFXClipAtSetVolume(SoundManager.instance.soundFXObject, SoundManager.instance.ghoulJumpScareClip, transform, false, 1f, 0f, 0.3f);
     }
 }

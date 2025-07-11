@@ -1,8 +1,6 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Playables;
-using UnityEngine.Timeline;
 
 public class DummyStateManager : MonoBehaviour, IInteractable
 {
@@ -89,9 +87,11 @@ public class DummyStateManager : MonoBehaviour, IInteractable
     public bool dummyTeleportComplete = false; //bool used to check if the teleport phase was complete or not
 
 
+    [Header("Demo Dialogues")]
+    [SerializeField] private DialogueObjectBehavior _dummyTutorialDialogue;
+
     [Header("Dialouge")]
     [SerializeField] private DialogueObjectBehavior _dialogueObject;
-    [SerializeField] private DialogueObjectBehavior _dummyTutorialDialogue;
     [SerializeField] private DialogueObjectBehavior _putOtherToysAwayFirst;
 
     [Header("Size Variables")]
@@ -471,7 +471,12 @@ public class DummyStateManager : MonoBehaviour, IInteractable
         int randomIndex = Random.Range(0, SoundManager.instance.dummyFootsteps.Length);
 
         //play the sound
-        SoundManager.instance.PlaySoundFXClip(SoundManager.instance.soundFXObject, SoundManager.instance.dummyFootsteps[randomIndex], transform, false, 1f);
+        SoundManager.instance.PlaySoundFXClip(SoundManager.instance.soundFXObject, SoundManager.instance.dummyFootsteps[randomIndex], transform, false, 1f, 360f);
+    }
+
+    public void PlayJumpscareSound()
+    {
+        SoundManager.instance.PlaySoundFXClipAtSetVolume(SoundManager.instance.soundFXObject, SoundManager.instance.dummyJumpScareClip, transform, false, 0f, 0f, 0.3f);
     }
 
     public void ResetPosition()

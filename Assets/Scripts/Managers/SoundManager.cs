@@ -16,6 +16,7 @@ public class SoundManager : MonoBehaviour
     public AudioClip buttonHoverClip;
     public AudioClip buttonClickClip;
     public AudioClip backButtonClickClip;
+    public AudioClip UpdateTaskClip;
 
 
     [Header("Door Clips")]
@@ -36,15 +37,21 @@ public class SoundManager : MonoBehaviour
 
     [Header("Dummy Sound Clips")]
     public AudioClip dummyGetUpClip;
+    public AudioClip dummyJumpScareClip;
 
     [Header("Dummy Footstep Clips")]
     public AudioClip[] dummyFootsteps;
 
+    [Header("Ghoul Sound Clips")]
+    public AudioClip ghoulJumpScareClip;
+
     [Header("Ghoul Footstep Clips")]
     public AudioClip[] ghoulFootsteps;
 
+
     [Header("Clown Sound Clips")]
     public AudioClip clownApperanceClip;
+    public AudioClip clownJumpScareClip;
 
     [Header("Jack In The Box Clips")]
     public AudioClip musicBoxLoopClip;
@@ -56,6 +63,9 @@ public class SoundManager : MonoBehaviour
     public AudioClip playerSleepingClip;
     public AudioClip playerWakingUpClip;
 
+
+    public void PauseAudioListener() => AudioListener.pause = true;
+    public void UnpauseAudioListener() => AudioListener.pause = false;
 
 
     private void Awake()
@@ -75,20 +85,20 @@ public class SoundManager : MonoBehaviour
     void OnEnable()
     {
         //subscribes to the events
-        PauseSystem.onGamePaused += () => AudioListener.pause = true;
-        PauseSystem.onGameUnpaused += () => AudioListener.pause = false;
+        PauseSystem.onGamePaused += PauseAudioListener;
+        PauseSystem.onGameUnpaused += UnpauseAudioListener;
 
     }
 
     void OnDisable()
     {
         //unsubscribes to the events
-        PauseSystem.onGamePaused -= () => AudioListener.pause = true;
-        PauseSystem.onGameUnpaused -= () => AudioListener.pause = false;
+        PauseSystem.onGamePaused -= PauseAudioListener;
+        PauseSystem.onGameUnpaused -= UnpauseAudioListener;
     }
 
 
-    public void PlaySoundFXClip(AudioSource audioSourceType, AudioClip audioClip, Transform spawnTransform, bool loop, float spatialBlend)
+    public void PlaySoundFXClip(AudioSource audioSourceType, AudioClip audioClip, Transform spawnTransform, bool loop, float spatialBlend, float spread)
     {
         //spawn in game object
         AudioSource audioSource = Instantiate(audioSourceType, spawnTransform.position, Quaternion.identity);
@@ -116,6 +126,7 @@ public class SoundManager : MonoBehaviour
 
         //assign the audio spatial blend
         audioSource.spatialBlend = spatialBlend;
+        audioSource.spread = spread;
 
         //play sound
         audioSource.Play();
@@ -139,7 +150,7 @@ public class SoundManager : MonoBehaviour
 
    
 
-    public void PlaySoundFXClipAtSetVolume(AudioSource audioSourceType, AudioClip audioClip, Transform spawnTransform, bool loop, float spatialBlend, float volume)
+    public void PlaySoundFXClipAtSetVolume(AudioSource audioSourceType, AudioClip audioClip, Transform spawnTransform, bool loop, float spatialBlend, float spread, float volume)
     {
         //spawn in game object
         AudioSource audioSource = Instantiate(audioSourceType, spawnTransform.position, Quaternion.identity);
@@ -162,6 +173,8 @@ public class SoundManager : MonoBehaviour
 
         //assign the audio spatial blend
         audioSource.spatialBlend = spatialBlend;
+
+        audioSource.spread = spread;
 
 
         //assign the volume
@@ -186,7 +199,61 @@ public class SoundManager : MonoBehaviour
     }
 
 
-    public void PlaySoundFXClipAndAttachToGameObject(AudioSource audioSourceType, AudioClip audioClip, Transform spawnTransform, bool loop, float spatialBlend, float volume, GameObject gameObjectToAttachTo)
+    public void PlaySoundFXClipAtSetVolumeAndRange(AudioSource audioSourceType, AudioClip audioClip, Transform spawnTransform, bool loop, float spatialBlend, float spread, float minRange, float maxRange, float volume)
+    {
+        //spawn in game object
+        AudioSource audioSource = Instantiate(audioSourceType, spawnTransform.position, Quaternion.identity);
+
+        Atmoky.Source audioSourceAtmoky = GetComponent<Atmoky.Source>();
+
+        //if the sound type is ui sound
+        if (audioSourceType == uiSoundObject)
+        {
+            //make it so that the audio source doesnt stop when the game pauses
+            audioSource.ignoreListenerPause = true;
+        }
+
+        //assign audio clip
+        audioSource.clip = audioClip;
+
+        //assign the audio loop
+        audioSource.loop = loop;
+
+
+        //assign the audio spatial blend
+        audioSource.spatialBlend = spatialBlend;
+
+        audioSource.spread = spread;
+
+        audioSource.minDistance = minRange;
+
+        audioSource.maxDistance = maxRange;
+
+
+        //assign the volume
+        audioSource.volume = volume;
+
+        //play sound
+        audioSource.Play();
+
+        //if loop is not enabled
+        if (!loop)
+        {
+            //get length of sound FX clip
+            float clipLength = audioSource.clip.length;
+
+            //destroy the clip after it is done playing
+            Destroy(audioSource.gameObject, clipLength);
+        }
+        else
+        {
+            return;
+        }
+    }
+
+
+
+    public void PlaySoundFXClipAndAttachToGameObject(AudioSource audioSourceType, AudioClip audioClip, Transform spawnTransform, bool loop, float spatialBlend, float spread, float volume, GameObject gameObjectToAttachTo)
     {
         //spawn in game object
         AudioSource audioSource = Instantiate(audioSourceType, spawnTransform.position, Quaternion.identity);
@@ -218,6 +285,8 @@ public class SoundManager : MonoBehaviour
 
         //assign the audio spatial blend
         audioSource.spatialBlend = spatialBlend;
+
+        audioSource.spread = spread;
 
         //assign the volume
         audioSource.volume = volume;

@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.AI;
 
 public class GhoulWanderState : GhoulBaseState
 {
@@ -15,9 +14,14 @@ public class GhoulWanderState : GhoulBaseState
 
     public override void UpdateState(GhoulStateManager ghoul)
     {
-        ghoul.Agent.speed = 1.5f;
+        ghoul.Agent.speed = 1f;
         ghoul.AnimateGhoul();
         ghoul.CheckIfAgentReachedDestinationForWander();
+
+        if (ghoul.ghoulSightBehavior.canSeePlayer)
+        {
+            ghoul.SwitchState(ghoul.chaseState);
+        }
     }
 
     public override void ExitState()

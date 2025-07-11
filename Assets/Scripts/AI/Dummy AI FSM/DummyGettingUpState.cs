@@ -1,4 +1,4 @@
-using UnityEngine;
+
 
 public class DummyGettingUpState : DummyDefaultState
 {
@@ -7,7 +7,7 @@ public class DummyGettingUpState : DummyDefaultState
     {
 
         //Play the getting up sound
-        SoundManager.instance.PlaySoundFXClipAtSetVolume(SoundManager.instance.soundFXObject, SoundManager.instance.dummyGetUpClip, dummy.dummyThisBelongsTo.transform, false, 1f, 0.2f);
+        SoundManager.instance.PlaySoundFXClipAtSetVolume(SoundManager.instance.soundFXObject, SoundManager.instance.dummyGetUpClip, dummy.dummyThisBelongsTo.transform, false, 1f, 360f, 0.06f);
 
         //Set the movement speed for the dummy
         dummy.dummyThisBelongsTo.GetComponentInParent<DummyStateManager>().SetMovementSpeed();

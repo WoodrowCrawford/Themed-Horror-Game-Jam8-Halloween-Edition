@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
+
+
 public class FlashlightBarMeter : MonoBehaviour
 {
     public FlashlightBehavior flashlightBehavior;
@@ -8,14 +10,14 @@ public class FlashlightBarMeter : MonoBehaviour
 
     private void OnEnable()
     {
-        WindowStateManager.onWindowOpened += () => SetFlashlightHudColor(Color.red);
-        WindowStateManager.onWindowClosed += () => SetFlashlightHudColor(Color.yellow);
+        WindowStateManager.onWindowOpened += SetFlashlightColorToRed;
+        WindowStateManager.onWindowClosed += SetFlashlightColorToYellow;
     }
 
     private void OnDisable()
     {
-        WindowStateManager.onWindowOpened -= () => SetFlashlightHudColor(Color.red);
-        WindowStateManager.onWindowClosed -= () => SetFlashlightHudColor(Color.yellow);
+        WindowStateManager.onWindowOpened -= SetFlashlightColorToRed;
+        WindowStateManager.onWindowClosed -= SetFlashlightColorToYellow;
     }
 
     private void Awake()
@@ -40,5 +42,15 @@ public class FlashlightBarMeter : MonoBehaviour
     public void SetFlashlightHudColor(Color hudColor)
     {
         fillImage.color = hudColor;
+    }
+
+    public void SetFlashlightColorToRed()
+    {
+        SetFlashlightHudColor(Color.red);
+    }
+
+    public void SetFlashlightColorToYellow()
+    {
+        SetFlashlightHudColor(Color.yellow);
     }
 }

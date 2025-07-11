@@ -7,6 +7,8 @@ public class GhoulAttackState : GhoulBaseState
         //stop the ghoul footstep sounds
         SoundManager.instance.StopSoundsInArray(SoundManager.instance.ghoulFootsteps);
 
+        ghoul.canPlayFootstepSound = false;
+
         //first check if the player can be attacked
         if (PlayerInputBehavior.playerCanGetCaught)
         {

@@ -8,10 +8,10 @@ public class WindowOpeningState : WindowBaseState
         //sets the rotation to be 1 when entering this state
         window.WindowThatMoves.transform.Rotate(new Vector3(0, 1, 0));
 
-        
+        window.InteractionPrompt = "Close";
 
         //play the window starting opening sound
-        SoundManager.instance.PlaySoundFXClip(SoundManager.instance.soundFXObject, SoundManager.instance.windowOpeningStartUpClip, window.transform, false, 1f);
+        SoundManager.instance.PlaySoundFXClip(SoundManager.instance.soundFXObject, SoundManager.instance.windowOpeningStartUpClip, window.transform, false, 1f, 360f);
     }
 
   
@@ -40,7 +40,7 @@ public class WindowOpeningState : WindowBaseState
             if(!SoundManager.instance.IsSoundFXClipPlaying(SoundManager.instance.windowOpeningContinuousClip) && !PauseSystem.isPaused)
             {
                 //play the sound
-                SoundManager.instance.PlaySoundFXClip(SoundManager.instance.soundFXObject, SoundManager.instance.windowOpeningContinuousClip, window.transform, true, 1f);
+                SoundManager.instance.PlaySoundFXClip(SoundManager.instance.soundFXObject, SoundManager.instance.windowOpeningContinuousClip, window.transform, true, 1f, 360f);
             }
 
         }

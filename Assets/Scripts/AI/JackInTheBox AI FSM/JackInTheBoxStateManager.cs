@@ -4,7 +4,6 @@ using UnityEngine.UI;
 public class JackInTheBoxStateManager : MonoBehaviour, IInteractable
 {
     //public PlayerInputBehavior playerInput;
-    public JackInTheBoxRangeBehavior jackInTheBoxRangeBehavior;
     public HighlightBehavior highlightBehavior;
 
     
@@ -41,7 +40,11 @@ public class JackInTheBoxStateManager : MonoBehaviour, IInteractable
     public Transform audioPosition;
     [SerializeField] private Transform _originalPos;
     [SerializeField] private Transform _playerTarget;
-   
+
+
+    [Header("Demo dialogues")]
+    [SerializeField] private DialogueObjectBehavior _jackInTheBoxTutorialDialogue;
+
 
     [Header("Interaction Values")]
     [SerializeField] private string _interactionPrompt;
@@ -75,7 +78,6 @@ public class JackInTheBoxStateManager : MonoBehaviour, IInteractable
     private void Awake()
     {
         animator = GetComponent<Animator>();
-        jackInTheBoxRangeBehavior = GetComponentInChildren<JackInTheBoxRangeBehavior>();
         highlightBehavior = GetComponentInChildren<HighlightBehavior>();
 
         playerCanInteract = false;
@@ -134,6 +136,12 @@ public class JackInTheBoxStateManager : MonoBehaviour, IInteractable
 
     public void SwitchState(JackInTheBoxBaseState state)
     {
+        if(currentState == state)
+        {
+            // No need to switch if the state is already the same
+            return; 
+        }
+
         currentState = state;
         state.EnterState(this);
     }
@@ -174,8 +182,21 @@ public class JackInTheBoxStateManager : MonoBehaviour, IInteractable
     public void RewindMusicBox()
     {
 
+        //stops the music box from playing
+        SoundManager.instance.StopSoundFXClip(SoundManager.instance.musicBoxLoopClip);
+
         //Increase the music duration as the box is rewinding
         currentMusicDuration += (Time.deltaTime * _increaseSpeed);
+
+        //if the wind up crank sound is not playing then play it
+        if(!SoundManager.instance.IsSoundFXClipPlaying(SoundManager.instance.windUpCrankClip))
+        {
+            //play the wind up crank sound
+            SoundManager.instance.PlaySoundFXClipAtSetVolume(SoundManager.instance.soundFXObject, SoundManager.instance.windUpCrankClip, transform, true, 1f, 360f, 0.07f);
+        }
+
+       
+
 
         //Sets the music box to be 100 if it equals 100 or more
         if (currentMusicDuration >= 100f)
@@ -205,6 +226,17 @@ public class JackInTheBoxStateManager : MonoBehaviour, IInteractable
         {
             Interactor.DialogueUI.AddResponseEvents(responseEvents.Events);
         }
+
+        if (DayManager.instance.currentDay == DayManager.Days.DEMO && DayManager.instance.currentDemoNightTask == DemoNight.DemoNightTasks.EXAMINE_ROOM)
+        {
+            DialogueUIBehavior.instance.ShowDialogue(_jackInTheBoxTutorialDialogue);
+        }
+
+        if (DayManager.instance.currentDay == DayManager.Days.DEMO && DayManager.instance.currentDemoNightTask == DemoNight.DemoNightTasks.SLEEP)
+        {
+            SwitchState(rewindState);
+        }
+
     }
 
     public void ResetPosition()

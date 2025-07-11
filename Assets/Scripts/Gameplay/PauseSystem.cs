@@ -58,12 +58,7 @@ public class PauseSystem : MonoBehaviour
         //Subscribes to the events
         PlayerInputBehavior.onPausedButtonPressed += TogglePauseMenu;
         SceneManager.sceneLoaded += OnSceneLoaded;
-       
-
-        //Retry button event 
-        //_retryButton.onClick.AddListener(() => LevelManager.instance.ReloadScene());
-
-       
+           
 
         //main menu button event
         _mainMenuButton.onClick.AddListener(() => LevelManager.instance.LoadScene("MainMenuScene"));
@@ -74,13 +69,7 @@ public class PauseSystem : MonoBehaviour
         //Unsubscribes to the events
         PlayerInputBehavior.onPausedButtonPressed -= TogglePauseMenu;
         SceneManager.sceneLoaded -= OnSceneLoaded;
-       
-
-        //Retry
-       // _retryButton.onClick.RemoveListener(() => LevelManager.instance.ReloadScene());
-
-      
-
+            
 
         //main menu
         _mainMenuButton.onClick.RemoveListener(() => LevelManager.instance.LoadScene("MainMenuScene"));

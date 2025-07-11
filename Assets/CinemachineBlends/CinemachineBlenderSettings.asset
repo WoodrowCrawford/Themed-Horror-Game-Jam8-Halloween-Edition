@@ -13,36 +13,25 @@ MonoBehaviour:
   m_Name: CinemachineBlenderSettings
   m_EditorClassIdentifier: 
   CustomBlends:
-  - From: Main vcam
-    To: BookMenu vcam
-    Blend:
-      Style: 1
-      Time: 6
-      CustomCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 4
   - From: Player VCam
     To: Player Sleeping VCam
     Blend:
       Style: 1
-      Time: 2
+      Time: 1.5
       CustomCurve:
         serializedVersion: 2
         m_Curve: []
         m_PreInfinity: 0
         m_PostInfinity: 0
-        m_RotationOrder: 4
+        m_RotationOrder: 0
   - From: Player Sleeping VCam
     To: Player VCam
     Blend:
       Style: 1
-      Time: 1
+      Time: 0.5
       CustomCurve:
         serializedVersion: 2
         m_Curve: []
         m_PreInfinity: 0
         m_PostInfinity: 0
-        m_RotationOrder: 4
+        m_RotationOrder: 0

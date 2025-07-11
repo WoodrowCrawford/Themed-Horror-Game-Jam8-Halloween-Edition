@@ -1,10 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using static GameManager;
-using Unity.VisualScripting;
 using Unity.Cinemachine;
-using System;
-using NUnit.Framework;
+
 
 public class CinemachineManager : MonoBehaviour
 {
@@ -36,8 +33,8 @@ public class CinemachineManager : MonoBehaviour
         CinemachineCore.CameraActivatedEvent.AddListener(OnCamActivated);
         CinemachineCore.CameraDeactivatedEvent.AddListener(OnCamDeactivated);
 
-        SleepBehavior.onPlayerOpenEyes += () => TransitionToAnotherCamera("Player VCam");
-        SleepBehavior.onPlayerCloseEyes += () => TransitionToAnotherCamera("Player Sleeping VCam");
+        SleepBehavior.onPlayerOpenEyes += TransitionToPlayerVCam;
+        SleepBehavior.onPlayerCloseEyes += TransitionToPlayerSleepingVCam;
 
     }
 
@@ -51,8 +48,8 @@ public class CinemachineManager : MonoBehaviour
         CinemachineCore.CameraDeactivatedEvent.RemoveListener(OnCamDeactivated);
 
 
-        SleepBehavior.onPlayerOpenEyes -= () => TransitionToAnotherCamera("Player VCam");
-        SleepBehavior.onPlayerCloseEyes -= () => TransitionToAnotherCamera("Player Sleeping VCam");
+        SleepBehavior.onPlayerOpenEyes -= TransitionToPlayerVCam;
+        SleepBehavior.onPlayerCloseEyes -= TransitionToPlayerSleepingVCam;
     }
 
 
@@ -154,11 +151,29 @@ public class CinemachineManager : MonoBehaviour
             // If the given name is in the list of cams...
             if (_cmCams[i].Name == name)
             {
+                Debug.Log($"Transitioning to camera: {name}");
+
+                
+
+                //debug log the blend speed
+                Debug.Log($"Blend Speed: {_cmBrain.DefaultBlend.Time}");
+
                 _cmCams[i].GetComponent<CinemachineCamera>().enabled = true;
             }
         }
     }
 
+
+
+    public void TransitionToPlayerVCam()
+    {
+        TransitionToAnotherCamera("Player VCam");
+    }
+
+    public void TransitionToPlayerSleepingVCam()
+    {
+        TransitionToAnotherCamera("Player Sleeping VCam");
+    }
 
      //resets the vcams (use when exiting scenes)
     public void ResetVCams()

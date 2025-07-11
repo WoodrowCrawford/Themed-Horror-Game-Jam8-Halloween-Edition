@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GhoulChaseState : GhoulBaseState
@@ -7,7 +5,10 @@ public class GhoulChaseState : GhoulBaseState
     public override void EnterState(GhoulStateManager ghoul)
     {
         Debug.Log("Ghoul is in the chase state");
-       
+
+
+        //Set the agent speed
+        ghoul.Agent.speed = 4f;
     }
 
     
@@ -21,8 +22,7 @@ public class GhoulChaseState : GhoulBaseState
         //Set the destination to be the player
         ghoul.Agent.SetDestination(ghoul.PlayerRef.transform.position);
 
-        //Set the agent speed
-        ghoul.Agent.speed = 3f;
+        
 
         //used to make the ai look at the player position
         ghoul.transform.LookAt(playerPosition);

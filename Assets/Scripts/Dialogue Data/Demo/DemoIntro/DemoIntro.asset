@@ -13,12 +13,15 @@ MonoBehaviour:
   m_Name: DemoIntro
   m_EditorClassIdentifier: 
   _dialogue:
-  - (Hello, hello, welcome to the demo night of Insomnia!)
-  - (I will give you the option to either look around the room or get straight into
-    it.)
-  - (So, what do you want to do?)
+  - Ugh... my head....
+  - Oh. Its still night time.
+  - I hate waking up in the middle of the night like this.
+  - But my thoughts, they make it hard to enjoy a good night.
+  - ...
+  - Oh well, I should try to get a good nights rest anyway.
+  - Hopefully they don't haunt me this time...
   _responses:
-  - _responseText: Start the demo!
+  - _responseText: Go to sleep
     _dialogueObject: {fileID: 11400000, guid: 36c5714d1150a354b92010dae0d62a76, type: 2}
   - _responseText: Look around the room
     _dialogueObject: {fileID: 11400000, guid: 29e44335f2b73cd4aa5dac53d3b128c6, type: 2}

@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 
@@ -30,11 +29,13 @@ public class FlashlightBehavior : MonoBehaviour
     {
        
         PlayerInputBehavior.onFlashlightButtonPressed += ToggleFlashLight;
-        WindowStateManager.onWindowOpened += () => SetFlashlightDecreaseSpeed(25f);
-        WindowStateManager.onWindowClosed += () => SetFlashlightDecreaseSpeed(9f);
+        WindowStateManager.onWindowOpened += SetFlashlightDecreaseSpeedTo25;
+        WindowStateManager.onWindowClosed += SetFlashlightDecreaseSpeedTo9;
 
-        DayManager.OnDayTime += () =>  SetFlashlight(false);
-        DayManager.OnNightTime += () => SetFlashlight(true);
+        DayManager.OnDayTime += SetFlashlightCanBeUsedToFalse;
+        DayManager.OnNightTime += SetFlashlightCanBeUsedToTrue;
+
+        EyesBehavior.onPlayerEyesAreFullyOpen += SetFlashlightCanBeUsedToTrue;
 
        
       
@@ -44,11 +45,13 @@ public class FlashlightBehavior : MonoBehaviour
     {
      
         PlayerInputBehavior.onFlashlightButtonPressed -= ToggleFlashLight;
-        WindowStateManager.onWindowOpened -= () => SetFlashlightDecreaseSpeed(25f);
-        WindowStateManager.onWindowClosed -= () => SetFlashlightDecreaseSpeed(9f);
+        WindowStateManager.onWindowOpened -= SetFlashlightDecreaseSpeedTo25;
+        WindowStateManager.onWindowClosed -= SetFlashlightDecreaseSpeedTo9;
 
-        DayManager.OnDayTime -= () =>  SetFlashlight(false);
-        DayManager.OnNightTime -= () => SetFlashlight(true);
+        DayManager.OnDayTime -= SetFlashlightCanBeUsedToFalse;
+        DayManager.OnNightTime -= SetFlashlightCanBeUsedToTrue;
+
+        EyesBehavior.onPlayerEyesAreFullyOpen -= SetFlashlightCanBeUsedToTrue;
 
     }
 
@@ -110,10 +113,16 @@ public class FlashlightBehavior : MonoBehaviour
         }
     }
 
-    public void SetFlashlightDecreaseSpeed(float speed)
+   
+
+    public void SetFlashlightDecreaseSpeedTo25()
     {
-        _decreaseSpeed = speed;
-        Debug.Log("flashlight decrease speed is " + speed);
+        _decreaseSpeed = 25f;
+    }
+
+    public void SetFlashlightDecreaseSpeedTo9()
+    {
+        _decreaseSpeed = 9f;
     }
 
 
@@ -149,28 +158,20 @@ public class FlashlightBehavior : MonoBehaviour
         }
     }
 
-    public void SetFlashlight(bool activated)
+  
+
+
+    public void SetFlashlightCanBeUsedToTrue()
     {
-        //if activated...
-        if(activated)
-        {
-
-            //the player can use the flashlight
-            PlayerInputBehavior.playerCanUseFlashlight = true;
-
-        }
-        //else if not activated
-        else if (!activated)
-        {
-            //the player can not the flashligt
-            PlayerInputBehavior.playerCanUseFlashlight = false;
-
-            //turn off the flashlight
-            TurnOffFlashlight();
-        }
+        PlayerInputBehavior.playerCanUseFlashlight = true;
     }
 
-   
+
+    public void SetFlashlightCanBeUsedToFalse()
+    {
+        PlayerInputBehavior.playerCanUseFlashlight = false;
+        TurnOffFlashlight();
+    }
 
 
     public void TurnOnFlashlight()
@@ -207,7 +208,7 @@ public class FlashlightBehavior : MonoBehaviour
             if(DialogueUIBehavior.IsOpen) { return; }
 
             //play turn off sound
-            SoundManager.instance.PlaySoundFXClipAtSetVolume(SoundManager.instance.soundFXObject, SoundManager.instance.flashlightClickOffClip, this.transform, false, 0f, 0.01f);
+            SoundManager.instance.PlaySoundFXClipAtSetVolume(SoundManager.instance.soundFXObject, SoundManager.instance.flashlightClickOffClip, this.transform, false, 0f, 0f, 0.009f);
 
             //turn off the flashlight component
             _playerLight.GetComponent<Light>().enabled = false;
@@ -231,7 +232,7 @@ public class FlashlightBehavior : MonoBehaviour
             if (DialogueUIBehavior.IsOpen) { return; }
 
             //play turn on sound
-            SoundManager.instance.PlaySoundFXClipAtSetVolume(SoundManager.instance.soundFXObject, SoundManager.instance.flashlightClickOnClip, this.transform, false, 0f, 0.01f);
+            SoundManager.instance.PlaySoundFXClipAtSetVolume(SoundManager.instance.soundFXObject, SoundManager.instance.flashlightClickOnClip, this.transform, false, 0f, 0f, 0.009f);
 
             //turn on the flashlight component
             _playerLight.GetComponent<Light>().enabled = true;

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: PlayerWantedToLookAround
   m_EditorClassIdentifier: 
   _dialogue:
-  - (Okay, take all the time you need!)
-  - (When you are finished looking around, get back in the bed to start the night.)
+  - Actually, maybe I should look around a little.
+  - Just to make sure I'm familiar with my surroundings.
+  - Once I'm finished, I'll get back in the bed to go to sleep.
   _responses: []

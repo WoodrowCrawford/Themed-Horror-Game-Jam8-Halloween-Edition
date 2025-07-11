@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class JackInTheBoxPlayingState : JackInTheBoxBaseState
@@ -13,7 +11,7 @@ public class JackInTheBoxPlayingState : JackInTheBoxBaseState
         jackInTheBox.playerRewindingBox = false;
 
         //play the jack in the box sound on loop
-        SoundManager.instance.PlaySoundFXClip(SoundManager.instance.soundFXObject, SoundManager.instance.musicBoxLoopClip, jackInTheBox.audioPosition.transform, true, 1f);
+        SoundManager.instance.PlaySoundFXClipAtSetVolume(SoundManager.instance.soundFXObject, SoundManager.instance.musicBoxLoopClip, jackInTheBox.transform, true, 1f, 360f, 0.09f);
     }
 
     public override void UpdateState(JackInTheBoxStateManager jackIntheBox)
@@ -23,18 +21,10 @@ public class JackInTheBoxPlayingState : JackInTheBoxBaseState
         //play the music box
         jackIntheBox.PlayMusicBox();
 
-        //if the player is trying to rewind the box...
-        if(PlayerInputBehavior.isPlayerInteracting && jackIntheBox.jackInTheBoxRangeBehavior.playerInRangeOfBox)
-        {
-            //stop the music playing
-           SoundManager.instance.StopSoundFXClip(SoundManager.instance.musicBoxLoopClip);
-
-           //switch to the rewind state
-           jackIntheBox.SwitchState(jackIntheBox.rewindState);
-        }
+       
 
         //if the jack in the box is finished playing the music
-        else if(jackIntheBox.currentMusicDuration <= 0)
+        if(jackIntheBox.currentMusicDuration <= 0)
         {
             //stop playing the music
             SoundManager.instance.StopSoundFXClip(SoundManager.instance.musicBoxLoopClip);

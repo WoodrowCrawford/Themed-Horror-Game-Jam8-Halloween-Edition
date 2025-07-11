@@ -45,6 +45,9 @@ public class DemoNight : BaseDay
 
         //the player is not able to sleep
         PlayerInputBehavior.playerCanSleep = false;
+
+        //the player is unable to hide under the bed
+        PlayerInputBehavior.playerCanToggleUnderBed = false;
     }
 
     public void SleepTask()
@@ -52,14 +55,17 @@ public class DemoNight : BaseDay
         //the player is able to sleep
         PlayerInputBehavior.playerCanSleep = true;
 
-        //Make enemies active here
-        GhoulStateManager.InitializeGhoulValues(instance.Ghoul, 15, 35, true);
-        WindowStateManager.InitializeWindowValues(instance.Window, 9, 20, 6, 10, false);
-        JackInTheBoxStateManager.InitializeJackInTheBox(instance.JackInTheBox, 2f, 20f, false);
-        ClownStateManager.InitializeClown(instance.Clown, false);  
+        //the player is able to hide under the bed
+        PlayerInputBehavior.playerCanToggleUnderBed = true;
 
-        DummyStateManager.InitializeDummyValues(instance.Dummy1, 3f, 5f, 9f, 25f, true, new Vector3(0.5f, 0.5f, 0.5f));
-        DummyStateManager.InitializeDummyValues(instance.Dummy2, 3f, 5f, 10f, 25f, true, new Vector3(0.5f, 0.5f, 0.5f));
+        //Make enemies active here
+        GhoulStateManager.InitializeGhoulValues(instance.Ghoul, 5f, 25f, true);
+        WindowStateManager.InitializeWindowValues(instance.Window, 15f, 30f, 2f, 10f, true);
+        JackInTheBoxStateManager.InitializeJackInTheBox(instance.JackInTheBox, 8f, 0.7f, true);
+        ClownStateManager.InitializeClown(instance.Clown, true);  
+
+        DummyStateManager.InitializeDummyValues(instance.Dummy1, 2f, 4f, 15f, 50f, true, new Vector3(0.5f, 0.5f, 0.5f));
+        DummyStateManager.InitializeDummyValues(instance.Dummy2, 2f, 4f, 11f, 45f, true, new Vector3(0.5f, 0.5f, 0.5f));
 
 
         //Tell the flashlight that it can start delpleting the battery

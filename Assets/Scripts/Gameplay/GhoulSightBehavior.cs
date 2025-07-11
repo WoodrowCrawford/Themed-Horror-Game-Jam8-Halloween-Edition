@@ -54,34 +54,36 @@ public class GhoulSightBehavior : MonoBehaviour
         }
     }
 
+
     private void FieldOfViewCheck()
     {
-        Collider[] rangecheck = Physics.OverlapSphere(transform.position, _radius, _targetMask);
+        if (_playerRef == null) return;
 
-        if (rangecheck.Length != 0)
+        Vector3 directionToPlayer = (_playerRef.transform.position - transform.position).normalized;
+        float distanceToPlayer = Vector3.Distance(transform.position, _playerRef.transform.position);
+
+        // Check if player is within radius and angle
+        if (distanceToPlayer <= _radius &&
+            Vector3.Angle(transform.forward, directionToPlayer) < _angle / 2)
         {
-            Transform target = rangecheck[0].transform;
-            Vector3 directionToTarget = (target.position - transform.position).normalized;
-
-            if (Vector3.Angle(transform.forward, directionToTarget) < _angle / 2)
+            // Raycast to player, including both player and obstruction layers
+            int combinedMask = _targetMask | _obstructionMask;
+            if (Physics.Raycast(transform.position, directionToPlayer, out RaycastHit hit, distanceToPlayer, combinedMask))
             {
-                float distanceToTarget = Vector3.Distance(transform.position, target.position);
-
-                if (!Physics.Raycast(transform.position, directionToTarget, distanceToTarget, _obstructionMask) && !playerInputBehavior.IsUnderBed)
+                // Check if the hit object is the player
+                if (hit.collider.gameObject == _playerRef && !playerInputBehavior.PlayerIsHidden)
                 {
                     canSeePlayer = true;
-                }
-                else
-                {
-                    canSeePlayer = false;
+                    Debug.Log("Player detected!");
+
+
+                    return;
                 }
             }
-            else
-            {
-              canSeePlayer = false;
-            }
+            canSeePlayer = false;
+            Debug.Log("Obstruction detected");
         }
-        else if (canSeePlayer)
+        else
         {
             canSeePlayer = false;
         }

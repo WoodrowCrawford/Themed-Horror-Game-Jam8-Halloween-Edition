@@ -12,8 +12,7 @@ public class ClownChaseState : ClownBaseState
         //A vector used to have the agent look at the player without breaking
         Vector3 targetPosition = new Vector3(clown.Target.transform.position.x, clown.transform.position.y, clown.Target.transform.position.z);
 
-        //Looks at the player using the targetPosition vector
-       // clown.Agent.transform.LookAt(targetPosition);
+        
 
         Vector3 playerPostion = new Vector3(clown.Target.transform.position.x, clown.transform.position.y, clown.PlayerRef.transform.position.z);
         clown.PlayerPos = playerPostion;

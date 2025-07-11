@@ -16,12 +16,12 @@ public class JackInTheBoxActiveState : JackInTheBoxBaseState
 
 
         //check if the player is interacting with the box and is in range
-        if (PlayerInputBehavior.isPlayerInteracting && jackIntheBox.jackInTheBoxRangeBehavior.playerInRangeOfBox)
+        if (PlayerInputBehavior.isPlayerInteracting)
         {
             jackIntheBox.playerRewindingBox = true;
             jackIntheBox.RewindMusicBox();
         }
-        else if (!PlayerInputBehavior.isPlayerInteracting || !jackIntheBox.jackInTheBoxRangeBehavior.playerInRangeOfBox)
+        else if (!PlayerInputBehavior.isPlayerInteracting)
         {
             
             jackIntheBox.playerRewindingBox = false;

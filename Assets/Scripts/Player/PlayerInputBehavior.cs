@@ -7,13 +7,12 @@ using Unity.Cinemachine;
 public class PlayerInputBehavior : MonoBehaviour
 {
     //Important scripts
-    public PlayerInputActions playerControls;                 
-    
- 
+    public PlayerInputActions playerControls;
+
     public CinemachineCamera Camera { get { return _camera; } }
 
     [SerializeField] private InputActionMap _currentActionMap { get; set; }
-    
+
 
     //Static bools used to determine if the player can do something or not
     [Header("Input bools")]
@@ -28,12 +27,12 @@ public class PlayerInputBehavior : MonoBehaviour
     public static bool playerCanGetInBed = true;
     public static bool playerCanSleep = false;
     public static bool playerCanGetCaught = true;
-    
+
 
 
     //Delegates
     public delegate void PlayerInputEventHandler();
-   
+
 
     //Interaction events
     public static event PlayerInputEventHandler onPlayerIsInteracting;
@@ -54,6 +53,27 @@ public class PlayerInputBehavior : MonoBehaviour
     public static event PlayerInputEventHandler onWardrobeInteractButtonPressed;
 
 
+    //Events
+    public void OnInteractStarted(InputAction.CallbackContext ctx)  { onPlayerIsInteracting?.Invoke(); playerCanLook = false; playerCanMove = false; }
+    public void OnInteractPerformed(InputAction.CallbackContext ctx) => onInteractionWasPerformed?.Invoke();
+    public void OnInteractCanceled(InputAction.CallbackContext ctx)  { isPlayerInteracting = false; playerCanLook = true; playerCanMove = true; }
+
+    public void OnPausedButtonPressed(InputAction.CallbackContext ctx) => onPausedButtonPressed?.Invoke();
+    public void OnGetOutOfBedButtonPressed(InputAction.CallbackContext ctx) => onGetOutOfBedButtonPressed?.Invoke();
+    public void OnFlashlightButtonPressed(InputAction.CallbackContext ctx) => onFlashlightButtonPressed?.Invoke();
+    public void OnSleepButtonPressed(InputAction.CallbackContext ctx) => onSleepButtonPressed?.Invoke();
+    public void OnSleepButtonReleased(InputAction.CallbackContext ctx) => onSleepButtonReleased?.Invoke();
+    public void OnWardrobeInteractButtonPressed(InputAction.CallbackContext ctx) => onWardrobeInteractButtonPressed?.Invoke();
+
+
+
+    //Quick Setters
+    public void SetPlayerInteractingToTrue() => isPlayerInteracting = true;
+    public void SetPlayerInteractingToFalse() => isPlayerInteracting = false;
+
+    public void SetInteractionWasPerformedToTrue() => interactionWasPerfomed = true;
+    public void SetInteractionWasPerformedToFalse() => interactionWasPerfomed = false;
+
 
     [Header("Core Player Values")]
     [SerializeField] private GameObject _playerObject;
@@ -68,13 +88,11 @@ public class PlayerInputBehavior : MonoBehaviour
 
     //Camera stuff
     [Header("Camera Values")]
-    //[SerializeField] private Camera _camera;
+    public static float sensitivity = 20f;
     [SerializeField] private CinemachineCamera _camera;
     [SerializeField] private InputAxis _inputAxisState;
     [SerializeField] private Transform _playerBodyTransform;
     [SerializeField] private Transform _startLookAt;
-    public static float sensitivity = 20f;
-   
     [SerializeField] private float _xRotation = 0f;
     [SerializeField] private float _yRotation = 0f;
 
@@ -91,20 +109,22 @@ public class PlayerInputBehavior : MonoBehaviour
     [SerializeField] private float _speed;
 
 
-    
 
     [Header("Bed Values")]
+    public static bool inBed = false;
     [SerializeField] private Transform _TopOfBedPos;
     [SerializeField] private Transform _UnderBedPos;
     [SerializeField] private Transform _outOfBedLeftPos;
     [SerializeField] private Transform _outOfBedRightPos;
     [SerializeField] private bool _isUnderBed = false;
-    [SerializeField] public static bool inBed = false;
 
 
-   
-   
-    
+    [Header("RespawnPoint")]
+    [SerializeField] private Transform _respawnPoint;
+
+
+
+
 
     public bool PlayerIsHidden { get { return _playerIsHidden; } set { _playerIsHidden = value; } }
     public Transform PlayerBody {  get { return _playerBodyTransform; } set { _playerBodyTransform = value; } }
@@ -122,20 +142,23 @@ public class PlayerInputBehavior : MonoBehaviour
         PauseSystem.onGamePaused += DisableInteraction;
         PauseSystem.onGameUnpaused += EnableInteraction;
 
-        //WinBehavior.onWin += DisableControls;
+        WinBehavior.onWin += DisableControls;
 
         TodaysDateBehavior.onDateStartedShowning += DisableControls;
         TodaysDateBehavior.onDateFinishedShowing += EnableControls;
 
-        onPlayerIsInteracting += () => isPlayerInteracting = true;
-       
+        PlayerOutOfBoundsBehavior.onPlayerOutOfBounds += TeleportPlayerToRoom;
 
-        onInteractionWasPerformed += () => interactionWasPerfomed = true;
+
+        onPlayerIsInteracting += SetPlayerInteractingToTrue;
+
+
+        onInteractionWasPerformed += SetInteractionWasPerformedToTrue;
         onGetOutOfBedButtonPressed += GetOutOfBed;
 
     
-        SleepBehavior.onPlayerCloseEyes += () => DisableControlsWhileSleeping();
-        SleepBehavior.onPlayerOpenEyes += () => EnableControlsWhileWakingUp();
+        SleepBehavior.onPlayerCloseEyes += DisableControlsWhileSleeping;
+        SleepBehavior.onPlayerOpenEyes += EnableControlsWhileWakingUp;
 
       
         //Creates the Action Maps
@@ -143,38 +166,38 @@ public class PlayerInputBehavior : MonoBehaviour
         playerControls.InBed.Enable();
         playerControls.Default.Enable();
 
-        playerControls.Default.Interact.started += ctx => onPlayerIsInteracting?.Invoke();
-        playerControls.Default.Interact.performed += ctx => onInteractionWasPerformed?.Invoke();
-        playerControls.Default.Interact.canceled += ctx => isPlayerInteracting = false;
-        playerControls.Default.Interact.canceled += ctx => playerCanLook = true;
+        playerControls.Default.Interact.started += OnInteractStarted;
+        playerControls.Default.Interact.performed += OnInteractPerformed;
+        playerControls.Default.Interact.canceled += OnInteractCanceled;
+       
 
 
         //Action Map #0(Default Map- On by default)
         playerControls.Default.Look.ReadValue<Vector2>();
-        playerControls.Default.TogglePause.performed += ctx => onPausedButtonPressed?.Invoke();
+        playerControls.Default.TogglePause.performed += OnPausedButtonPressed;
 
 
 
         //Action Map #1 (In Bed)
-        playerControls.InBed.GetOutOfBed.performed +=  ctx => onGetOutOfBedButtonPressed?.Invoke();
-        playerControls.InBed.ToggleFlashlight.performed += ctx => onFlashlightButtonPressed?.Invoke();                  
+        playerControls.InBed.GetOutOfBed.performed += OnGetOutOfBedButtonPressed;
+        playerControls.InBed.ToggleFlashlight.performed += OnFlashlightButtonPressed;                  
         playerControls.InBed.ToggleGoUnderBed.performed += ToggleUnderBed;
 
-        playerControls.InBed.Sleep.performed += ctx => onSleepButtonPressed?.Invoke();
-        playerControls.InBed.Sleep.canceled += ctx => onSleepButtonReleased?.Invoke();
+        playerControls.InBed.Sleep.performed += OnSleepButtonPressed;
+        playerControls.InBed.Sleep.canceled += OnSleepButtonReleased;
 
 
         //Action Map #2 (Out of Bed)
-        playerControls.OutOfBed.ToggleFlashlight.performed += ctx => onFlashlightButtonPressed?.Invoke();
+        playerControls.OutOfBed.ToggleFlashlight.performed += OnFlashlightButtonPressed;
         playerControls.OutOfBed.GetInBed.performed += GetInBed;
 
 
 
         //Action Map #3 (In Wardrobe)
-        playerControls.InWardrobe.ToggleWardrobeDoor.performed += ctx => onWardrobeInteractButtonPressed?.Invoke();
-        playerControls.InWardrobe.ToggleInOutWardrobe.performed += ctx => onWardrobeInteractButtonPressed?.Invoke();
-        playerControls.InWardrobe.ToggleFlashlight.performed += ctx => onFlashlightButtonPressed?.Invoke();
+        playerControls.InWardrobe.ToggleWardrobeDoor.performed += OnWardrobeInteractButtonPressed;
+        playerControls.InWardrobe.ToggleFlashlight.performed += OnFlashlightButtonPressed;
     }
+
 
     public void OnDisable()
     {
@@ -183,17 +206,19 @@ public class PlayerInputBehavior : MonoBehaviour
         PauseSystem.onGameUnpaused -= EnableInteraction;
 
 
-       // WinBehavior.onWin -= DisableControls;
+        WinBehavior.onWin -= DisableControls;
 
         TodaysDateBehavior.onDateStartedShowning -= DisableControls;
         TodaysDateBehavior.onDateFinishedShowing -= EnableControls;
 
-        onPlayerIsInteracting -= () => isPlayerInteracting = true;
-        onInteractionWasPerformed -= () => interactionWasPerfomed = true;
+        PlayerOutOfBoundsBehavior.onPlayerOutOfBounds -= TeleportPlayerToRoom;
+
+        onPlayerIsInteracting -= SetPlayerInteractingToTrue;
+        onInteractionWasPerformed -= SetInteractionWasPerformedToTrue;
         onGetOutOfBedButtonPressed -= GetOutOfBed;
     
-        SleepBehavior.onPlayerCloseEyes -= () => DisableControlsWhileSleeping();
-        SleepBehavior.onPlayerOpenEyes -= () => EnableControlsWhileWakingUp();
+        SleepBehavior.onPlayerCloseEyes -= DisableControlsWhileSleeping;
+        SleepBehavior.onPlayerOpenEyes -= EnableControlsWhileWakingUp;
 
 
         //Removes the action maps
@@ -201,37 +226,37 @@ public class PlayerInputBehavior : MonoBehaviour
         playerControls.InBed.Disable();
         playerControls.Default.Disable();
 
-        playerControls.Default.Interact.started -= ctx => onPlayerIsInteracting?.Invoke();
-        playerControls.Default.Interact.performed -= ctx => onInteractionWasPerformed?.Invoke();
-        playerControls.Default.Interact.canceled -= ctx => isPlayerInteracting = false;
-        playerControls.Default.Interact.canceled -= ctx => playerCanLook = true;
+
+        playerControls.Default.Interact.started -= OnInteractStarted;
+        playerControls.Default.Interact.performed -= OnInteractPerformed;
+        playerControls.Default.Interact.canceled -= OnInteractCanceled;
+       
 
 
 
         //Action Map #0(Default Map- On by default)
         playerControls.Default.Look.Disable();
-        playerControls.Default.TogglePause.performed -= ctx => onPausedButtonPressed?.Invoke();
+        playerControls.Default.TogglePause.performed -= OnPausedButtonPressed;
 
 
 
         //Action Map #1 (In Bed)
-        playerControls.InBed.GetOutOfBed.performed -= ctx => onGetOutOfBedButtonPressed?.Invoke();
-        playerControls.InBed.ToggleFlashlight.performed -= ctx => onFlashlightButtonPressed?.Invoke();
+        playerControls.InBed.GetOutOfBed.performed -= OnGetOutOfBedButtonPressed;
+        playerControls.InBed.ToggleFlashlight.performed -= OnFlashlightButtonPressed;
         playerControls.InBed.ToggleGoUnderBed.performed -= ToggleUnderBed;
-        playerControls.InBed.Sleep.performed -= ctx => onSleepButtonPressed?.Invoke();
-        playerControls.InBed.Sleep.canceled -= ctx => onSleepButtonReleased?.Invoke();
+        playerControls.InBed.Sleep.performed -= OnSleepButtonPressed;
+        playerControls.InBed.Sleep.canceled -= OnSleepButtonReleased;
 
 
         //Action Map #2 (Out of Bed)
-        playerControls.OutOfBed.ToggleFlashlight.performed -= ctx => onFlashlightButtonPressed?.Invoke();
+        playerControls.OutOfBed.ToggleFlashlight.performed -= OnFlashlightButtonPressed;
         playerControls.OutOfBed.GetInBed.performed -= GetInBed;
 
 
 
         //Action Map #3 (In Wardrobe)
-        playerControls.InWardrobe.ToggleWardrobeDoor.performed -= ctx => onWardrobeInteractButtonPressed?.Invoke();
-        playerControls.InWardrobe.ToggleInOutWardrobe.performed -= ctx => onWardrobeInteractButtonPressed?.Invoke();
-        playerControls.InWardrobe.ToggleFlashlight.performed -= ctx => onFlashlightButtonPressed?.Invoke();
+        playerControls.InWardrobe.ToggleWardrobeDoor.performed -= OnWardrobeInteractButtonPressed;
+        playerControls.InWardrobe.ToggleFlashlight.performed -= OnFlashlightButtonPressed;
     }
 
 
@@ -292,10 +317,13 @@ public class PlayerInputBehavior : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //Move is in fixed update so that the move speed is consistant with any screen size
-        HandleMove();   
+        if(!PauseSystem.isPaused)
+        {
+            //Move is in fixed update so that the move speed is consistant with any screen size
+            HandleMove();
+        }
+       
     }
-
 
 
 
@@ -329,8 +357,6 @@ public class PlayerInputBehavior : MonoBehaviour
     {
         playerControls.Default.Enable();
         _currentActionMap.Enable();
-
-       
     }
 
     public void EnableControlsWhileWakingUp()
@@ -448,7 +474,8 @@ public class PlayerInputBehavior : MonoBehaviour
                 //set player is hidden to be false
                 _playerIsHidden = false;
 
-
+                //the player can sleep now
+                playerCanSleep = true;
 
                 playerCanGetOutOfBed = true;
             }
@@ -519,5 +546,12 @@ public class PlayerInputBehavior : MonoBehaviour
 
         return;
         
+    }
+
+
+    //Used when the player steps out of bounds
+    public void TeleportPlayerToRoom()
+    {
+        this.transform.position = _respawnPoint.position;
     }
 }

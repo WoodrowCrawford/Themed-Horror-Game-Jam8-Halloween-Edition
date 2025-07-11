@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: StartTheDemoDialogue
   m_EditorClassIdentifier: 
   _dialogue:
-  - (Are you ready to start the demo?)
+  - Am I finished looking around?
   _responses:
   - _responseText: Yes
-    _dialogueObject: {fileID: 11400000, guid: 097c09570ada08f4b9d5cb2f0a9e2c64, type: 2}
+    _dialogueObject: {fileID: 11400000, guid: 88813f0528515e74b91e72c433e33c60, type: 2}
   - _responseText: No
-    _dialogueObject: {fileID: 11400000, guid: 2bd8cd391b70d3048876a79a8beb248d, type: 2}
+    _dialogueObject: {fileID: 11400000, guid: 042f5e76122a5bb42ba73a27d6a32365, type: 2}

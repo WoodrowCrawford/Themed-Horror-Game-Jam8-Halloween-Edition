@@ -7,6 +7,7 @@ public class WindowStateManager : MonoBehaviour, IInteractable
     //States
     WindowBaseState currentState;
     public WindowDisabledState disabledState = new WindowDisabledState();
+    public WindowInactiveState inactiveState = new WindowInactiveState();
     public WindowWaitingState waitingState = new WindowWaitingState();
     public WindowOpeningState openingState = new WindowOpeningState();
    
@@ -48,25 +49,23 @@ public class WindowStateManager : MonoBehaviour, IInteractable
     public DialogueObjectBehavior DialogueObject { get; set; }
     public float MinSecondsToWait { get { return _minSecondsToWait; } set { _minSecondsToWait = value; } }
     public float MaxSecondsToWait { get { return _maxSecondsToWait; } set { _maxSecondsToWait = value; } }
-    public float WindowOpeningSpeed => _windowOpeningSpeed;
-    public float WindowClosingSpeed => _windowClosingSpeed;
-  
+    public float WindowOpeningSpeed  { get { return _windowOpeningSpeed; } set { _windowOpeningSpeed = value; } }
+    public float WindowClosingSpeed { get { return _windowClosingSpeed; } set { _windowClosingSpeed = value; } }
+
     public Transform OriginalPos => throw new System.NotImplementedException();
 
 
 
     private void OnEnable()
     {
-        WindowBaseState.onSwitchState += disabledState.ExitState;
-        WindowBaseState.onSwitchState += waitingState.ExitState;
-        WindowBaseState.onSwitchState += openingState.ExitState;
+        WinBehavior.onWin += SwitchToInactiveState;
+        GameOverBehavior.onGameOver += SwitchToInactiveState;
     }
 
     private void OnDisable()
     {
-        WindowBaseState.onSwitchState -= disabledState.ExitState;
-        WindowBaseState.onSwitchState -= waitingState.ExitState;
-        WindowBaseState.onSwitchState -= openingState.ExitState;
+        WinBehavior.onWin -= SwitchToInactiveState;
+        GameOverBehavior.onGameOver -= SwitchToInactiveState;
     }
 
     private void Start()
@@ -113,15 +112,15 @@ public class WindowStateManager : MonoBehaviour, IInteractable
         {
             //closes the window
             CloseWindow();
-
-            //make it so that the player can not look while interacting
-            PlayerInputBehavior.playerCanLook = false;
         }
 
     }
 
     public void SwitchState(WindowBaseState window)
     {
+        //exits the current state
+        currentState.ExitState();
+
         currentState = window;
         window.EnterState(this);
 
@@ -129,13 +128,22 @@ public class WindowStateManager : MonoBehaviour, IInteractable
         WindowBaseState.onSwitchState?.Invoke();
     }
 
-    
+    public void SwitchToInactiveState()
+    {
+        //switches to the disabled state
+        SwitchState(inactiveState);
+    }
+
+
     //Creates the window values for other scripts to use
     public static void InitializeWindowValues(GameObject window, float minSecondsToWait, float maxSecondsToWait, float windowOpeningSpeed, float windowClosingSpeed, bool isActive)
     {
         
         window.GetComponent<WindowStateManager>().MinSecondsToWait = minSecondsToWait;
         window.GetComponent<WindowStateManager>().MaxSecondsToWait = maxSecondsToWait;
+        window.GetComponent<WindowStateManager>().WindowOpeningSpeed = windowOpeningSpeed;
+        window.GetComponent<WindowStateManager>().WindowClosingSpeed = windowClosingSpeed;
+
         window.GetComponent<WindowStateManager>().isActive = isActive;
     }
 

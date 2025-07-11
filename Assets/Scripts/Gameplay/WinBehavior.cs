@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using static GameManager;
 
 
 public class WinBehavior : MonoBehaviour
@@ -13,7 +12,6 @@ public class WinBehavior : MonoBehaviour
     [SerializeField] private GameObject _winScreen; // The win screen
 
     [Header("Button References")]
-    [SerializeField] private Button _retryButton;
     [SerializeField] private Button _mainMenuButton;
 
 
@@ -43,7 +41,7 @@ public class WinBehavior : MonoBehaviour
         //if the scene is the main menu scene
         if (scene == SceneManager.GetSceneByBuildIndex(0))
         {
-            _retryButton = null;
+            //_retryButton = null;
             _mainMenuButton = null;
         }
 
@@ -58,8 +56,8 @@ public class WinBehavior : MonoBehaviour
                 //if the button is the retry button
                 if (button.name == "RetryButton")
                 {
-                    _retryButton = button;
-                    _retryButton.onClick.AddListener(() => SceneManager.LoadScene(1)); // Load the bedroom scene
+                    //_retryButton = button;
+                   // _retryButton.onClick.AddListener(() => SceneManager.LoadScene(1)); // Load the bedroom scene
                 }
                 //if the button is the main menu button
                 else if (button.name == "MainMenuButton")
@@ -79,14 +77,14 @@ public class WinBehavior : MonoBehaviour
         if (scene == SceneManager.GetSceneByBuildIndex(0))
         {
            _mainMenuButton = null;
-            _retryButton = null;
+            //_retryButton = null;
         }
 
         //if the current scene was the bedroom scene and it changes...
         else if (scene == SceneManager.GetSceneByBuildIndex(1))
         {
-            _retryButton = null;
-            _retryButton = null;
+            //_retryButton = null;
+            //_retryButton = null;
         }
 
 

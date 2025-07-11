@@ -20,5 +20,8 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/TestingScene.unity
     guid: 63d0653eb4a26ba429894107349d4b0c
+  - enabled: 0
+    path: Assets/Scenes/MainMenuScene 1.unity
+    guid: 156d690d2bde78f4e86aa054b27a3909
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

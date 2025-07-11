@@ -13,10 +13,9 @@ MonoBehaviour:
   m_Name: BedTutorialDialogue
   m_EditorClassIdentifier: 
   _dialogue:
-  - (This is your very own bed! Press the left shift key to get in it.)
-  - (While in the bed, you can still look around and use your flashlight as you would
-    if you were out of bed.)
-  - (Hold the spacebar to close your eyes and sleep.)
-  - (Keep in mind that your flashlight will automatifcally turn off when you sleep.)
-  - (You can also hide under the bed by pressing the "Q" key.)
+  - My very own bed! I have to press the "left shift" button in order to get in it.
+  - While im in the bed I can still use my flashlight.
+  - I turn it off whenever I sleep though, just to make sure I save the battery.
+  - I can also hide under the bed by pressing the "Q" button.
+  - You can never be too safe after all.
   _responses: []

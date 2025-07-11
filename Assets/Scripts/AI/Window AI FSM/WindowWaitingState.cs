@@ -11,7 +11,7 @@ public class WindowWaitingState : WindowBaseState
        windowStateManger = Object.FindFirstObjectByType<WindowStateManager>();
 
         //Sets the interaction prompt
-        window.InteractionPrompt = "Interact";
+        window.InteractionPrompt = "";
 
 
         //calculates the wait time on startup

@@ -204,7 +204,8 @@ public class ClownStateManager : MonoBehaviour, IInteractable
         // If the target is in the bed and can be caught and the enemy reaches the destination...
         if (distance <= minDistance && PlayerInputBehavior.playerCanGetCaught && currentTarget == InBedTarget)
         {
-            Debug.Log("clown Reached in bed target!");
+            //swtch to the attack state
+            SwitchState(attackState);
         }
 
         //else if the player is in range and the player can be caught and the dummy is currently in the chase player state...
@@ -271,6 +272,11 @@ public class ClownStateManager : MonoBehaviour, IInteractable
         {
             DialogueUIBehavior.instance.ShowDialogue(_clownTutorialDialouge);
         }
+    }
+
+    public void PlayClownJumpscareSound()
+    {
+        SoundManager.instance.PlaySoundFXClipAtSetVolume(SoundManager.instance.soundFXObject, SoundManager.instance.clownJumpScareClip, transform, false, 0f, 0f, 0.3f);
     }
 
     public void ResetPosition()

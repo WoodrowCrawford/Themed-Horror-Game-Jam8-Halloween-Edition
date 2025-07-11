@@ -6,6 +6,8 @@ public class GhoulPatrolState : GhoulBaseState
 
     public override void EnterState(GhoulStateManager ghoul)
     {
+        ghoul.canPlayFootstepSound = true;
+
         Debug.Log("Ghoul is in the patrol state");
    
         ghoul.SetSecondsToWait();

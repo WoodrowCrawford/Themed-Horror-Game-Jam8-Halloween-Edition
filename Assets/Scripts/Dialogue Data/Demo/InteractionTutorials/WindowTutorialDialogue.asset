@@ -13,9 +13,7 @@ MonoBehaviour:
   m_Name: WindowTutorialDialogue
   m_EditorClassIdentifier: 
   _dialogue:
-  - (This is the window!)
-  _responses:
-  - _responseText: yeah i know
-    _dialogueObject: {fileID: 11400000, guid: 9c4ae8d9731b6eb4f87f1bd5c2bf832f, type: 2}
-  - _responseText: oh really?
-    _dialogueObject: {fileID: 11400000, guid: f091c47c2e541594e8a2d053c642a932, type: 2}
+  - It's just a window.
+  - Occasionally it opens on its own, so I have to close it whenever that happens.
+  - It's cold outside, so the weather severely affects my flashlight battery.
+  _responses: []

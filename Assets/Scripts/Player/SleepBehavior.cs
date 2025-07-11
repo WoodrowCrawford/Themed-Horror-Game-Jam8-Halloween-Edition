@@ -1,7 +1,5 @@
-using NUnit.Framework;
 using UnityEngine;
-using UnityEngine.InputSystem.XR;
-using UnityEngine.UI;
+
 
 public class SleepBehavior : MonoBehaviour
 {
@@ -16,6 +14,8 @@ public class SleepBehavior : MonoBehaviour
    
     [Header("Sleep Values")]
     [SerializeField] private float _sleepSpeed;
+    [SerializeField] private float _sleepDecreaseSpeed;
+
     public float sleepMeter;
     public static bool playerIsSleeping;
 
@@ -27,14 +27,16 @@ public class SleepBehavior : MonoBehaviour
 
     private void OnEnable()
     {
-       PlayerInputBehavior.onSleepButtonReleased += OpenEyes;
-       PlayerInputBehavior.onSleepButtonPressed += CloseEyes;
+        PlayerInputBehavior.onSleepButtonReleased += OpenEyes;
+        PlayerInputBehavior.onSleepButtonPressed += CloseEyes;
+        EyesBehavior.onPlayerEyesAreFullyClosed += SetPlayerIsSleepingToTrue;
     }
 
     private void OnDisable()
     {
-       PlayerInputBehavior.onSleepButtonReleased -= OpenEyes;
-       PlayerInputBehavior.onSleepButtonPressed -= CloseEyes;
+        PlayerInputBehavior.onSleepButtonReleased -= OpenEyes;
+        PlayerInputBehavior.onSleepButtonPressed -= CloseEyes;
+        EyesBehavior.onPlayerEyesAreFullyClosed -= SetPlayerIsSleepingToTrue;
 
     }
 
@@ -51,9 +53,14 @@ public class SleepBehavior : MonoBehaviour
             return;
         }
 
-       
     }
 
+    public void SetPlayerIsSleepingToTrue()
+    {
+        playerIsSleeping = true;
+    }
+
+  
 
     public void UpdateSleepMeter()
     {
@@ -71,7 +78,15 @@ public class SleepBehavior : MonoBehaviour
         }
         else
         {
-            return;
+            //decrease the sleep meter until it reaches 0
+            if (sleepMeter > 0)
+            {
+                sleepMeter -= Time.deltaTime * _sleepDecreaseSpeed;
+            }
+            else
+            {
+                sleepMeter = 0; // Ensure it doesn't go below 0
+            }
         }
     }
   
@@ -97,15 +112,11 @@ public class SleepBehavior : MonoBehaviour
             PlayEyesClosedAnimation();
 
             //play the sleeping sound effect
-            SoundManager.instance.PlaySoundFXClip(SoundManager.instance.soundFXObject, SoundManager.instance.playerSleepingClip, this.transform, true, 0f);
+            SoundManager.instance.PlaySoundFXClipAtSetVolume(SoundManager.instance.soundFXObject, SoundManager.instance.playerSleepingClip, this.transform, true, 0f, 0f, 0.03f);
 
             //call the player is sleeping event
             onPlayerCloseEyes?.Invoke();  
-
-           
-
-            //set the player is sleeping to true
-            playerIsSleeping = true;         
+       
         }
     }
 
@@ -129,7 +140,7 @@ public class SleepBehavior : MonoBehaviour
             PlayEyesOpenedAnimation();
 
             //play the sleeping sound effect
-            SoundManager.instance.PlaySoundFXClip(SoundManager.instance.soundFXObject, SoundManager.instance.playerWakingUpClip, this.transform, false, 0f);
+            SoundManager.instance.PlaySoundFXClipAtSetVolume(SoundManager.instance.soundFXObject, SoundManager.instance.playerWakingUpClip, this.transform, false, 0f, 0f, 0.03f);
 
             //call the player opened eyes event
             onPlayerOpenEyes?.Invoke();

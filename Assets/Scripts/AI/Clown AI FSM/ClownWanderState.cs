@@ -11,7 +11,7 @@ public class ClownWanderState : ClownBaseState
         clown.clownCanWander = true;
 
       
-        SoundManager.instance.PlaySoundFXClipAndAttachToGameObject(SoundManager.instance.soundFXObject, SoundManager.instance.clownApperanceClip, clown.transform, true, 1f, 0.3f, clown.gameObject);
+        SoundManager.instance.PlaySoundFXClipAndAttachToGameObject(SoundManager.instance.soundFXObject, SoundManager.instance.clownApperanceClip, clown.transform, true, 1f, 360f, 0.2f, clown.gameObject);
 
         clown.StartCoroutine(CountdownTimer(clown));
         clown.StartCoroutine(Wander(clown));

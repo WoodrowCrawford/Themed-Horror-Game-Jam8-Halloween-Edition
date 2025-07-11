@@ -1,5 +1,3 @@
-using System;
-using UnityEditor.Media;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;

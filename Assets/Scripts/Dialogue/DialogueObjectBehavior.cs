@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Events;
 
 [CreateAssetMenu(menuName ="Dialogue/DialogueObject")]
 public class DialogueObjectBehavior : ScriptableObject

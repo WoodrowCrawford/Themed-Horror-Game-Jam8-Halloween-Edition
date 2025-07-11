@@ -44,8 +44,6 @@ public class TimelineManager : MonoBehaviour
     //Events
    
     public static CutsceneEventHandler onPlayDummy1Jumpscare;
-
-   
     public static CutsceneEventHandler onPlayDummy2Jumpscare;
 
 
@@ -56,50 +54,15 @@ public class TimelineManager : MonoBehaviour
     public static event CutsceneEventHandler onCutsceneStopped;
 
 
+
+  
+
+
+
     public bool CutsceneIsPlaying { get { return _cutsceneIsPlaying; } }
-   
-   
+    public void SetCutsceneIsPlayingToTrue() { _cutsceneIsPlaying = true; }
+    public void SetCutsceneIsPlayingToFalse() { _cutsceneIsPlaying = false; }
 
-    
-
-    private void OnEnable()
-    {
-        
-        SceneManager.sceneLoaded += OnSceneLoaded;
-        SceneManager.sceneUnloaded += OnSceneUnloaded;
-
-
-        onCutscenePlayed += () => _cutsceneIsPlaying = true;
-        onCutsceneStopped += () => _cutsceneIsPlaying = false;
-       
-
-        onPlayDummy1Jumpscare += () => PlayCutscene(dummy1PlayableDirector, dummy1JumpscareAsset, DirectorWrapMode.None);
-        onPlayDummy2Jumpscare += () => PlayCutscene(dummy2PlayableDirector, dummy2JumpscareAsset, DirectorWrapMode.None);
-
-        onPlayGhoulJumpscare += () => PlayCutscene(ghoulPlayableDirector, ghoulJumpscareAsset, DirectorWrapMode.None);
-        onPlayClownJumpscare += () => PlayCutscene(clownPlayableDirector, clownJumpscareAsset, DirectorWrapMode.None);
-    }
-
-    
-
-           
-
-    private void OnDisable()
-    {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-        SceneManager.sceneUnloaded -= OnSceneUnloaded;
-
-
-        onCutscenePlayed -= () => _cutsceneIsPlaying = true;
-        onCutsceneStopped -= () => _cutsceneIsPlaying = false;
-
-
-        onPlayDummy1Jumpscare -= () => PlayCutscene(dummy1PlayableDirector, dummy1JumpscareAsset, DirectorWrapMode.None);
-        onPlayDummy2Jumpscare -= () => PlayCutscene(dummy2PlayableDirector, dummy2JumpscareAsset, DirectorWrapMode.None);
-
-        onPlayGhoulJumpscare -= () => PlayCutscene(ghoulPlayableDirector, ghoulJumpscareAsset, DirectorWrapMode.None);
-        onPlayClownJumpscare -= () => PlayCutscene(clownPlayableDirector, clownJumpscareAsset, DirectorWrapMode.None);
-    }
 
 
     private void Awake()
@@ -114,6 +77,50 @@ public class TimelineManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+
+
+    private void OnEnable()
+    {
+        
+        SceneManager.sceneLoaded += OnSceneLoaded;
+        SceneManager.sceneUnloaded += OnSceneUnloaded;
+
+
+        onCutscenePlayed += SetCutsceneIsPlayingToTrue;
+        onCutsceneStopped += SetCutsceneIsPlayingToFalse;
+
+
+        onPlayDummy1Jumpscare += PlayDummy1Jumpscare;
+        onPlayDummy2Jumpscare += PlayDummy2Jumpscare;
+
+        onPlayGhoulJumpscare += PlayGhoulJumpscare;
+        onPlayClownJumpscare += PlayClownJumpscare;
+    }
+
+    
+
+           
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+        SceneManager.sceneUnloaded -= OnSceneUnloaded;
+
+
+        onCutscenePlayed -= SetCutsceneIsPlayingToTrue;
+        onCutsceneStopped -= SetCutsceneIsPlayingToFalse;
+
+        onPlayDummy1Jumpscare -= PlayDummy1Jumpscare;
+        onPlayDummy2Jumpscare -= PlayDummy2Jumpscare;
+
+        onPlayGhoulJumpscare -= PlayGhoulJumpscare;
+        onPlayClownJumpscare -= PlayClownJumpscare;
+    }
+
+
+
+   
 
 
 
@@ -183,7 +190,7 @@ public class TimelineManager : MonoBehaviour
         //if the current scene was the bedroom scene and it changes...
         else if (scene == SceneManager.GetSceneByBuildIndex(1))
         {
-            
+            return;
         }
     }
 
@@ -210,5 +217,26 @@ public class TimelineManager : MonoBehaviour
             Debug.Log("Cant play another one");
             return;
         }
+    }
+
+
+    public void PlayDummy1Jumpscare()
+    {
+        PlayCutscene(dummy1PlayableDirector, dummy1JumpscareAsset, DirectorWrapMode.None);
+    }
+
+    public void PlayDummy2Jumpscare()
+    {
+        PlayCutscene(dummy2PlayableDirector, dummy2JumpscareAsset, DirectorWrapMode.None);
+    }
+
+    public void PlayGhoulJumpscare()
+    {
+        PlayCutscene(ghoulPlayableDirector, ghoulJumpscareAsset, DirectorWrapMode.None);
+    }
+
+    public void PlayClownJumpscare()
+    {
+        PlayCutscene(clownPlayableDirector, clownJumpscareAsset, DirectorWrapMode.None);
     }
 }

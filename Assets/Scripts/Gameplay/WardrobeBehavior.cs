@@ -36,6 +36,8 @@ public class WardrobeBehavior : MonoBehaviour, IInteractable
 
 
 
+    public void CallToggleWardrobeDoorFunction() {StartCoroutine(ToggleWardrobeDoor()); }
+
     public bool ActionOnCoolDown { get { return _actionOnCoolDown; } }
     public bool PlayerCanOpenWardrobe { get { return _playerCanOpenWardrobe;} }
     public bool WardrobeDoorIsOpen { get { return _wardrobeDoorIsOpen; } }
@@ -51,13 +53,15 @@ public class WardrobeBehavior : MonoBehaviour, IInteractable
     {
         GameManager.onGameStarted += GetInitializers;
         GameManager.onGameEnded += ResetInitializers;
-        PlayerInputBehavior.onWardrobeInteractButtonPressed += () => StartCoroutine(ToggleInOutWardrobe());
+        PlayerInputBehavior.onWardrobeInteractButtonPressed += CallToggleWardrobeDoorFunction;
     }
 
     private void OnDisable()
     {
         GameManager.onGameStarted -= GetInitializers;
         GameManager.onGameEnded -= ResetInitializers;
+
+        PlayerInputBehavior.onWardrobeInteractButtonPressed -= CallToggleWardrobeDoorFunction;
     }
 
 

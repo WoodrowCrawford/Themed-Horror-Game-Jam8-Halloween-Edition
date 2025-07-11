@@ -19,10 +19,10 @@ public class DoorBehavior : MonoBehaviour
     {
         if(other.gameObject.GetComponent<GhoulStateManager>())
         {
-            Debug.Log("Player is by door");
+            
             _animator.Play(DOOR_OPEN, 0, 0.0f);
 
-            SoundManager.instance.PlaySoundFXClip(SoundManager.instance.soundFXObject, SoundManager.instance.doorOpenClip, this.transform, false, 1f);
+            SoundManager.instance.PlaySoundFXClip(SoundManager.instance.soundFXObject, SoundManager.instance.doorOpenClip, this.transform, false, 1f, 360f);
 
             //gameObject.SetActive(false);
         }  
@@ -33,10 +33,10 @@ public class DoorBehavior : MonoBehaviour
     {
         if(other.gameObject.GetComponent <GhoulStateManager>())
         {
-            Debug.Log("player is away from door");
+           
             _animator.Play(DOOR_CLOSE, 0, 0.0f);
 
-            SoundManager.instance.PlaySoundFXClip(SoundManager.instance.soundFXObject, SoundManager.instance.doorCloseClip, this.transform, false, 1f);
+            SoundManager.instance.PlaySoundFXClip(SoundManager.instance.soundFXObject, SoundManager.instance.doorCloseClip, this.transform, false, 1f, 360f);
            
         }
        

@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: PlayerWantsToStartDemo
   m_EditorClassIdentifier: 
   _dialogue:
-  - (Okay! Good luck!)
+  - Okay, time to sleep...
+  - Or try to at least.
   _responses: []

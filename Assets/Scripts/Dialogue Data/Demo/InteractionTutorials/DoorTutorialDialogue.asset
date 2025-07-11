@@ -13,9 +13,5 @@ MonoBehaviour:
   m_Name: DoorTutorialDialogue
   m_EditorClassIdentifier: 
   _dialogue:
-  - (You can not leave this room in this demo, but....)
-  - (That does not mean that others can not either.)
-  - (Keep an eye out for the ghoul, he will randomly come in and search the room.)
-  - (He will eventually leave on his own, so my advice is to just hide somewhere
-    until he does.)
+  - I don't have a reason to leave my room right now.
   _responses: []
