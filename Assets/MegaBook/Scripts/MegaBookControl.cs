@@ -45,11 +45,7 @@ namespace MegaBook
 
 		void Update()
 		{
-			if (Input.GetKeyDown(KeyCode.UpArrow))
-				book.NextPage();
-
-			if (Input.GetKeyDown(KeyCode.PageDown))
-				book.PrevPage();
+			return;
 		}
 
 		public void NextPage()
