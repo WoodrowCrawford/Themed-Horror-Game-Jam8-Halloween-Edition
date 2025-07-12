@@ -1,6 +1,6 @@
 # Insomnia
 
- A horror game made in Unity that is a work in progress currently.
+A first person horror game made in unity
 
 
  ![image](https://github.com/WoodrowCrawford/Themed-Horror-Game-Jam8-Halloween-Edition/assets/69813670/5c8e14f0-e11c-45a3-b637-0cad56bbc3f5)
@@ -11,7 +11,18 @@
  Your demons have manifested themselves and now want to torture you. Do whatever it takes to survive and sleep in this first person horror game!
  
  
- More to come as the game develops! Until then, feel free to download the alpha version to see how it's coming along!
+
+
+ # Features
+
+ - Sleep mechanic
+ - Spatialized audio with ambient occlusion
+ - Lots of jumpscares!
+
+# Screenshots:
+
+
+ # Platforms
  
  ## Download the latest release here!
  [Insomnia v0.10.0-Alpha](https://github.com/WoodrowCrawford/Themed-Horror-Game-Jam8-Halloween-Edition/releases/download/v0.10.0-Alpha/Insomnia-v0.10.0-Alpha.zip)
