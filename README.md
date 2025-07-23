@@ -1,8 +1,8 @@
 # Insomnia
 
 
+<img width="1543" height="861" alt="Screenshot 2025-07-21 195756" src="https://github.com/user-attachments/assets/8d9f932b-73b7-46c0-a017-adc3b7fce991" />
 
- ![image](https://github.com/WoodrowCrawford/Themed-Horror-Game-Jam8-Halloween-Edition/assets/69813670/5c8e14f0-e11c-45a3-b637-0cad56bbc3f5)
 
  # Story
  
